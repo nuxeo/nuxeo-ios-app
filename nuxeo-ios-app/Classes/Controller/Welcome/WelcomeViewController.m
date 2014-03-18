@@ -58,6 +58,24 @@
 {	
 	[super viewDidLoad];
     
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL] != nil)
+    {
+        self.hostURL = [[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL];
+    }
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME] != nil)
+    {
+        self.username = [[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME];
+    }
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_PASSWORD] != nil)
+    {
+        self.password = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PASSWORD];
+    }
+    
+#ifdef DEBUG
+    self.hostURL.text = kNuxeoSiteURL;
+    self.username.text = kNuxeoUser;
+    self.password.text = kNuxeoPassword;
+#endif
     
 }
 
@@ -84,6 +102,12 @@
 {
     APP_DELEGATE.browseAllEnable = NO;
     APP_DELEGATE.syncAllEnable = NO;
+    
+    // Authentication
+    [[NSUserDefaults standardUserDefaults] setValue:self.hostURL.text forKey:USER_HOST_URL];
+    [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:USER_USERNAME];
+    [[NSUserDefaults standardUserDefaults] setValue:self.password.text forKey:USER_PASSWORD];
+    
     
     [CONTROLLER_HANDLER pushHomeControllerFrom:self options:nil];
     

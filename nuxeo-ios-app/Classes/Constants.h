@@ -59,6 +59,7 @@
 #define COLOR_DARK_BLUE         COLOR_HEXA(@"#08132C")
 #define COLOR_GREEN             COLOR_HEXA(@"#673B9A")
 #define COLOR_LIGHT_GRAY        COLOR_HEXA(@"#EBECEC")
+
 /********************************** Fonts ********************************/
 
 // font for custom UI
@@ -79,9 +80,6 @@
 
 /********************************** Sounds ********************************/
 
-#define kSoundClick         @"click"
-#define kSoundDot           @"dot"
-#define kSoundWin           @"win"
 
 /********************************** XIBs ********************************/
 
@@ -92,7 +90,7 @@
 #define kXIBBrowseSuiteCategoryViewController       @"BrowseSuiteCategoryViewController"
 #define kXIBBrowseDocumentListViewController        @"BrowseDocumentListViewController"
 #define kXIBDirectoryCellView                       @"DirectoryViewCell"
-#define kXIBDocumentTableCellView       @"DocumentCellView"
+#define kXIBDocumentTableCellView                   @"DocumentCellView"
 
 #define kXIBPreviewDisplayViewController            @"PreviewDisplayViewController"
 
@@ -106,6 +104,11 @@
 //#define kParamModuleKey                 @"module"
 //#define kParamModuleValueDrawing        @"drawing"
 
+/********************************** USER PREFERENCES ********************************/
+
+#define USER_HOST_URL               @"USER_HOST_URL"
+#define USER_USERNAME               @"USER_USERNAME"
+#define USER_PASSWORD               @"USER_PASSWORD"
 
 
 /********************************** ServicesWeb ********************************/
