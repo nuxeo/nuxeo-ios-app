@@ -1,0 +1,59 @@
+
+/* (C) Copyright 2013-2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl-2.1.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ * 	Matthias Rouberol
+ */
+
+// ==============================  Libellés Standards  ==============================  
+"application.name" = "Nuxeo Shelf";
+"application.notconnected" = "You must be connected";
+"button.ok" = "Ok";
+"button.yes" = "Yes";
+"button.no" = "No";
+"button.validate" = "Validate";
+"button.cancel" = "Cancel";
+"button.next" = "Next";
+"button.previous" = "Previous";
+"button.back" = "Back";
+"button.home" = "Home";
+
+
+"button.browse"                         = "BROWSE";
+"button.login"                          = "LOG IN";
+"button.preview"                        = "PREVIEW";
+"button.openwith"                       = "OPEN WITH";
+"button.sync.all"                       = "SYNC ALL FILES";
+"button.sync"                           = "SYNC";
+
+// ============================= WELCOME ========================================
+"welcome.host.url"                      = "Host URL";
+"welcome.username"                      = "Username";
+"welcome.password"                      = "Password";
+"welcome.login"                         = "Log in";
+
+// ============================= HOME ========================================
+"home.on.device"                        = "ON YOUR DEVICE";
+"home.online.content"                   = "ONLINE CONTENT";
+
+"home.hierarchy.load.question"          = "Do you want to reload the navigation tree and list of content so as to update it ? This operation will take a few tens of seconds.";
+
+"home.hierarchy.sync.warning"           = "Are you sure you want to launch a files sync for %@ language? This process will take some time?";
+"home.hierarchy.notloaded.offline"      = "The content list for language %@ is not already loaded and cannot be while you are offline.";
+
+// ============================= BROWSE ========================================
+"browse.no.document"                    = "No resources found";
+"browse.loading"                        = "Loading";
+
+// ============================= PREVIEW ========================================
+"preview.open.with.noapp"               = "No application can open this type of file";

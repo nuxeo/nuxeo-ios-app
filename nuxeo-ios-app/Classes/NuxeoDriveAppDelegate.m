@@ -1,0 +1,197 @@
+//
+//  NuxeoDriveAppDelegate.m
+//  NuxeoDrive
+//
+/* (C) Copyright 2013-2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl-2.1.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ * 	Matthias Rouberol
+ */
+
+#import "NuxeoDriveAppDelegate.h"
+
+#import "WelcomeViewController.h"
+
+#import <NuxeoSDK/NUXSession.h>
+#import <NuxeoSDK/NUXSession+requests.h>
+#import <NuxeoSDK/NUXBlobStore.h>
+
+#import "Reachability.h"
+
+#pragma mark -
+#pragma mark NuxeoDriveAppDelegate(Private)
+
+@interface NuxeoDriveAppDelegate(Private)
+
+@end
+
+#pragma mark -
+#pragma mark NuxeoDriveAppDelegate
+
+@implementation NuxeoDriveAppDelegate
+
+@synthesize isNetworkConnected, isWifiConnected;
+
+
+#pragma mark -
+#pragma mark NuxeoDriveAppDelegate
+#pragma mark -
+
+- (void)reachabilityChanged:(NSNotification*)notification
+{
+    Reachability* reachability = notification.object;
+    if(reachability.currentReachabilityStatus == NotReachable)
+    {
+        NuxeoLogD(@"Internet off");
+        isNetworkConnected = NO;
+        // Stop all requests if system detect internet connection is lost
+        [[NUXSession sharedSession] cancelAllRequests];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
+    }
+    else
+    {
+        NuxeoLogD(@"Internet on");
+        isNetworkConnected = YES;
+        if (reachability.currentReachabilityStatus == ReachableViaWiFi){
+            isWifiConnected = YES;
+        } else {
+            isWifiConnected = NO;
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark NuxeoAppDelegate
+#pragma mark -
+
+- (void) onApplicationDidFinishLaunchingBegin:(UIApplication *)application
+{
+    self.syncAllEnable = NO;
+    self.browseAllEnable = NO;
+    self.syncAllProgressStatus = 0.0;
+}
+
+- (void) onApplicationDidFinishLaunchingEnd:(UIApplication *)application
+{
+	NuxeoLogI(@"Application did finish launching");    
+
+	// Register push notification
+//	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+	
+    // Remove old badges
+	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
+    // 5Go convert with http://www.convertworld.com/fr/mesures-informatiques/Gigaoctet+%28Gigabyte%29.html
+    ((NUXBlobStore*)[NUXBlobStore instance]).sizeLimit = [NSNumber numberWithLongLong:(long long)5 * 1024 * 1024 * 1024];
+    ((NUXBlobStore*)[NUXBlobStore instance]).countLimit = @(-1);
+    
+}
+
+#pragma mark -
+#pragma mark UIApplicationDelegate
+#pragma mark -
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+	NuxeoLogLogo();
+	
+	// -----------------------------
+	// Creating Main Window
+	// -----------------------------
+	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = [[WelcomeViewController alloc] initWithNibName:kXIBWelcomeController bundle:nil];
+	[self.window makeKeyAndVisible];
+    return YES;
+	
+}
+
+/**
+ * Handle the url when system open the specific url scheme specify in Info.plist 
+ */
+- (BOOL) application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+	NuxeoLogD(@"url ouverte : %@", [url description]);
+	
+	UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NuxeoLocalized(@"application.name") 
+														 message:[url description]
+														delegate:self 
+											   cancelButtonTitle:NuxeoLocalized(@"button.ok") 
+											   otherButtonTitles:nil];
+	[alertView show];
+	[alertView release];
+	
+	return YES;
+}
+
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken { 
+	
+	NSString *token = [NSString stringWithFormat:@"%@",deviceToken];
+	NuxeoLogD(@"didRegisterForRemoteNotificationsWithDeviceToken", token);
+	
+}
+
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err { 
+	
+	NuxeoLogI(@"Failed to register remote notifaction");
+	NuxeoLogI(([NSString stringWithFormat: @"Error: %@", err]));
+	
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+	
+	NuxeoLogD(@"Did Receive Remote Notification");
+	for (id key in userInfo) 
+	{
+		NuxeoLogD(@"key: %@, value: %@", key, [userInfo objectForKey:key]);
+	}    
+	
+}
+
+/**
+ * Application is "closed" by user. In fact the application go to sleep.
+ */
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+/**
+ * Fired when the application wake up
+ **/
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+	//on met à zero les badges
+	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    // Add observer for connection notifier
+    [[Reachability reachabilityForInternetConnection] startNotifier];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    // Nuxeo init
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    [nuxSession setUrl:[NSURL URLWithString:kNuxeoSiteURL]];
+    [nuxSession setUsername:kNuxeoUser];
+    [nuxSession setPassword:kNuxeoPassword];
+    [nuxSession setRepository:kNuxeoRepository];
+    [nuxSession setApiPrefix:kNuxeoApiPrefix];
+    [nuxSession setDownloadQueueMaxConcurrentOperationCount:2];
+    // Add global schema
+    [nuxSession addDefaultSchemas:@[kNuxeoSchemaDublincore, kNuxeoSchemaUid, kNuxeoSchemaFile, kNuxeoSchemaCommon, kNuxeoSchemaVideo]];
+}
+
+@end

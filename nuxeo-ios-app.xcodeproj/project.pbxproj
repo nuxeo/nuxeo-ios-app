@@ -1,0 +1,934 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		71B3EC6A6F774EE0BE3939FF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F8EE3B232447B8B6C7DA4F /* libPods.a */; };
+		80619E6818CE265D0097FCE0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 80619E6718CE265D0097FCE0 /* libsqlite3.0.dylib */; };
+		80968FB018439E2400C4D321 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80968FAF18439E2400C4D321 /* MediaPlayer.framework */; };
+		80C4098C18D8F4450067740A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4091A18D8F4450067740A /* Constants.m */; };
+		80C4098D18D8F4450067740A /* BrowseDocumentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4091E18D8F4450067740A /* BrowseDocumentListViewController.m */; };
+		80C4098E18D8F4450067740A /* DirectoryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4092018D8F4450067740A /* DirectoryViewCell.m */; };
+		80C4098F18D8F4450067740A /* DocumentCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4092218D8F4450067740A /* DocumentCellView.m */; };
+		80C4099018D8F4450067740A /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4092518D8F4450067740A /* HomeViewController.m */; };
+		80C4099118D8F4450067740A /* NuxeoDriveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4092718D8F4450067740A /* NuxeoDriveViewController.m */; };
+		80C4099218D8F4450067740A /* PreviewDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4092A18D8F4450067740A /* PreviewDisplayViewController.m */; };
+		80C4099318D8F4450067740A /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4092D18D8F4450067740A /* WelcomeViewController.m */; };
+		80C4099418D8F4450067740A /* NuxeoDriveAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4092F18D8F4450067740A /* NuxeoDriveAppDelegate.m */; };
+		80C4099518D8F4450067740A /* NuxeoDriveControllerHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4093218D8F4450067740A /* NuxeoDriveControllerHandler.m */; };
+		80C4099618D8F4450067740A /* NuxeoDriveRemoteServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4093418D8F4450067740A /* NuxeoDriveRemoteServices.m */; };
+		80C4099718D8F4450067740A /* NuxeoRetrieveException.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4093618D8F4450067740A /* NuxeoRetrieveException.m */; };
+		80C4099818D8F4450067740A /* NuxeoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4093918D8F4450067740A /* NuxeoButton.m */; };
+		80C4099918D8F4450067740A /* NuxeoLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4093B18D8F4450067740A /* NuxeoLabel.m */; };
+		80C4099A18D8F4450067740A /* NuxeoDriveUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4093E18D8F4450067740A /* NuxeoDriveUtils.m */; };
+		80C4099B18D8F4450067740A /* UIView+Nuxeo.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4094018D8F4450067740A /* UIView+Nuxeo.m */; };
+		80C4099C18D8F4450067740A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80C4094118D8F4450067740A /* Images.xcassets */; };
+		80C4099D18D8F4450067740A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4094218D8F4450067740A /* main.m */; };
+		80C4099E18D8F4450067740A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80C4094518D8F4450067740A /* InfoPlist.strings */; };
+		80C4099F18D8F4450067740A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80C4094718D8F4450067740A /* Localizable.strings */; };
+		80C409A018D8F4450067740A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4094918D8F4450067740A /* Icon.png */; };
+		80C409A118D8F4450067740A /* Icon512.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4094A18D8F4450067740A /* Icon512.png */; };
+		80C409A218D8F4450067740A /* Icon512@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4094B18D8F4450067740A /* Icon512@2x.png */; };
+		80C409A318D8F4450067740A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4094C18D8F4450067740A /* Icon@2x.png */; };
+		80C409A418D8F4450067740A /* background_browse_line@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4094F18D8F4450067740A /* background_browse_line@2x~ipad.png */; };
+		80C409A518D8F4450067740A /* background_info@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095018D8F4450067740A /* background_info@2x~ipad.png */; };
+		80C409A618D8F4450067740A /* bt_info@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095218D8F4450067740A /* bt_info@2x~ipad.png */; };
+		80C409A718D8F4450067740A /* bt_openwith@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095318D8F4450067740A /* bt_openwith@2x~ipad.png */; };
+		80C409A818D8F4450067740A /* bt_standard_short@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095418D8F4450067740A /* bt_standard_short@2x~ipad.png */; };
+		80C409A918D8F4450067740A /* bt_star@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095518D8F4450067740A /* bt_star@2x~ipad.png */; };
+		80C409AA18D8F4450067740A /* bt_update@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095618D8F4450067740A /* bt_update@2x~ipad.png */; };
+		80C409AB18D8F4450067740A /* ic_repository@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095718D8F4450067740A /* ic_repository@2x~ipad.png */; };
+		80C409AC18D8F4450067740A /* ic_synchro_type_file@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095818D8F4450067740A /* ic_synchro_type_file@2x~ipad.png */; };
+		80C409AD18D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095918D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png */; };
+		80C409AE18D8F4450067740A /* ic_synchro_type_image@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095A18D8F4450067740A /* ic_synchro_type_image@2x~ipad.png */; };
+		80C409AF18D8F4450067740A /* ic_synchro_type_presentation@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095B18D8F4450067740A /* ic_synchro_type_presentation@2x~ipad.png */; };
+		80C409B018D8F4450067740A /* ic_synchro_type_sound@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095C18D8F4450067740A /* ic_synchro_type_sound@2x~ipad.png */; };
+		80C409B118D8F4450067740A /* ic_synchro_type_video@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095D18D8F4450067740A /* ic_synchro_type_video@2x~ipad.png */; };
+		80C409B218D8F4450067740A /* ic_type_file@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095E18D8F4450067740A /* ic_type_file@2x~ipad.png */; };
+		80C409B318D8F4450067740A /* ic_type_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095F18D8F4450067740A /* ic_type_folder@2x~ipad.png */; };
+		80C409B418D8F4450067740A /* ic_type_image@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096018D8F4450067740A /* ic_type_image@2x~ipad.png */; };
+		80C409B518D8F4450067740A /* ic_type_presentation@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096118D8F4450067740A /* ic_type_presentation@2x~ipad.png */; };
+		80C409B618D8F4450067740A /* ic_type_sound@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096218D8F4450067740A /* ic_type_sound@2x~ipad.png */; };
+		80C409B718D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096318D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png */; };
+		80C409B818D8F4450067740A /* ic_type_video@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096418D8F4450067740A /* ic_type_video@2x~ipad.png */; };
+		80C409B918D8F4450067740A /* bt_header_back@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096618D8F4450067740A /* bt_header_back@2x~ipad.png */; };
+		80C409BA18D8F4450067740A /* bt_header_find@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096718D8F4450067740A /* bt_header_find@2x~ipad.png */; };
+		80C409BB18D8F4450067740A /* bt_header_find_selected@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096818D8F4450067740A /* bt_header_find_selected@2x~ipad.png */; };
+		80C409BC18D8F4450067740A /* bt_header_info@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096918D8F4450067740A /* bt_header_info@2x~ipad.png */; };
+		80C409BD18D8F4450067740A /* bt_header_settings@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096A18D8F4450067740A /* bt_header_settings@2x~ipad.png */; };
+		80C409BE18D8F4450067740A /* bt_header_settings_selected@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096B18D8F4450067740A /* bt_header_settings_selected@2x~ipad.png */; };
+		80C409BF18D8F4450067740A /* bt_header_star@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096C18D8F4450067740A /* bt_header_star@2x~ipad.png */; };
+		80C409C018D8F4450067740A /* bt_header_star_selected@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096D18D8F4450067740A /* bt_header_star_selected@2x~ipad.png */; };
+		80C409C118D8F4450067740A /* bt_header_update@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096E18D8F4450067740A /* bt_header_update@2x~ipad.png */; };
+		80C409C218D8F4450067740A /* bt_header_update_selected@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096F18D8F4450067740A /* bt_header_update_selected@2x~ipad.png */; };
+		80C409C318D8F4450067740A /* bt_popup_update@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097018D8F4450067740A /* bt_popup_update@2x~ipad.png */; };
+		80C409C418D8F4450067740A /* ic_logo_header@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097118D8F4450067740A /* ic_logo_header@2x~ipad.png */; };
+		80C409C518D8F4450067740A /* background_folder_tile@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097318D8F4450067740A /* background_folder_tile@2x~ipad.png */; };
+		80C409C618D8F4450067740A /* background_section@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097418D8F4450067740A /* background_section@2x~ipad.png */; };
+		80C409C718D8F4450067740A /* ic_add_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097518D8F4450067740A /* ic_add_folder@2x~ipad.png */; };
+		80C409C818D8F4450067740A /* background_login@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097718D8F4450067740A /* background_login@2x~ipad.png */; };
+		80C409C918D8F4450067740A /* bt_login@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097818D8F4450067740A /* bt_login@2x~ipad.png */; };
+		80C409CA18D8F4450067740A /* ic_header_logo@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097918D8F4450067740A /* ic_header_logo@2x~ipad.png */; };
+		80C409CB18D8F4450067740A /* ic_password@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097A18D8F4450067740A /* ic_password@2x~ipad.png */; };
+		80C409CC18D8F4450067740A /* ic_url@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097B18D8F4450067740A /* ic_url@2x~ipad.png */; };
+		80C409CD18D8F4450067740A /* ic_user@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097C18D8F4450067740A /* ic_user@2x~ipad.png */; };
+		80C409CE18D8F4450067740A /* background_settings@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097E18D8F4450067740A /* background_settings@2x~ipad.png */; };
+		80C409CF18D8F4450067740A /* NuxeoDrive-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097F18D8F4450067740A /* NuxeoDrive-Info.plist */; };
+		80C409D018D8F4450067740A /* NUXSession-info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098018D8F4450067740A /* NUXSession-info.plist */; };
+		80C409D118D8F4450067740A /* BrowseDocumentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098318D8F4450067740A /* BrowseDocumentListViewController.xib */; };
+		80C409D218D8F4450067740A /* DirectoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098418D8F4450067740A /* DirectoryViewCell.xib */; };
+		80C409D318D8F4450067740A /* DocumentCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098518D8F4450067740A /* DocumentCellView.xib */; };
+		80C409D418D8F4450067740A /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098718D8F4450067740A /* HomeViewController.xib */; };
+		80C409D518D8F4450067740A /* PreviewDisplayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098918D8F4450067740A /* PreviewDisplayViewController.xib */; };
+		80C409D618D8F4450067740A /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098B18D8F4450067740A /* WelcomeViewController.xib */; };
+		80EF7F7E183A5D5E00B3FC21 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F7D183A5D5E00B3FC21 /* UIKit.framework */; };
+		80EF7F80183A5D5E00B3FC21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F7F183A5D5E00B3FC21 /* Foundation.framework */; };
+		80EF7F82183A5D5E00B3FC21 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F81183A5D5E00B3FC21 /* AVFoundation.framework */; };
+		80EF7F84183A5D5E00B3FC21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F83183A5D5E00B3FC21 /* CoreGraphics.framework */; };
+		80EF7F86183A5D5E00B3FC21 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F85183A5D5E00B3FC21 /* CoreMedia.framework */; };
+		80EF7F88183A5D5E00B3FC21 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F87183A5D5E00B3FC21 /* QuartzCore.framework */; };
+		80EF7F8A183A5D5E00B3FC21 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F89183A5D5E00B3FC21 /* CFNetwork.framework */; };
+		80EF7F8C183A5D5E00B3FC21 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F8B183A5D5E00B3FC21 /* SystemConfiguration.framework */; };
+		80EF7F8E183A5D5E00B3FC21 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F8D183A5D5E00B3FC21 /* CoreLocation.framework */; };
+		80EF7F90183A5D5E00B3FC21 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F8F183A5D5E00B3FC21 /* MobileCoreServices.framework */; };
+		80EF7F92183A5D5E00B3FC21 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F91183A5D5E00B3FC21 /* StoreKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		50F8EE3B232447B8B6C7DA4F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		80619E6718CE265D0097FCE0 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		80968FAF18439E2400C4D321 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		80C4091918D8F4450067740A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		80C4091A18D8F4450067740A /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		80C4091D18D8F4450067740A /* BrowseDocumentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseDocumentListViewController.h; sourceTree = "<group>"; };
+		80C4091E18D8F4450067740A /* BrowseDocumentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseDocumentListViewController.m; sourceTree = "<group>"; };
+		80C4091F18D8F4450067740A /* DirectoryViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryViewCell.h; sourceTree = "<group>"; };
+		80C4092018D8F4450067740A /* DirectoryViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryViewCell.m; sourceTree = "<group>"; };
+		80C4092118D8F4450067740A /* DocumentCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentCellView.h; sourceTree = "<group>"; };
+		80C4092218D8F4450067740A /* DocumentCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentCellView.m; sourceTree = "<group>"; };
+		80C4092418D8F4450067740A /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		80C4092518D8F4450067740A /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		80C4092618D8F4450067740A /* NuxeoDriveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoDriveViewController.h; sourceTree = "<group>"; };
+		80C4092718D8F4450067740A /* NuxeoDriveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoDriveViewController.m; sourceTree = "<group>"; };
+		80C4092918D8F4450067740A /* PreviewDisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewDisplayViewController.h; sourceTree = "<group>"; };
+		80C4092A18D8F4450067740A /* PreviewDisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewDisplayViewController.m; sourceTree = "<group>"; };
+		80C4092C18D8F4450067740A /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		80C4092D18D8F4450067740A /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		80C4092E18D8F4450067740A /* NuxeoDriveAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoDriveAppDelegate.h; sourceTree = "<group>"; };
+		80C4092F18D8F4450067740A /* NuxeoDriveAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoDriveAppDelegate.m; sourceTree = "<group>"; };
+		80C4093118D8F4450067740A /* NuxeoDriveControllerHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoDriveControllerHandler.h; sourceTree = "<group>"; };
+		80C4093218D8F4450067740A /* NuxeoDriveControllerHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoDriveControllerHandler.m; sourceTree = "<group>"; };
+		80C4093318D8F4450067740A /* NuxeoDriveRemoteServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoDriveRemoteServices.h; sourceTree = "<group>"; };
+		80C4093418D8F4450067740A /* NuxeoDriveRemoteServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoDriveRemoteServices.m; sourceTree = "<group>"; };
+		80C4093518D8F4450067740A /* NuxeoRetrieveException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoRetrieveException.h; sourceTree = "<group>"; };
+		80C4093618D8F4450067740A /* NuxeoRetrieveException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoRetrieveException.m; sourceTree = "<group>"; };
+		80C4093818D8F4450067740A /* NuxeoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoButton.h; sourceTree = "<group>"; };
+		80C4093918D8F4450067740A /* NuxeoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoButton.m; sourceTree = "<group>"; };
+		80C4093A18D8F4450067740A /* NuxeoLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoLabel.h; sourceTree = "<group>"; };
+		80C4093B18D8F4450067740A /* NuxeoLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoLabel.m; sourceTree = "<group>"; };
+		80C4093D18D8F4450067740A /* NuxeoDriveUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoDriveUtils.h; sourceTree = "<group>"; };
+		80C4093E18D8F4450067740A /* NuxeoDriveUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoDriveUtils.m; sourceTree = "<group>"; };
+		80C4093F18D8F4450067740A /* UIView+Nuxeo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Nuxeo.h"; sourceTree = "<group>"; };
+		80C4094018D8F4450067740A /* UIView+Nuxeo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Nuxeo.m"; sourceTree = "<group>"; };
+		80C4094118D8F4450067740A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		80C4094218D8F4450067740A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		80C4094318D8F4450067740A /* NuxeoDrive_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoDrive_Prefix.pch; sourceTree = "<group>"; };
+		80C4094618D8F4450067740A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		80C4094818D8F4450067740A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		80C4094918D8F4450067740A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		80C4094A18D8F4450067740A /* Icon512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon512.png; sourceTree = "<group>"; };
+		80C4094B18D8F4450067740A /* Icon512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon512@2x.png"; sourceTree = "<group>"; };
+		80C4094C18D8F4450067740A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		80C4094F18D8F4450067740A /* background_browse_line@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_browse_line@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095018D8F4450067740A /* background_info@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_info@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095218D8F4450067740A /* bt_info@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_info@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095318D8F4450067740A /* bt_openwith@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_openwith@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095418D8F4450067740A /* bt_standard_short@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_standard_short@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095518D8F4450067740A /* bt_star@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_star@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095618D8F4450067740A /* bt_update@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_update@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095718D8F4450067740A /* ic_repository@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_repository@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095818D8F4450067740A /* ic_synchro_type_file@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_synchro_type_file@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095918D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_synchro_type_folder@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095A18D8F4450067740A /* ic_synchro_type_image@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_synchro_type_image@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095B18D8F4450067740A /* ic_synchro_type_presentation@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_synchro_type_presentation@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095C18D8F4450067740A /* ic_synchro_type_sound@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_synchro_type_sound@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095D18D8F4450067740A /* ic_synchro_type_video@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_synchro_type_video@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095E18D8F4450067740A /* ic_type_file@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_file@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095F18D8F4450067740A /* ic_type_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_folder@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096018D8F4450067740A /* ic_type_image@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_image@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096118D8F4450067740A /* ic_type_presentation@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_presentation@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096218D8F4450067740A /* ic_type_sound@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_sound@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096318D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_synchro_folder@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096418D8F4450067740A /* ic_type_video@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_video@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096618D8F4450067740A /* bt_header_back@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_back@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096718D8F4450067740A /* bt_header_find@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_find@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096818D8F4450067740A /* bt_header_find_selected@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_find_selected@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096918D8F4450067740A /* bt_header_info@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_info@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096A18D8F4450067740A /* bt_header_settings@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_settings@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096B18D8F4450067740A /* bt_header_settings_selected@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_settings_selected@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096C18D8F4450067740A /* bt_header_star@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_star@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096D18D8F4450067740A /* bt_header_star_selected@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_star_selected@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096E18D8F4450067740A /* bt_header_update@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_update@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4096F18D8F4450067740A /* bt_header_update_selected@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_update_selected@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097018D8F4450067740A /* bt_popup_update@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_popup_update@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097118D8F4450067740A /* ic_logo_header@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_logo_header@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097318D8F4450067740A /* background_folder_tile@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_folder_tile@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097418D8F4450067740A /* background_section@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_section@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097518D8F4450067740A /* ic_add_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_folder@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097718D8F4450067740A /* background_login@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_login@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097818D8F4450067740A /* bt_login@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_login@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097918D8F4450067740A /* ic_header_logo@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_header_logo@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097A18D8F4450067740A /* ic_password@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_password@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097B18D8F4450067740A /* ic_url@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_url@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097C18D8F4450067740A /* ic_user@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_user@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097E18D8F4450067740A /* background_settings@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_settings@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4097F18D8F4450067740A /* NuxeoDrive-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NuxeoDrive-Info.plist"; sourceTree = "<group>"; };
+		80C4098018D8F4450067740A /* NUXSession-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NUXSession-info.plist"; sourceTree = "<group>"; };
+		80C4098318D8F4450067740A /* BrowseDocumentListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseDocumentListViewController.xib; sourceTree = "<group>"; };
+		80C4098418D8F4450067740A /* DirectoryViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DirectoryViewCell.xib; sourceTree = "<group>"; };
+		80C4098518D8F4450067740A /* DocumentCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DocumentCellView.xib; sourceTree = "<group>"; };
+		80C4098718D8F4450067740A /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		80C4098918D8F4450067740A /* PreviewDisplayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewDisplayViewController.xib; sourceTree = "<group>"; };
+		80C4098B18D8F4450067740A /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
+		80EF7F7A183A5D5E00B3FC21 /* nuxeo-ios-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nuxeo-ios-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		80EF7F7D183A5D5E00B3FC21 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		80EF7F7F183A5D5E00B3FC21 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		80EF7F81183A5D5E00B3FC21 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		80EF7F83183A5D5E00B3FC21 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		80EF7F85183A5D5E00B3FC21 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		80EF7F87183A5D5E00B3FC21 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		80EF7F89183A5D5E00B3FC21 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		80EF7F8B183A5D5E00B3FC21 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		80EF7F8D183A5D5E00B3FC21 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		80EF7F8F183A5D5E00B3FC21 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		80EF7F91183A5D5E00B3FC21 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		AED846E510454C288242E97E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		80EF7F76183A5D5E00B3FC21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80619E6818CE265D0097FCE0 /* libsqlite3.0.dylib in Frameworks */,
+				80968FB018439E2400C4D321 /* MediaPlayer.framework in Frameworks */,
+				80EF7F7E183A5D5E00B3FC21 /* UIKit.framework in Frameworks */,
+				80EF7F80183A5D5E00B3FC21 /* Foundation.framework in Frameworks */,
+				80EF7F82183A5D5E00B3FC21 /* AVFoundation.framework in Frameworks */,
+				80EF7F84183A5D5E00B3FC21 /* CoreGraphics.framework in Frameworks */,
+				80EF7F86183A5D5E00B3FC21 /* CoreMedia.framework in Frameworks */,
+				80EF7F88183A5D5E00B3FC21 /* QuartzCore.framework in Frameworks */,
+				80EF7F8A183A5D5E00B3FC21 /* CFNetwork.framework in Frameworks */,
+				80EF7F8C183A5D5E00B3FC21 /* SystemConfiguration.framework in Frameworks */,
+				80EF7F8E183A5D5E00B3FC21 /* CoreLocation.framework in Frameworks */,
+				80EF7F90183A5D5E00B3FC21 /* MobileCoreServices.framework in Frameworks */,
+				80EF7F92183A5D5E00B3FC21 /* StoreKit.framework in Frameworks */,
+				71B3EC6A6F774EE0BE3939FF /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		80C4091618D8F4440067740A /* nuxeo-ios-app */ = {
+			isa = PBXGroup;
+			children = (
+				80C4091718D8F4440067740A /* Classes */,
+				80C4094118D8F4450067740A /* Images.xcassets */,
+				80C4094218D8F4450067740A /* main.m */,
+				80C4094318D8F4450067740A /* NuxeoDrive_Prefix.pch */,
+				80C4094418D8F4450067740A /* Resources */,
+				80C4098118D8F4450067740A /* XIB */,
+			);
+			path = "nuxeo-ios-app";
+			sourceTree = "<group>";
+		};
+		80C4091718D8F4440067740A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				80C4091918D8F4450067740A /* Constants.h */,
+				80C4091A18D8F4450067740A /* Constants.m */,
+				80C4091B18D8F4450067740A /* Controller */,
+				80C4092E18D8F4450067740A /* NuxeoDriveAppDelegate.h */,
+				80C4092F18D8F4450067740A /* NuxeoDriveAppDelegate.m */,
+				80C4093018D8F4450067740A /* Services */,
+				80C4093718D8F4450067740A /* UI */,
+				80C4093C18D8F4450067740A /* Utils */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		80C4091B18D8F4450067740A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				80C4091C18D8F4450067740A /* Browse */,
+				80C4092318D8F4450067740A /* Home */,
+				80C4092618D8F4450067740A /* NuxeoDriveViewController.h */,
+				80C4092718D8F4450067740A /* NuxeoDriveViewController.m */,
+				80C4092818D8F4450067740A /* Preview */,
+				80C4092B18D8F4450067740A /* Welcome */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		80C4091C18D8F4450067740A /* Browse */ = {
+			isa = PBXGroup;
+			children = (
+				80C4091D18D8F4450067740A /* BrowseDocumentListViewController.h */,
+				80C4091E18D8F4450067740A /* BrowseDocumentListViewController.m */,
+				80C4091F18D8F4450067740A /* DirectoryViewCell.h */,
+				80C4092018D8F4450067740A /* DirectoryViewCell.m */,
+				80C4092118D8F4450067740A /* DocumentCellView.h */,
+				80C4092218D8F4450067740A /* DocumentCellView.m */,
+			);
+			path = Browse;
+			sourceTree = "<group>";
+		};
+		80C4092318D8F4450067740A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				80C4092418D8F4450067740A /* HomeViewController.h */,
+				80C4092518D8F4450067740A /* HomeViewController.m */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		80C4092818D8F4450067740A /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				80C4092918D8F4450067740A /* PreviewDisplayViewController.h */,
+				80C4092A18D8F4450067740A /* PreviewDisplayViewController.m */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
+		80C4092B18D8F4450067740A /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				80C4092C18D8F4450067740A /* WelcomeViewController.h */,
+				80C4092D18D8F4450067740A /* WelcomeViewController.m */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		80C4093018D8F4450067740A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				80C4093118D8F4450067740A /* NuxeoDriveControllerHandler.h */,
+				80C4093218D8F4450067740A /* NuxeoDriveControllerHandler.m */,
+				80C4093318D8F4450067740A /* NuxeoDriveRemoteServices.h */,
+				80C4093418D8F4450067740A /* NuxeoDriveRemoteServices.m */,
+				80C4093518D8F4450067740A /* NuxeoRetrieveException.h */,
+				80C4093618D8F4450067740A /* NuxeoRetrieveException.m */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		80C4093718D8F4450067740A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				80C4093818D8F4450067740A /* NuxeoButton.h */,
+				80C4093918D8F4450067740A /* NuxeoButton.m */,
+				80C4093A18D8F4450067740A /* NuxeoLabel.h */,
+				80C4093B18D8F4450067740A /* NuxeoLabel.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		80C4093C18D8F4450067740A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				80C4093D18D8F4450067740A /* NuxeoDriveUtils.h */,
+				80C4093E18D8F4450067740A /* NuxeoDriveUtils.m */,
+				80C4093F18D8F4450067740A /* UIView+Nuxeo.h */,
+				80C4094018D8F4450067740A /* UIView+Nuxeo.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		80C4094418D8F4450067740A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				80C4094518D8F4450067740A /* InfoPlist.strings */,
+				80C4094718D8F4450067740A /* Localizable.strings */,
+				80C4094918D8F4450067740A /* Icon.png */,
+				80C4094A18D8F4450067740A /* Icon512.png */,
+				80C4094B18D8F4450067740A /* Icon512@2x.png */,
+				80C4094C18D8F4450067740A /* Icon@2x.png */,
+				80C4094D18D8F4450067740A /* Images */,
+				80C4097F18D8F4450067740A /* NuxeoDrive-Info.plist */,
+				80C4098018D8F4450067740A /* NUXSession-info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		80C4094D18D8F4450067740A /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				80C4094E18D8F4450067740A /* Browse */,
+				80C4095118D8F4450067740A /* Common */,
+				80C4096518D8F4450067740A /* Header */,
+				80C4097218D8F4450067740A /* Home */,
+				80C4097618D8F4450067740A /* Login */,
+				80C4097D18D8F4450067740A /* Settings */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		80C4094E18D8F4450067740A /* Browse */ = {
+			isa = PBXGroup;
+			children = (
+				80C4094F18D8F4450067740A /* background_browse_line@2x~ipad.png */,
+				80C4095018D8F4450067740A /* background_info@2x~ipad.png */,
+			);
+			path = Browse;
+			sourceTree = "<group>";
+		};
+		80C4095118D8F4450067740A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				80C4095218D8F4450067740A /* bt_info@2x~ipad.png */,
+				80C4095318D8F4450067740A /* bt_openwith@2x~ipad.png */,
+				80C4095418D8F4450067740A /* bt_standard_short@2x~ipad.png */,
+				80C4095518D8F4450067740A /* bt_star@2x~ipad.png */,
+				80C4095618D8F4450067740A /* bt_update@2x~ipad.png */,
+				80C4095718D8F4450067740A /* ic_repository@2x~ipad.png */,
+				80C4095818D8F4450067740A /* ic_synchro_type_file@2x~ipad.png */,
+				80C4095918D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png */,
+				80C4095A18D8F4450067740A /* ic_synchro_type_image@2x~ipad.png */,
+				80C4095B18D8F4450067740A /* ic_synchro_type_presentation@2x~ipad.png */,
+				80C4095C18D8F4450067740A /* ic_synchro_type_sound@2x~ipad.png */,
+				80C4095D18D8F4450067740A /* ic_synchro_type_video@2x~ipad.png */,
+				80C4095E18D8F4450067740A /* ic_type_file@2x~ipad.png */,
+				80C4095F18D8F4450067740A /* ic_type_folder@2x~ipad.png */,
+				80C4096018D8F4450067740A /* ic_type_image@2x~ipad.png */,
+				80C4096118D8F4450067740A /* ic_type_presentation@2x~ipad.png */,
+				80C4096218D8F4450067740A /* ic_type_sound@2x~ipad.png */,
+				80C4096318D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png */,
+				80C4096418D8F4450067740A /* ic_type_video@2x~ipad.png */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		80C4096518D8F4450067740A /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				80C4096618D8F4450067740A /* bt_header_back@2x~ipad.png */,
+				80C4096718D8F4450067740A /* bt_header_find@2x~ipad.png */,
+				80C4096818D8F4450067740A /* bt_header_find_selected@2x~ipad.png */,
+				80C4096918D8F4450067740A /* bt_header_info@2x~ipad.png */,
+				80C4096A18D8F4450067740A /* bt_header_settings@2x~ipad.png */,
+				80C4096B18D8F4450067740A /* bt_header_settings_selected@2x~ipad.png */,
+				80C4096C18D8F4450067740A /* bt_header_star@2x~ipad.png */,
+				80C4096D18D8F4450067740A /* bt_header_star_selected@2x~ipad.png */,
+				80C4096E18D8F4450067740A /* bt_header_update@2x~ipad.png */,
+				80C4096F18D8F4450067740A /* bt_header_update_selected@2x~ipad.png */,
+				80C4097018D8F4450067740A /* bt_popup_update@2x~ipad.png */,
+				80C4097118D8F4450067740A /* ic_logo_header@2x~ipad.png */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		80C4097218D8F4450067740A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				80C4097318D8F4450067740A /* background_folder_tile@2x~ipad.png */,
+				80C4097418D8F4450067740A /* background_section@2x~ipad.png */,
+				80C4097518D8F4450067740A /* ic_add_folder@2x~ipad.png */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		80C4097618D8F4450067740A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				80C4097718D8F4450067740A /* background_login@2x~ipad.png */,
+				80C4097818D8F4450067740A /* bt_login@2x~ipad.png */,
+				80C4097918D8F4450067740A /* ic_header_logo@2x~ipad.png */,
+				80C4097A18D8F4450067740A /* ic_password@2x~ipad.png */,
+				80C4097B18D8F4450067740A /* ic_url@2x~ipad.png */,
+				80C4097C18D8F4450067740A /* ic_user@2x~ipad.png */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		80C4097D18D8F4450067740A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				80C4097E18D8F4450067740A /* background_settings@2x~ipad.png */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		80C4098118D8F4450067740A /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				80C4098218D8F4450067740A /* Browse */,
+				80C4098618D8F4450067740A /* Home */,
+				80C4098818D8F4450067740A /* Preview */,
+				80C4098A18D8F4450067740A /* Welcome */,
+			);
+			path = XIB;
+			sourceTree = "<group>";
+		};
+		80C4098218D8F4450067740A /* Browse */ = {
+			isa = PBXGroup;
+			children = (
+				80C4098318D8F4450067740A /* BrowseDocumentListViewController.xib */,
+				80C4098418D8F4450067740A /* DirectoryViewCell.xib */,
+				80C4098518D8F4450067740A /* DocumentCellView.xib */,
+			);
+			path = Browse;
+			sourceTree = "<group>";
+		};
+		80C4098618D8F4450067740A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				80C4098718D8F4450067740A /* HomeViewController.xib */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		80C4098818D8F4450067740A /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				80C4098918D8F4450067740A /* PreviewDisplayViewController.xib */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
+		80C4098A18D8F4450067740A /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				80C4098B18D8F4450067740A /* WelcomeViewController.xib */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		80EF7F70183A5D5E00B3FC21 = {
+			isa = PBXGroup;
+			children = (
+				80C4091618D8F4440067740A /* nuxeo-ios-app */,
+				80EF7F7C183A5D5E00B3FC21 /* Frameworks */,
+				80EF7F7B183A5D5E00B3FC21 /* Products */,
+				AED846E510454C288242E97E /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		80EF7F7B183A5D5E00B3FC21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				80EF7F7A183A5D5E00B3FC21 /* nuxeo-ios-app.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		80EF7F7C183A5D5E00B3FC21 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				80619E6718CE265D0097FCE0 /* libsqlite3.0.dylib */,
+				80968FAF18439E2400C4D321 /* MediaPlayer.framework */,
+				80EF7F7D183A5D5E00B3FC21 /* UIKit.framework */,
+				80EF7F7F183A5D5E00B3FC21 /* Foundation.framework */,
+				80EF7F81183A5D5E00B3FC21 /* AVFoundation.framework */,
+				80EF7F83183A5D5E00B3FC21 /* CoreGraphics.framework */,
+				80EF7F85183A5D5E00B3FC21 /* CoreMedia.framework */,
+				80EF7F87183A5D5E00B3FC21 /* QuartzCore.framework */,
+				80EF7F89183A5D5E00B3FC21 /* CFNetwork.framework */,
+				80EF7F8B183A5D5E00B3FC21 /* SystemConfiguration.framework */,
+				80EF7F8D183A5D5E00B3FC21 /* CoreLocation.framework */,
+				80EF7F8F183A5D5E00B3FC21 /* MobileCoreServices.framework */,
+				80EF7F91183A5D5E00B3FC21 /* StoreKit.framework */,
+				50F8EE3B232447B8B6C7DA4F /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		80EF7F79183A5D5E00B3FC21 /* nuxeo-ios-app */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 80EF7FF6183A5D5E00B3FC21 /* Build configuration list for PBXNativeTarget "nuxeo-ios-app" */;
+			buildPhases = (
+				56A22068C80843BE8585B9D3 /* Check Pods Manifest.lock */,
+				80EF7F75183A5D5E00B3FC21 /* Sources */,
+				80EF7F76183A5D5E00B3FC21 /* Frameworks */,
+				80EF7F77183A5D5E00B3FC21 /* Resources */,
+				80EF7F78183A5D5E00B3FC21 /* ShellScript */,
+				45831EAF08A245A8A39366AB /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "nuxeo-ios-app";
+			productName = SabreShelf;
+			productReference = 80EF7F7A183A5D5E00B3FC21 /* nuxeo-ios-app.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		80EF7F71183A5D5E00B3FC21 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SH;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = Sabre;
+			};
+			buildConfigurationList = 80EF7F74183A5D5E00B3FC21 /* Build configuration list for PBXProject "nuxeo-ios-app" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 80EF7F70183A5D5E00B3FC21;
+			productRefGroup = 80EF7F7B183A5D5E00B3FC21 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				80EF7F79183A5D5E00B3FC21 /* nuxeo-ios-app */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		80EF7F77183A5D5E00B3FC21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80C409BF18D8F4450067740A /* bt_header_star@2x~ipad.png in Resources */,
+				80C409C718D8F4450067740A /* ic_add_folder@2x~ipad.png in Resources */,
+				80C409CD18D8F4450067740A /* ic_user@2x~ipad.png in Resources */,
+				80C409A118D8F4450067740A /* Icon512.png in Resources */,
+				80C409CF18D8F4450067740A /* NuxeoDrive-Info.plist in Resources */,
+				80C409D618D8F4450067740A /* WelcomeViewController.xib in Resources */,
+				80C409B118D8F4450067740A /* ic_synchro_type_video@2x~ipad.png in Resources */,
+				80C409C018D8F4450067740A /* bt_header_star_selected@2x~ipad.png in Resources */,
+				80C409B518D8F4450067740A /* ic_type_presentation@2x~ipad.png in Resources */,
+				80C409A018D8F4450067740A /* Icon.png in Resources */,
+				80C409A318D8F4450067740A /* Icon@2x.png in Resources */,
+				80C409BA18D8F4450067740A /* bt_header_find@2x~ipad.png in Resources */,
+				80C409D518D8F4450067740A /* PreviewDisplayViewController.xib in Resources */,
+				80C409CC18D8F4450067740A /* ic_url@2x~ipad.png in Resources */,
+				80C409B818D8F4450067740A /* ic_type_video@2x~ipad.png in Resources */,
+				80C409C318D8F4450067740A /* bt_popup_update@2x~ipad.png in Resources */,
+				80C409AB18D8F4450067740A /* ic_repository@2x~ipad.png in Resources */,
+				80C409AC18D8F4450067740A /* ic_synchro_type_file@2x~ipad.png in Resources */,
+				80C409CA18D8F4450067740A /* ic_header_logo@2x~ipad.png in Resources */,
+				80C409CE18D8F4450067740A /* background_settings@2x~ipad.png in Resources */,
+				80C409C918D8F4450067740A /* bt_login@2x~ipad.png in Resources */,
+				80C409A818D8F4450067740A /* bt_standard_short@2x~ipad.png in Resources */,
+				80C409BD18D8F4450067740A /* bt_header_settings@2x~ipad.png in Resources */,
+				80C409AA18D8F4450067740A /* bt_update@2x~ipad.png in Resources */,
+				80C409C218D8F4450067740A /* bt_header_update_selected@2x~ipad.png in Resources */,
+				80C409AD18D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png in Resources */,
+				80C409B218D8F4450067740A /* ic_type_file@2x~ipad.png in Resources */,
+				80C409B018D8F4450067740A /* ic_synchro_type_sound@2x~ipad.png in Resources */,
+				80C4099C18D8F4450067740A /* Images.xcassets in Resources */,
+				80C409B618D8F4450067740A /* ic_type_sound@2x~ipad.png in Resources */,
+				80C4099F18D8F4450067740A /* Localizable.strings in Resources */,
+				80C409BE18D8F4450067740A /* bt_header_settings_selected@2x~ipad.png in Resources */,
+				80C409B718D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png in Resources */,
+				80C409A718D8F4450067740A /* bt_openwith@2x~ipad.png in Resources */,
+				80C409D218D8F4450067740A /* DirectoryViewCell.xib in Resources */,
+				80C409A218D8F4450067740A /* Icon512@2x.png in Resources */,
+				80C4099E18D8F4450067740A /* InfoPlist.strings in Resources */,
+				80C409C618D8F4450067740A /* background_section@2x~ipad.png in Resources */,
+				80C409C818D8F4450067740A /* background_login@2x~ipad.png in Resources */,
+				80C409C518D8F4450067740A /* background_folder_tile@2x~ipad.png in Resources */,
+				80C409CB18D8F4450067740A /* ic_password@2x~ipad.png in Resources */,
+				80C409A618D8F4450067740A /* bt_info@2x~ipad.png in Resources */,
+				80C409BB18D8F4450067740A /* bt_header_find_selected@2x~ipad.png in Resources */,
+				80C409C118D8F4450067740A /* bt_header_update@2x~ipad.png in Resources */,
+				80C409B418D8F4450067740A /* ic_type_image@2x~ipad.png in Resources */,
+				80C409C418D8F4450067740A /* ic_logo_header@2x~ipad.png in Resources */,
+				80C409D118D8F4450067740A /* BrowseDocumentListViewController.xib in Resources */,
+				80C409D318D8F4450067740A /* DocumentCellView.xib in Resources */,
+				80C409AF18D8F4450067740A /* ic_synchro_type_presentation@2x~ipad.png in Resources */,
+				80C409D418D8F4450067740A /* HomeViewController.xib in Resources */,
+				80C409A918D8F4450067740A /* bt_star@2x~ipad.png in Resources */,
+				80C409B918D8F4450067740A /* bt_header_back@2x~ipad.png in Resources */,
+				80C409A418D8F4450067740A /* background_browse_line@2x~ipad.png in Resources */,
+				80C409D018D8F4450067740A /* NUXSession-info.plist in Resources */,
+				80C409BC18D8F4450067740A /* bt_header_info@2x~ipad.png in Resources */,
+				80C409AE18D8F4450067740A /* ic_synchro_type_image@2x~ipad.png in Resources */,
+				80C409B318D8F4450067740A /* ic_type_folder@2x~ipad.png in Resources */,
+				80C409A518D8F4450067740A /* background_info@2x~ipad.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		45831EAF08A245A8A39366AB /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		56A22068C80843BE8585B9D3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		80EF7F78183A5D5E00B3FC21 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#Automatic Tagging of AppStore builds\t\t\t\t\t\n#This is done for tagging the ios4me framework each time a new App Store build is made\n#tag-framework.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		80EF7F75183A5D5E00B3FC21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80C4099618D8F4450067740A /* NuxeoDriveRemoteServices.m in Sources */,
+				80C4099A18D8F4450067740A /* NuxeoDriveUtils.m in Sources */,
+				80C4098E18D8F4450067740A /* DirectoryViewCell.m in Sources */,
+				80C4099418D8F4450067740A /* NuxeoDriveAppDelegate.m in Sources */,
+				80C4099818D8F4450067740A /* NuxeoButton.m in Sources */,
+				80C4098C18D8F4450067740A /* Constants.m in Sources */,
+				80C4098D18D8F4450067740A /* BrowseDocumentListViewController.m in Sources */,
+				80C4099118D8F4450067740A /* NuxeoDriveViewController.m in Sources */,
+				80C4099218D8F4450067740A /* PreviewDisplayViewController.m in Sources */,
+				80C4099718D8F4450067740A /* NuxeoRetrieveException.m in Sources */,
+				80C4099318D8F4450067740A /* WelcomeViewController.m in Sources */,
+				80C4099918D8F4450067740A /* NuxeoLabel.m in Sources */,
+				80C4099D18D8F4450067740A /* main.m in Sources */,
+				80C4099B18D8F4450067740A /* UIView+Nuxeo.m in Sources */,
+				80C4099018D8F4450067740A /* HomeViewController.m in Sources */,
+				80C4098F18D8F4450067740A /* DocumentCellView.m in Sources */,
+				80C4099518D8F4450067740A /* NuxeoDriveControllerHandler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		80C4094518D8F4450067740A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				80C4094618D8F4450067740A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		80C4094718D8F4450067740A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				80C4094818D8F4450067740A /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		80480C9B183E4ABA00BCB3B5 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = SNS_LOG_LEVEL_ERROR;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = AppStore;
+		};
+		80480C9C183E4ABA00BCB3B5 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AED846E510454C288242E97E /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "nuxeo-ios-app/NuxeoDrive_Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "nuxeo-ios-app/Resources/NuxeoDrive-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "nuxeo-ios-app";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = AppStore;
+		};
+		80EF7FF4183A5D5E00B3FC21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		80EF7FF5183A5D5E00B3FC21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = SNS_LOG_LEVEL_ERROR;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		80EF7FF7183A5D5E00B3FC21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AED846E510454C288242E97E /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "nuxeo-ios-app/NuxeoDrive_Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "nuxeo-ios-app/Resources/NuxeoDrive-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "nuxeo-ios-app";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		80EF7FF8183A5D5E00B3FC21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AED846E510454C288242E97E /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "nuxeo-ios-app/NuxeoDrive_Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "nuxeo-ios-app/Resources/NuxeoDrive-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "nuxeo-ios-app";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		80EF7F74183A5D5E00B3FC21 /* Build configuration list for PBXProject "nuxeo-ios-app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80EF7FF4183A5D5E00B3FC21 /* Debug */,
+				80EF7FF5183A5D5E00B3FC21 /* Release */,
+				80480C9B183E4ABA00BCB3B5 /* AppStore */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		80EF7FF6183A5D5E00B3FC21 /* Build configuration list for PBXNativeTarget "nuxeo-ios-app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80EF7FF7183A5D5E00B3FC21 /* Debug */,
+				80EF7FF8183A5D5E00B3FC21 /* Release */,
+				80480C9C183E4ABA00BCB3B5 /* AppStore */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 80EF7F71183A5D5E00B3FC21 /* Project object */;
+}
