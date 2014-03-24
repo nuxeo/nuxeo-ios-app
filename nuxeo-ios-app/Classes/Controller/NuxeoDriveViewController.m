@@ -56,39 +56,6 @@
 #pragma mark -
 #pragma mark NuxeoDriveViewController
 
-- (UIImage *) computePictoForDocument:(NUXDocument *)nuxDocument
-{
-    NSString * mimeType = [[nuxDocument.properties objectForKey:kXPathFileContent] objectForKey:@"mime-type"];
-    NSString * pictoName = @"ic_collateral";
-    
-    if ([mimeType rangeOfString:@"video"].location != NSNotFound)
-    {
-        pictoName = @"ic_video";
-    }
-    else if ([mimeType rangeOfString:@"pdf"].location != NSNotFound)
-    {
-        pictoName = @"ic_collateral";
-    }
-    else if ([mimeType rangeOfString:@"image"].location != NSNotFound)
-    {
-        pictoName = @"ic_collateral";
-    }
-    else if ([mimeType rangeOfString:@"presentation"].location != NSNotFound)
-    {
-        pictoName = @"ic_presentation";
-    }
-    else
-    {
-        NSString * docType = [nuxDocument.properties objectForKey:kDublinCoreNature];
-        if (docType != nil)
-        {
-            pictoName = [NSString stringWithFormat:@"ic_%@", docType];
-        }
-    }
-    return [UIImage imageNamed:pictoName];
-}
-
-
 - (void) openWithShow:(NSString *)docPath mimeType:(NSString *)mimeType fromView:(UIView *)iView
 {
     self.docController = nil;
@@ -127,14 +94,6 @@
 {
 	// Check Authentication
     NUXSession *session = [NUXSession sharedSession];
-    if (session.authenticator == nil)
-    {
-        NUXTokenAuthenticator *auth = [[NUXTokenAuthenticator alloc] init];
-        // Those fields are mandatory
-        auth.applicationName = kNuxeoAppName;
-        auth.permission = kNuxeoPermission;
-        session.authenticator = auth;
-    }
     if ([session.authenticator softAuthentication] == NO)
     {
         // Otherwise; Present Login screen

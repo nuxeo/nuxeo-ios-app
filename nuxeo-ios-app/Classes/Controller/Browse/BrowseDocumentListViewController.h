@@ -20,6 +20,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import <NuxeoSDK/NUXDocument.h>
+#import <NuxeoSDK/NUXDocuments.h>
+
 #import "NuxeoDriveViewController.h"
 
 #import "NuxeoLabel.h"
@@ -29,7 +32,6 @@
 @interface BrowseDocumentListViewController : NuxeoDriveViewController<UITableViewDataSource, UITableViewDelegate>
 {
     NSArray * documents;
-    
 }
 
 @property (nonatomic, retain) NSString * path;

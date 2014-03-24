@@ -26,6 +26,7 @@
 #import <NuxeoSDK/NUXSession.h>
 #import <NuxeoSDK/NUXSession+requests.h>
 #import <NuxeoSDK/NUXBlobStore.h>
+#import <NuxeoSDK/NUXTokenAuthenticator.h>
 
 #import "Reachability.h"
 
@@ -187,6 +188,14 @@
     
     // Nuxeo init
     NUXSession * nuxSession = [NUXSession sharedSession];
+    if (nuxSession.authenticator == nil)
+    {
+        NUXTokenAuthenticator *auth = [[NUXTokenAuthenticator alloc] init];
+        // Those fields are mandatory
+        auth.applicationName = kNuxeoAppName;
+        auth.permission = kNuxeoPermission;
+        nuxSession.authenticator = auth;
+    }
     if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL] != nil)
     {
         [nuxSession setUrl:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL]]];

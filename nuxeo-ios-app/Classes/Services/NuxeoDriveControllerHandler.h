@@ -18,6 +18,8 @@
  * 	Matthias Rouberol
  */
 
+#define kParamKeyDocument             @"document"
+
 @interface NuxeoDriveControllerHandler : NSObject
 
 + (NuxeoDriveControllerHandler *) instance;

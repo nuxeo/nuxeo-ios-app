@@ -28,6 +28,7 @@
 #import <NuxeoSDK/NUXHierarchyDB.h>
 #import <NuxeoSDK/NUXBlobStore.h>
 #import <NuxeoSDK/NUXTokenAuthenticator.h>
+#import <NuxeoSDK/NUXJSONSerializer.h>
 
 #import "NuxeoDriveRemoteServices.h"
 
@@ -48,7 +49,27 @@
 {
     [super retrieveBusinessObjects];
     
-    
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    {
+        // Request by path
+        NUXRequest * nuxRequest = [nuxSession requestDocument:kNuxeoPathInitial];
+        [nuxRequest startWithCompletionBlock:^(NUXRequest * pRequest)
+         {
+             // JSON
+             //NSDictionary * jsonResult = [pRequest responseJSONWithError:&error];
+             //documents = [[jsonResult objectForKey:@"entries"] retain];
+             NSError * error = nil;
+             NUXDocument * result = [NUXJSONSerializer entityWithData:[pRequest responseData] error:&error];
+             
+             rootDocument = [result retain];
+             
+             [self.browsingFolders reloadData];
+             
+         } FailureBlock:^(NUXRequest * pRequest)
+         {
+             [self logout];
+         }];
+    }
 }
 
 - (void) synchronizeAllView
@@ -111,43 +132,6 @@
 {	
 	[super viewDidLoad];
     
-    if ([[NUXHierarchyDB shared] isHierarchyLoaded:[[NuxeoDriveRemoteServices instance] mainHierarchyName]])
-    {
-        if ([APP_DELEGATE isNetworkConnected] == YES)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [UIAlertView showWithTitle:NuxeoLocalized(@"application.name")
-                                   message:NuxeoLocalized(@"home.hierarchy.load.question")
-                         cancelButtonTitle:NuxeoLocalized(@"button.no")
-                         otherButtonTitles:@[NuxeoLocalized(@"button.yes")]
-                                  tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
-                {
-                                      switch (buttonIndex)
-                    {
-                                          case 0:
-                                              [self setupMainHierarchy];
-                                              [self activateHomeScreen];
-                                              break;
-                                          case 1:
-                                              [self loadMainHierarchy];
-                                              break;
-                                              
-                                          default:
-                                              break;
-                                      }
-                                  }];
-            });
-        } else {
-            [self setupMainHierarchy];
-            [self activateHomeScreen];
-        }
-    }
-    else {
-        if ([APP_DELEGATE isNetworkConnected] == YES) {
-            [self loadMainHierarchy];
-        }
-    }
-    
 }
 
 /**
@@ -163,7 +147,7 @@
 #pragma mark Events
 #pragma mark -
 
-- (void) goBack:(id)sender
+- (void) logout
 {
     NUXSession * nuxSession = [NUXSession sharedSession];
     if (nuxSession.authenticator != nil)
@@ -171,7 +155,11 @@
         [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
         [self checkAuthentication];
     }
-    
+}
+
+- (void) goBack:(id)sender
+{
+    [self logout];
 }
 
 
@@ -227,8 +215,14 @@
     else if ([collectionView isEqual:self.browsingFolders])
     {
         // Browse into selected folder
-        [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:nil];
-        
+        if (rootDocument != nil)
+        {
+            [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:@{kParamKeyDocument: rootDocument}];
+        }
+        else
+        {
+            [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:nil];
+        }
     }
 }
 

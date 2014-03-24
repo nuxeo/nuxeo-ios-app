@@ -154,8 +154,6 @@
 #define kBrowseStandardViewControllerParamKeyColor          @"color"
 #define kBrowseStandardViewControllerParamKeyLevel          @"level"
 
-#define kBrowsePreviewViewControllerParamKeyDocument        @"document"
-
 #define kNuxeoPathInitial                                   @"/default-domain"
 
 

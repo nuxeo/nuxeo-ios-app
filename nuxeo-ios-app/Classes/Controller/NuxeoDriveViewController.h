@@ -55,7 +55,6 @@
 // Header button bar (override it to set a custom button bar)
 - (void) addHeaderButtonBar:(UIView *) navBarCustomView;
 
-- (UIImage *) computePictoForDocument:(NUXDocument *)nuxDocument;
 - (void) openWithShow:(NSString *)docPath mimeType:(NSString *)mimeType fromView:(UIView *)iView;
 
 @end

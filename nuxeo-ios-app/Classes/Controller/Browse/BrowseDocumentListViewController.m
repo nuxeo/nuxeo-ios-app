@@ -61,8 +61,7 @@
 
 - (NUXDocument *) documentByIndexPath:(NSIndexPath *) indexPath
 {
-    NSArray * docs = [documents objectAtIndex:indexPath.row];
-    return [docs objectAtIndex:indexPath.row];
+    return [documents objectAtIndex:indexPath.row];
 }
 
 
@@ -90,20 +89,17 @@
 {	
 	[super viewDidLoad];
 	
-    NUXHierarchy * suiteHierarchy = [NUXHierarchy hierarchyWithName:@"test"];
-    self.currentDocument = [suiteHierarchy nodeWithRef:kNuxeoPathInitial];
-    NSArray * docs = [suiteHierarchy childrenOfDocument:@"dac9ef1d-0ca0-4946-93ed-048021b506d9"];
-    
-    //if (self.path != nil)
+    if (self.currentDocument == nil)
+    {
+        NUXHierarchy * suiteHierarchy = [NUXHierarchy hierarchyWithName:@"NuxeoDrive"];
+        self.currentDocument = [suiteHierarchy nodeWithRef:kNuxeoPathInitial];
+    }
+
     {
         NUXSession * nuxSession = [NUXSession sharedSession];
         {
             // Request by path
-            NUXRequest * nuxRequest = [nuxSession requestChildren:kNuxeoPathInitial];
-            // Request by docId
-            //NUXRequest * nuxRequest = [nuxSession requestChildren:@"dac9ef1d-0ca0-4946-93ed-048021b506d9"];
-            // Add schema on request
-            // [nuxRequest addSchemas:@[@"dublincore", @"uid", @"file", @"common"]];
+            NUXRequest * nuxRequest = [nuxSession requestChildren:self.currentDocument.uid];
             
             [nuxRequest startWithCompletionBlock:^(NUXRequest * pRequest)
              {
@@ -157,7 +153,7 @@
 {
     NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
     
-    [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kBrowsePreviewViewControllerParamKeyDocument : nuxDocument}];
+    [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument : nuxDocument}];
 }
 
 - (void)onTouchOpenWith:(NSIndexPath *)indexPath
@@ -224,11 +220,11 @@
         
         [cell setTarget:self forIndexPath:indexPath];
         
-        cell.picto.image = [super computePictoForDocument:selectedDocument];
+        //cell.picto.image = [super computePictoForDocument:selectedDocument];
         cell.backgroundColor = [UIColor clearColor];
         [cell localizeRecursively];
         
-        BOOL fileExist = [[NUXBlobStore instance] hasBlobFromDocument:selectedDocument metadataXPath:kXPathFileContent];
+        BOOL fileExist = YES;//[[NUXBlobStore instance] hasBlobFromDocument:selectedDocument metadataXPath:kXPathFileContent];
         [cell.preview setEnabled:fileExist];
         [cell.openWith setEnabled:fileExist];
         
@@ -248,6 +244,10 @@
 {
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
    
+    NUXDocument * selectedDocument = [self documentByIndexPath:indexPath];
+    
+    [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
+    
 }
 
 #pragma mark -

@@ -58,6 +58,10 @@
 - (void) pushDocumentsControllerFrom:(UIViewController *)iController options:(NSDictionary *) options
 {
     BrowseDocumentListViewController *rvc = [[BrowseDocumentListViewController alloc] initWithNibName:kXIBBrowseDocumentListViewController bundle:nil];
+    if ([options objectForKey:kParamKeyDocument] != nil)
+    {
+        rvc.currentDocument = [options objectForKey:kParamKeyDocument];
+    }    
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     rvc.isBackButtonShown = YES;
     rvc.isUpdateAllButtonShown = YES;
