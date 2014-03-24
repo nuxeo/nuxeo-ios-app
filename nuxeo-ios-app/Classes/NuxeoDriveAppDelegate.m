@@ -21,6 +21,7 @@
 #import "NuxeoDriveAppDelegate.h"
 
 #import "WelcomeViewController.h"
+#import "HomeViewController.h"
 
 #import <NuxeoSDK/NUXSession.h>
 #import <NuxeoSDK/NUXSession+requests.h>
@@ -111,7 +112,9 @@
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[WelcomeViewController alloc] initWithNibName:kXIBWelcomeController bundle:nil];
+    NuxeoDriveViewController * homeViewController = [[[HomeViewController alloc] initWithNibName:kXIBHomeController bundle:nil] autorelease];
+    homeViewController.isBackButtonShown = YES;
+    self.window.rootViewController = homeViewController;
 	[self.window makeKeyAndVisible];
     return YES;
 	
@@ -192,8 +195,6 @@
     {
         [nuxSession setUrl:[NSURL URLWithString:kNuxeoSiteURL]];
     }
-//    [nuxSession setUsername:kNuxeoUser];
-//    [nuxSession setPassword:kNuxeoPassword];
     [nuxSession setRepository:kNuxeoRepository];
     [nuxSession setApiPrefix:kNuxeoApiPrefix];
     [nuxSession setDownloadQueueMaxConcurrentOperationCount:2];

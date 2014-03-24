@@ -27,6 +27,7 @@
 #import <NuxeoSDK/NUXHierarchy.h>
 #import <NuxeoSDK/NUXHierarchyDB.h>
 #import <NuxeoSDK/NUXBlobStore.h>
+#import <NuxeoSDK/NUXTokenAuthenticator.h>
 
 #import "NuxeoDriveRemoteServices.h"
 
@@ -43,9 +44,23 @@
 #pragma mark HomeViewController
 #pragma mark -
 
-- (void)updateDisplay
+- (void) retrieveBusinessObjects
 {
-	
+    [super retrieveBusinessObjects];
+    
+    
+}
+
+- (void) synchronizeAllView
+{
+    if ([APP_DELEGATE isNetworkConnected] == NO)
+    {
+        
+    }
+    else
+    {
+        
+    }
 }
 
 - (void) activateHomeScreen
@@ -95,6 +110,7 @@
 - (void)viewDidLoad
 {	
 	[super viewDidLoad];
+    
     if ([[NUXHierarchyDB shared] isHierarchyLoaded:[[NuxeoDriveRemoteServices instance] mainHierarchyName]])
     {
         if ([APP_DELEGATE isNetworkConnected] == YES)
@@ -147,7 +163,16 @@
 #pragma mark Events
 #pragma mark -
 
-
+- (void) goBack:(id)sender
+{
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    if (nuxSession.authenticator != nil)
+    {
+        [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
+        [self checkAuthentication];
+    }
+    
+}
 
 
 #pragma mark -

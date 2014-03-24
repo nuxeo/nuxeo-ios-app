@@ -44,6 +44,10 @@
 
 @property (retain, nonatomic) UIDocumentInteractionController * docController;
 
+- (void) checkAuthentication;
+- (void) retrieveBusinessObjects;
+- (void) synchronizeAllView;
+
 - (UIView *) headerBarView;
 - (UIView *) footerBarView;
 - (UIView *) backgroundView;

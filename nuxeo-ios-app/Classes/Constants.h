@@ -108,8 +108,6 @@
 
 #define USER_HOST_URL               @"USER_HOST_URL"
 #define USER_USERNAME               @"USER_USERNAME"
-#define USER_PASSWORD               @"USER_PASSWORD"
-
 
 /********************************** ServicesWeb ********************************/
 
@@ -120,6 +118,8 @@
 #define kNuxeoUser                  @"Administrator"
 #define kNuxeoPassword              @"Administrator"
 #define kNuxeoRepository            @"default"
+#define kNuxeoAppName               @"nuxeo-ios-app"
+#define kNuxeoPermission            @"rw"
 
 // global schemas
 #define kNuxeoSchemaDublincore      @"dublincore"

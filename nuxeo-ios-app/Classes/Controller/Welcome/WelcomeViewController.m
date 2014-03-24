@@ -68,10 +68,6 @@
     {
         self.username.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME];
     }
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_PASSWORD] != nil)
-    {
-        self.password.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PASSWORD];
-    }
     
 #ifdef DEBUG
     self.hostURL.text = kNuxeoSiteURL;
@@ -92,7 +88,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-	[super viewDidAppear:animated];
+//    Do not uncomment
+//	[super viewDidAppear:animated];
 	
 }
 
@@ -108,38 +105,42 @@
     // Authentication
     [[NSUserDefaults standardUserDefaults] setValue:self.hostURL.text forKey:USER_HOST_URL];
     [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:USER_USERNAME];
-    [[NSUserDefaults standardUserDefaults] setValue:self.password.text forKey:USER_PASSWORD];
     
     NUXTokenAuthenticator *auth = [[NUXTokenAuthenticator alloc] init];
     // Those fields are mandatory
-    auth.applicationName = @"nuxeo-ios-app";
-    auth.permission = @"rw";
+    auth.applicationName = kNuxeoAppName;
+    auth.permission = kNuxeoPermission;
     
     NUXSession *session = [NUXSession sharedSession];
+    [session setUrl:[NSURL URLWithString:kNuxeoSiteURL]];
     session.authenticator = auth;
-    if (![auth softAuthentication])
+    if ([auth softAuthentication] == NO)
     {
         NUXRequest *request = [session requestTokenAuthentication];
         // We use the request built-in basic authentication challenge
-        request.username = kNuxeoUser;
-        request.password = kNuxeoPassword;
+        request.username = self.username.text;
+        request.password = self.password.text;
         
         // Beware, request execution is asychronously.
         [auth setTokenFromRequest:request withCompletionBlock:^(BOOL success)
-        {
-            // if success, token saved !
-            if (success == YES)
-            {
-                [CONTROLLER_HANDLER pushHomeControllerFrom:self options:nil];
-            }
-        }];
+         {
+             // if success, token saved !
+             if (success == YES)
+             {
+                 [((NuxeoDriveViewController *)self.presentingViewController) retrieveBusinessObjects];
+                 [self dismissViewControllerAnimated:YES completion:^{
+                 }];
+             }
+         }];
     }
     else
     {
         // Otherwise; you might be authenticated, but do not forget that a token could be revoked.
-        [CONTROLLER_HANDLER pushHomeControllerFrom:self options:nil];
+        [((NuxeoDriveViewController *)self.presentingViewController) retrieveBusinessObjects];
+        [self dismissViewControllerAnimated:YES completion:^{
+        }];
     }
-    
+
 }
 
 

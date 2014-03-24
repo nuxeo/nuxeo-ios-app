@@ -26,6 +26,7 @@
 #define kCustomFooterBarHeight              50
 
 #import "NuxeoDriveViewController.h"
+#import "WelcomeViewController.h"
 
 #import "NuxeoButton.h"
 #import "NuxeoLabel.h"
@@ -36,6 +37,7 @@
 #import <NuxeoSDK/NUXDocuments.h>
 #import <NuxeoSDK/NUXHierarchy.h>
 #import <NuxeoSDK/NUXBlobStore.h>
+#import <NuxeoSDK/NUXTokenAuthenticator.h>
 
 #import "NuxeoDriveRemoteServices.h"
 
@@ -121,12 +123,33 @@
     return @"bt_header_back";
 }
 
-- (void) updateDisplay
+- (void) checkAuthentication
 {
-	
+	// Check Authentication
+    NUXSession *session = [NUXSession sharedSession];
+    if (session.authenticator == nil)
+    {
+        NUXTokenAuthenticator *auth = [[NUXTokenAuthenticator alloc] init];
+        // Those fields are mandatory
+        auth.applicationName = kNuxeoAppName;
+        auth.permission = kNuxeoPermission;
+        session.authenticator = auth;
+    }
+    if ([session.authenticator softAuthentication] == NO)
+    {
+        // Otherwise; Present Login screen
+        [self presentViewController:[[WelcomeViewController alloc]initWithNibName:kXIBWelcomeController bundle:nil] animated:YES completion:^{
+            
+        }];
+    }
 }
 
-- (void) updateSyncAllView
+- (void) retrieveBusinessObjects
+{
+    
+}
+
+- (void) synchronizeAllView
 {
     if ([APP_DELEGATE isNetworkConnected] == NO)
     {
@@ -149,7 +172,7 @@
     {
         NuxeoLogD(@"Internet on");
     }
-    [self updateSyncAllView];
+    [self synchronizeAllView];
     
 }
 
@@ -212,7 +235,7 @@
         xButton += kButtonHeight + kButtonMargin;
     }
     
-    [self updateSyncAllView];
+    [self synchronizeAllView];
     
 }
 
@@ -401,13 +424,21 @@
 {
     [super loadView];
     
-	// Add observer for NOTIF_SYNC_ALL_BEGIN, NOTIF_SYNC_ALL_FINISH
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSyncAllView) name:NOTIF_SYNC_ALL_BEGIN object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSyncAllView) name:NOTIF_SYNC_ALL_FINISH object:nil];
+
+}
+
+- (void) viewDidLoad
+{
+	[super viewDidLoad];
+	
+    // Add observer for NOTIF_SYNC_ALL_BEGIN, NOTIF_SYNC_ALL_FINISH
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeAllView) name:NOTIF_SYNC_ALL_BEGIN object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeAllView) name:NOTIF_SYNC_ALL_FINISH object:nil];
     // Add observer for connection notifier
     [[Reachability reachabilityForInternetConnection] startNotifier];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-
+    
+    [self retrieveBusinessObjects];
 	
 	[self onSetupBackground];
 	
@@ -419,25 +450,23 @@
 	
     [self onSetupLocalization];
     
-}
-
-- (void) viewDidLoad
-{
-	[super viewDidLoad];
-	
+    
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
 	
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
 	
-    [self updateSyncAllView];
+    [self checkAuthentication];
+    
+    [self synchronizeAllView];
 }
 
 #pragma mark -
