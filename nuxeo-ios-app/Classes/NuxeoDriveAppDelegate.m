@@ -184,9 +184,16 @@
     
     // Nuxeo init
     NUXSession * nuxSession = [NUXSession sharedSession];
-    [nuxSession setUrl:[NSURL URLWithString:kNuxeoSiteURL]];
-    [nuxSession setUsername:kNuxeoUser];
-    [nuxSession setPassword:kNuxeoPassword];
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL] != nil)
+    {
+        [nuxSession setUrl:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL]]];
+    }
+    else
+    {
+        [nuxSession setUrl:[NSURL URLWithString:kNuxeoSiteURL]];
+    }
+//    [nuxSession setUsername:kNuxeoUser];
+//    [nuxSession setPassword:kNuxeoPassword];
     [nuxSession setRepository:kNuxeoRepository];
     [nuxSession setApiPrefix:kNuxeoApiPrefix];
     [nuxSession setDownloadQueueMaxConcurrentOperationCount:2];

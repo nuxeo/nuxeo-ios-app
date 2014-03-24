@@ -20,6 +20,8 @@
 
 #import "WelcomeViewController.h"
 
+#import <NuxeoSDK/NUXTokenAuthenticator.h>
+
 @implementation WelcomeViewController
 
 #pragma mark -
@@ -60,15 +62,15 @@
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL] != nil)
     {
-        self.hostURL = [[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL];
+        self.hostURL.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL];
     }
     if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME] != nil)
     {
-        self.username = [[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME];
+        self.username.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME];
     }
     if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_PASSWORD] != nil)
     {
-        self.password = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PASSWORD];
+        self.password.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_PASSWORD];
     }
     
 #ifdef DEBUG
@@ -108,8 +110,35 @@
     [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:USER_USERNAME];
     [[NSUserDefaults standardUserDefaults] setValue:self.password.text forKey:USER_PASSWORD];
     
+    NUXTokenAuthenticator *auth = [[NUXTokenAuthenticator alloc] init];
+    // Those fields are mandatory
+    auth.applicationName = @"nuxeo-ios-app";
+    auth.permission = @"rw";
     
-    [CONTROLLER_HANDLER pushHomeControllerFrom:self options:nil];
+    NUXSession *session = [NUXSession sharedSession];
+    session.authenticator = auth;
+    if (![auth softAuthentication])
+    {
+        NUXRequest *request = [session requestTokenAuthentication];
+        // We use the request built-in basic authentication challenge
+        request.username = kNuxeoUser;
+        request.password = kNuxeoPassword;
+        
+        // Beware, request execution is asychronously.
+        [auth setTokenFromRequest:request withCompletionBlock:^(BOOL success)
+        {
+            // if success, token saved !
+            if (success == YES)
+            {
+                [CONTROLLER_HANDLER pushHomeControllerFrom:self options:nil];
+            }
+        }];
+    }
+    else
+    {
+        // Otherwise; you might be authenticated, but do not forget that a token could be revoked.
+        [CONTROLLER_HANDLER pushHomeControllerFrom:self options:nil];
+    }
     
 }
 

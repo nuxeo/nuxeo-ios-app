@@ -90,7 +90,6 @@
 {	
 	[super viewDidLoad];
 	
-    
     NUXHierarchy * suiteHierarchy = [NUXHierarchy hierarchyWithName:@"test"];
     self.currentDocument = [suiteHierarchy nodeWithRef:kNuxeoPathInitial];
     NSArray * docs = [suiteHierarchy childrenOfDocument:@"dac9ef1d-0ca0-4946-93ed-048021b506d9"];
