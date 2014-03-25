@@ -184,7 +184,8 @@
 {
     // Add observer for connection notifier
     [[Reachability reachabilityForInternetConnection] startNotifier];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+	isNetworkConnected = [[Reachability reachabilityForInternetConnection] isReachable];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
     // Nuxeo init
     NUXSession * nuxSession = [NUXSession sharedSession];

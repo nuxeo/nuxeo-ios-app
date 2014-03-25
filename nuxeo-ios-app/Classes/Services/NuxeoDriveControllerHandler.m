@@ -75,6 +75,10 @@
 - (void) pushPreviewControllerFrom:(UIViewController *)iController options:(NSDictionary *) options
 {
     PreviewDisplayViewController *rvc = [[PreviewDisplayViewController alloc] initWithNibName:kXIBPreviewDisplayViewController bundle:nil];
+    if ([options objectForKey:kParamKeyDocument] != nil)
+    {
+        rvc.currentDocument = [options objectForKey:kParamKeyDocument];
+    }
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     rvc.isBackButtonShown = YES;
     rvc.isFooterVisible = NO;

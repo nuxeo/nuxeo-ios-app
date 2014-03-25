@@ -49,9 +49,9 @@
 
 - (void)setup
 {
-	BOOL isBold = [self.titleLabel.font.fontName rangeOfString:@"Bold"].location != NSNotFound;
-	NSString* fontName = isBold ? @"UniversLT-Black" : @"UniversLT";
-	self.titleLabel.font = [UIFont fontWithName:fontName size:self.titleLabel.font.pointSize];
+//	BOOL isBold = [self.titleLabel.font.fontName rangeOfString:@"Bold"].location != NSNotFound;
+//	self.titleLabel.font = [UIFont fontWithName:fontName size:self.titleLabel.font.pointSize];
+//	self.titleLabel.font = [UIFont systemFontOfSize:self.titleLabel.font.pointSize];
 }
 
 @end

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		71B3EC6A6F774EE0BE3939FF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F8EE3B232447B8B6C7DA4F /* libPods.a */; };
 		80619E6818CE265D0097FCE0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 80619E6718CE265D0097FCE0 /* libsqlite3.0.dylib */; };
+		8083104F18E1857F00D20CE3 /* NUXDocument+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8083104E18E1857F00D20CE3 /* NUXDocument+Utils.m */; };
 		80968FB018439E2400C4D321 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80968FAF18439E2400C4D321 /* MediaPlayer.framework */; };
 		80C4098C18D8F4450067740A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4091A18D8F4450067740A /* Constants.m */; };
 		80C4098D18D8F4450067740A /* BrowseDocumentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4091E18D8F4450067740A /* BrowseDocumentListViewController.m */; };
@@ -101,6 +102,8 @@
 /* Begin PBXFileReference section */
 		50F8EE3B232447B8B6C7DA4F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		80619E6718CE265D0097FCE0 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		8083104D18E1857F00D20CE3 /* NUXDocument+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUXDocument+Utils.h"; sourceTree = "<group>"; };
+		8083104E18E1857F00D20CE3 /* NUXDocument+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUXDocument+Utils.m"; sourceTree = "<group>"; };
 		80968FAF18439E2400C4D321 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		80C4091918D8F4450067740A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		80C4091A18D8F4450067740A /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
@@ -234,6 +237,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8083104C18E1855D00D20CE3 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				8083104D18E1857F00D20CE3 /* NUXDocument+Utils.h */,
+				8083104E18E1857F00D20CE3 /* NUXDocument+Utils.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		80C4091618D8F4440067740A /* nuxeo-ios-app */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +262,7 @@
 		80C4091718D8F4440067740A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8083104C18E1855D00D20CE3 /* Categories */,
 				80C4091918D8F4450067740A /* Constants.h */,
 				80C4091A18D8F4450067740A /* Constants.m */,
 				80C4091B18D8F4450067740A /* Controller */,
@@ -729,6 +742,7 @@
 				80C4099718D8F4450067740A /* NuxeoRetrieveException.m in Sources */,
 				80C4099318D8F4450067740A /* WelcomeViewController.m in Sources */,
 				80C4099918D8F4450067740A /* NuxeoLabel.m in Sources */,
+				8083104F18E1857F00D20CE3 /* NUXDocument+Utils.m in Sources */,
 				80C4099D18D8F4450067740A /* main.m in Sources */,
 				80C4099B18D8F4450067740A /* UIView+Nuxeo.m in Sources */,
 				80C4099018D8F4450067740A /* HomeViewController.m in Sources */,

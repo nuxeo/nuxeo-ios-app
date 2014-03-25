@@ -33,6 +33,8 @@
 #import "NuxeoDriveRemoteServices.h"
 
 #import "NuxeoDriveUtils.h"
+#import "NUXDocument+Utils.h"
+
 
 #define kDocumentTableCellReuseKey      @"DocumentCell"
 
@@ -107,8 +109,8 @@
                  //NSDictionary * jsonResult = [pRequest responseJSONWithError:&error];
                  //documents = [[jsonResult objectForKey:@"entries"] retain];
                  NSError * error = nil;
-                 NUXDocument * result = [NUXJSONSerializer entityWithData:[pRequest responseData] error:&error];
-                 documents = [[result valueForKey:@"_entries"] retain];
+                 NUXDocuments * result = [NUXJSONSerializer entityWithData:[pRequest responseData] error:&error];
+                 documents = [result.entries retain];
                  
                  [self.documentsView reloadData];
                  
@@ -216,7 +218,7 @@
     if ([documents count] > 0)
     {
         NUXDocument * selectedDocument = [documents objectAtIndex:indexPath.row];
-        cell.title.text = @"test";//[selectedDocument.properties objectForKey:kDublinCoreTitle];
+        cell.title.text = selectedDocument.title;//[selectedDocument.properties objectForKey:kDublinCoreTitle];
         
         [cell setTarget:self forIndexPath:indexPath];
         
@@ -224,12 +226,19 @@
         cell.backgroundColor = [UIColor clearColor];
         [cell localizeRecursively];
         
-        BOOL fileExist = YES;//[[NUXBlobStore instance] hasBlobFromDocument:selectedDocument metadataXPath:kXPathFileContent];
-        [cell.preview setEnabled:fileExist];
-        [cell.openWith setEnabled:fileExist];
-        
-        [cell.update setHidden:![APP_DELEGATE isNetworkConnected]];
-        
+        if ([selectedDocument isFolder] == YES)
+        {
+            [cell.preview setHidden:YES];
+            [cell.openWith setHidden:YES];
+            [cell.update setHidden:YES];
+        }
+        else
+        {
+            BOOL fileExist = [[NUXBlobStore instance] hasBlobFromDocument:selectedDocument metadataXPath:kXPathFileContent];
+            [cell.preview setEnabled:fileExist];
+            [cell.openWith setEnabled:fileExist];
+            [cell.update setHidden:![APP_DELEGATE isNetworkConnected]];
+        }
     }
     
     return cell;
@@ -246,7 +255,14 @@
    
     NUXDocument * selectedDocument = [self documentByIndexPath:indexPath];
     
-    [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
+    if ([selectedDocument isFolder] == YES)
+    {
+        [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
+    }
+    else
+    {
+        [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
+    }
     
 }
 

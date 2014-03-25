@@ -35,6 +35,8 @@
 "button.openwith"                       = "OPEN WITH";
 "button.sync.all"                       = "SYNC ALL FILES";
 "button.sync"                           = "SYNC";
+"button.pin"                            = "PIN";
+"button.info"                           = "INFO";
 
 // ============================= WELCOME ========================================
 "welcome.host.url"                      = "Host URL";
