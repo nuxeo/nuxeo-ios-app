@@ -222,18 +222,20 @@
         
         [cell setTarget:self forIndexPath:indexPath];
         
-        //cell.picto.image = [super computePictoForDocument:selectedDocument];
+        cell.picto.image = [UIImage imageNamed:@"ic_type_folder"];//[super computePictoForDocument:selectedDocument];
         cell.backgroundColor = [UIColor clearColor];
         [cell localizeRecursively];
         
         if ([selectedDocument isFolder] == YES)
         {
+            [cell updateDisplayForFolder];
             [cell.preview setHidden:YES];
             [cell.openWith setHidden:YES];
             [cell.update setHidden:YES];
         }
         else
         {
+            [cell updateDisplayForFile];
             BOOL fileExist = [[NUXBlobStore instance] hasBlobFromDocument:selectedDocument metadataXPath:kXPathFileContent];
             [cell.preview setEnabled:fileExist];
             [cell.openWith setEnabled:fileExist];

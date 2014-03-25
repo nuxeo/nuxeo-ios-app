@@ -18,12 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="916" height="62"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="15">
-                        <rect key="frame" x="10" y="0.0" width="70" height="62"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ic_type_file.png" id="15">
+                        <rect key="frame" x="0.0" y="0.0" width="70" height="62"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4" customClass="NuxeoLabel">
-                        <rect key="frame" x="90" y="0.0" width="423" height="62"/>
+                        <rect key="frame" x="90" y="0.0" width="520" height="62"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
@@ -107,5 +107,6 @@
         <image name="bt_info.png" width="71" height="35"/>
         <image name="bt_star.png" width="71" height="35"/>
         <image name="bt_update.png" width="96" height="35"/>
+        <image name="ic_type_file.png" width="100" height="100"/>
     </resources>
 </document>

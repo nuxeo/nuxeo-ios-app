@@ -47,6 +47,9 @@
 - (void) setPictoBackgroundColor:(UIColor *)iColor;
 - (void) setTarget:(id)target forIndexPath:(NSIndexPath *)indexPath;
 
+- (void) updateDisplayForFile;
+- (void) updateDisplayForFolder;
+
 - (void) beginUpdate;
 - (void) finishUpdate;
 
