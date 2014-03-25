@@ -151,25 +151,17 @@
 #pragma mark Cell Events
 #pragma mark -
 
-- (void)onTouchPreview:(NSIndexPath *)indexPath
+- (void)onTouchInfo:(NSIndexPath *)indexPath
 {
     NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
     
-    [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument : nuxDocument}];
 }
 
-- (void)onTouchOpenWith:(NSIndexPath *)indexPath
+- (void)onTouchPin:(NSIndexPath *)indexPath
 {
     NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
     
-    if([[NUXBlobStore instance] hasBlobFromDocument:nuxDocument metadataXPath:kXPathFileContent] == YES)
-    {
-        DocumentCellView * selectedCell = (DocumentCellView *)[self.documentsView cellForRowAtIndexPath:indexPath];
-        NSString * blobPath = [[NUXBlobStore instance] blobFromDocument:nuxDocument metadataXPath:kXPathFileContent];
-        NSString * mimeType = [[nuxDocument.properties objectForKey:kXPathFileContent] objectForKey:@"mime-type"];
-        
-        [self openWithShow:blobPath mimeType:mimeType fromView:selectedCell.openWith];
-    }
+    
 }
 
 - (void)onTouchUpdate:(NSIndexPath *)indexPath

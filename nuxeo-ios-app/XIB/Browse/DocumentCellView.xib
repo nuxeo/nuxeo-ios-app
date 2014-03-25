@@ -45,7 +45,7 @@
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
-                            <action selector="onTouchPreview:" destination="3" eventType="touchUpInside" id="27"/>
+                            <action selector="onTouchPin:" destination="3" eventType="touchUpInside" id="lte-8M-n9v"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="20" userLabel="NuxeoButton - Open With" customClass="NuxeoButton">
@@ -63,7 +63,7 @@
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
-                            <action selector="onTouchOpenWith:" destination="3" eventType="touchUpInside" id="28"/>
+                            <action selector="onTouchInfo:" destination="3" eventType="touchUpInside" id="7zX-9W-Xfv"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="21" userLabel="NuxeoButton - Synch" customClass="NuxeoButton">

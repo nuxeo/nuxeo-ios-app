@@ -42,6 +42,8 @@
 - (IBAction)onTouchPreview:(id)sender;
 - (IBAction)onTouchOpenWith:(id)sender;
 - (IBAction)onTouchSync:(id)sender;
+- (IBAction)onTouchInfo:(id)sender;
+- (IBAction)onTouchPin:(id)sender;
 
 
 - (void) setPictoBackgroundColor:(UIColor *)iColor;

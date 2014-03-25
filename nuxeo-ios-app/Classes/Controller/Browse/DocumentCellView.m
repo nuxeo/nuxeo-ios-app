@@ -50,7 +50,7 @@
 
 - (IBAction)onTouchPreview:(id)sender
 {
-    if (self.delegate != nil)
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(onTouchPreview:)] == YES)
     {
         [self.delegate performSelector:@selector(onTouchPreview:) withObject:self.indexPath];
     }
@@ -58,7 +58,7 @@
 
 - (IBAction)onTouchOpenWith:(id)sender
 {
-    if (self.delegate != nil)
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(onTouchOpenWith:)] == YES)
     {
         [self.delegate performSelector:@selector(onTouchOpenWith:) withObject:self.indexPath];
     }
@@ -66,9 +66,25 @@
 
 - (IBAction)onTouchSync:(id)sender
 {
-    if (self.delegate != nil)
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(onTouchUpdate:)] == YES)
     {
         [self.delegate performSelector:@selector(onTouchUpdate:) withObject:self.indexPath];
+    }
+}
+
+- (IBAction)onTouchInfo:(id)sender
+{
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(onTouchInfo:)] == YES)
+    {
+        [self.delegate performSelector:@selector(onTouchInfo:) withObject:self.indexPath];
+    }
+}
+
+- (IBAction)onTouchPin:(id)sender
+{
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(onTouchPin:)] == YES)
+    {
+        [self.delegate performSelector:@selector(onTouchPin:) withObject:self.indexPath];
     }
 }
 
