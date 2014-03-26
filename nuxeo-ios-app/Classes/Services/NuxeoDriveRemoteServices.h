@@ -44,6 +44,8 @@ typedef void (^NuxeoDriveServicesSimpleBlock)();
 - (NSArray *) retrieveAllDocumentsFromMainHierarchy;
 - (void) setupAllHierarchy:(NuxeoDriveServicesBlock)completion;
 
+// Blob methods
+- (NSString *) getDocPathForDocument:(NUXDocument *)nuxDocument;
 
 
 @end

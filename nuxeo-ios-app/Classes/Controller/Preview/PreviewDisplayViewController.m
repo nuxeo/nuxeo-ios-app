@@ -39,33 +39,9 @@
 
 - (void) addHeaderButtonBar:(UIView *) navBarCustomView
 {
-    // Sync document
-    NuxeoButton * syncButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
-    syncButton.frame = CGRectMake(880,20,120,40);
-    [syncButton setBackgroundColor:[UIColor blackColor]];
-    [syncButton setTitle:NuxeoLocalized(@"button.sync") forState:UIControlStateNormal];
-    [syncButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [syncButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [syncButton setBackgroundImage:[UIImage imageNamed:@"bt_update"] forState:UIControlStateNormal];
-    [syncButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
-    syncButton.titleLabel.font = FONT_COMMON_BOLD(15);
-    [navBarCustomView addSubview:syncButton];
-    [syncButton addTarget:self action:@selector(onTouchSyncDoc:) forControlEvents:UIControlEventTouchUpInside];
+    self.headerBar.frame = (CGRect){CGPointMake(NuxeoViewW(navBarCustomView) - NuxeoViewW(self.headerBar), NuxeoViewY(self.headerBar)) , self.headerBar.frame.size};
     
-    // OpenWith button
-    self.openwithButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
-    self.openwithButton.frame = CGRectMake(670,20,160,40);
-    [self.openwithButton setBackgroundColor:[UIColor blackColor]];
-    [self.openwithButton setTitle:NuxeoLocalized(@"button.openwith") forState:UIControlStateNormal];
-    [self.openwithButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.openwithButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-    [self.openwithButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    UIImage * openWithImage = [[UIImage imageNamed:@"bt_open_with"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 50, 0, 0) resizingMode:UIImageResizingModeTile];
-    [self.openwithButton setBackgroundImage:openWithImage forState:UIControlStateNormal];
-    [self.openwithButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 50, 0, 0)];
-    self.openwithButton.titleLabel.font = FONT_COMMON_BOLD(15);
-    [navBarCustomView addSubview:self.openwithButton];
-    [self.openwithButton addTarget:self action:@selector(onTouchOpenWith:) forControlEvents:UIControlEventTouchUpInside];
+    [navBarCustomView addSubview:self.headerBar];
 }
 
 - (void)updateDisplay
@@ -75,7 +51,7 @@
 
 - (void) loadDocument:(NSData*)docData
 {
-    [self.openwithButton setEnabled:YES];
+    [self.openWithButton setEnabled:YES];
     
     [self.previewView loadData:docData MIMEType:self.mimeType textEncodingName:@"utf-8" baseURL:nil];
     self.previewView.hidden = NO;
@@ -83,9 +59,8 @@
 
 - (void) loadDocumentByPath:(NSString*)docPath
 {
-    [self.openwithButton setEnabled:YES];
-    
-    
+    [self.openWithButton setEnabled:YES];
+        
     NSURL *url = [NSURL fileURLWithPath:docPath];
     if ([self.mimeType rangeOfString:@"video"].location != NSNotFound)
     {
@@ -134,6 +109,22 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
+
+- (void) previewDocument
+{
+    [self.loadingIndicator stopAnimating];
+    NSString * blobPath = [[NUXBlobStore instance] blobFromDocument:self.currentDocument metadataXPath:kXPathFileContent];
+    
+    if ([self.mimeType rangeOfString:@"video"].location != NSNotFound)
+    {
+        [self loadDocumentByPath:blobPath];
+    }
+    else
+    {
+        NSData * docData = [NSData dataWithContentsOfFile:blobPath];
+        [self loadDocument:docData];
+    }
+}
 #pragma mark -
 #pragma mark UIViewControllerLifeCycle
 #pragma mark -
@@ -145,7 +136,7 @@
 {
 	[super loadView];
 	
-    [self.openwithButton setEnabled:NO];
+    [self.openWithButton setEnabled:NO];
     
     self.previewView.delegate = self;
 
@@ -159,6 +150,15 @@
 	[super viewDidLoad];
     
     self.mimeType = [[self.currentDocument.properties objectForKey:kXPathFileContent] objectForKey:@"mime-type"];
+    
+    if([[NUXBlobStore instance] hasBlobFromDocument:self.currentDocument metadataXPath:kXPathFileContent] == YES)
+    {
+        [self previewDocument];
+    }
+    else
+    {
+        [self onTouchUpdate:nil];
+    }
 }
 
 /**
@@ -176,20 +176,7 @@
 {
 	[super viewDidAppear:animated];
     
-    if([[NUXBlobStore instance] hasBlobFromDocument:self.currentDocument metadataXPath:kXPathFileContent] == YES)
-    {
-        NSString * blobPath = [[NUXBlobStore instance] blobFromDocument:self.currentDocument metadataXPath:kXPathFileContent];
-        
-        if ([self.mimeType rangeOfString:@"video"].location != NSNotFound)
-        {
-            [self loadDocumentByPath:blobPath];
-        }
-        else
-        {
-            NSData * docData = [NSData dataWithContentsOfFile:blobPath];
-            [self loadDocument:docData];
-        }
-    }
+    
 }
 
 #pragma mark -
@@ -199,8 +186,41 @@
 
 - (void)onTouchOpenWith:(id)sender
 {
-    NSString * docLocalPath = [[NuxeoDriveRemoteServices instance] getDocPathForDocument:self.currentDocument];
-    [self openWithShow:docLocalPath mimeType:self.mimeType fromView:(UIView *)sender];
+    NSString * blobPath = [[NUXBlobStore instance] blobFromDocument:self.currentDocument metadataXPath:kXPathFileContent];
+    
+    [self openWithShow:blobPath mimeType:self.mimeType fromView:(UIView *)sender];
+}
+
+- (IBAction)onTouchPin:(id)sender
+{
+
+}
+
+- (IBAction)onTouchInfo:(id)sender
+{
+
+}
+
+- (IBAction)onTouchUpdate:(id)sender
+{
+    // Load binary to show it in preview webview
+    [self.loadingIndicator startAnimating];
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    NUXRequest *request = [nuxSession requestDownloadBlobFrom:self.currentDocument.uid
+                                                   inMetadata:kXPathFileContent];
+    NSString *tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"tempfile%d.tmp", arc4random()]];
+    request = [nuxSession requestDownloadBlobFrom:self.currentDocument.uid inMetadata:kXPathFileContent];
+    request.downloadDestinationPath = tempFile;
+    [request setCompletionBlock:^(NUXRequest *request) {
+        [[NUXBlobStore instance] saveBlobFromPath:tempFile withDocument:self.currentDocument metadataXPath:kXPathFileContent error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:tempFile error:nil];
+        
+        [self.openWithButton setEnabled:YES];
+        
+        [self previewDocument];
+    }];
+    
+    [request start];
 }
 
 #pragma mark -
@@ -233,11 +253,14 @@
     [_currentDocument release];
     
     self.docController = nil;
-    self.openwithButton = nil;
+    self.openWithButton = nil;
     
     [moviePlayer release];
     moviePlayer = nil;
     
+    [_headerBar release];
+    [_openWithButton release];
+    [_loadingIndicator release];
 	[super dealloc];
 }
 

@@ -226,4 +226,12 @@
     return interactionController;
 }
 
++ (NSString*) applicationDocumentsPath
+{
+    NSArray *aPaths			= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *aWritablePath	= [aPaths objectAtIndex:0];
+    
+    return aWritablePath;
+}
+
 @end

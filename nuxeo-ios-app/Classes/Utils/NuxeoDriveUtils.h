@@ -245,5 +245,6 @@ NuxeoLogLevel;
 }
 
 + (UIDocumentInteractionController *) setupControllerWithURL:(NSURL *)fileURL usingDelegate:(id<UIDocumentInteractionControllerDelegate>) interactionDelegate;
++ (NSString*) applicationDocumentsPath;
 
 @end

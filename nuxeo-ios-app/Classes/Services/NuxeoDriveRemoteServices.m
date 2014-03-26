@@ -223,7 +223,23 @@
     return [sortedDocs allValues];
 }
 
+- (NSString *) userDocsFilePath
+{
+    return [[NuxeoDriveUtils applicationDocumentsPath] stringByAppendingPathComponent:@"Docs"];
+}
 
+- (NSString *) docFileName:(NSString *)name withDocId:(NSString *)docId
+{
+    return [NSString stringWithFormat:@"%@%@",docId, name];
+}
+
+- (NSString *) getDocPathForDocument:(NUXDocument *)nuxDocument
+{
+    NSString * docId = nuxDocument.uid;
+    NSString * docName = [nuxDocument.properties objectForKey:@"file:filename"];
+    
+    return [[self userDocsFilePath] stringByAppendingPathComponent:[self docFileName:docName withDocId:docId]];
+}
 
 
 @end

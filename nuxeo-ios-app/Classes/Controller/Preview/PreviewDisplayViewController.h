@@ -23,6 +23,8 @@
 
 #import "NuxeoDriveViewController.h"
 
+#import "NuxeoButton.h"
+
 @class NUXDocument;
 
 @interface PreviewDisplayViewController : NuxeoDriveViewController<UIWebViewDelegate>
@@ -30,10 +32,18 @@
     MPMoviePlayerController * moviePlayer;
 }
 
+
+@property (retain, nonatomic) IBOutlet UIView *headerBar;
 @property (retain, nonatomic) IBOutlet UIWebView *previewView;
-@property (retain, nonatomic) UIButton *openwithButton;
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (retain, nonatomic) IBOutlet NuxeoButton *openWithButton;
 
 @property (retain, nonatomic) NSString * mimeType;
 @property (retain, nonatomic) NUXDocument * currentDocument;
+
+- (IBAction) onTouchOpenWith:(id)sender;
+- (IBAction)onTouchPin:(id)sender;
+- (IBAction)onTouchInfo:(id)sender;
+- (IBAction)onTouchUpdate:(id)sender;
 
 @end
