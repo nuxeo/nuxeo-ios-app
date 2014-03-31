@@ -150,7 +150,7 @@
         [self.pinButton setImage:[UIImage imageNamed:@"bt_header_star_selected"] forState:UIControlStateHighlighted];
         [self.pinButton setImage:[UIImage imageNamed:@"bt_header_star_selected"] forState:UIControlStateSelected];
         [navBarCustomView addSubview:self.pinButton];
-        [self.pinButton addTarget:self action:@selector(onTouchPin:) forControlEvents:UIControlEventTouchUpInside];
+        [self.pinButton addTarget:self action:@selector(onTouchBrowseOnDevice:) forControlEvents:UIControlEventTouchUpInside];
         xButton += kButtonHeight + kButtonMargin;
     }
     
@@ -358,7 +358,7 @@
     
 }
 
-- (void) onTouchPin:(id)sender
+- (void) onTouchBrowseOnDevice:(id)sender
 {
     [[NuxeoDriveControllerHandler instance] pushBrowseOnDeviceControllerFrom:self options:nil];
     
