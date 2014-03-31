@@ -360,7 +360,7 @@
 
 - (void) onTouchPin:(id)sender
 {
-    // TODO
+    [[NuxeoDriveControllerHandler instance] pushBrowseOnDeviceControllerFrom:self options:nil];
     
 }
 

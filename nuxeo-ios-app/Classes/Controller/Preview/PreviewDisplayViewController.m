@@ -115,14 +115,17 @@
     [self.loadingIndicator stopAnimating];
     NSString * blobPath = [[NUXBlobStore instance] blobFromDocument:self.currentDocument metadataXPath:kXPathFileContent];
     
-    if ([self.mimeType rangeOfString:@"video"].location != NSNotFound)
+    if ([self.mimeType rangeOfString:@"video"].location != NSNotFound && self.mimeType != nil)
     {
         [self loadDocumentByPath:blobPath];
     }
     else
     {
-        NSData * docData = [NSData dataWithContentsOfFile:blobPath];
-        [self loadDocument:docData];
+        if (blobPath != nil)
+        {
+            NSData * docData = [NSData dataWithContentsOfFile:blobPath];
+            [self loadDocument:docData];
+        }
     }
 }
 #pragma mark -
@@ -149,7 +152,10 @@
 {	
 	[super viewDidLoad];
     
-    self.mimeType = [[self.currentDocument.properties objectForKey:kXPathFileContent] objectForKey:@"mime-type"];
+    if ([[self.currentDocument.properties objectForKey:kXPathFileContent] isKindOfClass:[NSNull class]] == NO)
+    {
+        self.mimeType = [[self.currentDocument.properties objectForKey:kXPathFileContent] objectForKey:@"mime-type"];
+    }
     
     if([[NUXBlobStore instance] hasBlobFromDocument:self.currentDocument metadataXPath:kXPathFileContent] == YES)
     {

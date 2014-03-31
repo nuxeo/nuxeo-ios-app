@@ -88,6 +88,14 @@
     }
 }
 
+- (IBAction)onTouchAddSynch:(id)sender
+{
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(onTouchAddSynch:)] == YES)
+    {
+        [self.delegate performSelector:@selector(onTouchAddSynch:) withObject:self.indexPath];
+    }
+}
+
 - (void) setPictoBackgroundColor:(UIColor *)iColor
 {
     if (self.picto != nil)
@@ -132,6 +140,7 @@
     [_openWith release];
     [_update release];
     [_updateActivity release];
+    [_addSynch release];
     [super dealloc];
 }
 @end

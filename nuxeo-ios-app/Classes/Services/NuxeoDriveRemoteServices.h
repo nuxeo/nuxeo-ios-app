@@ -44,6 +44,12 @@ typedef void (^NuxeoDriveServicesSimpleBlock)();
 - (NSArray *) retrieveAllDocumentsFromMainHierarchy;
 - (void) setupAllHierarchy:(NuxeoDriveServicesBlock)completion;
 
+// Methods for Nuxeo Drive synchronize points
+- (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion;
+- (void) addSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
+- (void) removeSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
+
+
 // Blob methods
 - (NSString *) getDocPathForDocument:(NUXDocument *)nuxDocument;
 

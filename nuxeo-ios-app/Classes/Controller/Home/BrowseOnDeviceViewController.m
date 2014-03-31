@@ -18,7 +18,7 @@
  * 	Matthias Rouberol
  */
 
-#import "HomeViewController.h"
+#import "BrowseOnDeviceViewController.h"
 
 #import <NuxeoSDK/NUXDocument.h>
 
@@ -39,45 +39,23 @@
 #define kSynchroReuseIdentifierForCollection    @"SynchroFolder"
 #define kBrowseReuseIdentifierForCollection     @"BrowseFolder"
 
-@implementation HomeViewController
+@implementation BrowseOnDeviceViewController
 
 #pragma mark -
-#pragma mark HomeViewController
+#pragma mark BrowseOnDeviceViewController
 #pragma mark -
 
 - (void) retrieveBusinessObjects
 {
     [super retrieveBusinessObjects];
     
-    NUXSession * nuxSession = [NUXSession sharedSession];
-    {
-        // Request by path
-        NUXRequest * nuxRequest = [nuxSession requestDocument:kNuxeoPathInitial];
-        [nuxRequest startWithCompletionBlock:^(NUXRequest * pRequest)
-         {
-             // JSON
-             //NSDictionary * jsonResult = [pRequest responseJSONWithError:&error];
-             //documents = [[jsonResult objectForKey:@"entries"] retain];
-             NSError * error = nil;
-             NUXDocument * result = [NUXJSONSerializer entityWithData:[pRequest responseData] error:&error];
-             
-             rootDocument = [result retain];
-             
-             [self.browsingFolders reloadData];
-             
-         } FailureBlock:^(NUXRequest * pRequest)
-         {
-             [self logout];
-         }];
-    }
-    
     // All Synchronized content
     {
         [[NuxeoDriveRemoteServices instance] retrieveAllSynchronizePoints:^(id results)
         {
-            synchronizedFolders = [results retain];
+            synchronizedPoints = [results retain];
             
-            [self.browsingFolders reloadData];
+            [self.synchronizedFolders reloadData];
         }];
     }
 }
@@ -94,28 +72,6 @@
     }
 }
 
-- (void) activateHomeScreen
-{
-    APP_DELEGATE.syncAllEnable = YES;
-    APP_DELEGATE.browseAllEnable = YES;
-    
-}
-
-- (void) setupMainHierarchy
-{
-//    [[NuxeoDriveRemoteServices instance] setupAllHierarchy:^(id object) {
-//        [self activateHomeScreen];
-//    }];
-}
-
-- (void) loadMainHierarchy
-{
-    [self setupMainHierarchy];
-    //[[NuxeoDriveRemoteServices instance] retrieveBrowseAllHierarchy:^(id object) {
-        [self activateHomeScreen];
-    //}];
-}
-
 #pragma mark -
 #pragma mark UIViewControllerLifeCycle
 #pragma mark -
@@ -129,9 +85,6 @@
 	
     UINib  *directoryCellNib = [UINib nibWithNibName:kXIBDirectoryCellView bundle:nil];
     [self.synchronizedFolders registerNib:directoryCellNib forCellWithReuseIdentifier:kSynchroReuseIdentifierForCollection];
-    
-    UINib  *folderCellNib = [UINib nibWithNibName:kXIBDirectoryCellView bundle:nil];
-    [self.browsingFolders registerNib:folderCellNib forCellWithReuseIdentifier:kBrowseReuseIdentifierForCollection];
     
 }
 
@@ -157,21 +110,6 @@
 #pragma mark Events
 #pragma mark -
 
-- (void) logout
-{
-    NUXSession * nuxSession = [NUXSession sharedSession];
-    if (nuxSession.authenticator != nil)
-    {
-        [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
-        [self checkAuthentication];
-    }
-}
-
-- (void) goBack:(id)sender
-{
-    [self logout];
-}
-
 
 #pragma mark -
 #pragma mark UICollectionViewDataSource
@@ -181,11 +119,7 @@
 {
     if ([collectionView isEqual:self.synchronizedFolders])
     {
-        return 6;
-    }
-    else if ([collectionView isEqual:self.browsingFolders])
-    {
-        return 1;
+        return [[synchronizedPoints entries] count];
     }
     return 0;
 }
@@ -197,15 +131,10 @@
     {
         DirectoryViewCell * cell = (DirectoryViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:kSynchroReuseIdentifierForCollection forIndexPath:indexPath];
         
+        NUXDocument * currentDocument = [synchronizedPoints.entries objectAtIndex:indexPath.row];
         
-        
-        return cell;
-    }
-    else if ([collectionView isEqual:self.browsingFolders])
-    {
-        DirectoryViewCell * cell = (DirectoryViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:kBrowseReuseIdentifierForCollection forIndexPath:indexPath];
-        
-        
+        cell.picto.image = [UIImage imageNamed:@"ic_synchro_type_folder"];
+        cell.title.text = currentDocument.title;
         
         return cell;
     }
@@ -222,18 +151,6 @@
     {
         
     }
-    else if ([collectionView isEqual:self.browsingFolders])
-    {
-        // Browse into selected folder
-        if (rootDocument != nil)
-        {
-            [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:@{kParamKeyDocument: rootDocument}];
-        }
-        else
-        {
-            [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:nil];
-        }
-    }
 }
 
 
@@ -247,8 +164,7 @@
 - (void)dealloc
 {
     
-    [_synchronizedFolders release];
-    [_browsingFolders release];
+    [synchronizedPoints release];
     [super dealloc];
 }
 @end

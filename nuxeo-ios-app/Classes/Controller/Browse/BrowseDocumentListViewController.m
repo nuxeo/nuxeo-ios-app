@@ -164,6 +164,16 @@
     
 }
 
+- (void)onTouchAddSynch:(NSIndexPath *)indexPath
+{
+    NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
+    
+    [[NuxeoDriveRemoteServices instance] addSynchronizePoint:nuxDocument.path
+                                            completionBlock:^(id result) {
+        
+    }];
+}
+
 - (void)onTouchUpdate:(NSIndexPath *)indexPath
 {
     DocumentCellView * selectedCell = (DocumentCellView *)[self.documentsView cellForRowAtIndexPath:indexPath];
@@ -224,14 +234,16 @@
             [cell.preview setHidden:YES];
             [cell.openWith setHidden:YES];
             [cell.update setHidden:YES];
+            [cell.addSynch setHidden:![APP_DELEGATE isNetworkConnected]];
         }
         else
         {
             [cell updateDisplayForFile];
-            BOOL fileExist = [[NUXBlobStore instance] hasBlobFromDocument:selectedDocument metadataXPath:kXPathFileContent];
+            BOOL fileExist = YES;//[[NUXBlobStore instance] hasBlobFromDocument:selectedDocument metadataXPath:kXPathFileContent];
             [cell.preview setEnabled:fileExist];
             [cell.openWith setEnabled:fileExist];
             [cell.update setHidden:![APP_DELEGATE isNetworkConnected]];
+            [cell.addSynch setHidden:YES];
         }
     }
     

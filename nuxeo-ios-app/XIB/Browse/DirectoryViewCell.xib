@@ -14,23 +14,23 @@
                 <rect key="frame" x="0.0" y="0.0" width="180" height="160"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_folder_tile.png" id="ynh-Su-6eL">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_folder_tile.png" id="ynh-Su-6eL" userLabel="Image View - Background">
                         <rect key="frame" x="0.0" y="0.0" width="180" height="160"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="center" image="ic_repository.png" id="5">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ic_repository.png" id="5">
                         <rect key="frame" x="40" y="0.0" width="100" height="100"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4" customClass="NuxeoLabel">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="home.browse.repository" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4" customClass="NuxeoLabel">
                         <rect key="frame" x="0.0" y="100" width="180" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="49o-ut-W6a" customClass="NuxeoLabel">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="49o-ut-W6a" customClass="NuxeoLabel">
                         <rect key="frame" x="0.0" y="130" width="180" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -48,7 +48,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="background_folder_tile.png" width="1023" height="45"/>
-        <image name="ic_repository.png" width="1023" height="45"/>
+        <image name="background_folder_tile.png" width="16" height="16"/>
+        <image name="ic_repository.png" width="16" height="16"/>
     </resources>
 </document>

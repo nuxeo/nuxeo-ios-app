@@ -23,7 +23,7 @@
 #import "HomeViewController.h"
 
 #import "BrowseDocumentListViewController.h"
-
+#import "BrowseOnDeviceViewController.h"
 #import "PreviewDisplayViewController.h"
 
 #import "NuxeoDriveRemoteServices.h"
@@ -48,6 +48,19 @@
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     rvc.isUpdateAllButtonShown = YES;
     rvc.isBackButtonShown = YES;
+    rvc.isFooterVisible = YES;
+    [iController presentViewController:rvc animated:YES completion:^{
+        
+    }];
+    [rvc release];
+}
+
+- (void) pushBrowseOnDeviceControllerFrom:(UIViewController *)iController options:(NSDictionary *) options
+{
+    BrowseOnDeviceViewController *rvc = [[BrowseOnDeviceViewController alloc] initWithNibName:kXIBBrowseOnDeviceViewController bundle:nil];
+    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    rvc.isBackButtonShown = YES;
+    rvc.isUpdateAllButtonShown = YES;
     rvc.isFooterVisible = YES;
     [iController presentViewController:rvc animated:YES completion:^{
         

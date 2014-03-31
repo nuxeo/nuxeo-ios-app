@@ -29,7 +29,7 @@
 
 // ================ Home screen
 //- (void) pushBrowseAllDocumentControllerFrom:(UIViewController *)iController;
-//- (void) pushStandardCategoryControllerFrom:(UIViewController *)iController options:(NSDictionary *) options;
+- (void) pushBrowseOnDeviceControllerFrom:(UIViewController *)iController options:(NSDictionary *) options;
 - (void) pushDocumentsControllerFrom:(UIViewController *)iController options:(NSDictionary *) options;
 
 // ================ Browse screen

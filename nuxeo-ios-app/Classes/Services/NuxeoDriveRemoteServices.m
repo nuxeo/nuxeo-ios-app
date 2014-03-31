@@ -26,6 +26,7 @@
 #import <NuxeoSDK/NUXDocuments.h>
 #import <NuxeoSDK/NUXHierarchy.h>
 #import <NuxeoSDK/NUXHierarchyDB.h>
+#import <NuxeoSDK/NUXJSONSerializer.h>
 
 #import "NuxeoRetrieveException.h"
 
@@ -223,6 +224,66 @@
     return [sortedDocs allValues];
 }
 
+
+// Methods for Nuxeo Drive synchronize points
+- (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion
+{
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    NUXRequest * nuxRequest = [nuxSession requestOperation:@"NuxeoDrive.GetRoots"];
+    [nuxRequest startWithCompletionBlock:^(NUXRequest *request) {
+        // result
+        NSError * error = nil;
+        NUXDocuments * result = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
+        
+        completion(result);
+        
+    } FailureBlock:^(NUXRequest *request) {
+        
+        
+    }];
+    
+}
+
+- (void) addSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion
+{
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    NUXRequest * nuxRequest = [nuxSession requestOperation:@"NuxeoDrive.SetSynchronization"];
+    [nuxRequest addParameterValue:@"true" forKey:@"enable"];
+    ((NUXAutomationRequest *)nuxRequest).input = iPath;
+    [nuxRequest startWithCompletionBlock:^(NUXRequest *request) {
+        // result
+        NSError * error = nil;
+        NUXDocuments * result = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
+        
+        completion(result);
+        
+    } FailureBlock:^(NUXRequest *request) {
+        
+        
+    }];
+}
+
+- (void) removeSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion
+{
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    NUXRequest * nuxRequest = [nuxSession requestOperation:@"NuxeoDrive.SetSynchronization"];
+    [nuxRequest addParameterValue:@"false" forKey:@"enable"];
+    ((NUXAutomationRequest *)nuxRequest).input = iPath;
+    [nuxRequest startWithCompletionBlock:^(NUXRequest *request) {
+        // result
+        NSError * error = nil;
+        NUXDocuments * result = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
+        
+        completion(result);
+        
+    } FailureBlock:^(NUXRequest *request) {
+        
+        
+    }];
+}
+
+
+// Blob methods
 - (NSString *) userDocsFilePath
 {
     return [[NuxeoDriveUtils applicationDocumentsPath] stringByAppendingPathComponent:@"Docs"];

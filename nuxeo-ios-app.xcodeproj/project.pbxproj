@@ -10,6 +10,8 @@
 		71B3EC6A6F774EE0BE3939FF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F8EE3B232447B8B6C7DA4F /* libPods.a */; };
 		80619E6818CE265D0097FCE0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 80619E6718CE265D0097FCE0 /* libsqlite3.0.dylib */; };
 		8083104F18E1857F00D20CE3 /* NUXDocument+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8083104E18E1857F00D20CE3 /* NUXDocument+Utils.m */; };
+		808D356F18EA26E2006EED24 /* BrowseOnDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808D356E18EA26E2006EED24 /* BrowseOnDeviceViewController.m */; };
+		808D357118EA2717006EED24 /* BrowseOnDeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808D357018EA2717006EED24 /* BrowseOnDeviceViewController.xib */; };
 		80968FB018439E2400C4D321 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80968FAF18439E2400C4D321 /* MediaPlayer.framework */; };
 		80C4098C18D8F4450067740A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4091A18D8F4450067740A /* Constants.m */; };
 		80C4098D18D8F4450067740A /* BrowseDocumentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4091E18D8F4450067740A /* BrowseDocumentListViewController.m */; };
@@ -106,6 +108,9 @@
 		8083104E18E1857F00D20CE3 /* NUXDocument+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUXDocument+Utils.m"; sourceTree = "<group>"; };
 		8083105018E1E4DC00D20CE3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8083105118E1E4DC00D20CE3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		808D356D18EA26E2006EED24 /* BrowseOnDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseOnDeviceViewController.h; sourceTree = "<group>"; };
+		808D356E18EA26E2006EED24 /* BrowseOnDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseOnDeviceViewController.m; sourceTree = "<group>"; };
+		808D357018EA2717006EED24 /* BrowseOnDeviceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseOnDeviceViewController.xib; sourceTree = "<group>"; };
 		80968FAF18439E2400C4D321 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		80C4091918D8F4450067740A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		80C4091A18D8F4450067740A /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
@@ -306,6 +311,8 @@
 		80C4092318D8F4450067740A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				808D356D18EA26E2006EED24 /* BrowseOnDeviceViewController.h */,
+				808D356E18EA26E2006EED24 /* BrowseOnDeviceViewController.m */,
 				80C4092418D8F4450067740A /* HomeViewController.h */,
 				80C4092518D8F4450067740A /* HomeViewController.m */,
 			);
@@ -503,6 +510,7 @@
 		80C4098618D8F4450067740A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				808D357018EA2717006EED24 /* BrowseOnDeviceViewController.xib */,
 				80C4098718D8F4450067740A /* HomeViewController.xib */,
 			);
 			path = Home;
@@ -623,6 +631,7 @@
 				80C409C718D8F4450067740A /* ic_add_folder@2x~ipad.png in Resources */,
 				80C409CD18D8F4450067740A /* ic_user@2x~ipad.png in Resources */,
 				80C409A118D8F4450067740A /* Icon512.png in Resources */,
+				808D357118EA2717006EED24 /* BrowseOnDeviceViewController.xib in Resources */,
 				80C409CF18D8F4450067740A /* NuxeoDrive-Info.plist in Resources */,
 				80C409D618D8F4450067740A /* WelcomeViewController.xib in Resources */,
 				80C409B118D8F4450067740A /* ic_synchro_type_video@2x~ipad.png in Resources */,
@@ -739,6 +748,7 @@
 				80C4099418D8F4450067740A /* NuxeoDriveAppDelegate.m in Sources */,
 				80C4099818D8F4450067740A /* NuxeoButton.m in Sources */,
 				80C4098C18D8F4450067740A /* Constants.m in Sources */,
+				808D356F18EA26E2006EED24 /* BrowseOnDeviceViewController.m in Sources */,
 				80C4098D18D8F4450067740A /* BrowseDocumentListViewController.m in Sources */,
 				80C4099118D8F4450067740A /* NuxeoDriveViewController.m in Sources */,
 				80C4099218D8F4450067740A /* PreviewDisplayViewController.m in Sources */,

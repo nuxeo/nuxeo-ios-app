@@ -89,6 +89,7 @@
 #define kXIBBrowseStandardViewController            @"BrowseStandardViewController"
 #define kXIBBrowseSuiteCategoryViewController       @"BrowseSuiteCategoryViewController"
 #define kXIBBrowseDocumentListViewController        @"BrowseDocumentListViewController"
+#define kXIBBrowseOnDeviceViewController            @"BrowseOnDeviceViewController"
 #define kXIBDirectoryCellView                       @"DirectoryViewCell"
 #define kXIBDocumentTableCellView                   @"DocumentCellView"
 

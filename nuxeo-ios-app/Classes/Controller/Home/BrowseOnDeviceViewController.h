@@ -23,16 +23,14 @@
 
 #import "NuxeoLabel.h"
 
-@class NUXDocument;
+@class NUXDocuments;
 
-@interface HomeViewController : NuxeoDriveViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface BrowseOnDeviceViewController : NuxeoDriveViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 {
-    NUXDocument * rootDocument;
-    NSArray * synchronizedFolders;
+    NUXDocuments * synchronizedPoints;
 }
 
 @property (retain, nonatomic) IBOutlet UICollectionView *synchronizedFolders;
-@property (retain, nonatomic) IBOutlet UICollectionView *browsingFolders;
 
 
 @end

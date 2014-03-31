@@ -36,6 +36,7 @@
 @property (retain, nonatomic) IBOutlet NuxeoButton *preview;
 @property (retain, nonatomic) IBOutlet NuxeoButton *openWith;
 @property (retain, nonatomic) IBOutlet NuxeoButton *update;
+@property (retain, nonatomic) IBOutlet NuxeoButton *addSynch;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *updateActivity;
 
 
@@ -44,6 +45,8 @@
 - (IBAction)onTouchSync:(id)sender;
 - (IBAction)onTouchInfo:(id)sender;
 - (IBAction)onTouchPin:(id)sender;
+
+- (IBAction)onTouchAddSynch:(id)sender;
 
 
 - (void) setPictoBackgroundColor:(UIColor *)iColor;

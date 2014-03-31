@@ -35,6 +35,7 @@
 "button.openwith"                       = "OUVRIR AVEC";
 "button.sync.all"                       = "TOUT SYNC";
 "button.sync"                           = "SYNC";
+"button.add.sync"                       = "ADD TO DEVICE";
 "button.pin"                            = "PIN";
 "button.info"                           = "INFO";
 
@@ -45,6 +46,7 @@
 "welcome.login"                         = "Se connecter";
 
 // ============================= HOME ========================================
+"home.browse.repository"                = "BROWSE";
 "home.on.device"                        = "EN LOCAL";
 "home.online.content"                   = "CONTENU EN LIGNE";
 
