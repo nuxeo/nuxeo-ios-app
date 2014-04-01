@@ -16,17 +16,17 @@
  */
 
 // ==============================  Libellés Standards  ==============================  
-"application.name" = "NuxeoDrive";
-"application.notconnected" = "You must be connected";
-"button.ok" = "Ok";
-"button.yes" = "Yes";
-"button.no" = "No";
-"button.validate" = "Validate";
-"button.cancel" = "Cancel";
-"button.next" = "Next";
-"button.previous" = "Previous";
-"button.back" = "Back";
-"button.home" = "Home";
+"application.name"                      = "NuxeoDrive";
+"application.notconnected"              = "You must be connected";
+"button.ok"                             = "Ok";
+"button.yes"                            = "Yes";
+"button.no"                             = "No";
+"button.validate"                       = "Validate";
+"button.cancel"                         = "Cancel";
+"button.next"                           = "Next";
+"button.previous"                       = "Previous";
+"button.back"                           = "Back";
+"button.home"                           = "Home";
 
 
 "button.browse"                         = "BROWSE";
@@ -38,6 +38,7 @@
 "button.add.sync"                       = "ADD TO DEVICE";
 "button.pin"                            = "PIN";
 "button.info"                           = "INFO";
+"button.done"                           = "DONE";
 
 // ============================= WELCOME ========================================
 "welcome.host.url"                      = "Host URL";
@@ -61,3 +62,16 @@
 
 // ============================= PREVIEW ========================================
 "preview.open.with.noapp"               = "No application can open this type of file";
+
+// ============================= DETAIL INFO ========================================
+"detail.document.title"                 = "DOCUMENT TITLE";
+
+
+// ============================= SETTINGS ========================================
+"settings.title"                        = "PREFERENCES";
+"settings.file.storage"                 = "Files store max size";
+"settings.sync.cellular"                = "Sync over cellular";
+"settings.authentication"               = "AUTHENTICATION";
+"settings.revoke.token"                 = "Revoke token and Log out";
+"settings.about"                        = "Version %@ Nuxeo";
+

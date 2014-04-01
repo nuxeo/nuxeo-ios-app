@@ -31,9 +31,10 @@
 	
 }
 
+@property (nonatomic) BOOL isHeaderHidden;
 @property (nonatomic) BOOL isBackButtonShown;
 @property (nonatomic) BOOL isUpdateAllButtonShown;
-@property (nonatomic) BOOL isFooterVisible;
+@property (nonatomic) BOOL isFooterHidden;
 
 // Header
 @property (retain, nonatomic) UIButton * pinButton;

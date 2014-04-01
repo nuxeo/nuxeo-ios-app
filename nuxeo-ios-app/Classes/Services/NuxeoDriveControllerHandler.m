@@ -25,6 +25,8 @@
 #import "BrowseDocumentListViewController.h"
 #import "BrowseOnDeviceViewController.h"
 #import "PreviewDisplayViewController.h"
+#import "DetailDocumentInfoViewController.h"
+#import "SettingsViewController.h"
 
 #import "NuxeoDriveRemoteServices.h"
 
@@ -48,7 +50,6 @@
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     rvc.isUpdateAllButtonShown = YES;
     rvc.isBackButtonShown = YES;
-    rvc.isFooterVisible = YES;
     [iController presentViewController:rvc animated:YES completion:^{
         
     }];
@@ -61,7 +62,6 @@
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     rvc.isBackButtonShown = YES;
     rvc.isUpdateAllButtonShown = YES;
-    rvc.isFooterVisible = YES;
     [iController presentViewController:rvc animated:YES completion:^{
         
     }];
@@ -78,7 +78,6 @@
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     rvc.isBackButtonShown = YES;
     rvc.isUpdateAllButtonShown = YES;
-    rvc.isFooterVisible = YES;
     [iController presentViewController:rvc animated:YES completion:^{
         
     }];
@@ -94,13 +93,39 @@
     }
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     rvc.isBackButtonShown = YES;
-    rvc.isFooterVisible = NO;
+    rvc.isFooterHidden = YES;
     [iController presentViewController:rvc animated:YES completion:^{
         
     }];
     [rvc release];
 }
 
+- (void) pushDetailDocumentInfoControllerFrom:(UIViewController *)iController options:(NSDictionary *)options
+{
+    DetailDocumentInfoViewController * rvc = [[DetailDocumentInfoViewController alloc]initWithNibName:kXIBDetailDocumentInfoViewController bundle:nil];
+    if ([options objectForKey:kParamKeyDocument] != nil)
+    {
+        rvc.currentDocument = [options objectForKey:kParamKeyDocument];
+    }
+    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    rvc.isHeaderHidden = YES;
+    rvc.isBackButtonShown = YES;
+    rvc.isFooterHidden = YES;
+    
+    [iController.view addSubview:rvc.view];
+}
 
+
+
+- (void) pushSettingsControllerFrom:(UIViewController *)iController options:(NSDictionary *)options
+{
+    SettingsViewController * rvc = [[SettingsViewController alloc]initWithNibName:kXIBSettingsViewController bundle:nil];
+    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    rvc.isHeaderHidden = YES;
+    rvc.isBackButtonShown = YES;
+    rvc.isFooterHidden = YES;
+    
+    [iController.view addSubview:rvc.view];
+}
 
 @end

@@ -176,7 +176,7 @@
 - (IBAction)onTouchTest:(id)sender
 {
 
-    [[NuxeoDriveRemoteServices instance] addSynchronizePoint:nil
+    [[NuxeoDriveRemoteServices instance] removeSynchronizePoint:@"doc:/default-domain/workspaces/Finance"
                                              completionBlock:^(id result) {
                                                  
                                              }];
@@ -205,14 +205,14 @@
     if ([collectionView isEqual:self.synchronizedFolders])
     {
         DirectoryViewCell * cell = (DirectoryViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:kSynchroReuseIdentifierForCollection forIndexPath:indexPath];
-        
-        
+        [cell localizeRecursively];
         
         return cell;
     }
     else if ([collectionView isEqual:self.browsingFolders])
     {
         DirectoryViewCell * cell = (DirectoryViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:kBrowseReuseIdentifierForCollection forIndexPath:indexPath];
+        [cell localizeRecursively];
         
         
         

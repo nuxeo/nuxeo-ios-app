@@ -153,8 +153,9 @@
 
 - (void)onTouchInfo:(NSIndexPath *)indexPath
 {
-    NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
+    NUXDocument * selectedDocument = [self documentByIndexPath:indexPath];
     
+    [CONTROLLER_HANDLER pushDetailDocumentInfoControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
 }
 
 - (void)onTouchPin:(NSIndexPath *)indexPath

@@ -94,6 +94,8 @@
 #define kXIBDocumentTableCellView                   @"DocumentCellView"
 
 #define kXIBPreviewDisplayViewController            @"PreviewDisplayViewController"
+#define kXIBDetailDocumentInfoViewController        @"DetailDocumentInfoViewController"
+#define kXIBSettingsViewController                  @"SettingsViewController"
 
 /****************************** NOTIFICATIONS ********************************/
 

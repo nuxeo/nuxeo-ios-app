@@ -33,5 +33,8 @@
 
 // ================ Browse screen
 - (void) pushPreviewControllerFrom:(UIViewController *)iController options:(NSDictionary *) options;
+- (void) pushDetailDocumentInfoControllerFrom:(UIViewController *)iController options:(NSDictionary *)options;
 
+// ================ Settings screen
+- (void) pushSettingsControllerFrom:(UIViewController *)iController options:(NSDictionary *)options;
 @end

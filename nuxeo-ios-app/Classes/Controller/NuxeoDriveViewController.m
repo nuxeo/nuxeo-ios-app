@@ -200,6 +200,7 @@
 
 -(void) onSetupHeaderBar
 {
+    if(self.isHeaderHidden == NO)
     {
         // bar custom
         UIView * navBarCustomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kLandscapeScreenWidth, kCustomNavigationBarHeight)];
@@ -235,7 +236,7 @@
 
 -(void) onSetupFooterBar
 {
-    if(self.isFooterVisible == YES)
+    if(self.isFooterHidden == NO)
     {
         // Add footer view
         UIView * footerBarCustomView = [[UIView alloc] initWithFrame:CGRectMake(0, kLandscapeScreenHeight - kCustomFooterBarHeight, kLandscapeScreenWidth, kCustomFooterBarHeight)];
@@ -372,8 +373,7 @@
 
 - (void) onTouchSettings:(id)sender
 {
-    // TODO
-    
+    [[NuxeoDriveControllerHandler instance] pushSettingsControllerFrom:self options:nil];
 }
 
 #pragma mark -
