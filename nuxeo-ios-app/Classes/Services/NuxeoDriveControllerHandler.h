@@ -28,7 +28,6 @@
 - (void) pushHomeControllerFrom:(UIViewController *)iController options:(NSDictionary *) options;
 
 // ================ Home screen
-//- (void) pushBrowseAllDocumentControllerFrom:(UIViewController *)iController;
 - (void) pushBrowseOnDeviceControllerFrom:(UIViewController *)iController options:(NSDictionary *) options;
 - (void) pushDocumentsControllerFrom:(UIViewController *)iController options:(NSDictionary *) options;
 
