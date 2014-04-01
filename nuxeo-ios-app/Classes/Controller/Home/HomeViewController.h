@@ -34,5 +34,6 @@
 @property (retain, nonatomic) IBOutlet UICollectionView *synchronizedFolders;
 @property (retain, nonatomic) IBOutlet UICollectionView *browsingFolders;
 
+- (IBAction)onTouchTest:(id)sender;
 
 @end

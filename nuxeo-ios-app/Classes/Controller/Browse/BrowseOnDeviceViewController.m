@@ -1,5 +1,5 @@
 //
-//  HomeViewController.m
+//  BrowseOnDeviceViewController.m
 //  NuxeoDrive
 //
 /* (C) Copyright 2013-2014 Nuxeo SA (http://nuxeo.com/) and contributors.

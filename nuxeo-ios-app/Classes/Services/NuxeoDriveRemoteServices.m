@@ -249,7 +249,7 @@
     NUXSession * nuxSession = [NUXSession sharedSession];
     NUXRequest * nuxRequest = [nuxSession requestOperation:@"NuxeoDrive.SetSynchronization"];
     [nuxRequest addParameterValue:@"true" forKey:@"enable"];
-    ((NUXAutomationRequest *)nuxRequest).input = iPath;
+    ((NUXAutomationRequest *)nuxRequest).input = @"doc:/default-domain/workspaces/Finance";
     [nuxRequest startWithCompletionBlock:^(NUXRequest *request) {
         // result
         NSError * error = nil;

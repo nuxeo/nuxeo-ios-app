@@ -173,6 +173,15 @@
 }
 
 
+- (IBAction)onTouchTest:(id)sender
+{
+
+    [[NuxeoDriveRemoteServices instance] addSynchronizePoint:nil
+                                             completionBlock:^(id result) {
+                                                 
+                                             }];
+}
+
 #pragma mark -
 #pragma mark UICollectionViewDataSource
 #pragma mark -
