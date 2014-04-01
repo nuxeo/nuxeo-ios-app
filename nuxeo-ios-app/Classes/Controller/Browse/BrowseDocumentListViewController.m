@@ -169,10 +169,21 @@
 {
     NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
     
-    [[NuxeoDriveRemoteServices instance] addSynchronizePoint:nuxDocument.path
-                                            completionBlock:^(id result) {
-        
-    }];
+    if ([nuxDocument isDriveSynchronizedFolder] == YES)
+    {
+        [[NuxeoDriveRemoteServices instance] removeSynchronizePoint:nuxDocument.path
+                                                 completionBlock:^(id result) {
+                                                     
+                                                 }];
+    }
+    else
+    {
+        [[NuxeoDriveRemoteServices instance] addSynchronizePoint:nuxDocument.path
+                                                 completionBlock:^(id result) {
+                                                     
+                                                 }];
+    }
+    
 }
 
 - (void)onTouchUpdate:(NSIndexPath *)indexPath
@@ -225,7 +236,7 @@
         
         [cell setTarget:self forIndexPath:indexPath];
         
-        cell.picto.image = [UIImage imageNamed:@"ic_type_folder"];//[super computePictoForDocument:selectedDocument];
+        cell.picto.image = [UIImage imageNamed:[selectedDocument pictoForDocument]];
         cell.backgroundColor = [UIColor clearColor];
         [cell localizeRecursively];
         

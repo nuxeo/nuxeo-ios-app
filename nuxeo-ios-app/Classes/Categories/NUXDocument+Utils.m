@@ -16,21 +16,39 @@
 #define kNuxeoDocumentTypeFile          @"File"
 #define kNuxeoDocumentTypeNote          @"Note"
 
+#define kNuxeoDocumentFacetFolder       @"Folderish"
+#define kNuxeoDocumentFacetSynchronized @"DriveSynchronized"
+
+
 @implementation NUXDocument (Utils)
 
 
 - (BOOL) isFolder
 {
-    if ([self.type isEqualToString:kNuxeoDocumentTypeSection] || [self.type isEqualToString:kNuxeoDocumentTypeTemplateRoot] || [self.type isEqualToString:kNuxeoDocumentTypeWorkspaceRoot])
+    if ([self.facets containsObject:kNuxeoDocumentFacetFolder])
     {
         return YES;
     }
-    
-    if ([self.type isEqualToString:kNuxeoDocumentTypeFile] || [self.type isEqualToString:kNuxeoDocumentTypeNote])
+    return NO;
+}
+
+
+- (BOOL) isDriveSynchronizedFolder
+{
+    if ([self.facets containsObject:kNuxeoDocumentFacetSynchronized])
     {
-        return NO;
+        return YES;
     }
-    return YES;
+    return NO;
+}
+
+- (NSString *) pictoForDocument
+{
+    if ([self isFolder] == YES)
+    {
+        return @"ic_type_folder";
+    }
+    return @"ic_type_file";
 }
 
 @end
