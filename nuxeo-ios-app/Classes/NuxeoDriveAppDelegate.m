@@ -28,6 +28,8 @@
 #import <NuxeoSDK/NUXBlobStore.h>
 #import <NuxeoSDK/NUXTokenAuthenticator.h>
 
+#import "NuxeoSettingsManager.h"
+
 #import "Reachability.h"
 
 #pragma mark -
@@ -94,8 +96,8 @@
 	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     // 5Go convert with http://www.convertworld.com/fr/mesures-informatiques/Gigaoctet+%28Gigabyte%29.html
-    ((NUXBlobStore*)[NUXBlobStore instance]).sizeLimit = [NSNumber numberWithLongLong:(long long)5 * 1024 * 1024 * 1024];
-    ((NUXBlobStore*)[NUXBlobStore instance]).countLimit = @(-1);
+    ((NUXBlobStore*)[NUXBlobStore instance]).sizeLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:[NSNumber numberWithLongLong:(long long)5 * 1024 * 1024 * 1024]];
+    ((NUXBlobStore*)[NUXBlobStore instance]).countLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_COUNT_LIMIT defaultValue:@(-1)];
     
 }
 

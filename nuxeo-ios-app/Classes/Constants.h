@@ -29,21 +29,21 @@
 
 #import "NuxeoDriveAppDelegate.h"
 
-#define APP_DELEGATE            ((NuxeoDriveAppDelegate *) [[UIApplication sharedApplication] delegate])
-#define CONTROLLER_HANDLER      [NuxeoDriveControllerHandler instance]
+#define APP_DELEGATE                ((NuxeoDriveAppDelegate *) [[UIApplication sharedApplication] delegate])
+#define CONTROLLER_HANDLER          [NuxeoDriveControllerHandler instance]
 
 #define kNuxeoScreenWidth			[[UIScreen mainScreen] applicationFrame].size.width
-#define kNuxeoScreenHeight		[[UIScreen mainScreen] applicationFrame].size.height
+#define kNuxeoScreenHeight          [[UIScreen mainScreen] applicationFrame].size.height
 #define kNuxeoCurrentOrientation 	[[UIApplication sharedApplication] statusBarOrientation]
 
-#define NuxeoLocalized(s) NSLocalizedString(s,@"")
+#define NuxeoLocalized(s)           NSLocalizedString(s,@"")
 
 #define DeviceOrientationSupported(orientation) UIDeviceOrientationIsLandscape(orientation) 
 
-#define NuxeoViewX(v)			((v).frame.origin.x)
-#define NuxeoViewY(v)			((v).frame.origin.y)
-#define NuxeoViewW(v)			((v).frame.size.width)
-#define NuxeoViewH(v)			((v).frame.size.height)
+#define NuxeoViewX(v)               ((v).frame.origin.x)
+#define NuxeoViewY(v)               ((v).frame.origin.y)
+#define NuxeoViewW(v)               ((v).frame.size.width)
+#define NuxeoViewH(v)               ((v).frame.size.height)
 
 #define kLandscapeScreenWidth       1024
 #define kLandscapeScreenHeight      768
@@ -122,6 +122,10 @@
 
 #define USER_HOST_URL               @"USER_HOST_URL"
 #define USER_USERNAME               @"USER_USERNAME"
+
+#define USER_FILES_STORE_MAX_SIZE   @"USER_FILES_STORE_MAX_SIZE"
+#define USER_FILES_COUNT_LIMIT      @"USER_FILES_COUNT_LIMIT"
+#define USER_SYNC_OVER_CELLULAR     @"USER_SYNC_OVER_CELLULAR"
 
 /********************************** ServicesWeb ********************************/
 

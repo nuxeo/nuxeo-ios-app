@@ -29,7 +29,7 @@
 + (NuxeoSettingsManager *) instance;
 
 - (void) saveSetting:(id)value forKey:(NSString*)key;
-- (id) readSetting:(NSString*)key;
+- (id) readSetting:(NSString*)key defaultValue:(id)defaultValue;
 - (void) deleteSetting:(NSString*)key;
 
 - (void) saveIntSetting:(int)value forKey:(NSString*)key;
