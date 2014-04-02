@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
                 <outlet property="browsingFolders" destination="K7Z-os-N9L" id="zth-Bv-hco"/>
-                <outlet property="synchronizedFolders" destination="Rjr-eh-QZe" id="Ci9-1r-zu2"/>
+                <outlet property="popupActions" destination="YGO-mP-odm" id="evq-ow-fGB"/>
                 <outlet property="view" destination="1" id="30"/>
             </connections>
         </placeholder>
@@ -21,40 +21,6 @@
                     <rect key="frame" x="0.0" y="60" width="1024" height="708"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view hidden="YES" contentMode="scaleToFill" id="RXp-Rv-KpV" userLabel="View - Synchro Points">
-                            <rect key="frame" x="0.0" y="0.0" width="1024" height="285"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_section.png" id="V46-Ed-YAb">
-                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="45"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" id="Rjr-eh-QZe">
-                                    <rect key="frame" x="0.0" y="45" width="1024" height="240"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="5" id="FVb-4A-2o2">
-                                        <size key="itemSize" width="180" height="160"/>
-                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                        <inset key="sectionInset" minX="50" minY="10" maxX="50" maxY="10"/>
-                                    </collectionViewFlowLayout>
-                                    <cells/>
-                                    <connections>
-                                        <outlet property="dataSource" destination="-1" id="dMO-d9-KUb"/>
-                                        <outlet property="delegate" destination="-1" id="OBH-k6-8nc"/>
-                                    </connections>
-                                </collectionView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="home.on.device" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BeV-BO-hZC">
-                                    <rect key="frame" x="0.0" y="0.0" width="1031" height="45"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                    <color key="textColor" red="0.0" green="0.73725491759999995" blue="0.96862751250000001" alpha="1" colorSpace="deviceRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" red="0.93725496530532837" green="0.94117653369903564" blue="0.94117653369903564" alpha="1" colorSpace="deviceRGB"/>
-                        </view>
                         <view contentMode="scaleToFill" id="ceJ-fF-giU" userLabel="View - Browse">
                             <rect key="frame" x="0.0" y="0.0" width="1024" height="708"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -71,7 +37,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" id="K7Z-os-N9L">
-                                    <rect key="frame" x="0.0" y="45" width="1024" height="663"/>
+                                    <rect key="frame" x="0.0" y="45" width="1024" height="606"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="5" id="4vW-RO-pbg">
@@ -106,8 +72,50 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
         </view>
+        <view hidden="YES" contentMode="scaleToFill" id="YGO-mP-odm" userLabel="View - Popup">
+            <rect key="frame" x="0.0" y="0.0" width="189" height="198"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="PrF-gW-gpX" userLabel="Image View - Background">
+                    <rect key="frame" x="0.0" y="0.0" width="189" height="198"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PYa-zq-lPt">
+                    <rect key="frame" x="0.0" y="28" width="189" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="button.unpin">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onTouchUnpin:" destination="-1" eventType="touchUpInside" id="srm-1t-huJ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UI7-tJ-3DY">
+                    <rect key="frame" x="0.0" y="86" width="189" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="button.info" image="bt_header_info.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onTouchInfo:" destination="-1" eventType="touchUpInside" id="3Be-aE-vLV"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gJL-0o-MsT">
+                    <rect key="frame" x="0.0" y="138" width="189" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="button.remove.from.device">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onTouchRemoveFromDevice:" destination="-1" eventType="touchUpInside" id="Ub9-aa-NRp"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+        </view>
     </objects>
     <resources>
         <image name="background_section.png" width="1023" height="45"/>
+        <image name="bt_header_info.png" width="25" height="25"/>
     </resources>
 </document>

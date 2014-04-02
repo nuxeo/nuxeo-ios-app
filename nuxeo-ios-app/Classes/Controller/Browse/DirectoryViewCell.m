@@ -40,6 +40,14 @@
     }
 }
 
+- (IBAction)onTouchInfo:(id)sender
+{
+    if (self.popupInfoDelegate != nil)
+    {
+        [self.popupInfoDelegate onTouchInfoAtIndexPath:self.indexPath];
+    }
+}
+
 
 
 - (void)dealloc {

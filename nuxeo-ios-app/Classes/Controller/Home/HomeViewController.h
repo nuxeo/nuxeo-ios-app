@@ -21,19 +21,35 @@
 #import <UIKit/UIKit.h>
 #import "NuxeoDriveViewController.h"
 
+#import "NuxeoDrivePopupInfoViewDelegate.h"
+
 #import "NuxeoLabel.h"
 
 @class NUXDocument;
 
-@interface HomeViewController : NuxeoDriveViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+
+
+
+
+@interface HomeViewController : NuxeoDriveViewController <UICollectionViewDataSource, UICollectionViewDelegate, NuxeoDrivePopupActionViewDelegate>
 {
     NUXDocument * rootDocument;
     NSArray * synchronizedFolders;
+    
+    // for popup info mechanism
+    NSIndexPath * selectedDocumentIndex;
 }
 
-@property (retain, nonatomic) IBOutlet UICollectionView *synchronizedFolders;
 @property (retain, nonatomic) IBOutlet UICollectionView *browsingFolders;
 
+@property (retain, nonatomic) IBOutlet UIView *popupActions;
+
+- (IBAction)onTouchUnpin:(id)sender;
+- (IBAction)onTouchInfo:(id)sender;
+- (IBAction)onTouchRemoveFromDevice:(id)sender;
+
+
+// Test
 - (IBAction)onTouchTest:(id)sender;
 
 @end

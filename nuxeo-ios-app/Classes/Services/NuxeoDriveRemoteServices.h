@@ -38,11 +38,8 @@ typedef void (^NuxeoDriveServicesSimpleBlock)();
 - (NSString *) getIOSLanguage;
 
 // Retrieve Hierarchy for suite
-- (void) retrieveSuiteHierarchyWithName:(NSString *)iName rootPath:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
-- (NSString *) mainHierarchyName;
-- (void) retrieveBrowseAllHierarchy:(NuxeoDriveServicesBlock)completion;
-- (NSArray *) retrieveAllDocumentsFromMainHierarchy;
-- (void) setupAllHierarchy:(NuxeoDriveServicesBlock)completion;
+- (NSArray *) retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName;
+- (void) loadHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
 
 // Methods for Nuxeo Drive synchronize points
 - (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion;

@@ -1,6 +1,6 @@
 //
-//  DirectoryViewCell.h
-//  NuxeoDrive
+//  NuxeoDrivePopupActionViewDelegate.h
+//  nuxeo-ios-app
 //
 /* (C) Copyright 2013-2014 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
@@ -18,27 +18,18 @@
  * 	Matthias Rouberol
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-#import "NuxeoDrivePopupInfoViewDelegate.h"
+@protocol NuxeoDrivePopupActionViewDelegate <NSObject>
 
-#import "NuxeoLabel.h"
+// Fire when user touch on info button on collectionViewCell
+- (void) onTouchInfoAtIndexPath:(NSIndexPath *)indexPath;
+// Fire when user touch on unpin button
+- (void) onTouchUnpinAtIndexPath:(NSIndexPath *)indexPath;
+// Fire when user touch on info button on popup
+- (void) onTouchInfoButtonAtIndexPath:(NSIndexPath *)indexPath;
+// Fire when user touch on remove from device button
+- (void) onTouchRemoveAtIndexPath:(NSIndexPath *)indexPath;
 
-@interface DirectoryViewCell : UICollectionViewCell
-{
-    
-}
-
-@property (nonatomic, assign) id<NuxeoDrivePopupActionViewDelegate> popupInfoDelegate;
-@property (nonatomic, assign) NSIndexPath * indexPath;
-@property (retain, nonatomic) IBOutlet UIImageView *picto;
-@property (retain, nonatomic) IBOutlet NuxeoLabel *title;
-
-@property (nonatomic) BOOL enabled;
-
-- (void) setPictoBackgroundColor:(UIColor *)iColor;
-
-
-- (IBAction)onTouchInfo:(id)sender;
 
 @end

@@ -36,7 +36,6 @@
 
 #import "DirectoryViewCell.h"
 
-#define kSynchroReuseIdentifierForCollection    @"SynchroFolder"
 #define kBrowseReuseIdentifierForCollection     @"BrowseFolder"
 
 @implementation HomeViewController
@@ -44,6 +43,11 @@
 #pragma mark -
 #pragma mark HomeViewController
 #pragma mark -
+
+- (void) hidePopupAction
+{
+    self.popupActions.hidden = YES;
+}
 
 - (void) retrieveBusinessObjects
 {
@@ -69,16 +73,6 @@
          {
              [self logout];
          }];
-    }
-    
-    // All Synchronized content
-    {
-        [[NuxeoDriveRemoteServices instance] retrieveAllSynchronizePoints:^(id results)
-        {
-            synchronizedFolders = [results retain];
-            
-            [self.browsingFolders reloadData];
-        }];
     }
 }
 
@@ -127,9 +121,6 @@
 {
 	[super loadView];
 	
-    UINib  *directoryCellNib = [UINib nibWithNibName:kXIBDirectoryCellView bundle:nil];
-    [self.synchronizedFolders registerNib:directoryCellNib forCellWithReuseIdentifier:kSynchroReuseIdentifierForCollection];
-    
     UINib  *folderCellNib = [UINib nibWithNibName:kXIBDirectoryCellView bundle:nil];
     [self.browsingFolders registerNib:folderCellNib forCellWithReuseIdentifier:kBrowseReuseIdentifierForCollection];
     
@@ -173,6 +164,21 @@
 }
 
 
+- (IBAction)onTouchUnpin:(id)sender
+{
+    [self onTouchUnpinAtIndexPath:selectedDocumentIndex];
+}
+
+- (IBAction)onTouchInfo:(id)sender
+{
+    [self onTouchInfoButtonAtIndexPath:selectedDocumentIndex];
+}
+
+- (IBAction)onTouchRemoveFromDevice:(id)sender
+{
+    [self onTouchRemoveAtIndexPath:selectedDocumentIndex];
+}
+
 - (IBAction)onTouchTest:(id)sender
 {
 
@@ -183,18 +189,66 @@
 }
 
 #pragma mark -
+#pragma mark NuxeoDrivePopupActionViewDelegate
+#pragma mark -
+
+// Fire when user touch on info button on collectionViewCell
+- (void) onTouchInfoAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.popupActions.hidden == YES || (self.popupActions.hidden == NO && selectedDocumentIndex != indexPath))
+    {
+        UICollectionViewCell * selectedCell = [self.browsingFolders cellForItemAtIndexPath:indexPath];
+        self.popupActions.frame = (CGRect){CGPointMake(NuxeoViewX(selectedCell)-20, NuxeoViewY(selectedCell)+40),self.popupActions.frame.size};
+        [[selectedCell superview] addSubview:self.popupActions];
+        self.popupActions.hidden = NO;
+        selectedDocumentIndex = indexPath;
+    }
+    else
+    {
+        if (selectedDocumentIndex == indexPath)
+        {
+            // hide the popup
+            self.popupActions.hidden = YES;
+            [self.popupActions removeFromSuperview];
+        }
+    }
+    
+}
+
+// Fire when user touch on unpin button
+- (void) onTouchUnpinAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self hidePopupAction];
+    
+}
+
+// Fire when user touch on info button on popup
+- (void) onTouchInfoButtonAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self hidePopupAction];
+    
+}
+
+// Fire when user touch on remove from device button
+- (void) onTouchRemoveAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self hidePopupAction];
+    
+//    [[NuxeoDriveRemoteServices instance] removeSynchronizePoint:@"" completionBlock:^{
+//        
+//    }];
+    
+}
+
+#pragma mark -
 #pragma mark UICollectionViewDataSource
 #pragma mark -
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if ([collectionView isEqual:self.synchronizedFolders])
+    if ([collectionView isEqual:self.browsingFolders])
     {
-        return 6;
-    }
-    else if ([collectionView isEqual:self.browsingFolders])
-    {
-        return 1;
+        return 100;
     }
     return 0;
 }
@@ -202,19 +256,13 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([collectionView isEqual:self.synchronizedFolders])
-    {
-        DirectoryViewCell * cell = (DirectoryViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:kSynchroReuseIdentifierForCollection forIndexPath:indexPath];
-        [cell localizeRecursively];
-        
-        return cell;
-    }
-    else if ([collectionView isEqual:self.browsingFolders])
+    if ([collectionView isEqual:self.browsingFolders])
     {
         DirectoryViewCell * cell = (DirectoryViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:kBrowseReuseIdentifierForCollection forIndexPath:indexPath];
         [cell localizeRecursively];
         
-        
+        cell.popupInfoDelegate = self;
+        cell.indexPath = indexPath;
         
         return cell;
     }
@@ -227,11 +275,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([collectionView isEqual:self.synchronizedFolders])
-    {
-        
-    }
-    else if ([collectionView isEqual:self.browsingFolders])
+    if ([collectionView isEqual:self.browsingFolders])
     {
         // Browse into selected folder
         if (rootDocument != nil)
@@ -255,9 +299,9 @@
 
 - (void)dealloc
 {
-    
-    [_synchronizedFolders release];
     [_browsingFolders release];
+    [_popupActions release];
     [super dealloc];
 }
+
 @end

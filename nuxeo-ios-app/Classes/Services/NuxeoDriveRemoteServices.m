@@ -51,7 +51,7 @@
 {
     NSString * country = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
     NSString * lang = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
- 
+    
     /* Possibles values
      en-us
      en-uk
@@ -60,132 +60,76 @@
      it-it
      ru
      es-es
-     */    
+     */
     return [NSString stringWithFormat:@"%@-%@", lang, country];
 }
 
 
 // ===========================================================================================
 
-
-// Setup allHierarchy
-- (void) setupAllHierarchy:(NuxeoDriveServicesBlock)completion
-{
-    NUXHierarchy * allHierarchy = [NUXHierarchy hierarchyWithName:[self mainHierarchyName]];
-    
-    [allHierarchy setCompletionBlock:^{
-        NSLog(@"hierarchy done !");
-        completion(allHierarchy);
-    }];
-    
-    allHierarchy.nodeBlock = ^NSArray *(NUXEntity *entity, NSUInteger depth)
-    {
-        NUXDocument *doc = (NUXDocument *)entity;
-        if ([self shouldLoadDocumentsForNode:doc withDepth:depth] == YES)
-        {
-            NUXSession * nuxSession = [NUXSession sharedSession];
-            
-            // retrieve all documents in this node in synchronize mode
-            NSString * subRequestFormat = @"SELECT * FROM Document where ecm:path startswith '%@' and ecm:currentLifeCycleState <> 'deleted'";
-            NSString * subRequestQuery = [NSString stringWithFormat:subRequestFormat, doc.path];
-            
-            NUXRequest * nuxSubRequest = [nuxSession requestQuery:subRequestQuery];
-            [nuxSubRequest startSynchronous];
-            
-            // XXX Sleep to ensure that other threads finish to filled nuxSubRequest's response fields.
-            [NSThread sleepForTimeInterval:0.002f];
-            
-            if ([nuxSubRequest responseData] != nil) {
-                NUXDocuments * documents = [nuxSubRequest responseEntityWithError:nil];
-                return documents.entries;//liste des documents
-            }
-        }
-        return nil;
-    };
-}
-
-// Retrieve Hierarchy for suite
-- (void) retrieveSuiteHierarchyWithName:(NSString *)iName rootPath:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion
-{
-    NSString * hierarchieName = [NSString stringWithFormat:@"%@", iName];
-    NUXHierarchy * suiteHierarchy = [NUXHierarchy hierarchyWithName:hierarchieName];
-    
-    if ([APP_DELEGATE isNetworkConnected] == YES)
-    {
-        [suiteHierarchy resetCache];
-    }
-    // Create the background queue
-    dispatch_queue_t backgroundQueue = dispatch_queue_create([NSString stringWithFormat:@"%@%@",@"Hierarchy", iName].UTF8String, NULL);
-    
-    dispatch_async(backgroundQueue, ^{
-        
-        NUXSession * nuxSession = [NUXSession sharedSession];
-        // Request by path
-        NSString * requestFormat = @"SELECT * FROM Folder where ecm:path startswith '%@' and ecm:currentLifeCycleState <> 'deleted'";
-        NSString * query = [NSString stringWithFormat:requestFormat, iPath];
-        NUXRequest * nuxRequest = [nuxSession requestQuery:query];
-        
-        [suiteHierarchy setCompletionBlock:^{
-            NuxeoLogD(@"hierarchy done !");
-            if (completion != nil)
-            {
-                completion(suiteHierarchy);
-            }
-        }];
-        
-        suiteHierarchy.nodeBlock = ^NSArray *(NUXEntity *entity, NSUInteger depth)
-        {
-            NUXDocument *doc = (NUXDocument *)entity;
-            {
-                // retrieve all documents in this node in synchronize mode
-                NSString * subRequestFormat = @"SELECT * FROM Document where ecm:path startswith '%@' and ecm:currentLifeCycleState <> 'deleted'";
-                NSString * subRequestQuery = [NSString stringWithFormat:subRequestFormat, doc.path];
-                
-                NUXRequest * nuxSubRequest = [nuxSession requestQuery:subRequestQuery];
-                
-                [nuxSubRequest startSynchronous];
-                if ([nuxSubRequest responseData] != nil)
-                {
-                    NUXDocuments * documents = [nuxSubRequest responseEntityWithError:nil];
-                    return documents.entries;//liste des documents
-                }
-                
-            }
-            return nil;
-        };
-        
-        [suiteHierarchy loadWithRequest:nuxRequest];
-        [suiteHierarchy waitUntilLoadingIsDone];
-        
-    });
-                   
-    // won't be actually released until queue is empty
-    dispatch_release(backgroundQueue);
-    
-
-}
-
+// Indicate if documents for a node of a the hierarchy have to be loaded
 - (BOOL) shouldLoadDocumentsForNode:(NUXDocument *)nuxDocument withDepth:(int)iDepth
 {
     return YES;
 }
 
-
-- (NSString *) mainHierarchyName
+// Setup a hierarchy with its name
+- (NUXHierarchy *) setupHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion
 {
-    return [NSString stringWithFormat:@"%@", kNuxeoHierarchyAllProducts];
+    NUXHierarchy * aHierarchy = [NUXHierarchy hierarchyWithName:iHerarchieName];
+    
+    if (aHierarchy.completionBlock == nil)
+    {
+        [aHierarchy setCompletionBlock:^{
+            NSLog(@"hierarchy done !");
+            completion(aHierarchy);
+        }];
+    }
+    
+    if (aHierarchy.nodeBlock == nil)
+    {
+        aHierarchy.nodeBlock = ^NSArray *(NUXEntity *entity, NSUInteger depth)
+        {
+            NUXDocument *doc = (NUXDocument *)entity;
+            if ([self shouldLoadDocumentsForNode:doc withDepth:depth] == YES)
+            {
+                NUXSession * nuxSession = [NUXSession sharedSession];
+                
+                // retrieve all documents in this node in synchronize mode
+                NSString * subRequestFormat = @"SELECT * FROM Document where ecm:path startswith '%@' and ecm:currentLifeCycleState <> 'deleted'";
+                NSString * subRequestQuery = [NSString stringWithFormat:subRequestFormat, doc.path];
+                
+                NUXRequest * nuxSubRequest = [nuxSession requestQuery:subRequestQuery];
+                [nuxSubRequest startSynchronous];
+                
+                // XXX Sleep to ensure that other threads finish to filled nuxSubRequest's response fields.
+                [NSThread sleepForTimeInterval:0.002f];
+                
+                if ([nuxSubRequest responseData] != nil)
+                {
+                    // Return subdocuments
+                    NUXDocuments * documents = [nuxSubRequest responseEntityWithError:nil];
+                    return documents.entries;
+                }
+            }
+            return nil;
+        };
+    }
+    
+    return aHierarchy;
 }
 
-- (void) retrieveBrowseAllHierarchy:(NuxeoDriveServicesBlock)completion;
+
+- (void) loadHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
 {
-    NUXHierarchy * allHierarchy = [NUXHierarchy hierarchyWithName:[self mainHierarchyName]];
+    __block NUXHierarchy * aHierarchy = [self setupHierarchy:iHerarchieName completionBlock:completion];//[NUXHierarchy hierarchyWithName:iHerarchieName];
     
     if ([APP_DELEGATE isNetworkConnected] == YES)
     {
-        [allHierarchy resetCache];
+        [aHierarchy resetCache];
         
         // Create the background queue
-        dispatch_queue_t backgroundQueue = dispatch_queue_create([self mainHierarchyName].UTF8String, NULL);
+        dispatch_queue_t backgroundQueue = dispatch_queue_create(iHerarchieName.UTF8String, NULL);
         
         dispatch_async(backgroundQueue, ^{
             NUXSession * nuxSession = [NUXSession sharedSession];
@@ -195,7 +139,7 @@
             NUXRequest * nuxRequest = [nuxSession requestQuery:query];
             [nuxRequest addParameterValue:@"100" forKey:@"pageSize"];
             
-            [allHierarchy loadWithRequest:nuxRequest];
+            [aHierarchy loadWithRequest:nuxRequest];
         });
         
         // won't be actually released until queue is empty
@@ -203,29 +147,32 @@
     }
     else
     {
-        completion(allHierarchy);
+        completion(aHierarchy);
     }
-
+    
 }
 
-- (NSArray *) retrieveAllDocumentsFromMainHierarchy
+- (NSArray *) retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName
 {
     // Retrieve all documents
-    NSString * hierarchyName = [[NuxeoDriveRemoteServices instance] mainHierarchyName];
-    NUXHierarchy * currentHierarchy = [NUXHierarchy hierarchyWithName:hierarchyName];
-    NSArray * allDocs = [currentHierarchy contentOfAllDocuments];
-    
-    NSMutableDictionary* sortedDocs = [NSMutableDictionary dictionary];
-    for (NUXDocument * doc in allDocs)
+    NUXHierarchy * currentHierarchy = [NUXHierarchy hierarchyWithName:iHierarchyName];
+    if ([currentHierarchy isLoaded] == YES)
     {
-        [sortedDocs setObject:doc forKey:doc.uid];
+        NSArray * allDocs = [currentHierarchy contentOfAllDocuments];
+        
+        NSMutableDictionary* sortedDocs = [NSMutableDictionary dictionary];
+        for (NUXDocument * doc in allDocs)
+        {
+            [sortedDocs setObject:doc forKey:doc.uid];
+        }
+        
+        return [sortedDocs allValues];
     }
-    
-    return [sortedDocs allValues];
+    return nil;
 }
 
 
-// Methods for Nuxeo Drive synchronize points
+// Methods for Nuxeo Drive synchronized points
 - (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion
 {
     NUXSession * nuxSession = [NUXSession sharedSession];
@@ -255,6 +202,8 @@
         NSError * error = nil;
         NUXDocuments * result = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ADD_SYNC_POINT object:((NUXAutomationRequest *)nuxRequest).input];
+        
         completion(result);
         
     } FailureBlock:^(NUXRequest *request) {
@@ -273,6 +222,8 @@
         // result
         NSError * error = nil;
         NUXDocuments * result = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_REMOVE_SYNC_POINT object:((NUXAutomationRequest *)nuxRequest).input];
         
         completion(result);
         
