@@ -391,8 +391,8 @@
 	[super viewDidLoad];
 	
     // Add observer for NOTIF_SYNC_ALL_BEGIN, NOTIF_SYNC_ALL_FINISH
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeAllView) name:NOTIF_SYNC_ALL_BEGIN object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeAllView) name:NOTIF_SYNC_ALL_FINISH object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeAllView:) name:NOTIF_SYNC_ALL_BEGIN object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeAllView:) name:NOTIF_SYNC_ALL_FINISH object:nil];
     // Add observer for connection notifier
     [[Reachability reachabilityForInternetConnection] startNotifier];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];

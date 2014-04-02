@@ -27,10 +27,18 @@
 #import <NuxeoSDK/NUXHierarchy.h>
 #import <NuxeoSDK/NUXHierarchyDB.h>
 #import <NuxeoSDK/NUXJSONSerializer.h>
+#import <NuxeoSDK/NUXBlobStore.h>
 
 #import "NuxeoRetrieveException.h"
 
 @implementation NuxeoDriveRemoteServices
+
+- (void) setup
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAddSyncPoint:) name:NOTIF_ADD_SYNC_POINT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRemoveSyncPoint:) name:NOTIF_REMOVE_SYNC_POINT object:nil];
+    
+}
 
 + (NuxeoDriveRemoteServices *) instance
 {
@@ -39,8 +47,33 @@
     dispatch_once(&pred, ^{
         _sharedObject = [[self alloc] init];
         // or some other init method
+        [_sharedObject setup];
     });
     return _sharedObject;
+}
+
+#pragma mark Notification selectors
+- (void) onAddSyncPoint:(NSNotification *)notification
+{
+    __block NSString * hierarchieName = (NSString *) notification.object;
+    
+    [self loadHierarchy:hierarchieName completionBlock:^(id hierarchy) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED object:hierarchieName];
+        
+        // TODO asynchronize this work
+        [self loadBinariesOfHierarchy:hierarchieName completionBlock:^(id hierarchyName) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:hierarchieName];
+            
+        }];
+        
+    }];
+}
+
+- (void) onRemoveSyncPoint:(NSNotification *)notification
+{
+    NSString * hierarchieName = (NSString *) notification.object;
+    NUXHierarchy * aHierarchy = [NUXHierarchy hierarchyWithName:hierarchieName];
+    [aHierarchy resetCache];
 }
 
 #pragma mark -
@@ -73,6 +106,9 @@
     return YES;
 }
 
+#pragma mark
+#pragma mark Hierarchies methods selectors
+#pragma mark
 // Setup a hierarchy with its name
 - (NUXHierarchy *) setupHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion
 {
@@ -120,7 +156,7 @@
 }
 
 
-- (void) loadHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
+- (void) loadHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion
 {
     __block NUXHierarchy * aHierarchy = [self setupHierarchy:iHerarchieName completionBlock:completion];//[NUXHierarchy hierarchyWithName:iHerarchieName];
     
@@ -137,7 +173,7 @@
             NSString * requestFormat = @"SELECT * FROM Folder where ecm:path startswith '%@' and ecm:currentLifeCycleState <> 'deleted'";
             NSString * query = [NSString stringWithFormat:requestFormat, kNuxeoPathInitial];
             NUXRequest * nuxRequest = [nuxSession requestQuery:query];
-            [nuxRequest addParameterValue:@"100" forKey:@"pageSize"];
+            [nuxRequest addParameterValue:@"1000" forKey:@"pageSize"];
             
             [aHierarchy loadWithRequest:nuxRequest];
         });
@@ -171,6 +207,67 @@
     return nil;
 }
 
+
+// Load all binary of a hierarchy
+- (void) loadBinariesOfHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion
+{
+    NSArray * documents = [[self retrieveAllDocumentsOfHierarchy:iHerarchieName] retain];
+    NSInteger __block operations = [documents count];
+    for (NUXDocument * nuxDocument in documents)
+    {
+        // If blobStore already has the blob, it is not necessary to redownload it.
+        if ([[nuxDocument.properties objectForKey:@"file:content"] isEqual:[NSNull null]])
+        {
+            operations -= 1;
+            continue;
+        }
+        if ([[NUXBlobStore instance] hasBlobFromDocument:nuxDocument metadataXPath:kXPathFileContent]) {
+            operations -= 1;
+            continue;
+        }
+        
+        NSString *tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"tempfile%d.tmp", arc4random()]];
+        
+        NUXSession * nuxSession = [NUXSession sharedSession];
+        NUXRequest *request = [nuxSession requestDownloadBlobFrom:nuxDocument.uid
+                                                       inMetadata:kXPathFileContent];
+        request = [nuxSession requestDownloadBlobFrom:nuxDocument.uid inMetadata:kXPathFileContent];
+        request.downloadDestinationPath = tempFile;
+        request.shouldContinueWhenAppEntersBackground = YES;
+        
+        NUXBasicBlock syncAllDoneIfEmpty = ^(void) {
+            operations -= 1;
+            if (operations <= 0)
+            {
+                completion(iHerarchieName);
+            }
+        };
+        
+        [request setCompletionBlock:^(NUXRequest *request) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_BINARY_DOWNLOADED object:nuxDocument];
+            [[NUXBlobStore instance] saveBlobFromPath:tempFile withDocument:nuxDocument metadataXPath:kXPathFileContent error:nil];
+            [[NSFileManager defaultManager] removeItemAtPath:tempFile error:nil];
+            syncAllDoneIfEmpty();
+        }];
+        [request setFailureBlock:^(NUXRequest *request) {
+            syncAllDoneIfEmpty();
+        }];
+        
+        [request start];
+    }
+    
+    if (operations <= 0)
+    {
+        completion(iHerarchieName);
+    }
+    
+    [documents release];
+}
+
+
+#pragma mark
+#pragma mark Synchronized points methods
+#pragma mark
 
 // Methods for Nuxeo Drive synchronized points
 - (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion
@@ -233,8 +330,10 @@
     }];
 }
 
+#pragma mark
+#pragma mark Blob or binaries methods
+#pragma mark
 
-// Blob methods
 - (NSString *) userDocsFilePath
 {
     return [[NuxeoDriveUtils applicationDocumentsPath] stringByAppendingPathComponent:@"Docs"];
@@ -253,6 +352,13 @@
     return [[self userDocsFilePath] stringByAppendingPathComponent:[self docFileName:docName withDocId:docId]];
 }
 
+
+- (void)dealloc
+{
+    [super dealloc];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end
 

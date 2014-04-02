@@ -105,9 +105,9 @@
 // notifications send during data synchronization of a hierarchy
 // First step load hierarchy folders tree
 #define NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED  @"NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED"
-// Notification send when application end to download file of a hierarchy
+// Notification send when application end to download one file of a hierarchy
 #define NOTIF_HIERARCHY_BINARY_DOWNLOADED       @"NOTIF_HIERARCHY_BINARY_DOWNLOADED"
-// Notification send when all binary of a hierarchy are downloaded
+// Notification send when all binary files of a hierarchy are downloaded
 #define NOTIF_HIERARCHY_ALL_DOWNLOADED          @"NOTIF_HIERARCHY_ALL_DOWNLOADED"
 
 //

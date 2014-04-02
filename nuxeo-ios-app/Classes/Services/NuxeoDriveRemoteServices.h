@@ -40,6 +40,7 @@ typedef void (^NuxeoDriveServicesSimpleBlock)();
 // Retrieve Hierarchy for suite
 - (NSArray *) retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName;
 - (void) loadHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
+- (void) loadBinariesOfHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
 
 // Methods for Nuxeo Drive synchronize points
 - (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion;
