@@ -127,6 +127,8 @@
 #define USER_FILES_COUNT_LIMIT      @"USER_FILES_COUNT_LIMIT"
 #define USER_SYNC_OVER_CELLULAR     @"USER_SYNC_OVER_CELLULAR"
 
+#define USER_SYNC_POINTS_LIST       @"USER_SYNC_POINTS_LIST"
+
 /********************************** ServicesWeb ********************************/
 
 

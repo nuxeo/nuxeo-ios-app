@@ -29,9 +29,19 @@
 typedef void (^NuxeoDriveServicesBlock)(id);
 typedef void (^NuxeoDriveServicesSimpleBlock)();
 
+typedef enum NuxeoHierarchieStatus
+{
+	NuxeoHierarchieStatusNotLoaded = 0,
+    NuxeoHierarchieStatusLoaded = 1,
+    NuxeoHierarchieStatusBinariesLoaded = 2
+} NuxeoHierarchieStatus;
 
 @interface NuxeoDriveRemoteServices : NSObject
+{
+    NSMutableDictionary * synchronisedPoints;
+}
 
+@property (nonatomic, readonly) NSDictionary * synchronisedPoints;
 
 + (NuxeoDriveRemoteServices *) instance;
 
@@ -41,6 +51,7 @@ typedef void (^NuxeoDriveServicesSimpleBlock)();
 - (NSArray *) retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName;
 - (void) loadHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
 - (void) loadBinariesOfHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
+- (NuxeoHierarchieStatus) getHierarchyStatus:(NSString *)hierarchieName;
 
 // Methods for Nuxeo Drive synchronize points
 - (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion;

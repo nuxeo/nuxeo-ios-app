@@ -29,15 +29,24 @@
 #import <NuxeoSDK/NUXJSONSerializer.h>
 #import <NuxeoSDK/NUXBlobStore.h>
 
+#import "NuxeoSettingsManager.h"
+
 #import "NuxeoRetrieveException.h"
 
+#define kNuxeoHierarchyStatusIndex      1
+
+
 @implementation NuxeoDriveRemoteServices
+
+@synthesize synchronisedPoints;
 
 - (void) setup
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAddSyncPoint:) name:NOTIF_ADD_SYNC_POINT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRemoveSyncPoint:) name:NOTIF_REMOVE_SYNC_POINT object:nil];
     
+    // Load synchronised points save in app
+    synchronisedPoints = [[[NuxeoSettingsManager instance] readSetting:USER_SYNC_POINTS_LIST defaultValue:[NSMutableDictionary dictionary]] retain];
 }
 
 + (NuxeoDriveRemoteServices *) instance
@@ -57,13 +66,21 @@
 {
     __block NSString * hierarchieName = (NSString *) notification.object;
     
-    [self loadHierarchy:hierarchieName completionBlock:^(id hierarchy) {
+    // first element = hierarchie name
+    // second element : indicate hierarchie's status
+    [synchronisedPoints setObject:[NSMutableArray arrayWithObjects:hierarchieName, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], nil] forKey:hierarchieName];
+    
+    [self loadHierarchy:hierarchieName completionBlock:^(id hierarchy)
+    {
+        [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchieName]) replaceObjectAtIndex:kNuxeoHierarchyStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusLoaded]];
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED object:hierarchieName];
         
         // TODO asynchronize this work
-        [self loadBinariesOfHierarchy:hierarchieName completionBlock:^(id hierarchyName) {
+        [self loadBinariesOfHierarchy:hierarchieName completionBlock:^(id hierarchyName)
+        {
+            [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchieName]) replaceObjectAtIndex:kNuxeoHierarchyStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusBinariesLoaded]];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:hierarchieName];
-            
         }];
         
     }];
@@ -74,6 +91,8 @@
     NSString * hierarchieName = (NSString *) notification.object;
     NUXHierarchy * aHierarchy = [NUXHierarchy hierarchyWithName:hierarchieName];
     [aHierarchy resetCache];
+    
+    [synchronisedPoints removeObjectForKey:hierarchieName];
 }
 
 #pragma mark -
@@ -207,6 +226,14 @@
     return nil;
 }
 
+- (NuxeoHierarchieStatus) getHierarchyStatus:(NSString *)hierarchieName
+{
+    if ([synchronisedPoints objectForKey:hierarchieName] != nil)
+    {
+        return [[((NSArray *)[synchronisedPoints objectForKey:hierarchieName]) objectAtIndex:kNuxeoHierarchyStatusIndex] intValue];
+    }
+    return NuxeoHierarchieStatusNotLoaded;
+}
 
 // Load all binary of a hierarchy
 - (void) loadBinariesOfHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion
@@ -355,9 +382,12 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [synchronisedPoints release];
+    
     [super dealloc];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
