@@ -22,24 +22,23 @@
 
 #import <NuxeoSDK/NUXDocument.h>
 #import <NuxeoSDK/NUXDocuments.h>
+#import <NuxeoSDK/NUXHierarchy.h>
 
 #import "NuxeoDriveViewController.h"
 
 #import "NuxeoLabel.h"
 
-#define kBrowseDocumentOnLine @"_"
-#define kBrowseDocumentOffLine @"_synch"
-
 @class NUXDocument;
 
 @interface BrowseDocumentListViewController : NuxeoDriveViewController<UITableViewDataSource, UITableViewDelegate>
 {
-    NSArray * documents;
+    NSMutableArray * documents;
 }
 
 @property (nonatomic, retain) NSString * path;
 @property (nonatomic, retain) NSString * context;
 @property (retain, nonatomic) NUXDocument * currentDocument;
+@property (retain, nonatomic) NUXHierarchy * currentHierarchy;
 
 @property (retain, nonatomic) IBOutlet UITableView *documentsView;
 

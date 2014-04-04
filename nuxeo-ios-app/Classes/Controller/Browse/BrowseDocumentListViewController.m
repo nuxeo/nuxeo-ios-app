@@ -33,8 +33,6 @@
 #import "NuxeoDriveRemoteServices.h"
 
 #import "NuxeoDriveUtils.h"
-#import "NUXDocument+Utils.h"
-
 
 #define kDocumentTableCellReuseKey      @"DocumentCell"
 
@@ -66,7 +64,52 @@
     return [documents objectAtIndex:indexPath.row];
 }
 
-
+- (void) loadBusinessObjects
+{
+    if ([self.context isEqualToString:kBrowseDocumentOnLine])
+    {
+        NUXSession * nuxSession = [NUXSession sharedSession];
+        {
+            // Request by path
+            NUXRequest * nuxRequest = [nuxSession requestChildren:self.currentDocument.uid];
+            
+            [nuxRequest startWithCompletionBlock:^(NUXRequest * pRequest)
+             {
+                 NSError * error = nil;
+                 NUXDocuments * result = [NUXJSONSerializer entityWithData:[pRequest responseData] error:&error];
+                 documents = [result.entries retain];
+                 
+                 [self.documentsView reloadData];
+                 
+             } FailureBlock:^(NUXRequest * pRequest)
+             {
+                 
+             }];
+        }
+    }
+    else if ([self.context isEqualToString:kBrowseDocumentOffLine])
+    {
+        self.currentDocument = [self.currentHierarchy nodeWithRef:self.currentDocument.path];
+        
+        if (self.currentDocument.path != nil)
+        {
+            documents = [[NSMutableArray arrayWithArray:[self.currentHierarchy childrenOfDocument:self.currentDocument.path]] mutableCopy];
+            
+            [documents addObjectsFromArray:[self.currentHierarchy contentOfDocument:self.currentDocument]];
+            
+            for (NUXDocument * nuxDocument in documents)
+            {
+                if ([nuxDocument.properties objectForKey:@"empty"] == nil)
+                {
+                    BOOL isEmpty = ![self.currentHierarchy hasContentUnderNode:nuxDocument.uid];
+                    [nuxDocument.properties setObject:[NSNumber numberWithBool:isEmpty] forKey:@"empty"];
+                }
+            }
+            
+            [self.documentsView reloadData];
+        }
+    }
+}
 
 #pragma mark -
 #pragma mark UIViewControllerLifeCycle
@@ -93,33 +136,11 @@
 	
     if (self.currentDocument == nil)
     {
-        NUXHierarchy * suiteHierarchy = [NUXHierarchy hierarchyWithName:@"NuxeoDrive"];
+        NUXHierarchy * suiteHierarchy = [NUXHierarchy hierarchyWithName:@"NuxeoDriveRoot"];
         self.currentDocument = [suiteHierarchy nodeWithRef:kNuxeoPathInitial];
     }
 
-    {
-        NUXSession * nuxSession = [NUXSession sharedSession];
-        {
-            // Request by path
-            NUXRequest * nuxRequest = [nuxSession requestChildren:self.currentDocument.uid];
-            
-            [nuxRequest startWithCompletionBlock:^(NUXRequest * pRequest)
-             {
-                 // JSON
-                 //NSDictionary * jsonResult = [pRequest responseJSONWithError:&error];
-                 //documents = [[jsonResult objectForKey:@"entries"] retain];
-                 NSError * error = nil;
-                 NUXDocuments * result = [NUXJSONSerializer entityWithData:[pRequest responseData] error:&error];
-                 documents = [result.entries retain];
-                 
-                 [self.documentsView reloadData];
-                 
-             } FailureBlock:^(NUXRequest * pRequest)
-             {
-                 
-             }];
-        }
-    }
+    [self loadBusinessObjects];
     
 }
 
@@ -272,15 +293,29 @@
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
    
     NUXDocument * selectedDocument = [self documentByIndexPath:indexPath];
+    if ([self.context isEqualToString:kBrowseDocumentOnLine])
+    {
+        if ([selectedDocument isFolder] == YES)
+        {
+            [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+        }
+        else
+        {
+            [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+        }
+    }
+    else if ([self.context isEqualToString:kBrowseDocumentOffLine])
+    {
+        if ([selectedDocument isFolder] == YES)
+        {
+            [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument , kParamKeyHierarchy : self.currentHierarchy, kParamKeyContext : self.context}];
+        }
+        else
+        {
+            [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+        }
+    }
     
-    if ([selectedDocument isFolder] == YES)
-    {
-        [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
-    }
-    else
-    {
-        [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
-    }
     
 }
 
@@ -296,6 +331,8 @@
     
     [_context release];
     [_path release];
+    [_currentHierarchy release];
+    [_currentDocument release];
     
     self.docController = nil;
     

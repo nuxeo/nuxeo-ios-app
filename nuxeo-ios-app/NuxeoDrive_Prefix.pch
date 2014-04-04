@@ -34,5 +34,6 @@
 
 // Categories
 #import "UIView+Nuxeo.h"
+#import "NUXDocument+Utils.h"
 
 #endif

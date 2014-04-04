@@ -42,7 +42,7 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (id) readSetting:(NSString*)key defaulValue:(id)defaultValue
+- (id) readSetting:(NSString*)key defaultValue:(id)defaultValue
 {
 	return [[NSUserDefaults standardUserDefaults] objectForKey:key];
     if ([[NSUserDefaults standardUserDefaults] objectForKey:key] == nil)

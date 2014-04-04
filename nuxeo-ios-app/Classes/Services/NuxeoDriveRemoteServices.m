@@ -243,7 +243,7 @@
     for (NUXDocument * nuxDocument in documents)
     {
         // If blobStore already has the blob, it is not necessary to redownload it.
-        if ([[nuxDocument.properties objectForKey:@"file:content"] isEqual:[NSNull null]])
+        if ([nuxDocument hasBinaryFile] == NO)
         {
             operations -= 1;
             continue;

@@ -152,7 +152,7 @@
 {	
 	[super viewDidLoad];
     
-    if ([[self.currentDocument.properties objectForKey:kXPathFileContent] isKindOfClass:[NSNull class]] == NO)
+    if ([self.currentDocument hasBinaryFile] == YES)
     {
         self.mimeType = [[self.currentDocument.properties objectForKey:kXPathFileContent] objectForKey:@"mime-type"];
     }

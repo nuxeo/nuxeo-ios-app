@@ -17,7 +17,7 @@
 #define kNuxeoDocumentTypeNote          @"Note"
 #define kNuxeoDocumentTypeVideo         @"Video"
 #define kNuxeoDocumentTypePicture       @"Picture"
-#define kNuxeoDocumentTypeAudio          @"Audio"
+#define kNuxeoDocumentTypeAudio         @"Audio"
 
 #define kNuxeoDocumentFacetFolder       @"Folderish"
 #define kNuxeoDocumentFacetSynchronized @"DriveSynchronized"
@@ -73,6 +73,19 @@
     }
     return [NSString stringWithFormat:@"ic%@type_file",context];
     
+}
+
+- (BOOL) hasBinaryFile
+{
+    if ([self.properties objectForKey:kXPathFileContent] == nil)
+    {
+        return NO;
+    }
+    if ([[self.properties objectForKey:kXPathFileContent] isKindOfClass:[NSNull class]] == YES)
+    {
+        return NO;
+    }
+    return YES;
 }
 
 @end

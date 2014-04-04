@@ -118,6 +118,10 @@
 
 //#define kParamModuleKey                 @"module"
 
+#define kBrowseDocumentOnLine                   @"_"
+#define kBrowseDocumentOffLine                  @"_synchro_"
+
+
 /********************************** USER PREFERENCES ********************************/
 
 #define USER_HOST_URL               @"USER_HOST_URL"

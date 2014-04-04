@@ -13,7 +13,9 @@
 
 - (BOOL) isFolder;
 - (BOOL) isDriveSynchronizedFolder;
+- (BOOL) hasBinaryFile;
 
 - (NSString *) pictoForDocument:(NSString *)context;
+
 
 @end

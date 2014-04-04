@@ -280,7 +280,7 @@
         // Browse into selected folder
         if (rootDocument != nil)
         {
-            [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:@{kParamKeyDocument: rootDocument}];
+            [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:@{kParamKeyDocument: rootDocument, kParamKeyContext : kBrowseDocumentOnLine}];
         }
         else
         {
