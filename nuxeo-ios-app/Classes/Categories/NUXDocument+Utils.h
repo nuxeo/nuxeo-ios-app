@@ -14,6 +14,6 @@
 - (BOOL) isFolder;
 - (BOOL) isDriveSynchronizedFolder;
 
-- (NSString *) pictoForDocument;
+- (NSString *) pictoForDocument:(NSString *)context;
 
 @end

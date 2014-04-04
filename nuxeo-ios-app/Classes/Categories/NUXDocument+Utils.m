@@ -15,6 +15,9 @@
 
 #define kNuxeoDocumentTypeFile          @"File"
 #define kNuxeoDocumentTypeNote          @"Note"
+#define kNuxeoDocumentTypeVideo         @"Video"
+#define kNuxeoDocumentTypePicture       @"Picture"
+#define kNuxeoDocumentTypeAudio          @"Audio"
 
 #define kNuxeoDocumentFacetFolder       @"Folderish"
 #define kNuxeoDocumentFacetSynchronized @"DriveSynchronized"
@@ -42,13 +45,34 @@
     return NO;
 }
 
-- (NSString *) pictoForDocument
+- (NSString *) pictoForDocument:(NSString *)context
 {
     if ([self isFolder] == YES)
     {
-        return @"ic_type_folder";
+        return [NSString stringWithFormat:@"ic%@type_folder",context];
     }
-    return @"ic_type_file";
+    if ([self.type isEqualToString:kNuxeoDocumentTypeFile])
+    {
+        return [NSString stringWithFormat:@"ic%@type_file",context];
+    }
+    else if ([self.type isEqualToString:kNuxeoDocumentTypeNote])
+    {
+        return [NSString stringWithFormat:@"ic%@type_note",context];
+    }
+    else if ([self.type isEqualToString:kNuxeoDocumentTypeVideo])
+    {
+        return [NSString stringWithFormat:@"ic%@type_video",context];
+    }
+    else if ([self.type isEqualToString:kNuxeoDocumentTypePicture])
+    {
+        return [NSString stringWithFormat:@"ic%@type_image",context];
+    }
+    else if ([self.type isEqualToString:kNuxeoDocumentTypeAudio])
+    {
+        return [NSString stringWithFormat:@"ic%@type_sound",context];
+    }
+    return [NSString stringWithFormat:@"ic%@type_file",context];
+    
 }
 
 @end

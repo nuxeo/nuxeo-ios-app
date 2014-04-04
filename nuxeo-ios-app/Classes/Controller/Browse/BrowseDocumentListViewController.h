@@ -27,6 +27,9 @@
 
 #import "NuxeoLabel.h"
 
+#define kBrowseDocumentOnLine @"_"
+#define kBrowseDocumentOffLine @"_synch"
+
 @class NUXDocument;
 
 @interface BrowseDocumentListViewController : NuxeoDriveViewController<UITableViewDataSource, UITableViewDelegate>
@@ -35,6 +38,7 @@
 }
 
 @property (nonatomic, retain) NSString * path;
+@property (nonatomic, retain) NSString * context;
 @property (retain, nonatomic) NUXDocument * currentDocument;
 
 @property (retain, nonatomic) IBOutlet UITableView *documentsView;

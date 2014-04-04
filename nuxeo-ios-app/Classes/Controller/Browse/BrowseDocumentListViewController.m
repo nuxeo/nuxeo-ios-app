@@ -236,7 +236,7 @@
         
         [cell setTarget:self forIndexPath:indexPath];
         
-        cell.picto.image = [UIImage imageNamed:[selectedDocument pictoForDocument]];
+        cell.picto.image = [UIImage imageNamed:[selectedDocument pictoForDocument:self.context]];
         cell.backgroundColor = [UIColor clearColor];
         [cell localizeRecursively];
         
@@ -293,6 +293,9 @@
 - (void)dealloc
 {
     [_documentsView release];
+    
+    [_context release];
+    [_path release];
     
     self.docController = nil;
     
