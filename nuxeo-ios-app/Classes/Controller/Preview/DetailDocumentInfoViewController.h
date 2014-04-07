@@ -35,6 +35,9 @@
 
 @property (retain, nonatomic) NUXDocument * currentDocument;
 
+@property (retain, nonatomic) IBOutlet UILabel *updateDate;
+@property (retain, nonatomic) IBOutlet UILabel *author;
+@property (retain, nonatomic) IBOutlet UILabel *descriptionDetail;
 
 - (IBAction)onTouchClose:(id)sender;
 

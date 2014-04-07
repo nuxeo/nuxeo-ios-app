@@ -65,7 +65,9 @@
 
 // ============================= DETAIL INFO ========================================
 "detail.document.title"                 = "DOCUMENT TITLE";
-
+"detail.document.update.date"           = "Modified";
+"detail.document.author"                = "By";
+"detail.document.description"           = "Description";
 
 // ============================= SETTINGS ========================================
 "settings.title"                        = "PREFERENCES";

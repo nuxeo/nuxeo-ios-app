@@ -61,6 +61,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+    
+    self.updateDate.text = [self.currentDocument.lastModified description];
+    self.author.text = self.currentDocument.name;
+    self.descriptionDetail.text = self.currentDocument.description;
 }
 
 /**
@@ -113,6 +117,9 @@
 {
     [_currentDocument release];
     
+    [_updateDate release];
+    [_author release];
+    [_descriptionDetail release];
 	[super dealloc];
 }
 
