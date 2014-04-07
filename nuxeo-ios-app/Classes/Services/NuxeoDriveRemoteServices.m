@@ -69,10 +69,12 @@
     // first element = hierarchie name
     // second element : indicate hierarchie's status
     [synchronisedPoints setObject:[NSMutableArray arrayWithObjects:hierarchieName, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], nil] forKey:hierarchieName];
+    [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
     
     [self loadHierarchy:hierarchieName completionBlock:^(id hierarchy)
     {
         [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchieName]) replaceObjectAtIndex:kNuxeoHierarchyStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusLoaded]];
+        [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED object:hierarchieName];
         
@@ -80,6 +82,8 @@
         [self loadBinariesOfHierarchy:hierarchieName completionBlock:^(id hierarchyName)
         {
             [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchieName]) replaceObjectAtIndex:kNuxeoHierarchyStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusBinariesLoaded]];
+            [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:hierarchieName];
         }];
         
@@ -310,19 +314,32 @@
 // Methods for Nuxeo Drive synchronized points
 - (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion
 {
-    NUXSession * nuxSession = [NUXSession sharedSession];
-    NUXRequest * nuxRequest = [nuxSession requestOperation:@"NuxeoDrive.GetRoots"];
-    [nuxRequest startWithCompletionBlock:^(NUXRequest *request) {
-        // result
-        NSError * error = nil;
-        NUXDocuments * result = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
+    if ([APP_DELEGATE isNetworkConnected] == NO)
+    {
+        NSArray * synchPoints = [self.synchronisedPoints allValues];
+        NSMutableArray * result = [[NSMutableArray alloc] init];
+        for (NSArray * synchronizePoint in synchPoints)
+        {
+            NUXHierarchy * hierarchy = [self getHierarchyWithName:[synchronizePoint objectAtIndex:0]];
+            [result addObject:[hierarchy nodeWithRef:[synchronizePoint objectAtIndex:0]]];
+        }
         
         completion(result);
-        
-    } FailureBlock:^(NUXRequest *request) {
-        
-        
-    }];
+    }
+    else
+    {
+        NUXSession * nuxSession = [NUXSession sharedSession];
+        NUXRequest * nuxRequest = [nuxSession requestOperation:@"NuxeoDrive.GetRoots"];
+        [nuxRequest startWithCompletionBlock:^(NUXRequest *request) {
+            // result
+            NSError * error = nil;
+            NUXDocuments * result = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
+            
+            completion(result);
+            
+        } FailureBlock:^(NUXRequest *request) {
+        }];
+    }
     
 }
 
