@@ -35,11 +35,12 @@
     NSMutableArray * documents;
 }
 
-@property (nonatomic, retain) NSString * path;
+@property (nonatomic, retain) NSMutableArray * path;
 @property (nonatomic, retain) NSString * context;
 @property (retain, nonatomic) NUXDocument * currentDocument;
 @property (retain, nonatomic) NUXHierarchy * currentHierarchy;
 
 @property (retain, nonatomic) IBOutlet UITableView *documentsView;
+@property (retain, nonatomic) IBOutlet UILabel *documentPath;
 
 @end

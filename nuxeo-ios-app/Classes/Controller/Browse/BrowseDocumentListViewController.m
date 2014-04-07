@@ -93,9 +93,11 @@
         
         if (self.currentDocument.path != nil)
         {
-            documents = [[NSMutableArray arrayWithArray:[self.currentHierarchy childrenOfDocument:self.currentDocument.path]] mutableCopy];
+//            documents = [[NSMutableArray arrayWithArray:[self.currentHierarchy childrenOfDocument:self.currentDocument.path]] mutableCopy];
+            documents = [[NSMutableArray array] retain];
             
-            [documents addObjectsFromArray:[self.currentHierarchy contentOfDocument:self.currentDocument]];
+            NSArray * filesOfDocument = [self.currentHierarchy contentOfDocument:self.currentDocument];
+            [documents addObjectsFromArray:filesOfDocument];
             
             for (NUXDocument * nuxDocument in documents)
             {
@@ -151,6 +153,8 @@
 {
 	[super viewWillAppear:animated];
 	
+    self.documentPath.text = [self.path componentsJoinedByString:@" > "];
+    
 }
 
 /**
@@ -339,6 +343,7 @@
     [documents release];
     documents = nil;
     
+    [_documentPath release];
 	[super dealloc];
 }
 

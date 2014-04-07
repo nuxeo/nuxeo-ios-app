@@ -248,7 +248,10 @@
 {
     if ([collectionView isEqual:self.browsingFolders])
     {
+#ifdef DEBUG
         return 100;
+#endif
+        return 1;
     }
     return 0;
 }

@@ -152,7 +152,7 @@
         NUXDocument * selectedDocument = [synchronizedPoints.entries objectAtIndex:indexPath.row];
         if ([selectedDocument isFolder] == YES)
         {
-            NUXHierarchy * hierarchy = [NUXHierarchy hierarchyWithName:selectedDocument.path];
+            NUXHierarchy * hierarchy = [[NuxeoDriveRemoteServices instance] getHierarchyWithName:selectedDocument.path];//[NUXHierarchy hierarchyWithName:selectedDocument.path];
             [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyHierarchy : hierarchy, kParamKeyContext : kBrowseDocumentOffLine}];
         }
         else

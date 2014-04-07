@@ -128,6 +128,7 @@
 #pragma mark
 #pragma mark Hierarchies methods selectors
 #pragma mark
+
 // Setup a hierarchy with its name
 - (NUXHierarchy *) setupHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion
 {
@@ -137,7 +138,10 @@
     {
         [aHierarchy setCompletionBlock:^{
             NSLog(@"hierarchy done !");
-            completion(aHierarchy);
+            if (completion != nil)
+            {
+                completion(aHierarchy);
+            }
         }];
     }
     
@@ -206,6 +210,12 @@
     }
     
 }
+
+- (NUXHierarchy *) getHierarchyWithName:(NSString *)iHerarchieName
+{
+    return [self setupHierarchy:iHerarchieName completionBlock:nil];
+}
+
 
 - (NSArray *) retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName
 {

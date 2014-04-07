@@ -93,6 +93,18 @@
     if ([options objectForKey:kParamKeyDocument] != nil)
     {
         rvc.currentDocument = [options objectForKey:kParamKeyDocument];
+        if ([iController isKindOfClass:[BrowseDocumentListViewController class]])
+        {
+            if (((BrowseDocumentListViewController *)iController).path == nil)
+            {
+                rvc.path = [NSMutableArray array];
+            }
+            else
+            {
+                rvc.path = ((BrowseDocumentListViewController *)iController).path;
+            }
+            [rvc.path addObject:rvc.currentDocument.title];
+        }
     }
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     rvc.isBackButtonShown = YES;

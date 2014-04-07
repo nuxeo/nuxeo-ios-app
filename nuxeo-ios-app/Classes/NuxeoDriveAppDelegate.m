@@ -60,7 +60,7 @@
         isNetworkConnected = NO;
         // Stop all requests if system detect internet connection is lost
         [[NUXSession sharedSession] cancelAllRequests];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NETWORK_STATUS_CHANGE object:nil];
     }
     else
     {

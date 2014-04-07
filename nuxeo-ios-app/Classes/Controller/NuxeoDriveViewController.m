@@ -120,21 +120,6 @@
     }
 }
 
-- (void)reachabilityChanged:(NSNotification*)notification
-{
-    Reachability* reachability = notification.object;
-    if(reachability.currentReachabilityStatus == NotReachable)
-    {
-        NuxeoLogD(@"Internet off");
-    }
-    else
-    {
-        NuxeoLogD(@"Internet on");
-    }
-    [self synchronizeAllView];
-    
-}
-
 - (void) addHeaderButtonBar:(UIView *) navBarCustomView
 {
     float xButton = 760.f;
@@ -374,6 +359,29 @@
 - (void) onTouchSettings:(id)sender
 {
     [[NuxeoDriveControllerHandler instance] pushSettingsControllerFrom:self options:nil];
+}
+
+
+#pragma mark Notification selectors
+
+- (void)synchronizeAllView:(NSNotification*)notification
+{
+    [self synchronizeAllView];
+}
+
+- (void)reachabilityChanged:(NSNotification*)notification
+{
+    Reachability* reachability = notification.object;
+    if(reachability.currentReachabilityStatus == NotReachable)
+    {
+        NuxeoLogD(@"Internet off");
+    }
+    else
+    {
+        NuxeoLogD(@"Internet on");
+    }
+    [self synchronizeAllView];
+    
 }
 
 #pragma mark -

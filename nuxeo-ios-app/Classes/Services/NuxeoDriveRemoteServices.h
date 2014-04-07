@@ -49,7 +49,7 @@ typedef enum NuxeoHierarchieStatus
 
 // Retrieve Hierarchy for suite
 - (NSArray *) retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName;
-- (void) loadHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
+- (NUXHierarchy *) getHierarchyWithName:(NSString *)iHerarchieName;
 - (void) loadBinariesOfHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
 - (NuxeoHierarchieStatus) getHierarchyStatus:(NSString *)hierarchieName;
 

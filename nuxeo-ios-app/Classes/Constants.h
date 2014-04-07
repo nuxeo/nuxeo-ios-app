@@ -110,9 +110,12 @@
 // Notification send when all binary files of a hierarchy are downloaded
 #define NOTIF_HIERARCHY_ALL_DOWNLOADED          @"NOTIF_HIERARCHY_ALL_DOWNLOADED"
 
-//
+// Notification send when all synchronization begin
 #define NOTIF_SYNC_ALL_BEGIN                    @"NOTIF_SYNC_ALL_BEGIN"
+// Notification send when all synchronization end
 #define NOTIF_SYNC_ALL_FINISH                   @"NOTIF_SYNC_ALL_FINISH"
+
+#define NOTIF_NETWORK_STATUS_CHANGE             @"NOTIF_NETWORK_STATUS_CHANGE"
 
 /********************************** Params ********************************/
 
