@@ -276,7 +276,7 @@
         else
         {
             [cell updateDisplayForFile];
-            BOOL fileExist = YES;//[[NUXBlobStore instance] hasBlobFromDocument:selectedDocument metadataXPath:kXPathFileContent];
+            BOOL fileExist = [selectedDocument hasBinaryFile];
             [cell.preview setEnabled:fileExist];
             [cell.openWith setEnabled:fileExist];
             [cell.update setHidden:![APP_DELEGATE isNetworkConnected]];

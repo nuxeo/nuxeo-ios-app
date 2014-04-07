@@ -157,7 +157,7 @@
         self.mimeType = [[self.currentDocument.properties objectForKey:kXPathFileContent] objectForKey:@"mime-type"];
     }
     
-    if([[NUXBlobStore instance] hasBlobFromDocument:self.currentDocument metadataXPath:kXPathFileContent] == YES)
+    if([self.currentDocument hasBinaryFile] == YES)
     {
         [self previewDocument];
     }

@@ -258,7 +258,8 @@
             operations -= 1;
             continue;
         }
-        if ([[NUXBlobStore instance] hasBlobFromDocument:nuxDocument metadataXPath:kXPathFileContent]) {
+        if ([nuxDocument hasBinaryFile] == YES)
+        {
             operations -= 1;
             continue;
         }

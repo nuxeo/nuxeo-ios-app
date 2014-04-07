@@ -17,5 +17,4 @@
 
 - (NSString *) pictoForDocument:(NSString *)context;
 
-
 @end

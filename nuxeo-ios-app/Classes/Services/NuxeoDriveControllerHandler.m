@@ -101,7 +101,7 @@
             }
             else
             {
-                rvc.path = ((BrowseDocumentListViewController *)iController).path;
+                rvc.path = [((BrowseDocumentListViewController *)iController).path mutableCopy];
             }
             [rvc.path addObject:rvc.currentDocument.title];
         }
