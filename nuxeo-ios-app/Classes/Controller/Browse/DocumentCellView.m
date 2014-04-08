@@ -31,14 +31,21 @@
     return self;
 }
 
-- (void) updateDisplayForFile
+- (void) updateDisplayForFile:(NUXDocument *)currentDocument
 {
-    
+    BOOL fileExist = [currentDocument hasBinaryFile];
+    [self.preview setEnabled:fileExist];
+    [self.openWith setEnabled:fileExist];
+    [self.update setHidden:![APP_DELEGATE isNetworkConnected]];
+    [self.addSynch setHidden:YES];
 }
 
-- (void) updateDisplayForFolder
+- (void) updateDisplayForFolder:(NUXDocument *)currentDocument
 {
-    
+    [self.preview setHidden:YES];
+    [self.openWith setHidden:YES];
+    [self.update setHidden:YES];
+    [self.addSynch setHidden:![APP_DELEGATE isNetworkConnected]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -257,7 +257,7 @@
     if ([documents count] > 0)
     {
         NUXDocument * selectedDocument = [documents objectAtIndex:indexPath.row];
-        cell.title.text = selectedDocument.title;//[selectedDocument.properties objectForKey:kDublinCoreTitle];
+        cell.title.text = selectedDocument.title;
         
         [cell setTarget:self forIndexPath:indexPath];
         
@@ -267,20 +267,11 @@
         
         if ([selectedDocument isFolder] == YES)
         {
-            [cell updateDisplayForFolder];
-            [cell.preview setHidden:YES];
-            [cell.openWith setHidden:YES];
-            [cell.update setHidden:YES];
-            [cell.addSynch setHidden:![APP_DELEGATE isNetworkConnected]];
+            [cell updateDisplayForFolder:selectedDocument];
         }
         else
         {
-            [cell updateDisplayForFile];
-            BOOL fileExist = [selectedDocument hasBinaryFile];
-            [cell.preview setEnabled:fileExist];
-            [cell.openWith setEnabled:fileExist];
-            [cell.update setHidden:![APP_DELEGATE isNetworkConnected]];
-            [cell.addSynch setHidden:YES];
+            [cell updateDisplayForFile:selectedDocument];
         }
     }
     
