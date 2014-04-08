@@ -385,6 +385,40 @@
     }];
 }
 
+
+- (void) refreshAllSyncPoints
+{
+    if ([APP_DELEGATE isNetworkConnected] == YES)
+    {
+        [self retrieveAllSynchronizePoints:^(id documents)
+        {
+            NUXDocuments * listOfSynchroPoints = (NUXDocuments *)documents;
+            for (NUXDocument * synchroPoint in listOfSynchroPoints.entries)
+            {
+                NSString * hierarchyName = synchroPoint.path;
+                [synchronisedPoints setObject:[NSMutableArray arrayWithObjects:hierarchyName, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], nil] forKey:hierarchyName];
+                
+                [self loadHierarchy:hierarchyName completionBlock:^(id hierarchy)
+                 {
+                     [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchyName]) replaceObjectAtIndex:kNuxeoHierarchyStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusLoaded]];
+                     
+                     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED object:hierarchyName];
+                     
+                     // TODO asynchronize this work
+                     [self loadBinariesOfHierarchy:hierarchyName completionBlock:^(id hierarchyName)
+                      {
+                          [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchyName]) replaceObjectAtIndex:kNuxeoHierarchyStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusBinariesLoaded]];
+                          [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:hierarchyName];
+                      }];
+                     
+                 }];
+                
+            }
+        }];
+    }
+}
+
+
 #pragma mark
 #pragma mark Blob or binaries methods
 #pragma mark

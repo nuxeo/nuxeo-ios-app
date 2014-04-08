@@ -57,7 +57,7 @@ typedef enum NuxeoHierarchieStatus
 - (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion;
 - (void) addSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
 - (void) removeSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
-
+- (void) refreshAllSyncPoints;
 
 // Blob methods
 - (NSString *) getDocPathForDocument:(NUXDocument *)nuxDocument;

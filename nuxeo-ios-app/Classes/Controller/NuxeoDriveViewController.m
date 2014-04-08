@@ -340,7 +340,7 @@
 
 - (void) onTouchUpdateAll:(id)sender
 {
-    // TODO
+    [[NuxeoDriveRemoteServices instance] refreshAllSyncPoints];
     
 }
 
