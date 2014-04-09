@@ -42,55 +42,35 @@
 #pragma mark UIViewControllerLifeCycle
 #pragma mark -
 
-/**
- * Called after the loadView call
- */
-- (void)loadView
-{
-	[super loadView];
-	
-    [self headerBarView].hidden = YES;
-    
-}
-
-/**
- * Called after the viewDidLoad call
- */
 - (void)viewDidLoad
 {	
 	[super viewDidLoad];
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL] != nil)
-    {
         self.hostURL.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL];
-    }
+
     if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME] != nil)
-    {
         self.username.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME];
-    }
     
-#ifdef DEBUG
+    #ifdef DEBUG
     self.hostURL.text = kNuxeoSiteURL;
     self.username.text = kNuxeoUser;
     self.password.text = kNuxeoPassword;
-#endif
+    #endif
     
+    self.footerBarView.hidden = YES;
 }
 
-/**
- * Called after the viewWillAppear call
- */
+
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
 //    Do not uncomment
 //	[super viewDidAppear:animated];
-	
 }
 
 #pragma mark -

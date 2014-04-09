@@ -22,14 +22,9 @@
 #import "NuxeoDriveViewController.h"
 
 #import "NuxeoDrivePopupInfoViewDelegate.h"
-
 #import "NuxeoLabel.h"
 
 @class NUXDocument;
-
-
-
-
 
 @interface HomeViewController : NuxeoDriveViewController <UICollectionViewDataSource, UICollectionViewDelegate, NuxeoDrivePopupActionViewDelegate>
 {
@@ -40,14 +35,15 @@
     NSIndexPath * selectedDocumentIndex;
 }
 
+#pragma mark - Properties
 @property (retain, nonatomic) IBOutlet UICollectionView *browsingFolders;
 
 @property (retain, nonatomic) IBOutlet UIView *popupActions;
 
+#pragma mark - Events
 - (IBAction)onTouchUnpin:(id)sender;
 - (IBAction)onTouchInfo:(id)sender;
 - (IBAction)onTouchRemoveFromDevice:(id)sender;
-
 
 // Test
 - (IBAction)onTouchTest:(id)sender;

@@ -53,6 +53,7 @@
 {
     [super retrieveBusinessObjects];
     
+    self.browsingFolders.backgroundColor = [UIColor clearColor];
     NUXSession * nuxSession = [NUXSession sharedSession];
     {
         // Request by path
@@ -130,9 +131,10 @@
  * Called after the viewDidLoad call
  */
 - (void)viewDidLoad
-{	
-	[super viewDidLoad];
+{
+    self.footerHidden = YES;
     
+	[super viewDidLoad];
 }
 
 /**
@@ -141,8 +143,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	
+
+
 }
+
 
 #pragma mark -
 #pragma mark Events
