@@ -136,6 +136,8 @@
 
 #define USER_SYNC_POINTS_LIST       @"USER_SYNC_POINTS_LIST"
 
+#define SYNCHRONISATION_STATUS      @"SYNCHRONISATION_STATUS"
+
 /********************************** ServicesWeb ********************************/
 
 

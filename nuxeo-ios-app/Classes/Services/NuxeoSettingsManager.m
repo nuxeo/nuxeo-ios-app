@@ -44,8 +44,7 @@
 
 - (id) readSetting:(NSString*)key defaultValue:(id)defaultValue
 {
-	return [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:key] == nil)
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:key] == nil)
     {
         [self saveSetting:defaultValue forKey:key];
     }

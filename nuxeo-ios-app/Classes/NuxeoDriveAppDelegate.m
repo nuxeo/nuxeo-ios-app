@@ -75,33 +75,6 @@
 }
 
 #pragma mark -
-#pragma mark NuxeoAppDelegate
-#pragma mark -
-
-- (void) onApplicationDidFinishLaunchingBegin:(UIApplication *)application
-{
-    self.syncAllEnable = NO;
-    self.browseAllEnable = NO;
-    self.syncAllProgressStatus = 0.0;
-}
-
-- (void) onApplicationDidFinishLaunchingEnd:(UIApplication *)application
-{
-	NuxeoLogI(@"Application did finish launching");    
-
-	// Register push notification
-//	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
-	
-    // Remove old badges
-	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    
-    // 5Go convert with http://www.convertworld.com/fr/mesures-informatiques/Gigaoctet+%28Gigabyte%29.html
-    ((NUXBlobStore*)[NUXBlobStore instance]).sizeLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:[NSNumber numberWithLongLong:(long long)5 * 1024 * 1024 * 1024]];
-    ((NUXBlobStore*)[NUXBlobStore instance]).countLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_COUNT_LIMIT defaultValue:@(-1)];
-    
-}
-
-#pragma mark -
 #pragma mark UIApplicationDelegate
 #pragma mark -
 
@@ -121,6 +94,20 @@
 	[self.window makeKeyAndVisible];
     return YES;
 	
+    // Init indicators
+    self.syncAllEnable = NO;
+    self.browseAllEnable = NO;
+    self.syncAllProgressStatus = 0.0;
+    
+    // Init Nuxeo BlobStore
+    // 5Go convert with http://www.convertworld.com/fr/mesures-informatiques/Gigaoctet+%28Gigabyte%29.html
+    ((NUXBlobStore*)[NUXBlobStore instance]).sizeLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:[NSNumber numberWithLongLong:(long long)5 * 1024 * 1024 * 1024]];
+    ((NUXBlobStore*)[NUXBlobStore instance]).countLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_COUNT_LIMIT defaultValue:@(-1)];
+    
+    // Register push notification
+    //	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+    // Remove old badges
+	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 /**
@@ -187,6 +174,7 @@
     // Add observer for connection notifier
     [[Reachability reachabilityForInternetConnection] startNotifier];
 	isNetworkConnected = [[Reachability reachabilityForInternetConnection] isReachable];
+    isWifiConnected = [[Reachability reachabilityForInternetConnection] isReachableViaWiFi];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
     // Nuxeo init
