@@ -77,7 +77,7 @@
              {
                  NSError * error = nil;
                  NUXDocuments * result = [NUXJSONSerializer entityWithData:[pRequest responseData] error:&error];
-                 documents = [result.entries retain];
+                 documents = [result.entries mutableCopy];
                  
                  [self.documentsView reloadData];
                  
