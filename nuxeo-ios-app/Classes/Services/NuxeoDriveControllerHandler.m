@@ -48,8 +48,8 @@
 {
     HomeViewController *rvc = [[HomeViewController alloc] initWithNibName:kXIBHomeController bundle:nil];
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    rvc.isUpdateAllButtonShown = YES;
-    rvc.isBackButtonShown = YES;
+    rvc.updateAllButtonShown = YES;
+    rvc.backButtonShown = YES;
     [iController presentViewController:rvc animated:YES completion:^{
         
     }];
@@ -60,8 +60,8 @@
 {
     BrowseOnDeviceViewController *rvc = [[BrowseOnDeviceViewController alloc] initWithNibName:kXIBBrowseOnDeviceViewController bundle:nil];
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    rvc.isBackButtonShown = YES;
-    rvc.isUpdateAllButtonShown = YES;
+    rvc.backButtonShown = YES;
+    rvc.updateAllButtonShown = YES;
     [iController presentViewController:rvc animated:YES completion:^{
         
     }];
@@ -107,8 +107,8 @@
         }
     }
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    rvc.isBackButtonShown = YES;
-    rvc.isUpdateAllButtonShown = YES;
+    rvc.backButtonShown = YES;
+    rvc.updateAllButtonShown = YES;
     [iController presentViewController:rvc animated:YES completion:^{
         
     }];
@@ -123,8 +123,8 @@
         rvc.currentDocument = [options objectForKey:kParamKeyDocument];
     }
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    rvc.isBackButtonShown = YES;
-    rvc.isFooterHidden = YES;
+    rvc.backButtonShown = YES;
+    rvc.footerHidden = YES;
     [iController presentViewController:rvc animated:YES completion:^{
         
     }];
@@ -139,10 +139,11 @@
         rvc.currentDocument = [options objectForKey:kParamKeyDocument];
     }
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    rvc.isHeaderHidden = YES;
-    rvc.isBackButtonShown = YES;
-    rvc.isFooterHidden = YES;
-    
+    rvc.headerHidden = YES;
+    rvc.backButtonShown = YES;
+    rvc.footerHidden = YES;
+
+    rvc.abstractView = NO;
     [iController.view addSubview:rvc.view];
 }
 
@@ -152,10 +153,11 @@
 {
     SettingsViewController * rvc = [[SettingsViewController alloc]initWithNibName:kXIBSettingsViewController bundle:nil];
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    rvc.isHeaderHidden = YES;
-    rvc.isBackButtonShown = YES;
-    rvc.isFooterHidden = YES;
-    
+    rvc.headerHidden = YES;
+    rvc.backButtonShown = YES;
+    rvc.footerHidden = YES;
+
+    rvc.abstractView = NO;
     [iController.view addSubview:rvc.view];
 }
 

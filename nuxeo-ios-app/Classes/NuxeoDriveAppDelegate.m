@@ -115,12 +115,12 @@
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    NuxeoDriveViewController * homeViewController = [[[HomeViewController alloc] initWithNibName:kXIBHomeController bundle:nil] autorelease];
-    homeViewController.isBackButtonShown = YES;
-    self.window.rootViewController = homeViewController;
-	[self.window makeKeyAndVisible];
+
+    self.window.rootViewController =  [[[HomeViewController alloc] init] autorelease];
+    ((NuxeoDriveViewController *)self.window.rootViewController).backButtonShown = YES;
+    
+    [self.window makeKeyAndVisible];
     return YES;
-	
 }
 
 /**
@@ -176,6 +176,7 @@
 /**
  * Fired when the application wake up
  **/
+
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
 	//on met à zero les badges
