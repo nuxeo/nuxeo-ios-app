@@ -26,7 +26,7 @@ int main(int argc, char * argv[])
   
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
   // We initialize the application with the customized delegate, but no main .xib defined
-  int retVal = UIApplicationMain(argc, argv, nil, @"NuxeoDriveAppDelegate");
+  int retVal = UIApplicationMain(argc, argv, nil, NSStringFromClass([NuxeoDriveAppDelegate class]));
   [pool release];
   return retVal;
 }
