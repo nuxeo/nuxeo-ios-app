@@ -47,14 +47,230 @@
 
 #import "UIAlertView+Blocks.h"
 
+@interface NuxeoDriveViewController ()
 
-#pragma mark -
-#pragma mark NuxeoDriveViewController
+@property (retain, nonatomic) UIView *contentView;
+
+@end
+
+#pragma mark - NuxeoDriveViewController -
 
 @implementation NuxeoDriveViewController
+#pragma mark - Initializers -
 
-#pragma mark -
-#pragma mark NuxeoDriveViewController
+- (instancetype)init
+{
+    if ((self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil]))
+        [self setup];
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+        [self setup];
+    return self;
+}
+
+- (void)setup
+{
+    self.abstractView = YES;
+}
+
+#pragma mark - UIViewControllerLifeCycle -
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	
+    // Abstract Header/Navigation Bar
+    if (self.abstractView)
+    {
+        self.contentView = self.view;
+        self.view = [[UIView alloc] initWithFrame:UIScreen.mainScreen.applicationFrame];
+        self.view.backgroundColor = self.contentView.backgroundColor;
+    }
+    
+	[self onSetupBackground];
+    
+    [self onSetupHeaderBar];
+    [self onSetupDisplay];
+    [self onSetupFooterBar];
+	
+    [self onSetupLocalization];
+    
+    // Add observer for NOTIF_SYNC_ALL_BEGIN, NOTIF_SYNC_ALL_FINISH
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeAllView:) name:NOTIF_SYNC_ALL_BEGIN object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeAllView:) name:NOTIF_SYNC_ALL_FINISH object:nil];
+    
+    // Add observer for connection notifier
+    [[Reachability reachabilityForInternetConnection] startNotifier];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    // View&Controller Prepared & Ready
+    [self retrieveBusinessObjects];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	
+    [self checkAuthentication];
+    [self synchronizeAllView];
+}
+
+#pragma mark - OnSetups Helpers -
+
+- (void)onSetupBackground
+{
+    if (![self.view.backgroundColor isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]])
+        return ;
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[self mainBackgroundResourceName]]];
+    self.contentView.backgroundColor = self.view.backgroundColor;
+}
+
+-(void)onSetupHeaderBar
+{
+    if (self.headerHidden)
+        return ;
+
+    // bar custom
+    _navBarCustomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kLandscapeScreenWidth, kCustomNavigationBarHeight)];
+    _navBarCustomView.tag = kHeaderBarViewTagIndex;
+    _navBarCustomView.backgroundColor = [UIColor whiteColor];
+    
+    UIImageView *navBarBackground_ = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background_section"]] autorelease];
+    navBarBackground_.image = [navBarBackground_.image resizableImageWithCapInsets:UIEdgeInsetsZero];
+    navBarBackground_.frame = (CGRect){CGPointZero, CGRectGetWidth(_navBarCustomView.frame), CGRectGetHeight(navBarBackground_.frame)};
+    [_navBarCustomView addSubview:navBarBackground_];
+    
+    
+    UIImageView * headerLogo_ = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_logo_header"]] autorelease];
+    headerLogo_.frame = (CGRect){0, CGRectGetMidY(_navBarCustomView.frame) - CGRectGetMidY(headerLogo_.frame), headerLogo_.frame.size};
+    
+    UIButton *logoButton_ = [UIButton buttonWithType:UIButtonTypeCustom];
+    logoButton_.frame = CGRectMake(53, 0, CGRectGetWidth(headerLogo_.frame), CGRectGetHeight(_navBarCustomView.frame));
+    [logoButton_ addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [logoButton_ addSubview:headerLogo_];
+    [_navBarCustomView addSubview:logoButton_];
+    
+    // left button
+    if (self.backButtonShown == YES)
+    {
+        UIButton * buttonLeft = [UIButton buttonWithType:UIButtonTypeCustom];
+        [buttonLeft setImage:[UIImage imageNamed:[self backButtonResourceName]] forState:UIControlStateNormal];
+        [buttonLeft addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+        buttonLeft.frame = (CGRect){0, 0, 60, 60};
+        [_navBarCustomView addSubview:buttonLeft];
+    }
+    
+    // Header button bar
+    [self addHeaderButtonBar:_navBarCustomView];
+    [self.view addSubview:_navBarCustomView];
+}
+
+- (void)onSetupDisplay
+{
+    self.contentView.frame = (CGRect){0, CGRectGetMaxY(_navBarCustomView.frame), self.contentView.frame.size};
+    self.contentView.clipsToBounds = YES;
+    
+    self.view.autoresizesSubviews = NO;
+    if ([self.view.subviews indexOfObject:self.contentView] == NSNotFound)
+        [self.view insertSubview:self.contentView belowSubview:_navBarCustomView];
+}
+
+-(void)onSetupFooterBar
+{
+    if (self.footerHidden)
+        return ;
+
+    // Add footer view
+    _footerBarCustomView = [[UIView alloc] initWithFrame:CGRectMake(0, kLandscapeScreenHeight - kCustomFooterBarHeight, kLandscapeScreenWidth, kCustomFooterBarHeight)];
+    _footerBarCustomView.tag = kFooterViewTagIndex;
+    _footerBarCustomView.backgroundColor = COLOR_DARK_BLUE;
+    [self.view addSubview:_footerBarCustomView];
+}
+
+- (void)onSetupLocalization
+{
+	[self.view localizeRecursively];
+}
+
+#pragma mark - Design Helpers -
+
+- (void)addHeaderButtonBar:(UIView *)navBarCustomView
+{
+    CGPoint kButtonPoint_ = (CGPoint){760, 0};
+    CGSize kButtonSize_ = (CGSize){60, 60};
+    float kButtonMargin = 5.f;
+    
+    { // Pin
+        self.pinButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
+        self.pinButton.frame = (CGRect){kButtonPoint_, kButtonSize_};
+        kButtonPoint_.x += kButtonSize_.width + kButtonMargin;
+        
+        [self.pinButton setBackgroundColor:[UIColor clearColor]];
+        [self.pinButton setImage:[UIImage imageNamed:@"bt_header_cloud"] forState:UIControlStateNormal];
+        [self.pinButton setImage:[UIImage imageNamed:@"bt_header_cloud_selected"] forState:UIControlStateHighlighted];
+        [self.pinButton setImage:[UIImage imageNamed:@"bt_header_cloud_selected"] forState:UIControlStateSelected];
+        [self.pinButton addTarget:self action:@selector(onTouchBrowseOnDevice:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [navBarCustomView addSubview:self.pinButton];
+    }
+    
+    {   // Search
+        self.searchButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
+        self.searchButton.frame = (CGRect){kButtonPoint_, kButtonSize_};
+        kButtonPoint_.x += kButtonSize_.width + kButtonMargin;
+        
+        [self.searchButton setBackgroundColor:[UIColor clearColor]];
+        [self.searchButton setImage:[UIImage imageNamed:@"bt_header_find"] forState:UIControlStateNormal];
+        [self.searchButton setImage:[UIImage imageNamed:@"bt_header_find_selected"] forState:UIControlStateHighlighted];
+        [self.searchButton setImage:[UIImage imageNamed:@"bt_header_find_selected"] forState:UIControlStateSelected];
+        [self.searchButton addTarget:self action:@selector(onTouchSearch:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [navBarCustomView addSubview:self.searchButton];
+    }
+    
+    {   // Browse products
+        self.updateAllButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
+        self.updateAllButton.frame = (CGRect){kButtonPoint_, kButtonSize_};
+        kButtonPoint_.x += kButtonSize_.width + kButtonMargin;
+        
+        [self.updateAllButton setBackgroundColor:[UIColor clearColor]];
+        [self.updateAllButton setImage:[UIImage imageNamed:@"bt_header_update"] forState:UIControlStateNormal];
+        [self.updateAllButton setImage:[UIImage imageNamed:@"bt_header_update_selected"] forState:UIControlStateHighlighted];
+        [self.updateAllButton setImage:[UIImage imageNamed:@"bt_header_update_selected"] forState:UIControlStateSelected];
+        [self.updateAllButton addTarget:self action:@selector(onTouchUpdateAll:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [navBarCustomView addSubview:self.updateAllButton];
+    }
+    
+    {   // Settings
+        self.settingsButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
+        self.settingsButton.frame = (CGRect){kButtonPoint_, kButtonSize_};
+        kButtonPoint_.x += kButtonSize_.width + kButtonMargin;
+        
+        [self.settingsButton setBackgroundColor:[UIColor clearColor]];
+        [self.settingsButton setImage:[UIImage imageNamed:@"bt_header_settings"] forState:UIControlStateNormal];
+        [self.settingsButton setImage:[UIImage imageNamed:@"bt_header_settings_selected"] forState:UIControlStateHighlighted];
+        [self.settingsButton setImage:[UIImage imageNamed:@"bt_header_settings_selected"] forState:UIControlStateSelected];
+        [self.settingsButton addTarget:self action:@selector(onTouchSettings:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [navBarCustomView addSubview:self.settingsButton];
+    }
+    
+    [self synchronizeAllView];
+}
+
+#pragma mark - NuxeoDriveViewController
 
 - (void) openWithShow:(NSString *)docPath mimeType:(NSString *)mimeType fromView:(UIView *)iView
 {
@@ -82,7 +298,7 @@
 
 - (NSString *) mainBackgroundResourceName
 {
-    return @"bg_texture";
+    return @"background";
 }
 
 - (NSString *) backButtonResourceName
@@ -97,9 +313,7 @@
     if ([session.authenticator softAuthentication] == NO)
     {
         // Otherwise; Present Login screen
-        [self presentViewController:[[WelcomeViewController alloc]initWithNibName:kXIBWelcomeController bundle:nil] animated:YES completion:^{
-            
-        }];
+        [self presentViewController:[[[WelcomeViewController alloc] initWithNibName:kXIBWelcomeController bundle:nil] autorelease] animated:YES completion:NULL];
     }
 }
 
@@ -120,142 +334,14 @@
     }
 }
 
-- (void) addHeaderButtonBar:(UIView *) navBarCustomView
-{
-    float xButton = 760.f;
-    float kButtonHeight = 60.f;
-    float kButtonMargin = 5.f;
-    
-    {
-        // Pin
-        self.pinButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
-        self.pinButton.frame = CGRectMake(xButton,0,kButtonHeight,kButtonHeight);
-        [self.pinButton setBackgroundColor:[UIColor clearColor]];
-        [self.pinButton setImage:[UIImage imageNamed:@"bt_header_star"] forState:UIControlStateNormal];
-        [self.pinButton setImage:[UIImage imageNamed:@"bt_header_star_selected"] forState:UIControlStateHighlighted];
-        [self.pinButton setImage:[UIImage imageNamed:@"bt_header_star_selected"] forState:UIControlStateSelected];
-        [navBarCustomView addSubview:self.pinButton];
-        [self.pinButton addTarget:self action:@selector(onTouchBrowseOnDevice:) forControlEvents:UIControlEventTouchUpInside];
-        xButton += kButtonHeight + kButtonMargin;
-    }
-    
-    {
-        // Search
-        self.searchButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
-        self.searchButton.frame = CGRectMake(xButton,0,kButtonHeight,kButtonHeight);
-        [self.searchButton setBackgroundColor:[UIColor clearColor]];
-        [self.searchButton setImage:[UIImage imageNamed:@"bt_header_find"] forState:UIControlStateNormal];
-        [self.searchButton setImage:[UIImage imageNamed:@"bt_header_find_selected"] forState:UIControlStateHighlighted];
-        [self.searchButton setImage:[UIImage imageNamed:@"bt_header_find_selected"] forState:UIControlStateSelected];
-        [navBarCustomView addSubview:self.searchButton];
-        [self.searchButton addTarget:self action:@selector(onTouchSearch:) forControlEvents:UIControlEventTouchUpInside];
-        xButton += kButtonHeight + kButtonMargin;
-    }
-    
-    //if (self.isUpdateAllButtonShown == YES)
-    {
-        // Browse products
-        self.updateAllButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
-        self.updateAllButton.frame = CGRectMake(xButton,0,kButtonHeight,kButtonHeight);
-        [self.updateAllButton setBackgroundColor:[UIColor clearColor]];
-        [self.updateAllButton setImage:[UIImage imageNamed:@"bt_header_update"] forState:UIControlStateNormal];
-        [self.updateAllButton setImage:[UIImage imageNamed:@"bt_header_update_selected"] forState:UIControlStateHighlighted];
-        [self.updateAllButton setImage:[UIImage imageNamed:@"bt_header_update_selected"] forState:UIControlStateSelected];
-        [navBarCustomView addSubview:self.updateAllButton];
-        [self.updateAllButton addTarget:self action:@selector(onTouchUpdateAll:) forControlEvents:UIControlEventTouchUpInside];
-        xButton += kButtonHeight + kButtonMargin;
-    }
-    
-    {
-        // Settings
-        self.settingsButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
-        self.settingsButton.frame = CGRectMake(xButton,0,kButtonHeight,kButtonHeight);
-        [self.settingsButton setBackgroundColor:[UIColor clearColor]];
-        [self.settingsButton setImage:[UIImage imageNamed:@"bt_header_settings"] forState:UIControlStateNormal];
-        [self.settingsButton setImage:[UIImage imageNamed:@"bt_header_settings_selected"] forState:UIControlStateHighlighted];
-        [self.settingsButton setImage:[UIImage imageNamed:@"bt_header_settings_selected"] forState:UIControlStateSelected];
-        [navBarCustomView addSubview:self.settingsButton];
-        [self.settingsButton addTarget:self action:@selector(onTouchSettings:) forControlEvents:UIControlEventTouchUpInside];
-        xButton += kButtonHeight + kButtonMargin;
-    }
-    
-    [self synchronizeAllView];
-    
-}
-
--(void) onSetupHeaderBar
-{
-    if(self.isHeaderHidden == NO)
-    {
-        // bar custom
-        UIView * navBarCustomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kLandscapeScreenWidth, kCustomNavigationBarHeight)];
-        navBarCustomView.tag = kHeaderBarViewTagIndex;
-        navBarCustomView.backgroundColor = COLOR_DARK_BLUE;
-        
-        // left button
-        if (self.isBackButtonShown == YES)
-        {
-            UIButton * buttonLeft = [UIButton buttonWithType:UIButtonTypeCustom];
-            buttonLeft.frame = CGRectMake(0, 0, kCustomNavigationBarHeight, kCustomNavigationBarHeight);
-            [buttonLeft setBackgroundImage:[UIImage imageNamed:[self backButtonResourceName]] forState:UIControlStateNormal];
-            [navBarCustomView addSubview:buttonLeft];
-            [buttonLeft addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-            
-            UIImageView * headerLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_logo_header"]];
-            UIButton * buttonLeftLogo = [UIButton buttonWithType:UIButtonTypeCustom];
-            buttonLeftLogo.frame = CGRectMake(NuxeoViewX(buttonLeft) + NuxeoViewW(buttonLeft), 0, NuxeoViewW(headerLogo), kCustomNavigationBarHeight);
-            headerLogo.frame = CGRectMake(NuxeoViewX(buttonLeftLogo), 0, NuxeoViewW(headerLogo), NuxeoViewH(headerLogo));
-            [navBarCustomView addSubview:headerLogo];
-            [navBarCustomView addSubview:buttonLeftLogo];
-            [buttonLeftLogo addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        
-        // Header button bar
-        [self addHeaderButtonBar:navBarCustomView];
-        
-        [self.view addSubview:navBarCustomView];
-        [navBarCustomView release];
-    }
-    
-}
-
--(void) onSetupFooterBar
-{
-    if(self.isFooterHidden == NO)
-    {
-        // Add footer view
-        UIView * footerBarCustomView = [[UIView alloc] initWithFrame:CGRectMake(0, kLandscapeScreenHeight - kCustomFooterBarHeight, kLandscapeScreenWidth, kCustomFooterBarHeight)];
-        footerBarCustomView.tag = kHeaderBarViewTagIndex;
-        footerBarCustomView.backgroundColor = COLOR_DARK_BLUE;
-        [self.view addSubview:footerBarCustomView];
-        [footerBarCustomView release];
-    }
-    
-}
-
-- (void)onSetupBackground
-{
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:[self mainBackgroundResourceName]]]];
-}
-
-- (void)onSetupDisplay
-{
-	
-}
-
-- (void)onSetupLocalization
-{
-	[self.view localizeRecursively];
-}
-
 - (UIView *) headerBarView
 {
-    return [self.view viewWithTag:kHeaderBarViewTagIndex];
+    return _navBarCustomView;
 }
 
 - (UIView *) footerBarView
 {
-    return [self.view viewWithTag:kFooterViewTagIndex];
+    return _footerBarCustomView;
 }
 
 - (UIView *) backgroundView
@@ -384,70 +470,6 @@
     
 }
 
-#pragma mark -
-#pragma mark UIViewControllerLifeCycle
-
-- (void) loadView
-{
-    [super loadView];
-    
-
-}
-
-- (void) viewDidLoad
-{
-	[super viewDidLoad];
-	
-    // Add observer for NOTIF_SYNC_ALL_BEGIN, NOTIF_SYNC_ALL_FINISH
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeAllView:) name:NOTIF_SYNC_ALL_BEGIN object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeAllView:) name:NOTIF_SYNC_ALL_FINISH object:nil];
-    // Add observer for connection notifier
-    [[Reachability reachabilityForInternetConnection] startNotifier];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-    
-    [self retrieveBusinessObjects];
-	
-	[self onSetupBackground];
-	
-    [self onSetupHeaderBar];
-	
-    [self onSetupFooterBar];
-	
-    [self onSetupDisplay];
-	
-    [self onSetupLocalization];
-    
-    
-}
-
-- (void) viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-	
-    
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-	[super viewDidAppear:animated];
-	
-    [self checkAuthentication];
-    
-    [self synchronizeAllView];
-}
-
-#pragma mark -
-#pragma mark UIViewControllerExceptionHandler
-
-/*
- 
- - (BOOL) onBusinessObjectException:(id<UIViewControllerLifeCycle>)aggregate exception:(NuxeoBusinessObjectException *)exception resume:(BOOL *)resume;
- - (BOOL) onLifeCycleException:(id<UIViewControllerLifeCycle>)aggregate exception:(NuxeoLifeCycleException *)exception resume:(BOOL *)resume;
- - (BOOL) onOtherException:(id<UIViewControllerLifeCycle>)aggregate exception:(NSException *)exception resume:(BOOL *)resume;
- 
- */
-
-
 
 
 #pragma mark -
@@ -477,11 +499,19 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
+    [_navBarCustomView release];
+    [_footerBarCustomView release];
+    _navBarCustomView = nil;
+    _footerBarCustomView = nil;
+    
     self.docController = nil;
     self.pinButton = nil;
     self.searchButton = nil;
     self.updateAllButton = nil;
     self.settingsButton = nil;
+    
+    self.contentView = nil;
+    
     [super dealloc];
 }
 
@@ -490,7 +520,6 @@
 	NuxeoLogW(@"");
 	
 	[super didReceiveMemoryWarning];
-	
 }
 
 #pragma mark Rotation

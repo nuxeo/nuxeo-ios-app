@@ -24,17 +24,20 @@
 
 @class NUXDocument;
 
-#pragma mark -
-#pragma mark NuxeoDriveViewController
+#pragma mark - NuxeoDriveViewController
 @interface NuxeoDriveViewController : UIViewController <UIDocumentInteractionControllerDelegate, UIAlertViewDelegate>
 {
-	
+	UIView *_navBarCustomView;
+    UIView *_footerBarCustomView;
 }
 
-@property (nonatomic) BOOL isHeaderHidden;
-@property (nonatomic) BOOL isBackButtonShown;
-@property (nonatomic) BOOL isUpdateAllButtonShown;
-@property (nonatomic) BOOL isFooterHidden;
+#pragma mark - Properties
+@property (nonatomic, getter = isHeaderHidden)         BOOL headerHidden;
+@property (nonatomic, getter = isFooterHidden)         BOOL footerHidden;
+@property (nonatomic, getter = isBackButtonShown)      BOOL backButtonShown;
+@property (nonatomic, getter = isUpdateAllButtonShown) BOOL updateAllButtonShown;
+
+@property (nonatomic, getter = isAbstractView) BOOL abstractView;
 
 // Header
 @property (retain, nonatomic) UIButton * pinButton;
@@ -42,9 +45,13 @@
 @property (retain, nonatomic) UIButton * updateAllButton;
 @property (retain, nonatomic) UIButton * settingsButton;
 
-
 @property (retain, nonatomic) UIDocumentInteractionController * docController;
 
+#pragma mark - Initializers
+
+- (instancetype)init;
+
+#pragma mark - generic messages
 - (void) checkAuthentication;
 - (void) retrieveBusinessObjects;
 - (void) synchronizeAllView;
@@ -53,9 +60,10 @@
 - (UIView *) footerBarView;
 - (UIView *) backgroundView;
 
+#pragma mark - Helpers messages
+
 // Header button bar (override it to set a custom button bar)
 - (void) addHeaderButtonBar:(UIView *) navBarCustomView;
-
 - (void) openWithShow:(NSString *)docPath mimeType:(NSString *)mimeType fromView:(UIView *)iView;
 
 @end
