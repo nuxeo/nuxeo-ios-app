@@ -41,15 +41,15 @@ typedef enum NuxeoHierarchieStatus
     NSMutableDictionary * synchronisedPoints;
 }
 
-@property (nonatomic, readonly) NSDictionary * synchronisedPoints;
+@property (nonatomic, readonly) NSMutableDictionary * synchronisedPoints;
 
 + (NuxeoDriveRemoteServices *) instance;
 
 - (NSString *) getIOSLanguage;
 
-// Retrieve Hierarchy for suite
-- (NSArray *) retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName;
+// Obtain hierarchy by its name
 - (NUXHierarchy *) getHierarchyWithName:(NSString *)iHerarchieName;
+// Load binaries of all content of a hierarchy
 - (void) loadBinariesOfHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
 - (NuxeoHierarchieStatus) getHierarchyStatus:(NSString *)hierarchieName;
 
@@ -57,10 +57,10 @@ typedef enum NuxeoHierarchieStatus
 - (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion;
 - (void) addSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
 - (void) removeSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
-
+- (void) refreshAllSyncPoints:(BOOL)withContent;
 
 // Blob methods
 - (NSString *) getDocPathForDocument:(NUXDocument *)nuxDocument;
-
+- (BOOL) downloadIsPossible;
 
 @end

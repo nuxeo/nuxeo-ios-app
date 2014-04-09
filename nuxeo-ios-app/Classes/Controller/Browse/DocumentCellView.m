@@ -20,6 +20,8 @@
 
 #import "DocumentCellView.h"
 
+#import "NuxeoDriveRemoteServices.h"
+
 @implementation DocumentCellView
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -31,14 +33,21 @@
     return self;
 }
 
-- (void) updateDisplayForFile
+- (void) updateDisplayForFile:(NUXDocument *)currentDocument
 {
-    
+    BOOL fileExist = [currentDocument hasBinaryFile];
+    [self.preview setEnabled:fileExist];
+    [self.openWith setEnabled:fileExist];
+    [self.update setEnabled:[[NuxeoDriveRemoteServices instance] downloadIsPossible]];
+    [self.addSynch setHidden:YES];
 }
 
-- (void) updateDisplayForFolder
+- (void) updateDisplayForFolder:(NUXDocument *)currentDocument
 {
-    
+    [self.preview setHidden:YES];
+    [self.openWith setHidden:YES];
+    [self.update setHidden:YES];
+    [self.addSynch setEnabled:[[NuxeoDriveRemoteServices instance] downloadIsPossible]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

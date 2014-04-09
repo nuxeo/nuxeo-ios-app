@@ -358,75 +358,9 @@
     }];
 }
 
-// Sync all documents
-//- (void) onTouchSyncAllDocs:(id)sender
-//{
-//    APP_DELEGATE.syncAllEnable = NO;
-//    APP_DELEGATE.syncAllProgressStatus = 0.1;
-//    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_BEGIN object:nil];
-//    
-//    [self.syncButton setEnabled:NO];
-//    [self.syncAllActivity startAnimating];
-//    self.syncAllActivity.hidden = NO;
-//    
-//    NSArray * documents = [[[NuxeoDriveRemoteServices instance] retrieveAllDocumentsFromMainHierarchy] retain];
-//    NSInteger __block operations = [documents count];
-//    for (NUXDocument * nuxDocument in documents)
-//    {
-//        // If blobStore already has the blob, it is not necessary to redownload it.
-//        if ([[NUXBlobStore instance] hasBlobFromDocument:nuxDocument metadataXPath:kXPathFileContent]) {
-//            operations -= 1;
-//            continue;
-//        }
-//        
-//        NSString *tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"tempfile%d.tmp", arc4random()]];
-//        
-//        NUXSession * nuxSession = [NUXSession sharedSession];
-//        NUXRequest *request = [nuxSession requestDownloadBlobFrom:nuxDocument.uid
-//                                                       inMetadata:kXPathFileContent];
-//        request = [nuxSession requestDownloadBlobFrom:nuxDocument.uid inMetadata:kXPathFileContent];
-//        request.downloadDestinationPath = tempFile;
-//        request.shouldContinueWhenAppEntersBackground = YES;
-//        
-//        NUXBasicBlock syncAllDoneIfEmpty = ^(void) {
-//            operations -= 1;
-//            if (operations <= 0) {
-//                [self syncAllDone];
-//            }
-//        };
-//        
-//        [request setCompletionBlock:^(NUXRequest *request) {
-//            [[NUXBlobStore instance] saveBlobFromPath:tempFile withDocument:nuxDocument metadataXPath:kXPathFileContent error:nil];
-//            [[NSFileManager defaultManager] removeItemAtPath:tempFile error:nil];
-//            syncAllDoneIfEmpty();
-//        }];
-//        [request setFailureBlock:^(NUXRequest *request) {
-//            syncAllDoneIfEmpty();
-//        }];
-//        
-//        [request start];
-//    }
-//    
-//    if (operations <= 0) {
-//        [self syncAllDone];
-//    }
-//    
-//    [documents release];
-//}
-
-- (void) syncAllDone
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        APP_DELEGATE.syncAllEnable = YES;
-        APP_DELEGATE.syncAllProgressStatus = -1.0;
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
-    });
-}
-
 - (void) onTouchUpdateAll:(id)sender
 {
-    // TODO
+    [[NuxeoDriveRemoteServices instance] refreshAllSyncPoints:YES];
     
 }
 

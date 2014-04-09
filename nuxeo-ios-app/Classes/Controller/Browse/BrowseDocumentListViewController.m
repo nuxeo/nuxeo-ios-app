@@ -77,7 +77,7 @@
              {
                  NSError * error = nil;
                  NUXDocuments * result = [NUXJSONSerializer entityWithData:[pRequest responseData] error:&error];
-                 documents = [result.entries retain];
+                 documents = [result.entries mutableCopy];
                  
                  [self.documentsView reloadData];
                  
@@ -257,7 +257,7 @@
     if ([documents count] > 0)
     {
         NUXDocument * selectedDocument = [documents objectAtIndex:indexPath.row];
-        cell.title.text = selectedDocument.title;//[selectedDocument.properties objectForKey:kDublinCoreTitle];
+        cell.title.text = selectedDocument.title;
         
         [cell setTarget:self forIndexPath:indexPath];
         
@@ -267,20 +267,11 @@
         
         if ([selectedDocument isFolder] == YES)
         {
-            [cell updateDisplayForFolder];
-            [cell.preview setHidden:YES];
-            [cell.openWith setHidden:YES];
-            [cell.update setHidden:YES];
-            [cell.addSynch setHidden:![APP_DELEGATE isNetworkConnected]];
+            [cell updateDisplayForFolder:selectedDocument];
         }
         else
         {
-            [cell updateDisplayForFile];
-            BOOL fileExist = [selectedDocument hasBinaryFile];
-            [cell.preview setEnabled:fileExist];
-            [cell.openWith setEnabled:fileExist];
-            [cell.update setHidden:![APP_DELEGATE isNetworkConnected]];
-            [cell.addSynch setHidden:YES];
+            [cell updateDisplayForFile:selectedDocument];
         }
     }
     
@@ -297,29 +288,31 @@
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
    
     NUXDocument * selectedDocument = [self documentByIndexPath:indexPath];
-    if ([self.context isEqualToString:kBrowseDocumentOnLine])
+    if ([selectedDocument hasBinaryFile] == YES)
     {
-        if ([selectedDocument isFolder] == YES)
+        if ([self.context isEqualToString:kBrowseDocumentOnLine])
         {
-            [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+            if ([selectedDocument isFolder] == YES)
+            {
+                [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+            }
+            else
+            {
+                [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+            }
         }
-        else
+        else if ([self.context isEqualToString:kBrowseDocumentOffLine])
         {
-            [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+            if ([selectedDocument isFolder] == YES)
+            {
+                [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument , kParamKeyHierarchy : self.currentHierarchy, kParamKeyContext : self.context}];
+            }
+            else
+            {
+                [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+            }
         }
     }
-    else if ([self.context isEqualToString:kBrowseDocumentOffLine])
-    {
-        if ([selectedDocument isFolder] == YES)
-        {
-            [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument , kParamKeyHierarchy : self.currentHierarchy, kParamKeyContext : self.context}];
-        }
-        else
-        {
-            [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
-        }
-    }
-    
     
 }
 

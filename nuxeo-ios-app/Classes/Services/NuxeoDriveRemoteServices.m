@@ -33,7 +33,8 @@
 
 #import "NuxeoRetrieveException.h"
 
-#define kNuxeoHierarchyStatusIndex      1
+#define kNuxeoSynchroPointNameIndex         0
+#define kNuxeoSynchroPointStatusIndex       1
 
 
 @implementation NuxeoDriveRemoteServices
@@ -46,7 +47,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRemoveSyncPoint:) name:NOTIF_REMOVE_SYNC_POINT object:nil];
     
     // Load synchronised points save in app
-    synchronisedPoints = [[[NuxeoSettingsManager instance] readSetting:USER_SYNC_POINTS_LIST defaultValue:[NSMutableDictionary dictionary]] retain];
+    synchronisedPoints = [[[[NuxeoSettingsManager instance] readSetting:USER_SYNC_POINTS_LIST defaultValue:[NSMutableDictionary dictionary]] mutableCopy] retain];
 }
 
 + (NuxeoDriveRemoteServices *) instance
@@ -62,32 +63,13 @@
 }
 
 #pragma mark Notification selectors
+
 - (void) onAddSyncPoint:(NSNotification *)notification
 {
     __block NSString * hierarchieName = (NSString *) notification.object;
     
-    // first element = hierarchie name
-    // second element : indicate hierarchie's status
-    [synchronisedPoints setObject:[NSMutableArray arrayWithObjects:hierarchieName, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], nil] forKey:hierarchieName];
-    [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
+    [self loadFullHierarchyByName:hierarchieName];
     
-    [self loadHierarchy:hierarchieName completionBlock:^(id hierarchy)
-    {
-        [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchieName]) replaceObjectAtIndex:kNuxeoHierarchyStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusLoaded]];
-        [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED object:hierarchieName];
-        
-        // TODO asynchronize this work
-        [self loadBinariesOfHierarchy:hierarchieName completionBlock:^(id hierarchyName)
-        {
-            [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchieName]) replaceObjectAtIndex:kNuxeoHierarchyStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusBinariesLoaded]];
-            [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:hierarchieName];
-        }];
-        
-    }];
 }
 
 - (void) onRemoveSyncPoint:(NSNotification *)notification
@@ -185,7 +167,7 @@
 
 - (void) loadHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion
 {
-    __block NUXHierarchy * aHierarchy = [self setupHierarchy:iHerarchieName completionBlock:completion];//[NUXHierarchy hierarchyWithName:iHerarchieName];
+    __block NUXHierarchy * aHierarchy = [self setupHierarchy:iHerarchieName completionBlock:completion];
     
     if ([APP_DELEGATE isNetworkConnected] == YES)
     {
@@ -212,7 +194,34 @@
     {
         completion(aHierarchy);
     }
+}
+
+- (void)loadFullHierarchyByName:(NSString *)hierarchyName
+{
+    // first element = hierarchie name
+    // second element : indicate hierarchie's status
+    [synchronisedPoints setObject:[NSMutableArray arrayWithObjects:hierarchyName, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], nil] forKey:hierarchyName];
+    [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
     
+    [self loadHierarchy:hierarchyName completionBlock:^(id hierarchy)
+     {
+         [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchyName]) replaceObjectAtIndex:kNuxeoSynchroPointStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusLoaded]];
+         [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
+         
+         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED object:hierarchyName];
+         
+         // TODO asynchronize this work
+         [self loadBinariesOfHierarchy:hierarchyName completionBlock:^(id hierarchyName)
+          {
+              [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchyName]) replaceObjectAtIndex:kNuxeoSynchroPointStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusBinariesLoaded]];
+              [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
+              
+              [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:hierarchyName];
+          }];
+         
+     }];
+
+
 }
 
 - (NUXHierarchy *) getHierarchyWithName:(NSString *)iHerarchieName
@@ -244,7 +253,7 @@
 {
     if ([synchronisedPoints objectForKey:hierarchieName] != nil)
     {
-        return [[((NSArray *)[synchronisedPoints objectForKey:hierarchieName]) objectAtIndex:kNuxeoHierarchyStatusIndex] intValue];
+        return [[((NSArray *)[synchronisedPoints objectForKey:hierarchieName]) objectAtIndex:kNuxeoSynchroPointStatusIndex] intValue];
     }
     return NuxeoHierarchieStatusNotLoaded;
 }
@@ -320,8 +329,8 @@
         NSMutableArray * result = [[NSMutableArray alloc] init];
         for (NSArray * synchronizePoint in synchPoints)
         {
-            NUXHierarchy * hierarchy = [self getHierarchyWithName:[synchronizePoint objectAtIndex:0]];
-            [result addObject:[hierarchy nodeWithRef:[synchronizePoint objectAtIndex:0]]];
+            NUXHierarchy * hierarchy = [self getHierarchyWithName:[synchronizePoint objectAtIndex:kNuxeoSynchroPointNameIndex]];
+            [result addObject:[hierarchy nodeWithRef:[synchronizePoint objectAtIndex:kNuxeoSynchroPointNameIndex]]];
         }
         
         completion(result);
@@ -333,9 +342,37 @@
         [nuxRequest startWithCompletionBlock:^(NUXRequest *request) {
             // result
             NSError * error = nil;
-            NUXDocuments * result = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
+            NUXDocuments * listOfSynchroPoints = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
             
-            completion(result);
+            // Add missing synchronized points
+            for (NUXDocument * serverSyncPoint in listOfSynchroPoints.entries)
+            {
+                if ([[self.synchronisedPoints allKeys] containsObject:serverSyncPoint.path] == NO)
+                {
+                    [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:serverSyncPoint.path, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], nil] forKey:serverSyncPoint.path];
+                }
+            }
+            // Remove old synchronized points
+            for (NSString * synchronizedPointPath in [self.synchronisedPoints allKeys])
+            {
+                BOOL containSynchroPoint = NO;
+                for (NUXDocument * serverSyncPoint in listOfSynchroPoints.entries)
+                {
+                    if ([serverSyncPoint.path isEqualToString:synchronizedPointPath])
+                    {
+                        containSynchroPoint = YES;
+                        break;
+                    }
+                }
+                if (containSynchroPoint == NO)
+                {
+                    [self.synchronisedPoints removeObjectForKey:synchronizedPointPath];
+                    NUXHierarchy * aHierarchy = [NUXHierarchy hierarchyWithName:synchronizedPointPath];
+                    [aHierarchy resetCache];
+                }
+            }
+            
+            completion(listOfSynchroPoints);
             
         } FailureBlock:^(NUXRequest *request) {
         }];
@@ -385,6 +422,44 @@
     }];
 }
 
+- (void) refreshAllSyncPoints:(BOOL)withContent
+{
+    if ([APP_DELEGATE isNetworkConnected] == YES)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_BEGIN object:nil];
+        
+        [self retrieveAllSynchronizePoints:^(id documents)
+        {
+            if (withContent == YES && [self downloadIsPossible] == YES)
+            {
+                __block int countOfDownloadedHierarchy = 0;
+                [[NSNotificationCenter defaultCenter] addObserverForName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
+                    // Count the download hierarchy
+                    countOfDownloadedHierarchy++;
+                    if (countOfDownloadedHierarchy >= [[self.synchronisedPoints allKeys] count])
+                    {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
+                    }
+                }];
+                
+                for (NSArray * synchroPointInfos in [self.synchronisedPoints allValues])
+                {
+                    NSString * hierarchyName = [synchroPointInfos objectAtIndex:kNuxeoSynchroPointNameIndex];
+                    
+                    [self loadFullHierarchyByName:hierarchyName];
+                    
+                }
+            }
+            
+        }];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
+    }
+}
+
+
 #pragma mark
 #pragma mark Blob or binaries methods
 #pragma mark
@@ -405,6 +480,21 @@
     NSString * docName = [nuxDocument.properties objectForKey:@"file:filename"];
     
     return [[self userDocsFilePath] stringByAppendingPathComponent:[self docFileName:docName withDocId:docId]];
+}
+
+- (BOOL) downloadIsPossible
+{
+    if (APP_DELEGATE.isNetworkConnected == YES)
+    {
+        if (APP_DELEGATE.isWifiConnected == YES)
+        {
+            return YES;
+        } else  if( [[NuxeoSettingsManager instance] readBoolSetting:USER_SYNC_OVER_CELLULAR defaulValue:NO] == YES && APP_DELEGATE.isWifiConnected == NO)
+        {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 

@@ -86,6 +86,7 @@
     UINib  *directoryCellNib = [UINib nibWithNibName:kXIBDirectoryCellView bundle:nil];
     [self.synchronizedFolders registerNib:directoryCellNib forCellWithReuseIdentifier:kSynchroReuseIdentifierForCollection];
     
+
 }
 
 /**
@@ -95,6 +96,8 @@
 {	
 	[super viewDidLoad];
     
+    // Hide cloud button
+    [self.pinButton setHidden:YES];
 }
 
 /**

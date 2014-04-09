@@ -60,7 +60,7 @@
         isNetworkConnected = NO;
         // Stop all requests if system detect internet connection is lost
         [[NUXSession sharedSession] cancelAllRequests];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NETWORK_STATUS_CHANGE object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
     }
     else
     {
@@ -87,10 +87,10 @@
 
 - (void) onApplicationDidFinishLaunchingEnd:(UIApplication *)application
 {
-	NuxeoLogI(@"Application did finish launching");    
-
+	NuxeoLogI(@"Application did finish launching");
+    
 	// Register push notification
-//	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+    //	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
 	
     // Remove old badges
 	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -107,33 +107,33 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	NuxeoLogLogo();
-	
-	// -----------------------------
-	// Creating Main Window
-	// -----------------------------
-	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    NuxeoLogLogo();
+
+    // -----------------------------
+    // Creating Main Window
+    // -----------------------------
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 
-    self.window.rootViewController =  [[[HomeViewController alloc] init] autorelease];
+    self.window.rootViewController = [[[HomeViewController alloc] init] autorelease];
     ((NuxeoDriveViewController *)self.window.rootViewController).backButtonShown = YES;
-    
+
+
     [self.window makeKeyAndVisible];
     return YES;
 }
 
 /**
- * Handle the url when system open the specific url scheme specify in Info.plist 
+ * Handle the url when system open the specific url scheme specify in Info.plist
  */
 - (BOOL) application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
 	NuxeoLogD(@"url ouverte : %@", [url description]);
 	
-	UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NuxeoLocalized(@"application.name") 
+	UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NuxeoLocalized(@"application.name")
 														 message:[url description]
-														delegate:self 
-											   cancelButtonTitle:NuxeoLocalized(@"button.ok") 
+														delegate:self
+											   cancelButtonTitle:NuxeoLocalized(@"button.ok")
 											   otherButtonTitles:nil];
 	[alertView show];
 	[alertView release];
@@ -141,14 +141,14 @@
 	return YES;
 }
 
-- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken { 
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 	
 	NSString *token = [NSString stringWithFormat:@"%@",deviceToken];
 	NuxeoLogD(@"didRegisterForRemoteNotificationsWithDeviceToken", token);
 	
 }
 
-- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err { 
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
 	
 	NuxeoLogI(@"Failed to register remote notifaction");
 	NuxeoLogI(([NSString stringWithFormat: @"Error: %@", err]));
@@ -158,10 +158,10 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 	
 	NuxeoLogD(@"Did Receive Remote Notification");
-	for (id key in userInfo) 
+	for (id key in userInfo)
 	{
 		NuxeoLogD(@"key: %@, value: %@", key, [userInfo objectForKey:key]);
-	}    
+	}
 	
 }
 
@@ -176,7 +176,6 @@
 /**
  * Fired when the application wake up
  **/
-
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
 	//on met à zero les badges

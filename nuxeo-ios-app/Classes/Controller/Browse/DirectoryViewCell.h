@@ -31,9 +31,11 @@
 
 @property (nonatomic, assign) id<NuxeoDrivePopupActionViewDelegate> popupInfoDelegate;
 @property (nonatomic, assign) NSIndexPath * indexPath;
+
 @property (retain, nonatomic) IBOutlet UIImageView *picto;
 @property (retain, nonatomic) IBOutlet NuxeoLabel *title;
 
+@property (nonatomic) BOOL loading; // Indicate if this folder is under synchronisation
 @property (nonatomic) BOOL enabled;
 
 - (void) setPictoBackgroundColor:(UIColor *)iColor;
