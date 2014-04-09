@@ -123,7 +123,6 @@
     if (aHierarchy.completionBlock == nil)
     {
         [aHierarchy setCompletionBlock:^{
-            NSLog(@"hierarchy done !");
             if (completion != nil)
             {
                 completion(aHierarchy);
@@ -159,6 +158,16 @@
             }
             return nil;
         };
+    }
+    
+    if (aHierarchy.failureBlock == nil)
+    {
+        [aHierarchy setFailureBlock:^{
+            if (completion != nil)
+            {
+                completion(aHierarchy);
+            }
+        }];
     }
     
     return aHierarchy;
@@ -426,6 +435,8 @@
 {
     if ([APP_DELEGATE isNetworkConnected] == YES)
     {
+        APP_DELEGATE.synchronizationInProgress = YES;
+        [[NuxeoSettingsManager instance] saveBoolSetting:APP_DELEGATE.synchronizationInProgress forKey:SYNCHRONISATION_IN_PROGRESS];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_BEGIN object:nil];
         
         [self retrieveAllSynchronizePoints:^(id documents)
@@ -433,32 +444,45 @@
             if (withContent == YES && [self downloadIsPossible] == YES)
             {
                 __block int countOfDownloadedHierarchy = 0;
-                [[NSNotificationCenter defaultCenter] addObserverForName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
+                [[NSNotificationCenter defaultCenter] addObserverForName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note)
+                {
                     // Count the download hierarchy
                     countOfDownloadedHierarchy++;
                     if (countOfDownloadedHierarchy >= [[self.synchronisedPoints allKeys] count])
                     {
-                        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
+                        [self endAllSyncPointsRefreshProcess];
                     }
                 }];
                 
-                for (NSArray * synchroPointInfos in [self.synchronisedPoints allValues])
+                if ([[self.synchronisedPoints allKeys] count] > 0)
                 {
-                    NSString * hierarchyName = [synchroPointInfos objectAtIndex:kNuxeoSynchroPointNameIndex];
-                    
-                    [self loadFullHierarchyByName:hierarchyName];
-                    
+                    for (NSArray * synchroPointInfos in [self.synchronisedPoints allValues])
+                    {
+                        NSString * hierarchyName = [synchroPointInfos objectAtIndex:kNuxeoSynchroPointNameIndex];
+                        
+                        [self loadFullHierarchyByName:hierarchyName];
+                    }
+                }
+                else
+                {
+                    [self endAllSyncPointsRefreshProcess];
                 }
             }
-            
         }];
     }
     else
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
+        [self endAllSyncPointsRefreshProcess];
     }
 }
 
+- (void) endAllSyncPointsRefreshProcess
+{
+    APP_DELEGATE.synchronizationInProgress = NO;
+    [[NuxeoSettingsManager instance] saveBoolSetting:APP_DELEGATE.synchronizationInProgress forKey:SYNCHRONISATION_IN_PROGRESS];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
+
+}
 
 #pragma mark
 #pragma mark Blob or binaries methods

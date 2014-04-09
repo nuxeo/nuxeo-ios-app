@@ -38,4 +38,6 @@
 @property (nonatomic) BOOL browseAllEnable;
 @property (nonatomic) float syncAllProgressStatus;
 
+@property (nonatomic, getter = hasSynchronizationInProgress) BOOL synchronizationInProgress;
+
 @end

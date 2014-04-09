@@ -36,16 +36,15 @@
 - (void) updateDisplayForFile:(NUXDocument *)currentDocument
 {
     BOOL fileExist = [currentDocument hasBinaryFile];
-    [self.preview setEnabled:fileExist];
-    [self.openWith setEnabled:fileExist];
-    [self.update setEnabled:[[NuxeoDriveRemoteServices instance] downloadIsPossible]];
+    //[self.info setEnabled:fileExist];
+    [self.update setEnabled:(fileExist && [[NuxeoDriveRemoteServices instance] downloadIsPossible])];
     [self.addSynch setHidden:YES];
 }
 
 - (void) updateDisplayForFolder:(NUXDocument *)currentDocument
 {
     [self.preview setHidden:YES];
-    [self.openWith setHidden:YES];
+    [self.info setHidden:YES];
     [self.update setHidden:YES];
     [self.addSynch setEnabled:[[NuxeoDriveRemoteServices instance] downloadIsPossible]];
 }
@@ -55,22 +54,6 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
-}
-
-- (IBAction)onTouchPreview:(id)sender
-{
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(onTouchPreview:)] == YES)
-    {
-        [self.delegate performSelector:@selector(onTouchPreview:) withObject:self.indexPath];
-    }
-}
-
-- (IBAction)onTouchOpenWith:(id)sender
-{
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(onTouchOpenWith:)] == YES)
-    {
-        [self.delegate performSelector:@selector(onTouchOpenWith:) withObject:self.indexPath];
-    }
 }
 
 - (IBAction)onTouchSync:(id)sender
@@ -131,7 +114,7 @@
 - (void) finishUpdate
 {
     [self.preview setEnabled:YES];
-    [self.openWith setEnabled:YES];
+    [self.info setEnabled:YES];
     
     [self.updateActivity stopAnimating];
     self.updateActivity.hidden = YES;
@@ -146,7 +129,7 @@
     [_picto release];
     [_title release];
     [_preview release];
-    [_openWith release];
+    [_info release];
     [_update release];
     [_updateActivity release];
     [_addSynch release];

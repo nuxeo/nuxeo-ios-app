@@ -34,14 +34,12 @@
 @property (retain, nonatomic) IBOutlet UIImageView *picto;
 @property (retain, nonatomic) IBOutlet NuxeoLabel *title;
 @property (retain, nonatomic) IBOutlet NuxeoButton *preview;
-@property (retain, nonatomic) IBOutlet NuxeoButton *openWith;
+@property (retain, nonatomic) IBOutlet NuxeoButton *info;
 @property (retain, nonatomic) IBOutlet NuxeoButton *update;
 @property (retain, nonatomic) IBOutlet NuxeoButton *addSynch;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *updateActivity;
 
 
-- (IBAction)onTouchPreview:(id)sender;
-- (IBAction)onTouchOpenWith:(id)sender;
 - (IBAction)onTouchSync:(id)sender;
 - (IBAction)onTouchInfo:(id)sender;
 - (IBAction)onTouchPin:(id)sender;

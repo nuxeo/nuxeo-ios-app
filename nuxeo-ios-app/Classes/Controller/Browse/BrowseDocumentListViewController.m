@@ -288,7 +288,7 @@
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
    
     NUXDocument * selectedDocument = [self documentByIndexPath:indexPath];
-    if ([selectedDocument hasBinaryFile] == YES)
+    if ([selectedDocument hasBinaryFile] == YES || [selectedDocument isFolder] == YES)
     {
         if ([self.context isEqualToString:kBrowseDocumentOnLine])
         {

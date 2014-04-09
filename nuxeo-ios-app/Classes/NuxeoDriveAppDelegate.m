@@ -29,6 +29,7 @@
 #import <NuxeoSDK/NUXTokenAuthenticator.h>
 
 #import "NuxeoSettingsManager.h"
+#import "NuxeoDriveRemoteServices.h"
 
 #import "Reachability.h"
 
@@ -78,28 +79,6 @@
 #pragma mark NuxeoAppDelegate
 #pragma mark -
 
-- (void) onApplicationDidFinishLaunchingBegin:(UIApplication *)application
-{
-    self.syncAllEnable = NO;
-    self.browseAllEnable = NO;
-    self.syncAllProgressStatus = 0.0;
-}
-
-- (void) onApplicationDidFinishLaunchingEnd:(UIApplication *)application
-{
-	NuxeoLogI(@"Application did finish launching");
-    
-	// Register push notification
-    //	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
-	
-    // Remove old badges
-	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    
-    // 5Go convert with http://www.convertworld.com/fr/mesures-informatiques/Gigaoctet+%28Gigabyte%29.html
-    ((NUXBlobStore*)[NUXBlobStore instance]).sizeLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:[NSNumber numberWithLongLong:(long long)5 * 1024 * 1024 * 1024]];
-    ((NUXBlobStore*)[NUXBlobStore instance]).countLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_COUNT_LIMIT defaultValue:@(-1)];
-    
-}
 
 #pragma mark -
 #pragma mark UIApplicationDelegate
@@ -116,10 +95,23 @@
     self.window.backgroundColor = [UIColor whiteColor];
 
     self.window.rootViewController = [[[HomeViewController alloc] init] autorelease];
-    ((NuxeoDriveViewController *)self.window.rootViewController).backButtonShown = YES;
+    ((NuxeoDriveViewController *)self.window.rootViewController).backButtonShown = NO;
 
 
     [self.window makeKeyAndVisible];
+    
+    // Init
+    self.syncAllEnable = NO;
+    self.browseAllEnable = NO;
+    self.synchronizationInProgress = [[NuxeoSettingsManager instance] readBoolSetting:SYNCHRONISATION_IN_PROGRESS defaulValue:NO];
+    self.syncAllProgressStatus = 0.0;
+    
+    // Init NuxeoBlobStore
+    // 5Go convert with http://www.convertworld.com/fr/mesures-informatiques/Gigaoctet+%28Gigabyte%29.html
+    ((NUXBlobStore*)[NUXBlobStore instance]).sizeLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:[NSNumber numberWithLongLong:(long long)5 * 1024 * 1024 * 1024]];
+    ((NUXBlobStore*)[NUXBlobStore instance]).countLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_COUNT_LIMIT defaultValue:@(-1)];
+    
+    
     return YES;
 }
 
@@ -187,6 +179,7 @@
     // Add observer for connection notifier
     [[Reachability reachabilityForInternetConnection] startNotifier];
 	isNetworkConnected = [[Reachability reachabilityForInternetConnection] isReachable];
+    isWifiConnected = [[Reachability reachabilityForInternetConnection] isReachableViaWiFi];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
     // Nuxeo init
@@ -212,6 +205,14 @@
     [nuxSession setDownloadQueueMaxConcurrentOperationCount:2];
     // Add global schema
     [nuxSession addDefaultSchemas:@[kNuxeoSchemaDublincore, kNuxeoSchemaUid, kNuxeoSchemaFile, kNuxeoSchemaCommon, kNuxeoSchemaVideo]];
+    
+    // Check if a synchronization was launch and is not done
+    if (APP_DELEGATE.synchronizationInProgress == YES)
+    {
+        [[NuxeoDriveRemoteServices instance] refreshAllSyncPoints:YES];
+    }
+    
+    
 }
 
 @end

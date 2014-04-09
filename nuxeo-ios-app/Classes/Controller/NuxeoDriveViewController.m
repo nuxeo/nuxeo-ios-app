@@ -156,7 +156,10 @@
     
     UIButton *logoButton_ = [UIButton buttonWithType:UIButtonTypeCustom];
     logoButton_.frame = CGRectMake(53, 0, CGRectGetWidth(headerLogo_.frame), CGRectGetHeight(_navBarCustomView.frame));
-    [logoButton_ addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    if (self.backButtonShown == YES)
+    {
+        [logoButton_ addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     [logoButton_ addSubview:headerLogo_];
     [_navBarCustomView addSubview:logoButton_];
@@ -324,13 +327,19 @@
 
 - (void) synchronizeAllView
 {
-    if ([APP_DELEGATE isNetworkConnected] == NO)
+    [self.searchButton setEnabled:[APP_DELEGATE isNetworkConnected]];
+    [self.updateAllButton setEnabled:[APP_DELEGATE isNetworkConnected]];
+    
+    if (APP_DELEGATE.synchronizationInProgress == YES && [APP_DELEGATE isNetworkConnected] == YES)
     {
-        
+        // animate the update button
+//        [self.updateAllButton setEnabled:NO];
+        [self runSpinAnimationOnView:self.updateAllButton duration:1.f];
     }
     else
     {
-    
+        // stop animation of update button
+        [self stopSpinAnimationOnView:self.updateAllButton];
     }
 }
 
@@ -405,6 +414,25 @@
 }
 
 
+#pragma mark Animations
+
+
+- (void) runSpinAnimationOnView:(UIView*)view duration:(CGFloat)duration;
+{
+    if ([view.layer animationForKey:@"SpinAnimation"] == nil) {
+        CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        animation.fromValue = [NSNumber numberWithFloat:0.0f];
+        animation.toValue = [NSNumber numberWithFloat: 2*M_PI];
+        animation.duration = duration;
+        animation.repeatCount = INFINITY;
+        [view.layer addAnimation:animation forKey:@"SpinAnimation"];
+    }
+}
+
+-(void) stopSpinAnimationOnView:(UIView *)view
+{
+    [view.layer removeAllAnimations];
+}
 
 #pragma mark -
 #pragma mark UIAlertViewDelegate
