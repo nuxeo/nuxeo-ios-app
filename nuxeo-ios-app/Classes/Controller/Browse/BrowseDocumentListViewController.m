@@ -288,29 +288,31 @@
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
    
     NUXDocument * selectedDocument = [self documentByIndexPath:indexPath];
-    if ([self.context isEqualToString:kBrowseDocumentOnLine])
+    if ([selectedDocument hasBinaryFile] == YES)
     {
-        if ([selectedDocument isFolder] == YES)
+        if ([self.context isEqualToString:kBrowseDocumentOnLine])
         {
-            [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+            if ([selectedDocument isFolder] == YES)
+            {
+                [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+            }
+            else
+            {
+                [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+            }
         }
-        else
+        else if ([self.context isEqualToString:kBrowseDocumentOffLine])
         {
-            [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+            if ([selectedDocument isFolder] == YES)
+            {
+                [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument , kParamKeyHierarchy : self.currentHierarchy, kParamKeyContext : self.context}];
+            }
+            else
+            {
+                [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
+            }
         }
     }
-    else if ([self.context isEqualToString:kBrowseDocumentOffLine])
-    {
-        if ([selectedDocument isFolder] == YES)
-        {
-            [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument , kParamKeyHierarchy : self.currentHierarchy, kParamKeyContext : self.context}];
-        }
-        else
-        {
-            [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
-        }
-    }
-    
     
 }
 

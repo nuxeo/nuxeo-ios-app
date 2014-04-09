@@ -342,9 +342,37 @@
         [nuxRequest startWithCompletionBlock:^(NUXRequest *request) {
             // result
             NSError * error = nil;
-            NUXDocuments * result = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
+            NUXDocuments * listOfSynchroPoints = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
             
-            completion(result);
+            // Add missing synchronized points
+            for (NUXDocument * serverSyncPoint in listOfSynchroPoints.entries)
+            {
+                if ([[self.synchronisedPoints allKeys] containsObject:serverSyncPoint.path] == NO)
+                {
+                    [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:serverSyncPoint.path, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], nil] forKey:serverSyncPoint.path];
+                }
+            }
+            // Remove old synchronized points
+            for (NSString * synchronizedPointPath in [self.synchronisedPoints allKeys])
+            {
+                BOOL containSynchroPoint = NO;
+                for (NUXDocument * serverSyncPoint in listOfSynchroPoints.entries)
+                {
+                    if ([serverSyncPoint.path isEqualToString:synchronizedPointPath])
+                    {
+                        containSynchroPoint = YES;
+                        break;
+                    }
+                }
+                if (containSynchroPoint == NO)
+                {
+                    [self.synchronisedPoints removeObjectForKey:synchronizedPointPath];
+                    NUXHierarchy * aHierarchy = [NUXHierarchy hierarchyWithName:synchronizedPointPath];
+                    [aHierarchy resetCache];
+                }
+            }
+            
+            completion(listOfSynchroPoints);
             
         } FailureBlock:^(NUXRequest *request) {
         }];
@@ -402,36 +430,6 @@
         
         [self retrieveAllSynchronizePoints:^(id documents)
         {
-            NUXDocuments * listOfSynchroPoints = (NUXDocuments *)documents;
-            
-            // Add missing synchronized points
-            for (NUXDocument * serverSyncPoint in listOfSynchroPoints.entries)
-            {
-                if ([[self.synchronisedPoints allKeys] containsObject:serverSyncPoint.path] == NO)
-                {
-                    [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:serverSyncPoint.path, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], nil] forKey:serverSyncPoint.path];
-                }
-            }
-            // Remove old synchronized points
-            for (NSString * synchronizedPointPath in [self.synchronisedPoints allKeys])
-            {
-                BOOL containSynchroPoint = NO;
-                for (NUXDocument * serverSyncPoint in listOfSynchroPoints.entries)
-                {
-                    if ([serverSyncPoint.path isEqualToString:synchronizedPointPath])
-                    {
-                        containSynchroPoint = YES;
-                        break;
-                    }
-                }
-                if (containSynchroPoint == NO)
-                {
-                    [self.synchronisedPoints removeObjectForKey:synchronizedPointPath];
-                    NUXHierarchy * aHierarchy = [NUXHierarchy hierarchyWithName:synchronizedPointPath];
-                    [aHierarchy resetCache];
-                }
-            }            
-            
             if (withContent == YES && [self downloadIsPossible] == YES)
             {
                 __block int countOfDownloadedHierarchy = 0;
