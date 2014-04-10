@@ -76,7 +76,6 @@
 		80C409CC18D8F4450067740A /* ic_url@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097B18D8F4450067740A /* ic_url@2x~ipad.png */; };
 		80C409CD18D8F4450067740A /* ic_user@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097C18D8F4450067740A /* ic_user@2x~ipad.png */; };
 		80C409CE18D8F4450067740A /* background_settings@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097E18D8F4450067740A /* background_settings@2x~ipad.png */; };
-		80C409CF18D8F4450067740A /* NuxeoDrive-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097F18D8F4450067740A /* NuxeoDrive-Info.plist */; };
 		80C409D018D8F4450067740A /* NUXSession-info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098018D8F4450067740A /* NUXSession-info.plist */; };
 		80C409D118D8F4450067740A /* BrowseDocumentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098318D8F4450067740A /* BrowseDocumentListViewController.xib */; };
 		80C409D218D8F4450067740A /* DirectoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098418D8F4450067740A /* DirectoryViewCell.xib */; };
@@ -685,7 +684,6 @@
 				D0C34C5018F5A7B60008FB69 /* bt_header_cloud_selected@2x~ipad.png in Resources */,
 				80C409A118D8F4450067740A /* Icon512.png in Resources */,
 				806A7E8C18EAB268007607B2 /* BrowseOnDeviceViewController.xib in Resources */,
-				80C409CF18D8F4450067740A /* NuxeoDrive-Info.plist in Resources */,
 				80C409D618D8F4450067740A /* WelcomeViewController.xib in Resources */,
 				80C409B118D8F4450067740A /* ic_synchro_type_video@2x~ipad.png in Resources */,
 				80C409B518D8F4450067740A /* ic_type_presentation@2x~ipad.png in Resources */,

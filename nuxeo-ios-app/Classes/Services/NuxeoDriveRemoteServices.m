@@ -352,12 +352,19 @@
     if ([APP_DELEGATE isNetworkConnected] == NO)
     {
         NSArray * synchPoints = [self.synchronisedPoints allValues];
-        NSMutableArray * result = [[NSMutableArray alloc] init];
+        NUXDocuments * result = [[NUXDocuments alloc] init];
+        NSMutableArray * listOfRoots = [NSMutableArray array];
         for (NSArray * synchronizePoint in synchPoints)
         {
             NUXHierarchy * hierarchy = [self getHierarchyWithName:[synchronizePoint objectAtIndex:kNuxeoSynchroPointNameIndex]];
-            [result addObject:[hierarchy nodeWithRef:[synchronizePoint objectAtIndex:kNuxeoSynchroPointNameIndex]]];
+            NUXDocument * rootHierarchy = [hierarchy nodeWithRef:[synchronizePoint objectAtIndex:kNuxeoSynchroPointNameIndex]];
+            if (rootHierarchy == nil)
+            {
+                rootHierarchy = [[NUXDocument alloc] initWithEntityType:@"NUXDocument"];
+            }
+            [listOfRoots addObject:rootHierarchy];
         }
+        result.entries = listOfRoots;
         
         completion(result);
     }

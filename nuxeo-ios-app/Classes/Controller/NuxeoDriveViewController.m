@@ -319,8 +319,8 @@
     NUXSession *session = [NUXSession sharedSession];
     if ([session.authenticator softAuthentication] == NO)
     {
-        // Otherwise; Present Login screen
-        [self presentViewController:[[[WelcomeViewController alloc] initWithNibName:kXIBWelcomeController bundle:nil] autorelease] animated:YES completion:NULL];
+        // Otherwise; Present Logout
+        [self logout];
     }
 }
 
@@ -436,6 +436,18 @@
 -(void) stopSpinAnimationOnView:(UIView *)view
 {
     [view.layer removeAllAnimations];
+}
+
+#pragma mark Events
+
+- (void) logout
+{
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    if (nuxSession.authenticator != nil)
+    {
+        [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
+        [self presentViewController:[[[WelcomeViewController alloc] initWithNibName:kXIBWelcomeController bundle:nil] autorelease] animated:YES completion:NULL];
+    }
 }
 
 #pragma mark -

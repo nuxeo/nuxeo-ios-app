@@ -72,7 +72,7 @@
              
          } FailureBlock:^(NUXRequest * pRequest)
          {
-             [self logout];
+             
          }];
     }
 }
@@ -144,16 +144,6 @@
 #pragma mark -
 #pragma mark Events
 #pragma mark -
-
-- (void) logout
-{
-    NUXSession * nuxSession = [NUXSession sharedSession];
-    if (nuxSession.authenticator != nil)
-    {
-        [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
-        [self checkAuthentication];
-    }
-}
 
 - (void) goBack:(id)sender
 {

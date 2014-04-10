@@ -60,6 +60,8 @@
 - (UIView *) footerBarView;
 - (UIView *) backgroundView;
 
+- (void) logout;
+
 #pragma mark - Helpers messages
 
 // Header button bar (override it to set a custom button bar)
