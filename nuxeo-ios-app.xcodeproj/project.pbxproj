@@ -18,7 +18,7 @@
 		806A7E9118EB0093007607B2 /* DetailDocumentInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A7E9018EB0093007607B2 /* DetailDocumentInfoViewController.m */; };
 		806A7E9418EB1D2B007607B2 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E9318EB1D2B007607B2 /* SettingsViewController.xib */; };
 		806A7E9818EB1DDC007607B2 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A7E9718EB1DDC007607B2 /* SettingsViewController.m */; };
-		806A7E9A18EC3B35007607B2 /* ic_cloud@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E9918EC3B34007607B2 /* ic_cloud@2x~ipad.png */; };
+		806A7E9A18EC3B35007607B2 /* ic_cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E9918EC3B34007607B2 /* ic_cloud@2x.png */; };
 		8083104F18E1857F00D20CE3 /* NUXDocument+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8083104E18E1857F00D20CE3 /* NUXDocument+Utils.m */; };
 		80968FB018439E2400C4D321 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80968FAF18439E2400C4D321 /* MediaPlayer.framework */; };
 		80C4098C18D8F4450067740A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4091A18D8F4450067740A /* Constants.m */; };
@@ -52,7 +52,7 @@
 		80C409A818D8F4450067740A /* bt_standard_short@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095418D8F4450067740A /* bt_standard_short@2x~ipad.png */; };
 		80C409A918D8F4450067740A /* bt_star@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095518D8F4450067740A /* bt_star@2x~ipad.png */; };
 		80C409AA18D8F4450067740A /* bt_update@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095618D8F4450067740A /* bt_update@2x~ipad.png */; };
-		80C409AB18D8F4450067740A /* ic_repository@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095718D8F4450067740A /* ic_repository@2x~ipad.png */; };
+		80C409AB18D8F4450067740A /* ic_repository@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095718D8F4450067740A /* ic_repository@2x.png */; };
 		80C409AC18D8F4450067740A /* ic_synchro_type_file@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095818D8F4450067740A /* ic_synchro_type_file@2x~ipad.png */; };
 		80C409AD18D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095918D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png */; };
 		80C409AE18D8F4450067740A /* ic_synchro_type_image@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4095A18D8F4450067740A /* ic_synchro_type_image@2x~ipad.png */; };
@@ -66,9 +66,7 @@
 		80C409B618D8F4450067740A /* ic_type_sound@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096218D8F4450067740A /* ic_type_sound@2x~ipad.png */; };
 		80C409B718D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096318D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png */; };
 		80C409B818D8F4450067740A /* ic_type_video@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096418D8F4450067740A /* ic_type_video@2x~ipad.png */; };
-		80C409C518D8F4450067740A /* background_folder_tile@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097318D8F4450067740A /* background_folder_tile@2x~ipad.png */; };
 		80C409C618D8F4450067740A /* background_section@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097418D8F4450067740A /* background_section@2x~ipad.png */; };
-		80C409C718D8F4450067740A /* ic_add_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097518D8F4450067740A /* ic_add_folder@2x~ipad.png */; };
 		80C409C818D8F4450067740A /* background_login@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097718D8F4450067740A /* background_login@2x~ipad.png */; };
 		80C409C918D8F4450067740A /* bt_login@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097818D8F4450067740A /* bt_login@2x~ipad.png */; };
 		80C409CA18D8F4450067740A /* ic_header_logo@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097918D8F4450067740A /* ic_header_logo@2x~ipad.png */; };
@@ -76,7 +74,6 @@
 		80C409CC18D8F4450067740A /* ic_url@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097B18D8F4450067740A /* ic_url@2x~ipad.png */; };
 		80C409CD18D8F4450067740A /* ic_user@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097C18D8F4450067740A /* ic_user@2x~ipad.png */; };
 		80C409CE18D8F4450067740A /* background_settings@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097E18D8F4450067740A /* background_settings@2x~ipad.png */; };
-		80C409CF18D8F4450067740A /* NuxeoDrive-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097F18D8F4450067740A /* NuxeoDrive-Info.plist */; };
 		80C409D018D8F4450067740A /* NUXSession-info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098018D8F4450067740A /* NUXSession-info.plist */; };
 		80C409D118D8F4450067740A /* BrowseDocumentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098318D8F4450067740A /* BrowseDocumentListViewController.xib */; };
 		80C409D218D8F4450067740A /* DirectoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098418D8F4450067740A /* DirectoryViewCell.xib */; };
@@ -95,6 +92,11 @@
 		80EF7F8E183A5D5E00B3FC21 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F8D183A5D5E00B3FC21 /* CoreLocation.framework */; };
 		80EF7F90183A5D5E00B3FC21 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F8F183A5D5E00B3FC21 /* MobileCoreServices.framework */; };
 		80EF7F92183A5D5E00B3FC21 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F91183A5D5E00B3FC21 /* StoreKit.framework */; };
+		D03E54A618F6E636003ACA03 /* ic_add_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A418F6E636003ACA03 /* ic_add_folder@2x~ipad.png */; };
+		D03E54A818F6E67B003ACA03 /* background_folder_tile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A718F6E67B003ACA03 /* background_folder_tile@2x.png */; };
+		D03E54AA18F6F3A1003ACA03 /* ic_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */; };
+		D03E54AE18F71274003ACA03 /* NuxeoPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03E54AC18F71274003ACA03 /* NuxeoPopoverViewController.m */; };
+		D03E54AF18F71274003ACA03 /* NuxeoPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03E54AD18F71274003ACA03 /* NuxeoPopoverViewController.xib */; };
 		D0C34C4218F58C020008FB69 /* background@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C34C4118F58C020008FB69 /* background@2x~ipad.png */; };
 		D0C34C4F18F5A7B60008FB69 /* bt_header_back@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C34C4318F5A7B60008FB69 /* bt_header_back@2x~ipad.png */; };
 		D0C34C5018F5A7B60008FB69 /* bt_header_cloud_selected@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C34C4418F5A7B60008FB69 /* bt_header_cloud_selected@2x~ipad.png */; };
@@ -126,7 +128,7 @@
 		806A7E9318EB1D2B007607B2 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		806A7E9618EB1DDC007607B2 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		806A7E9718EB1DDC007607B2 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		806A7E9918EC3B34007607B2 /* ic_cloud@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cloud@2x~ipad.png"; sourceTree = "<group>"; };
+		806A7E9918EC3B34007607B2 /* ic_cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cloud@2x.png"; sourceTree = "<group>"; };
 		806A7E9B18EC432C007607B2 /* NuxeoDrivePopupInfoViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NuxeoDrivePopupInfoViewDelegate.h; sourceTree = "<group>"; };
 		8083104D18E1857F00D20CE3 /* NUXDocument+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUXDocument+Utils.h"; sourceTree = "<group>"; };
 		8083104E18E1857F00D20CE3 /* NUXDocument+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NUXDocument+Utils.m"; sourceTree = "<group>"; };
@@ -181,7 +183,7 @@
 		80C4095418D8F4450067740A /* bt_standard_short@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_standard_short@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4095518D8F4450067740A /* bt_star@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_star@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4095618D8F4450067740A /* bt_update@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_update@2x~ipad.png"; sourceTree = "<group>"; };
-		80C4095718D8F4450067740A /* ic_repository@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_repository@2x~ipad.png"; sourceTree = "<group>"; };
+		80C4095718D8F4450067740A /* ic_repository@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_repository@2x.png"; sourceTree = "<group>"; };
 		80C4095818D8F4450067740A /* ic_synchro_type_file@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_synchro_type_file@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4095918D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_synchro_type_folder@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4095A18D8F4450067740A /* ic_synchro_type_image@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_synchro_type_image@2x~ipad.png"; sourceTree = "<group>"; };
@@ -195,9 +197,7 @@
 		80C4096218D8F4450067740A /* ic_type_sound@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_sound@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4096318D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_synchro_folder@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4096418D8F4450067740A /* ic_type_video@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_video@2x~ipad.png"; sourceTree = "<group>"; };
-		80C4097318D8F4450067740A /* background_folder_tile@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_folder_tile@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4097418D8F4450067740A /* background_section@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background_section@2x~ipad.png"; path = "../Home/background_section@2x~ipad.png"; sourceTree = "<group>"; };
-		80C4097518D8F4450067740A /* ic_add_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_folder@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4097718D8F4450067740A /* background_login@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_login@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4097818D8F4450067740A /* bt_login@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_login@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4097918D8F4450067740A /* ic_header_logo@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_header_logo@2x~ipad.png"; sourceTree = "<group>"; };
@@ -226,6 +226,12 @@
 		80EF7F8F183A5D5E00B3FC21 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		80EF7F91183A5D5E00B3FC21 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		AED846E510454C288242E97E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		D03E54A418F6E636003ACA03 /* ic_add_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_folder@2x~ipad.png"; sourceTree = "<group>"; };
+		D03E54A718F6E67B003ACA03 /* background_folder_tile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_folder_tile@2x.png"; sourceTree = "<group>"; };
+		D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_info@2x.png"; sourceTree = "<group>"; };
+		D03E54AB18F71274003ACA03 /* NuxeoPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoPopoverViewController.h; sourceTree = "<group>"; };
+		D03E54AC18F71274003ACA03 /* NuxeoPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoPopoverViewController.m; sourceTree = "<group>"; };
+		D03E54AD18F71274003ACA03 /* NuxeoPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NuxeoPopoverViewController.xib; sourceTree = "<group>"; };
 		D0C34C4118F58C020008FB69 /* background@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x~ipad.png"; sourceTree = "<group>"; };
 		D0C34C4318F5A7B60008FB69 /* bt_header_back@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_back@2x~ipad.png"; sourceTree = "<group>"; };
 		D0C34C4418F5A7B60008FB69 /* bt_header_cloud_selected@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_cloud_selected@2x~ipad.png"; sourceTree = "<group>"; };
@@ -332,6 +338,9 @@
 				80C4092818D8F4450067740A /* Preview */,
 				80C4092B18D8F4450067740A /* Welcome */,
 				806A7E9B18EC432C007607B2 /* NuxeoDrivePopupInfoViewDelegate.h */,
+				D03E54AB18F71274003ACA03 /* NuxeoPopoverViewController.h */,
+				D03E54AC18F71274003ACA03 /* NuxeoPopoverViewController.m */,
+				D03E54AD18F71274003ACA03 /* NuxeoPopoverViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -458,15 +467,16 @@
 		80C4095118D8F4450067740A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */,
 				80C4097418D8F4450067740A /* background_section@2x~ipad.png */,
 				D0C34C4118F58C020008FB69 /* background@2x~ipad.png */,
-				806A7E9918EC3B34007607B2 /* ic_cloud@2x~ipad.png */,
+				806A7E9918EC3B34007607B2 /* ic_cloud@2x.png */,
 				80C4095218D8F4450067740A /* bt_info@2x~ipad.png */,
 				80C4095318D8F4450067740A /* bt_openwith@2x~ipad.png */,
 				80C4095418D8F4450067740A /* bt_standard_short@2x~ipad.png */,
 				80C4095518D8F4450067740A /* bt_star@2x~ipad.png */,
 				80C4095618D8F4450067740A /* bt_update@2x~ipad.png */,
-				80C4095718D8F4450067740A /* ic_repository@2x~ipad.png */,
+				80C4095718D8F4450067740A /* ic_repository@2x.png */,
 				80C4095818D8F4450067740A /* ic_synchro_type_file@2x~ipad.png */,
 				80C4095918D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png */,
 				80C4095A18D8F4450067740A /* ic_synchro_type_image@2x~ipad.png */,
@@ -508,8 +518,8 @@
 		80C4097218D8F4450067740A /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				80C4097318D8F4450067740A /* background_folder_tile@2x~ipad.png */,
-				80C4097518D8F4450067740A /* ic_add_folder@2x~ipad.png */,
+				D03E54A718F6E67B003ACA03 /* background_folder_tile@2x.png */,
+				D03E54A418F6E636003ACA03 /* ic_add_folder@2x~ipad.png */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -678,26 +688,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D03E54AA18F6F3A1003ACA03 /* ic_info@2x.png in Resources */,
 				806582E018F3435D007F389F /* ic_synchro_type_note@2x~ipad.png in Resources */,
-				80C409C718D8F4450067740A /* ic_add_folder@2x~ipad.png in Resources */,
+				D03E54A618F6E636003ACA03 /* ic_add_folder@2x~ipad.png in Resources */,
+				D03E54A818F6E67B003ACA03 /* background_folder_tile@2x.png in Resources */,
 				80C409CD18D8F4450067740A /* ic_user@2x~ipad.png in Resources */,
 				806A7E9418EB1D2B007607B2 /* SettingsViewController.xib in Resources */,
 				D0C34C5018F5A7B60008FB69 /* bt_header_cloud_selected@2x~ipad.png in Resources */,
 				80C409A118D8F4450067740A /* Icon512.png in Resources */,
 				806A7E8C18EAB268007607B2 /* BrowseOnDeviceViewController.xib in Resources */,
-				80C409CF18D8F4450067740A /* NuxeoDrive-Info.plist in Resources */,
 				80C409D618D8F4450067740A /* WelcomeViewController.xib in Resources */,
 				80C409B118D8F4450067740A /* ic_synchro_type_video@2x~ipad.png in Resources */,
 				80C409B518D8F4450067740A /* ic_type_presentation@2x~ipad.png in Resources */,
 				80C409A018D8F4450067740A /* Icon.png in Resources */,
 				80C409A318D8F4450067740A /* Icon@2x.png in Resources */,
-				806A7E9A18EC3B35007607B2 /* ic_cloud@2x~ipad.png in Resources */,
+				806A7E9A18EC3B35007607B2 /* ic_cloud@2x.png in Resources */,
 				80C409D518D8F4450067740A /* PreviewDisplayViewController.xib in Resources */,
 				80C409CC18D8F4450067740A /* ic_url@2x~ipad.png in Resources */,
 				D0C34C5118F5A7B60008FB69 /* bt_header_cloud@2x~ipad.png in Resources */,
 				80C409B818D8F4450067740A /* ic_type_video@2x~ipad.png in Resources */,
 				D0C34C5418F5A7B60008FB69 /* bt_header_info@2x~ipad.png in Resources */,
-				80C409AB18D8F4450067740A /* ic_repository@2x~ipad.png in Resources */,
+				80C409AB18D8F4450067740A /* ic_repository@2x.png in Resources */,
 				80C409AC18D8F4450067740A /* ic_synchro_type_file@2x~ipad.png in Resources */,
 				D0C34C5218F5A7B60008FB69 /* bt_header_find_selected@2x~ipad.png in Resources */,
 				80C409CA18D8F4450067740A /* ic_header_logo@2x~ipad.png in Resources */,
@@ -707,6 +718,7 @@
 				D0C34C5518F5A7B60008FB69 /* bt_header_settings_selected@2x~ipad.png in Resources */,
 				80C409AA18D8F4450067740A /* bt_update@2x~ipad.png in Resources */,
 				80C409AD18D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png in Resources */,
+				D03E54AF18F71274003ACA03 /* NuxeoPopoverViewController.xib in Resources */,
 				80C409B218D8F4450067740A /* ic_type_file@2x~ipad.png in Resources */,
 				80C409B018D8F4450067740A /* ic_synchro_type_sound@2x~ipad.png in Resources */,
 				80C4099C18D8F4450067740A /* Images.xcassets in Resources */,
@@ -724,7 +736,6 @@
 				80C4099E18D8F4450067740A /* InfoPlist.strings in Resources */,
 				80C409C618D8F4450067740A /* background_section@2x~ipad.png in Resources */,
 				80C409C818D8F4450067740A /* background_login@2x~ipad.png in Resources */,
-				80C409C518D8F4450067740A /* background_folder_tile@2x~ipad.png in Resources */,
 				80C409CB18D8F4450067740A /* ic_password@2x~ipad.png in Resources */,
 				80C409A618D8F4450067740A /* bt_info@2x~ipad.png in Resources */,
 				80C409B418D8F4450067740A /* ic_type_image@2x~ipad.png in Resources */,
@@ -812,6 +823,7 @@
 				80C4099118D8F4450067740A /* NuxeoDriveViewController.m in Sources */,
 				80C4099218D8F4450067740A /* PreviewDisplayViewController.m in Sources */,
 				80C4099718D8F4450067740A /* NuxeoRetrieveException.m in Sources */,
+				D03E54AE18F71274003ACA03 /* NuxeoPopoverViewController.m in Sources */,
 				80C4099318D8F4450067740A /* WelcomeViewController.m in Sources */,
 				80C4099918D8F4450067740A /* NuxeoLabel.m in Sources */,
 				8083104F18E1857F00D20CE3 /* NUXDocument+Utils.m in Sources */,
