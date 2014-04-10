@@ -36,4 +36,6 @@
 #import "UIView+Nuxeo.h"
 #import "NUXDocument+Utils.h"
 
+#import <UIAlertView+Blocks/UIAlertView+Blocks.h>
+
 #endif

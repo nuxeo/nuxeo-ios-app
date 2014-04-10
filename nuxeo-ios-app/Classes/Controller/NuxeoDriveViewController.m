@@ -107,6 +107,10 @@
     [[Reachability reachabilityForInternetConnection] startNotifier];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter]addObserverForName:NOTIF_REFRESH_UI object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [self synchronizeAllView];
+    }];
+    
     // View&Controller Prepared & Ready
     [self retrieveBusinessObjects];
 }
