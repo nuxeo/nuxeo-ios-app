@@ -53,8 +53,10 @@
 
 @end
 
-#pragma mark - NuxeoDriveViewController -
+NSString* const kMainBackgroundResourceName = @"background";
+NSString* const kBackButtonResourceName = @"bt_header_back";
 
+#pragma mark - NuxeoDriveViewController -
 @implementation NuxeoDriveViewController
 #pragma mark - Initializers -
 
@@ -131,7 +133,7 @@
     if (![self.view.backgroundColor isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]])
         return ;
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:[self mainBackgroundResourceName]]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kMainBackgroundResourceName]];
     self.contentView.backgroundColor = self.view.backgroundColor;
 }
 
@@ -150,16 +152,11 @@
     navBarBackground_.frame = (CGRect){CGPointZero, CGRectGetWidth(_navBarCustomView.frame), CGRectGetHeight(navBarBackground_.frame)};
     [_navBarCustomView addSubview:navBarBackground_];
     
-    
     UIImageView * headerLogo_ = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_logo_header"]] autorelease];
     headerLogo_.frame = (CGRect){0, CGRectGetMidY(_navBarCustomView.frame) - CGRectGetMidY(headerLogo_.frame), headerLogo_.frame.size};
     
     UIButton *logoButton_ = [UIButton buttonWithType:UIButtonTypeCustom];
     logoButton_.frame = CGRectMake(53, 0, CGRectGetWidth(headerLogo_.frame), CGRectGetHeight(_navBarCustomView.frame));
-    if (self.backButtonShown == YES)
-    {
-        [logoButton_ addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    }
     
     [logoButton_ addSubview:headerLogo_];
     [_navBarCustomView addSubview:logoButton_];
@@ -167,8 +164,10 @@
     // left button
     if (self.backButtonShown == YES)
     {
+        [logoButton_ addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+        
         UIButton * buttonLeft = [UIButton buttonWithType:UIButtonTypeCustom];
-        [buttonLeft setImage:[UIImage imageNamed:[self backButtonResourceName]] forState:UIControlStateNormal];
+        [buttonLeft setImage:[UIImage imageNamed:kBackButtonResourceName] forState:UIControlStateNormal];
         [buttonLeft addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
         buttonLeft.frame = (CGRect){0, 0, 60, 60};
         [_navBarCustomView addSubview:buttonLeft];
@@ -299,16 +298,6 @@
     
 }
 
-- (NSString *) mainBackgroundResourceName
-{
-    return @"background";
-}
-
-- (NSString *) backButtonResourceName
-{
-    return @"bt_header_back";
-}
-
 - (void) checkAuthentication
 {
 	// Check Authentication
@@ -333,7 +322,7 @@
     if (APP_DELEGATE.synchronizationInProgress == YES && [APP_DELEGATE isNetworkConnected] == YES)
     {
         // animate the update button
-//        [self.updateAllButton setEnabled:NO];
+        // [self.updateAllButton setEnabled:NO];
         [self runSpinAnimationOnView:self.updateAllButton duration:1.f];
     }
     else
@@ -355,34 +344,29 @@
 
 - (UIView *) backgroundView
 {
-    return [self.view viewWithTag:kBackgroundViewTagIndex];
+    return self.view;
 }
 
-#pragma Events
+#pragma mark - Events -
 
 - (void) goBack:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void) onTouchUpdateAll:(id)sender
 {
     [[NuxeoDriveRemoteServices instance] refreshAllSyncPoints:YES];
-    
 }
 
 - (void) onTouchBrowseOnDevice:(id)sender
 {
     [[NuxeoDriveControllerHandler instance] pushBrowseOnDeviceControllerFrom:self options:nil];
-    
 }
 
 - (void) onTouchSearch:(id)sender
 {
-    // TODO
-    
+    // TODO: Search View
 }
 
 - (void) onTouchSettings:(id)sender
@@ -391,7 +375,7 @@
 }
 
 
-#pragma mark Notification selectors
+#pragma mark - Notification selectors -
 
 - (void)synchronizeAllView:(NSNotification*)notification
 {
@@ -401,7 +385,8 @@
 - (void)reachabilityChanged:(NSNotification*)notification
 {
     Reachability* reachability = notification.object;
-    if(reachability.currentReachabilityStatus == NotReachable)
+    
+    if (reachability.currentReachabilityStatus == NotReachable)
     {
         NuxeoLogD(@"Internet off");
     }
@@ -409,24 +394,24 @@
     {
         NuxeoLogD(@"Internet on");
     }
-    [self synchronizeAllView];
     
+    [self synchronizeAllView];
 }
 
 
-#pragma mark Animations
-
+#pragma mark - Animations -
 
 - (void) runSpinAnimationOnView:(UIView*)view duration:(CGFloat)duration;
 {
-    if ([view.layer animationForKey:@"SpinAnimation"] == nil) {
-        CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-        animation.fromValue = [NSNumber numberWithFloat:0.0f];
-        animation.toValue = [NSNumber numberWithFloat: 2*M_PI];
-        animation.duration = duration;
-        animation.repeatCount = INFINITY;
-        [view.layer addAnimation:animation forKey:@"SpinAnimation"];
-    }
+    if ([view.layer animationForKey:@"SpinAnimation"])
+        return ;
+        
+    CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    animation.fromValue = @0.0f;
+    animation.toValue = @(2 * M_PI);
+    animation.duration = duration;
+    animation.repeatCount = HUGE_VALF;
+    [view.layer addAnimation:animation forKey:@"SpinAnimation"];
 }
 
 -(void) stopSpinAnimationOnView:(UIView *)view
@@ -454,8 +439,36 @@
     }
 }
 
-#pragma mark -
-#pragma mark UIViewController
+#pragma mark - UIViewController -
+#pragma mark Rotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return DeviceOrientationSupported(interfaceOrientation);
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	NuxeoLogD(@"");
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	NuxeoLogD(@"");
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+#pragma mark - Memory Management
+
+- (void)didReceiveMemoryWarning
+{
+	NuxeoLogW(@"");
+    [super didReceiveMemoryWarning];
+}
 
 - (void)dealloc
 {
@@ -475,36 +488,6 @@
     self.contentView = nil;
     
     [super dealloc];
-}
-
-- (void)didReceiveMemoryWarning
-{
-	NuxeoLogW(@"");
-	
-	[super didReceiveMemoryWarning];
-}
-
-#pragma mark Rotation
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return DeviceOrientationSupported(interfaceOrientation);
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-	NuxeoLogD(@"");
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-	NuxeoLogD(@"");
-}
-
-// Add with iOS 6
-- (BOOL) shouldAutorotate
-{
-    return YES;
 }
 
 @end

@@ -24,6 +24,9 @@
 
 @class NUXDocument;
 
+extern NSString* const kMainBackgroundResourceName;
+extern NSString* const kBackButtonResourceName;
+
 #pragma mark - NuxeoDriveViewController
 @interface NuxeoDriveViewController : UIViewController <UIDocumentInteractionControllerDelegate, UIAlertViewDelegate>
 {
@@ -50,6 +53,7 @@
 #pragma mark - Initializers
 
 - (instancetype)init;
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 #pragma mark - generic messages
 - (void) checkAuthentication;
