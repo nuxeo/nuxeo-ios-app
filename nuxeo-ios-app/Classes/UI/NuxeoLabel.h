@@ -21,10 +21,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NuxeoLabel : UILabel
-{
-    
-}
 
-@property (nonatomic) float leftMarge;
+@property (nonatomic, assign) float leftMargin;
 
 @end

@@ -28,36 +28,38 @@
 
 @implementation NuxeoLabel
 
+#pragma mark - Initializers -
+
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
+    if (self = [super initWithFrame:frame])
         [self setup];
-    }
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	self = [super initWithCoder:aDecoder];
-	
-	if (self)
+	if (self = [super initWithCoder:aDecoder])
 		[self setup];
-	
 	return self;
 }
 
 - (void)setup
 {
-	BOOL isBold = [self.font.fontName rangeOfString:@"Bold"].location != NSNotFound;
+	BOOL isBold = [self.font.description rangeOfString:@"font-weight: bold"].location != NSNotFound;
 	NSString* fontName = isBold ? @"UniversLT-Black" : @"UniversLT";
-	UIFont * customFont = [UIFont fontWithName:fontName size:self.font.pointSize];
-    self.font = customFont;
+    UIFont *font_ = nil;
+    
+    if ((font_ = [UIFont fontWithName:fontName size:self.font.pointSize]))
+        self.font = font_;
+    self.leftMargin = 0;
 }
+
+#pragma mark - Drawings -
 
 - (void)drawTextInRect:(CGRect)rect
 {
-    UIEdgeInsets insets = {0, self.leftMarge, 0, 0};
+    UIEdgeInsets insets = {0, self.leftMargin, 0, 0};
     return [super drawTextInRect:UIEdgeInsetsInsetRect(rect, insets)];
 }
 

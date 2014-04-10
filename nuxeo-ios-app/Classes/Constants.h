@@ -185,4 +185,10 @@
 
 #define kNuxeoPathInitial                                   @"/default-domain"
 
-
+/*!
+ * You pass an NSObject* in parameter and it will be released
+ * and set to nil at the same time
+ * @param o	an NSObject* instance. It can be already set to nil.
+ *			in which case, the macro has no effect.
+ */
+#define NuxeoReleaseAndNil(o) if ((o)) { [(o) release]; o = nil; }

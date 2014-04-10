@@ -185,9 +185,7 @@
 
 - (void)onTouchPin:(NSIndexPath *)indexPath
 {
-    NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
-    
-    
+   // NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
 }
 
 - (void)onTouchAddSynch:(NSIndexPath *)indexPath
