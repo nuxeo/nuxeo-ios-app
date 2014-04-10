@@ -89,8 +89,6 @@
     }
     else if ([self.context isEqualToString:kBrowseDocumentOffLine])
     {
-        self.currentDocument = [self.currentHierarchy nodeWithRef:self.currentDocument.path];
-        
         if (self.currentDocument.path != nil)
         {
 //            documents = [[NSMutableArray arrayWithArray:[self.currentHierarchy childrenOfDocument:self.currentDocument.path]] mutableCopy];

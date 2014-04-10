@@ -35,6 +35,7 @@
 
 #define kNuxeoSynchroPointNameIndex         0
 #define kNuxeoSynchroPointStatusIndex       1
+#define kNuxeoSynchroPointDocumentIndex     2
 
 
 @implementation NuxeoDriveRemoteServices
@@ -211,10 +212,12 @@
         dispatch_async(backgroundQueue, ^{
             NUXSession * nuxSession = [NUXSession sharedSession];
             // Request by path
-            NSString * requestFormat = @"SELECT * FROM Folder where ecm:path startswith '%@' and ecm:currentLifeCycleState <> 'deleted'";
-            NSString * query = [NSString stringWithFormat:requestFormat, kNuxeoPathInitial];
+            //NUXRequest *request = [session requestQuery:@"select * from Document where ecm:mixinType = 'Folderish'"];
+//            NSString * requestFormat = @"SELECT * FROM Document where ecm:path startswith '%@' and ecm:mixinType = 'Folderish'";
+            NSString * requestFormat = @"SELECT * FROM Folder where ecm:path startswith '%@'";
+            NSString * query = [NSString stringWithFormat:requestFormat, iHerarchieName];
             NUXRequest * nuxRequest = [nuxSession requestQuery:query];
-            [nuxRequest addParameterValue:@"1000" forKey:@"pageSize"];
+//            [nuxRequest addParameterValue:@"1000" forKey:@"pageSize"];
             
             [aHierarchy loadWithRequest:nuxRequest];
         });
@@ -230,10 +233,16 @@
 
 - (void)loadFullHierarchyByName:(NSString *)hierarchyName
 {
-    // first element = hierarchie name
-    // second element : indicate hierarchie's status
-    [synchronisedPoints setObject:[NSMutableArray arrayWithObjects:hierarchyName, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], nil] forKey:hierarchyName];
-    [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
+    NUXRequest * docRequest = [[NUXSession sharedSession] requestDocument:hierarchyName];
+    [docRequest setCompletionBlock:^(NUXRequest *request)
+    {
+        // first element = hierarchie name
+        // second element : indicate hierarchie's status
+        // third element : the NUXDocument
+        [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:hierarchyName, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], [request responseData], nil] forKey:hierarchyName];
+        [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
+    }];
+    [docRequest startSynchronous];
     
     [self loadHierarchy:hierarchyName completionBlock:^(id hierarchy)
      {
@@ -297,11 +306,6 @@
             operations -= 1;
             continue;
         }
-        if ([nuxDocument hasBinaryFile] == YES)
-        {
-            operations -= 1;
-            continue;
-        }
         
         NSString *tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"tempfile%d.tmp", arc4random()]];
         
@@ -356,8 +360,9 @@
         NSMutableArray * listOfRoots = [NSMutableArray array];
         for (NSArray * synchronizePoint in synchPoints)
         {
-            NUXHierarchy * hierarchy = [self getHierarchyWithName:[synchronizePoint objectAtIndex:kNuxeoSynchroPointNameIndex]];
-            NUXDocument * rootHierarchy = [hierarchy nodeWithRef:[synchronizePoint objectAtIndex:kNuxeoSynchroPointNameIndex]];
+//            NUXHierarchy * hierarchy = [self getHierarchyWithName:[synchronizePoint objectAtIndex:kNuxeoSynchroPointNameIndex]];
+            NSError * error = nil;
+            NUXDocument * rootHierarchy = [NUXJSONSerializer entityWithData:[synchronizePoint objectAtIndex:kNuxeoSynchroPointDocumentIndex] error:&error] ;
             if (rootHierarchy == nil)
             {
                 rootHierarchy = [[NUXDocument alloc] initWithEntityType:@"NUXDocument"];
@@ -382,7 +387,7 @@
             {
                 if ([[self.synchronisedPoints allKeys] containsObject:serverSyncPoint.path] == NO)
                 {
-                    [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:serverSyncPoint.path, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], nil] forKey:serverSyncPoint.path];
+                    [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:serverSyncPoint.path, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], serverSyncPoint, nil] forKey:serverSyncPoint.path];
                 }
             }
             // Remove old synchronized points

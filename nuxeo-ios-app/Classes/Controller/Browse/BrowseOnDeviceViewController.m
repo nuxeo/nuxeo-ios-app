@@ -62,14 +62,7 @@
 
 - (void) synchronizeAllView
 {
-    if ([APP_DELEGATE isNetworkConnected] == NO)
-    {
-        
-    }
-    else
-    {
-        
-    }
+    [super synchronizeAllView];
 }
 
 #pragma mark -
