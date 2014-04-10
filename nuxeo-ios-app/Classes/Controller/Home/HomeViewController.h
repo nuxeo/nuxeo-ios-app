@@ -37,7 +37,6 @@
 
 #pragma mark - Properties
 @property (retain, nonatomic) IBOutlet UICollectionView *browsingFolders;
-
 @property (retain, nonatomic) IBOutlet UIView *popupActions;
 
 #pragma mark - Events

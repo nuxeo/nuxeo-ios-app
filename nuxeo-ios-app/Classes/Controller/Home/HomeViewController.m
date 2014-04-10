@@ -40,19 +40,22 @@
 
 @implementation HomeViewController
 
-#pragma mark -
-#pragma mark HomeViewController
-#pragma mark -
+#pragma mark - UIViewControllerLifeCycle -
 
-- (void) hidePopupAction
+- (void)viewDidLoad
 {
-    self.popupActions.hidden = YES;
+	[super viewDidLoad];
+    
+    self.footerBarView.hidden = YES;
+    
+    [self.browsingFolders registerNib:[UINib nibWithNibName:NSStringFromClass([DirectoryViewCell class]) bundle:nil]
+           forCellWithReuseIdentifier:kBrowseReuseIdentifierForCollection];
 }
 
-- (void) retrieveBusinessObjects
+- (void)retrieveBusinessObjects
 {
     [super retrieveBusinessObjects];
-    
+        
     self.browsingFolders.backgroundColor = [UIColor clearColor];
     NUXSession * nuxSession = [NUXSession sharedSession];
     {
@@ -82,11 +85,17 @@
     [super synchronizeAllView];
 }
 
+#pragma mark - HomeViewController functions -
+
+- (void) hidePopupAction
+{
+    self.popupActions.hidden = YES;
+}
+
 - (void) activateHomeScreen
 {
     APP_DELEGATE.syncAllEnable = YES;
     APP_DELEGATE.browseAllEnable = YES;
-    
 }
 
 - (void) setupMainHierarchy
@@ -104,46 +113,7 @@
     //}];
 }
 
-#pragma mark -
-#pragma mark UIViewControllerLifeCycle
-#pragma mark -
-
-/**
- * Called after the loadView call
- */
-- (void)loadView
-{
-	[super loadView];
-	
-    UINib  *folderCellNib = [UINib nibWithNibName:kXIBDirectoryCellView bundle:nil];
-    [self.browsingFolders registerNib:folderCellNib forCellWithReuseIdentifier:kBrowseReuseIdentifierForCollection];
-    
-}
-
-/**
- * Called after the viewDidLoad call
- */
-- (void)viewDidLoad
-{
-    self.footerHidden = YES;
-    
-	[super viewDidLoad];
-}
-
-/**
- * Called after the viewWillAppear call
- */
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-
-
-}
-
-
-#pragma mark -
-#pragma mark Events
-#pragma mark -
+#pragma mark - Events -
 
 - (void) logout
 {
@@ -159,7 +129,6 @@
 {
     [self logout];
 }
-
 
 - (IBAction)onTouchUnpin:(id)sender
 {
@@ -178,11 +147,8 @@
 
 - (IBAction)onTouchTest:(id)sender
 {
-
     [[NuxeoDriveRemoteServices instance] removeSynchronizePoint:@"doc:/default-domain/workspaces/Finance"
-                                             completionBlock:^(id result) {
-                                                 
-                                             }];
+                                             completionBlock:NULL];
 }
 
 #pragma mark -
@@ -198,7 +164,9 @@
         self.popupActions.frame = (CGRect){CGPointMake(NuxeoViewX(selectedCell)-20, NuxeoViewY(selectedCell)+40),self.popupActions.frame.size};
         [[selectedCell superview] addSubview:self.popupActions];
         self.popupActions.hidden = NO;
-        selectedDocumentIndex = indexPath;
+
+        NuxeoReleaseAndNil(selectedDocumentIndex);
+        selectedDocumentIndex = [indexPath retain];
     }
     else
     {
@@ -213,17 +181,15 @@
 }
 
 // Fire when user touch on unpin button
-- (void) onTouchUnpinAtIndexPath:(NSIndexPath *)indexPath
+- (void)onTouchUnpinAtIndexPath:(NSIndexPath *)indexPath
 {
     [self hidePopupAction];
-    
 }
 
 // Fire when user touch on info button on popup
 - (void) onTouchInfoButtonAtIndexPath:(NSIndexPath *)indexPath
 {
     [self hidePopupAction];
-    
 }
 
 // Fire when user touch on remove from device button
@@ -299,8 +265,11 @@
 
 - (void)dealloc
 {
-    [_browsingFolders release];
-    [_popupActions release];
+    NuxeoReleaseAndNil(selectedDocumentIndex);
+    
+    self.browsingFolders = nil;
+    self.popupActions = nil;
+    
     [super dealloc];
 }
 

@@ -26,21 +26,37 @@
 
 @interface DirectoryViewCell : UICollectionViewCell
 {
+    IBOutlet UIImageView *_backgroundImage;
+    IBOutlet UIView *_contentView;
     
+    IBOutlet UIView *_topView;
+    IBOutlet UIView *_bottomView;
+    
+    IBOutlet UIImageView *_cloudImageView;
+    IBOutlet UIButton *_infoButton;
+    
+    UIPopoverController *_infoPopoverController;
 }
 
 @property (nonatomic, assign) id<NuxeoDrivePopupActionViewDelegate> popupInfoDelegate;
 @property (nonatomic, assign) NSIndexPath * indexPath;
 
 @property (retain, nonatomic) IBOutlet UIImageView *picto;
-@property (retain, nonatomic) IBOutlet NuxeoLabel *title;
+@property (retain, nonatomic) IBOutlet UILabel *title;
 
-@property (nonatomic) BOOL loading; // Indicate if this folder is under synchronisation
-@property (nonatomic) BOOL enabled;
+@property (nonatomic, assign) BOOL loading; // Indicate if this folder is under synchronisation
+@property (nonatomic, assign) BOOL enabled;
 
-- (void) setPictoBackgroundColor:(UIColor *)iColor;
+#pragma mark - Initializer
 
+- (id)initWithCoder:(NSCoder *)aDecoder;
+- (id)initWithFrame:(CGRect)frame;
 
-- (IBAction)onTouchInfo:(id)sender;
+#pragma mark - Custom Setters
+- (void)setPictoBackgroundColor:(UIColor *)iColor;
+- (void)setTitleBackgroundColor:(UIColor *)iColor;
+
+#pragma mark - Events
+- (IBAction)onTouchInfo:(UIButton *)sender;
 
 @end

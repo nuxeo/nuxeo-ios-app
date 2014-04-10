@@ -19,41 +19,73 @@
  */
 
 #import "DirectoryViewCell.h"
+#import "NuxeoPopoverViewController.h"
 
 @implementation DirectoryViewCell
 
-- (id)initWithFrame:(CGRect)frame
+#pragma mark - Initializers -
+
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        // Initialization code
-        self.enabled = NO;
-    }
+    if ((self = [super initWithCoder:aDecoder]))
+        [self setup];
     return self;
 }
 
-- (void) setPictoBackgroundColor:(UIColor *)iColor
+- (id)initWithFrame:(CGRect)frame
 {
-    if (self.picto != nil)
-    {
-        self.picto.backgroundColor = iColor;
-    }
+    if ((self = [super initWithFrame:frame]))
+        [self setup];
+    return self;
 }
 
-- (IBAction)onTouchInfo:(id)sender
+- (void)awakeFromNib
 {
-    if (self.popupInfoDelegate != nil)
-    {
-        [self.popupInfoDelegate onTouchInfoAtIndexPath:self.indexPath];
-    }
+    _backgroundImage.image = [_backgroundImage.image resizableImageWithCapInsets:UIEdgeInsetsZero];
+    _contentView.layer.cornerRadius = 2.5;
+    _contentView.clipsToBounds = YES;
+    _contentView.frame = (CGRect){1, 0.5, 178, 158};
 }
 
+- (void)setup
+{
+    self.enabled = NO;
+    
+    _infoPopoverController = [[UIPopoverController alloc] initWithContentViewController:[[NuxeoPopoverViewController alloc] init]];
+    ((NuxeoPopoverViewController *)_infoPopoverController.contentViewController).parentPopover = _infoPopoverController;
+}
 
+#pragma mark - Setters
 
-- (void)dealloc {
-    [_title release];
-    [_picto release];
+- (void)setPictoBackgroundColor:(UIColor *)iColor
+{
+    _topView.backgroundColor = iColor;
+}
+
+- (void)setTitleBackgroundColor:(UIColor *)iColor
+{
+    _bottomView.backgroundColor = iColor;
+}
+
+#pragma mark - Events -
+
+- (IBAction)onTouchInfo:(UIButton *)sender
+{
+//    _infoPopoverController.popoverContentSize = _infoPopoverController.contentViewController.view.frame.size;
+    [_infoPopoverController presentPopoverFromRect:sender.bounds inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+#pragma mark - Memory Management -
+
+- (void)dealloc
+{
+    NuxeoReleaseAndNil(_backgroundImage);
+    NuxeoReleaseAndNil(_infoPopoverController);
+    
+    self.title = nil;
+    self.picto = nil;
+    
     [super dealloc];
 }
+
 @end
