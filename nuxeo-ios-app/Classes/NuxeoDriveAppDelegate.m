@@ -88,6 +88,31 @@
 {
     NuxeoLogLogo();
 
+    // Nuxeo init
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    if (nuxSession.authenticator == nil)
+    {
+        NUXTokenAuthenticator *auth = [[NUXTokenAuthenticator alloc] init];
+        // Those fields are mandatory
+        auth.applicationName = kNuxeoAppName;
+        auth.permission = kNuxeoPermission;
+        nuxSession.authenticator = auth;
+    }
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL] != nil)
+    {
+        [nuxSession setUrl:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL]]];
+    }
+    else
+    {
+        [nuxSession setUrl:[NSURL URLWithString:kNuxeoSiteURL]];
+    }
+    [nuxSession setRepository:kNuxeoRepository];
+    [nuxSession setApiPrefix:kNuxeoApiPrefix];
+    [nuxSession setDownloadQueueMaxConcurrentOperationCount:2];
+    // Add global schema
+    [nuxSession addDefaultSchemas:@[kNuxeoSchemaDublincore, kNuxeoSchemaUid, kNuxeoSchemaFile, kNuxeoSchemaCommon, kNuxeoSchemaVideo]];
+        
+    
     // -----------------------------
     // Creating Main Window
     // -----------------------------
@@ -95,8 +120,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
 
     self.window.rootViewController = [[[HomeViewController alloc] init] autorelease];
+#ifdef DEBUG
+    ((NuxeoDriveViewController *)self.window.rootViewController).backButtonShown = YES;
+#else
     ((NuxeoDriveViewController *)self.window.rootViewController).backButtonShown = NO;
-
+#endif
 
     [self.window makeKeyAndVisible];
     
@@ -182,29 +210,6 @@
     isWifiConnected = [[Reachability reachabilityForInternetConnection] isReachableViaWiFi];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
-    // Nuxeo init
-    NUXSession * nuxSession = [NUXSession sharedSession];
-    if (nuxSession.authenticator == nil)
-    {
-        NUXTokenAuthenticator *auth = [[NUXTokenAuthenticator alloc] init];
-        // Those fields are mandatory
-        auth.applicationName = kNuxeoAppName;
-        auth.permission = kNuxeoPermission;
-        nuxSession.authenticator = auth;
-    }
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL] != nil)
-    {
-        [nuxSession setUrl:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL]]];
-    }
-    else
-    {
-        [nuxSession setUrl:[NSURL URLWithString:kNuxeoSiteURL]];
-    }
-    [nuxSession setRepository:kNuxeoRepository];
-    [nuxSession setApiPrefix:kNuxeoApiPrefix];
-    [nuxSession setDownloadQueueMaxConcurrentOperationCount:2];
-    // Add global schema
-    [nuxSession addDefaultSchemas:@[kNuxeoSchemaDublincore, kNuxeoSchemaUid, kNuxeoSchemaFile, kNuxeoSchemaCommon, kNuxeoSchemaVideo]];
     
     // Check if a synchronization was launch and is not done
     if (APP_DELEGATE.synchronizationInProgress == YES)
@@ -212,6 +217,7 @@
         [[NuxeoDriveRemoteServices instance] refreshAllSyncPoints:YES];
     }
     
+
     
 }
 

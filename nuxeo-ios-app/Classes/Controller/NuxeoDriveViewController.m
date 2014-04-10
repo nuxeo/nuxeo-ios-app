@@ -109,6 +109,10 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
     [[Reachability reachabilityForInternetConnection] startNotifier];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter]addObserverForName:NOTIF_REFRESH_UI object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [self synchronizeAllView];
+    }];
+    
     // View&Controller Prepared & Ready
     [self retrieveBusinessObjects];
 }
@@ -304,8 +308,8 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
     NUXSession *session = [NUXSession sharedSession];
     if ([session.authenticator softAuthentication] == NO)
     {
-        // Otherwise; Present Login screen
-        [self presentViewController:[[[WelcomeViewController alloc] initWithNibName:kXIBWelcomeController bundle:nil] autorelease] animated:YES completion:NULL];
+        // Otherwise; Present Logout
+        [self logout];
     }
 }
 
@@ -417,6 +421,18 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
 -(void) stopSpinAnimationOnView:(UIView *)view
 {
     [view.layer removeAllAnimations];
+}
+
+#pragma mark Events
+
+- (void) logout
+{
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    if (nuxSession.authenticator != nil)
+    {
+        [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
+        [self presentViewController:[[[WelcomeViewController alloc] initWithNibName:kXIBWelcomeController bundle:nil] autorelease] animated:YES completion:NULL];
+    }
 }
 
 #pragma mark -

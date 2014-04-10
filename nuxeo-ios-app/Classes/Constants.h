@@ -115,7 +115,10 @@
 // Notification send when all synchronization end
 #define NOTIF_SYNC_ALL_FINISH                   @"NOTIF_SYNC_ALL_FINISH"
 
+// Notification send to indicate a change in the network connection
 #define NOTIF_NETWORK_STATUS_CHANGE             @"NOTIF_NETWORK_STATUS_CHANGE"
+// Notification send by system to refresh User Interface
+#define NOTIF_REFRESH_UI                        @"NOTIF_REFRESH_UI"
 
 /********************************** Params ********************************/
 

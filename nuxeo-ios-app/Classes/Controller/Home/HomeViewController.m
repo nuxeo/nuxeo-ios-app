@@ -75,7 +75,7 @@
              
          } FailureBlock:^(NUXRequest * pRequest)
          {
-             [self logout];
+             
          }];
     }
 }
@@ -114,16 +114,6 @@
 }
 
 #pragma mark - Events -
-
-- (void) logout
-{
-    NUXSession * nuxSession = [NUXSession sharedSession];
-    if (nuxSession.authenticator != nil)
-    {
-        [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
-        [self checkAuthentication];
-    }
-}
 
 - (void) goBack:(id)sender
 {
@@ -244,13 +234,24 @@
     if ([collectionView isEqual:self.browsingFolders])
     {
         // Browse into selected folder
-        if (rootDocument != nil)
+        if ([APP_DELEGATE isNetworkConnected] == YES)
         {
-            [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:@{kParamKeyDocument: rootDocument, kParamKeyContext : kBrowseDocumentOnLine}];
+            if (rootDocument != nil)
+            {
+                [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:@{kParamKeyDocument: rootDocument, kParamKeyContext : kBrowseDocumentOnLine}];
+            }
+            else
+            {
+                [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:nil];
+            }
         }
         else
         {
-            [[NuxeoDriveControllerHandler instance] pushDocumentsControllerFrom:self options:nil];
+            [UIAlertView showWithTitle:@"application.name"
+                                                         message:@"not.connected"
+                                               cancelButtonTitle:@"button.ok"
+                                               otherButtonTitles:nil
+                                                        tapBlock:nil];
         }
     }
 }
