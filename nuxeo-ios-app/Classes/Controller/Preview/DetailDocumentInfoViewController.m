@@ -63,7 +63,7 @@
 	[super viewWillAppear:animated];
     
     self.updateDate.text = [self.currentDocument.lastModified description];
-    self.author.text = self.currentDocument.name;
+    self.author.text = [self.currentDocument.properties objectForKey:@"dc:creator"];
     self.descriptionDetail.text = self.currentDocument.description;
 }
 

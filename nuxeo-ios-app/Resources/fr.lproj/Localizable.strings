@@ -15,40 +15,41 @@
  * 	Matthias Rouberol
  */
 
-// ==============================  Libellés Standards  ==============================  
+// ==============================  Libellés Standards  ==============================
 "application.name"                      = "NuxeoDrive";
-"application.notconnected"              = "Vous devez être connecté";
+"application.notconnected"              = "You must be connected";
 "button.ok"                             = "Ok";
-"button.yes"                            = "Oui";
-"button.no"                             = "Non";
-"button.validate"                       = "Valider";
-"button.cancel"                         = "Annuler";
-"button.next"                           = "Suivant";
-"button.previous"                       = "Précédent";
-"button.back"                           = "Retour";
-"button.home"                           = "Accueil";
+"button.yes"                            = "Yes";
+"button.no"                             = "No";
+"button.validate"                       = "Validate";
+"button.cancel"                         = "Cancel";
+"button.next"                           = "Next";
+"button.previous"                       = "Previous";
+"button.back"                           = "Back";
+"button.home"                           = "Home";
 
 
-"button.browse"                         = "NAVIGUER";
+"button.browse"                         = "BROWSE";
 "button.login"                          = "LOG IN";
-"button.preview"                        = "VISUALISATION";
-"button.openwith"                       = "OUVRIR AVEC";
-"button.sync.all"                       = "TOUT SYNC";
+"button.preview"                        = "PREVIEW";
+"button.openwith"                       = "OPEN WITH";
+"button.sync.all"                       = "SYNC ALL FILES";
 "button.sync"                           = "SYNC";
 "button.add.sync"                       = "ADD TO DEVICE";
 "button.pin"                            = "PIN";
 "button.info"                           = "INFO";
+"button.done"                           = "DONE";
 
 // ============================= WELCOME ========================================
 "welcome.host.url"                      = "Host URL";
-"welcome.username"                      = "Utilisateur";
-"welcome.password"                      = "Mot de passe";
-"welcome.login"                         = "Se connecter";
+"welcome.username"                      = "Username";
+"welcome.password"                      = "Password";
+"welcome.login"                         = "Log in";
 
 // ============================= HOME ========================================
 "home.browse.repository"                = "BROWSE";
-"home.on.device"                        = "EN LOCAL";
-"home.online.content"                   = "CONTENU EN LIGNE";
+"home.on.device"                        = "ON YOUR DEVICE";
+"home.online.content"                   = "ONLINE CONTENT";
 
 "home.hierarchy.load.question"          = "Do you want to reload the navigation tree and list of content so as to update it ? This operation will take a few tens of seconds.";
 
@@ -61,3 +62,19 @@
 
 // ============================= PREVIEW ========================================
 "preview.open.with.noapp"               = "No application can open this type of file";
+
+// ============================= DETAIL INFO ========================================
+"detail.document.title"                 = "DOCUMENT TITLE";
+"detail.document.update.date"           = "Modified";
+"detail.document.author"                = "By";
+"detail.document.description"           = "Description";
+
+// ============================= SETTINGS ========================================
+"settings.title"                        = "PREFERENCES";
+"settings.file.storage"                 = "Files store max size";
+"settings.sync.cellular"                = "Sync over cellular";
+"settings.authentication"               = "AUTHENTICATION";
+"settings.revoke.token"                 = "Revoke token and Log out";
+"settings.about"                        = "Version %@ Nuxeo";
+
+
