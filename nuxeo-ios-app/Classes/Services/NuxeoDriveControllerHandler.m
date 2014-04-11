@@ -31,10 +31,9 @@
 #import "NuxeoDriveRemoteServices.h"
 
 #import "NuxeoFormViewController.h"
-
+#import "NuxeoSettingForm.h"
 
 @implementation NuxeoDriveControllerHandler
-
 
 + (NuxeoDriveControllerHandler *) instance
 {
@@ -149,14 +148,11 @@
 
 - (void) pushSettingsControllerFrom:(UIViewController *)iController options:(NSDictionary *)options
 {
-    SettingsViewController * rvc = [[SettingsViewController alloc]initWithNibName:kXIBSettingsViewController bundle:nil];
-    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    rvc.headerHidden = YES;
-    rvc.backButtonShown = YES;
-    rvc.footerHidden = YES;
-
-    rvc.abstractView = NO;
-    [iController.view addSubview:rvc.view];
+    NuxeoFormViewController *formViewController_ = [[[NuxeoFormViewController alloc] init] autorelease];
+    formViewController_.form = [[NuxeoSettingForm alloc] init];
+    
+    iController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    [iController presentViewController:formViewController_ animated:YES completion:NULL];
 }
 
 @end
