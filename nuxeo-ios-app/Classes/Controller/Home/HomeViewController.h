@@ -21,12 +21,12 @@
 #import <UIKit/UIKit.h>
 #import "NuxeoDriveViewController.h"
 
-#import "NuxeoDrivePopupInfoViewDelegate.h"
+#import "NuxeoPopoverViewController.h"
 #import "NuxeoLabel.h"
 
 @class NUXDocument;
 
-@interface HomeViewController : NuxeoDriveViewController <UICollectionViewDataSource, UICollectionViewDelegate, NuxeoDrivePopupActionViewDelegate>
+@interface HomeViewController : NuxeoDriveViewController <UICollectionViewDataSource, UICollectionViewDelegate, NuxeoActionPopoverDelegate>
 {
     NUXDocument * rootDocument;
     NSArray * synchronizedFolders;

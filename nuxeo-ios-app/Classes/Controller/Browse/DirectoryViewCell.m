@@ -50,12 +50,14 @@
 - (void)setup
 {
     self.enabled = NO;
+    self.nuxeoActionPopoverTitles = nil;
     
     _infoPopoverController = [[UIPopoverController alloc] initWithContentViewController:[[NuxeoPopoverViewController alloc] init]];
     ((NuxeoPopoverViewController *)_infoPopoverController.contentViewController).parentPopover = _infoPopoverController;
+    ((NuxeoPopoverViewController *)_infoPopoverController.contentViewController).caller = self;
 }
 
-#pragma mark - Setters
+#pragma mark - Setters -
 
 - (void)setPictoBackgroundColor:(UIColor *)iColor
 {
@@ -65,6 +67,19 @@
 - (void)setTitleBackgroundColor:(UIColor *)iColor
 {
     _bottomView.backgroundColor = iColor;
+}
+
+- (void)setDelegate:(id<NuxeoActionPopoverDelegate>)delegate
+{
+    ((NuxeoPopoverViewController *)_infoPopoverController.contentViewController).delegate = delegate;
+    _delegate = delegate;
+}
+
+#pragma mark - UICollectionView Loading -
+
+- (void)loadWithActionPopoverTitles:(NSArray *)actionPopoverTitles
+{
+    ((NuxeoPopoverViewController *)_infoPopoverController.contentViewController).titles = actionPopoverTitles;
 }
 
 #pragma mark - Events -

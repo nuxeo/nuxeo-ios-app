@@ -13,16 +13,19 @@
 @interface NuxeoPopoverViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UITableView *_tableview;
-    
-    NSArray *_stringArray;
 }
 
 #pragma mark - Properties
 @property (nonatomic, assign) id<NuxeoActionPopoverDelegate> delegate;
+
 @property (nonatomic, assign) UIPopoverController *parentPopover;
+@property (nonatomic, assign) id caller;
+
+@property (nonatomic, retain) NSArray *titles;
 
 #pragma mark - Initializers
 - (id)init;
+- (id)initWithTitles:(NSArray *)titles;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 @end
@@ -31,6 +34,7 @@
 @optional
 
 // Called when a button is clicked. The view will be automatically dismissed after this call returns
+- (void)actionPopoverCaller:(id)caller clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (void)actionPopover:(UIPopoverController *)popover clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 @end
