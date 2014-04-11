@@ -311,6 +311,26 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
         // Otherwise; Present Logout
         [self logout];
     }
+    else
+    {
+        // Check if token is not revoked
+        // Request by path
+        NUXRequest * nuxRequest = [[NUXSession sharedSession] requestDocument:kNuxeoPathInitial];
+        [nuxRequest startWithCompletionBlock:^(NUXRequest * pRequest)
+         {
+             if ([pRequest responseStatusCode] != 200)
+             {
+                 [self logout];
+             }
+             
+         } FailureBlock:^(NUXRequest * pRequest)
+         {
+             if ([pRequest responseStatusCode] == 401 && APP_DELEGATE.isNetworkConnected == YES)
+             {
+                 [self logout];
+             }
+         }];
+    }
 }
 
 - (void) retrieveBusinessObjects

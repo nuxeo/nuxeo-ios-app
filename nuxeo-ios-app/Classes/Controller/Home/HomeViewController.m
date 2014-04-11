@@ -75,7 +75,6 @@
              
          } FailureBlock:^(NUXRequest * pRequest)
          {
-             
          }];
     }
 }
