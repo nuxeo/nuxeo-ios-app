@@ -30,12 +30,20 @@
     return self;
 }
 
+- (id)initWithTitles:(NSArray *)titles
+{
+    if ((self = [self init]))
+        self.titles = titles;
+    return self;
+}
+
 - (void)setup
 {
     self.delegate = nil;
     self.parentPopover = nil;
+    self.caller = nil;
     
-    _stringArray = [@[@"Unpin from home", @"Info", @"Remove from device", @"Train your cat"] retain];
+    self.titles = @[@"Unpin from home", @"Info", @"Remove from device", @"Train your cat"];
 }
 
 #pragma mark - UIViewcontroller LifeCycle -
@@ -45,13 +53,32 @@
     [super viewDidLoad];
 
     _tableview.scrollEnabled = NO;
+    _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+
     [_tableview reloadData];
-    
     [_tableview sizeToFit];
     
     self.view.frame = (CGRect){self.view.frame.origin, _tableview.frame.size};
     self.contentSizeForViewInPopover = self.view.frame.size;
+}
+
+#pragma mark - Setters -
+
+- (void)setTitles:(NSArray *)titles
+{
+    if (_titles == titles)
+        return ;
+    
+    NuxeoReleaseAndNil(_titles);
+    _titles = [titles retain];
+    
+    [_tableview reloadData];
+    [_tableview sizeToFit];
+    
+    self.view.frame = (CGRect){self.view.frame.origin, _tableview.frame.size};
+    self.contentSizeForViewInPopover = self.view.frame.size;
+    self.parentPopover.popoverContentSize = self.contentSizeForViewInPopover;
 }
 
 #pragma mark - Delegates Implementations -
@@ -60,20 +87,26 @@
 // Default number of section is 1 so section can be ignored
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _stringArray.count;
+    return self.titles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
+    NSArray *actionArray_ = nil;
     
     if (!cell)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([UITableViewCell class])];
 
+    if ([self.titles[indexPath.row] isKindOfClass:[NSArray class]])
+        actionArray_ = self.titles[indexPath.row];
+    else
+        actionArray_ = @[@"", self.titles[indexPath.row]];
+    
     cell.selected = NO;
     cell.highlighted = NO;
-    cell.textLabel.text = _stringArray[indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:@"ic_password~ipad"];
+    cell.textLabel.text = actionArray_[1];
+    cell.imageView.image = [UIImage imageNamed:actionArray_[0]];
     
     return cell;
 }
@@ -85,6 +118,9 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(actionPopover:clickedButtonAtIndex:)])
         [self.delegate actionPopover:self.parentPopover clickedButtonAtIndex:indexPath.row];
     
+    if (self.delegate && [self.delegate respondsToSelector:@selector(actionPopoverCaller:clickedButtonAtIndex:)])
+        [self.delegate actionPopoverCaller:self.caller clickedButtonAtIndex:indexPath.row];
+    
     [self.parentPopover dismissPopoverAnimated:YES];
 }
 
@@ -93,9 +129,11 @@
 - (void)dealloc
 {
     NuxeoReleaseAndNil(_tableview);
-    NuxeoReleaseAndNil(_stringArray);
     
     self.delegate = nil;
+    self.parentPopover = nil;
+    
+    self.titles = nil;
     
     [super dealloc];
 }

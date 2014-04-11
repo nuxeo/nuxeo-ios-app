@@ -35,6 +35,7 @@
 #import "UIAlertView+Blocks.h"
 
 #import "DirectoryViewCell.h"
+#import "NuxeoPopoverViewController.h"
 
 #define kBrowseReuseIdentifierForCollection     @"BrowseFolder"
 
@@ -215,19 +216,22 @@
     if ([collectionView isEqual:self.browsingFolders])
     {
         DirectoryViewCell * cell = (DirectoryViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:kBrowseReuseIdentifierForCollection forIndexPath:indexPath];
-        [cell localizeRecursively];
         
-        cell.popupInfoDelegate = self;
+        
+        
+        [cell localizeRecursively];
         cell.indexPath = indexPath;
+        
+        [cell loadWithActionPopoverTitles:@[@"test", @"truc", @"bidule"]];
+        cell.delegate = self;
+        
         
         return cell;
     }
     return nil;
 }
 
-#pragma mark -
-#pragma mark UICollectionViewDelegate
-#pragma mark -
+#pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -256,13 +260,15 @@
     }
 }
 
+#pragma mark - NuxeoActionPopoverDelegate
 
+- (void)actionPopoverCaller:(id)caller clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NuxeoLogD(@"Testing action popover return: %@ - %d", [_browsingFolders indexPathForCell:caller], buttonIndex);
+}
 
-#pragma mark -
-#pragma mark UIViewController
-#pragma mark -
-
-#pragma mark Basics
+#pragma mark - UIViewController -
+#pragma mark Memory Management
 
 - (void)dealloc
 {

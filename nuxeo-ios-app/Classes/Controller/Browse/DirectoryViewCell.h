@@ -24,6 +24,8 @@
 
 #import "NuxeoLabel.h"
 
+@protocol NuxeoActionPopoverDelegate;
+
 @interface DirectoryViewCell : UICollectionViewCell
 {
     IBOutlet UIImageView *_backgroundImage;
@@ -47,6 +49,9 @@
 @property (nonatomic, assign) BOOL loading; // Indicate if this folder is under synchronisation
 @property (nonatomic, assign) BOOL enabled;
 
+@property (nonatomic, retain) NSArray *nuxeoActionPopoverTitles;
+@property (nonatomic, assign) id<NuxeoActionPopoverDelegate> delegate;
+
 #pragma mark - Initializer
 
 - (id)initWithCoder:(NSCoder *)aDecoder;
@@ -55,6 +60,9 @@
 #pragma mark - Custom Setters
 - (void)setPictoBackgroundColor:(UIColor *)iColor;
 - (void)setTitleBackgroundColor:(UIColor *)iColor;
+
+#pragma mark - UICollectionViewCell Loading
+- (void)loadWithActionPopoverTitles:(NSArray *)actionPopoverTitles;
 
 #pragma mark - Events
 - (IBAction)onTouchInfo:(UIButton *)sender;
