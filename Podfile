@@ -6,3 +6,5 @@ platform :ios, '7.0'
 pod 'NuxeoSDK', :path => '/Users/juliendimarco/Developer/frameworks/nuxeo-sdk-ios'
 
 pod 'UIAlertView+Blocks'
+
+pod 'FXForms', '~> 1.1.2'

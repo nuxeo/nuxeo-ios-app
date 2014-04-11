@@ -216,12 +216,10 @@
     {
         DirectoryViewCell * cell = (DirectoryViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:kBrowseReuseIdentifierForCollection forIndexPath:indexPath];
         
-        
-        
         [cell localizeRecursively];
         cell.indexPath = indexPath;
         
-        [cell loadWithActionPopoverTitles:@[@"test", @"truc", @"bidule"]];
+        [cell loadWithActionPopoverTitles:@[@"truc", @"truc", @"bidule"]];
         cell.delegate = self;
         
         

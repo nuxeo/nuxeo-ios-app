@@ -30,6 +30,9 @@
 
 #import "NuxeoDriveRemoteServices.h"
 
+#import "NuxeoFormViewController.h"
+
+
 @implementation NuxeoDriveControllerHandler
 
 
@@ -133,18 +136,13 @@
 
 - (void) pushDetailDocumentInfoControllerFrom:(UIViewController *)iController options:(NSDictionary *)options
 {
-    DetailDocumentInfoViewController * rvc = [[DetailDocumentInfoViewController alloc]initWithNibName:kXIBDetailDocumentInfoViewController bundle:nil];
+    NuxeoFormViewController *formViewController_ = [[[NuxeoFormViewController alloc] init] autorelease];
+    
     if ([options objectForKey:kParamKeyDocument] != nil)
-    {
-        rvc.currentDocument = [options objectForKey:kParamKeyDocument];
-    }
-    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    rvc.headerHidden = YES;
-    rvc.backButtonShown = YES;
-    rvc.footerHidden = YES;
-
-    rvc.abstractView = NO;
-    [iController.view addSubview:rvc.view];
+        formViewController_.form = [options objectForKey:kParamKeyDocument];
+    
+    iController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    [iController presentViewController:formViewController_ animated:YES completion:NULL];
 }
 
 

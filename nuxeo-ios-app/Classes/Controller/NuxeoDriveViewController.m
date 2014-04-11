@@ -47,6 +47,8 @@
 
 #import "UIAlertView+Blocks.h"
 
+#import "NuxeoFormViewController.h"
+
 @interface NuxeoDriveViewController ()
 
 @property (retain, nonatomic) UIView *contentView;
@@ -451,7 +453,10 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
     if (nuxSession.authenticator != nil)
     {
         [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
-        [self presentViewController:[[[WelcomeViewController alloc] initWithNibName:kXIBWelcomeController bundle:nil] autorelease] animated:YES completion:NULL];
+        [self presentViewController:[[[WelcomeViewController alloc] init] autorelease] animated:YES completion:NULL];
+//        self.modalPresentationStyle = UIModalPresentationCurrentContext;
+//        [self presentViewController:[[NuxeoFormViewController alloc] initWithNibName:NSStringFromClass([NuxeoFormViewController class])
+//                                                                              bundle:nil] animated:YES completion:NULL];
     }
 }
 
