@@ -48,15 +48,15 @@
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL] != nil)
         self.hostURL.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL];
-
+    
     if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME] != nil)
         self.username.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME];
     
-    #ifdef DEBUG
+#ifdef DEBUG
     self.hostURL.text = kNuxeoSiteURL;
     self.username.text = kNuxeoUser;
     self.password.text = kNuxeoPassword;
-    #endif
+#endif
     
     self.footerBarView.hidden = YES;
 }
@@ -92,7 +92,7 @@
     auth.permission = kNuxeoPermission;
     
     NUXSession *session = [NUXSession sharedSession];
-    [session setUrl:[NSURL URLWithString:kNuxeoSiteURL]];
+    [session setUrl:[NSURL URLWithString:self.hostURL.text]];
     session.authenticator = auth;
     if ([auth softAuthentication] == NO)
     {
