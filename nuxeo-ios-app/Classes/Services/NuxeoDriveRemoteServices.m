@@ -163,14 +163,19 @@
             {
                 NUXSession * nuxSession = [NUXSession sharedSession];
                 
-                // retrieve all documents in this node in synchronize mode
-                NSString * subRequestFormat = @"SELECT * FROM Document where ecm:path startswith '%@' and ecm:currentLifeCycleState <> 'deleted'";
-                NSString * subRequestQuery = [NSString stringWithFormat:subRequestFormat, doc.path];
+//                // retrieve all documents in this node in synchronize mode
+//                NSString * subRequestFormat = @"SELECT * FROM Document where ecm:path startswith '%@' and ecm:currentLifeCycleState <> 'deleted'";
+//                NSString * subRequestQuery = [NSString stringWithFormat:subRequestFormat, doc.path];
+//                
+//                NUXRequest * nuxSubRequest = [nuxSession requestQuery:subRequestQuery];
+//                [nuxSubRequest startSynchronous];
+//                
+//                // XXX Sleep to ensure that other threads finish to filled nuxSubRequest's response fields.
+//                [NSThread sleepForTimeInterval:0.002f];
+//                
                 
-                NUXRequest * nuxSubRequest = [nuxSession requestQuery:subRequestQuery];
+                NUXRequest * nuxSubRequest = [nuxSession requestChildren:doc.uid];
                 [nuxSubRequest startSynchronous];
-                
-                // XXX Sleep to ensure that other threads finish to filled nuxSubRequest's response fields.
                 [NSThread sleepForTimeInterval:0.002f];
                 
                 if ([nuxSubRequest responseData] != nil)
@@ -179,6 +184,7 @@
                     NUXDocuments * documents = [nuxSubRequest responseEntityWithError:nil];
                     return documents.entries;
                 }
+                
             }
             return nil;
         };
@@ -214,8 +220,11 @@
             // Request by path
             //NUXRequest *request = [session requestQuery:@"select * from Document where ecm:mixinType = 'Folderish'"];
 //            NSString * requestFormat = @"SELECT * FROM Document where ecm:path startswith '%@' and ecm:mixinType = 'Folderish'";
-            NSString * requestFormat = @"SELECT * FROM Folder where ecm:path startswith '%@'";
-            NSString * query = [NSString stringWithFormat:requestFormat, iHerarchieName];
+            //NSString * requestFormat = @"SELECT * FROM Document where ecm:path startswith '%@'";
+            
+            NSString * requestFormat = @"SELECT * FROM Document where ecm:mixinType = 'Folderish' and (ecm:path = '%@' or ecm:path startswith '%@')";
+            
+            NSString * query = [NSString stringWithFormat:requestFormat, iHerarchieName, iHerarchieName];
             NUXRequest * nuxRequest = [nuxSession requestQuery:query];
 //            [nuxRequest addParameterValue:@"1000" forKey:@"pageSize"];
             
