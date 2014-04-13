@@ -18,27 +18,30 @@
 
 - (NSArray *)fields
 {
+    NuxeoSettingForm * __block weakSelf = self;
+    
     void (^revokeAndLogout)(void) = ^{
-        [self revokeTokenAndLogout];
+        [weakSelf revokeTokenAndLogout];
     };
     
     return  @[
               
               @{FXFormFieldKey : @"maxStorageSize",
-                FXFormFieldTitle : @"Files storage max size",  FXFormFieldType : FXFormFieldTypeLabel},
+                FXFormFieldTitle : @"Files storage max size",  FXFormFieldType : FXFormFieldTypeLabel, FXFormFieldFooter : @""},
               
               @{FXFormFieldKey : @"syncOverCellular",
-                FXFormFieldTitle : @"Sync over cellular"},
+                FXFormFieldTitle : @"Sync over cellular",},
               
               // Authentification
               @{FXFormFieldKey : @"serverAddress",
                 FXFormFieldTitle : @"0", FXFormFieldHeader : [@"Authentification" uppercaseString]},
               
               @{FXFormFieldKey : @"username", FXFormFieldTitle : @"1"},
-              @{FXFormFieldKey : @"password", FXFormFieldTitle : @"2"},
+              @{FXFormFieldKey : @"password", FXFormFieldTitle : @"2",
+                FXFormFieldFooter : @""},
 
               @{FXFormFieldTitle: @"Revoke token and Log out",
-                FXFormFieldHeader: @"", FXFormFieldAction: [revokeAndLogout copy]},
+                FXFormFieldAction: [revokeAndLogout copy]},
               ];
 }
 

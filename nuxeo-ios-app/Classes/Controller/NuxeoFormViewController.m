@@ -10,6 +10,23 @@
 
 #import "NuxeoFormViewController.h"
 
+@interface FXFormBaseCell (NuxeoFormView)
+
+- (void)setUp;
+
+@end
+
+
+@implementation FXFormBaseCell (NuxeoFormView)
+
+- (void)setUp
+{
+    self.layer.cornerRadius = 2;
+    self.clipsToBounds = YES;
+}
+
+@end
+
 @implementation MyForm
 
 - (NSDictionary *)emailField
@@ -148,6 +165,43 @@
     } completion:^(BOOL finished) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }];
+}
+
+#pragma mark - Delegates Implementations -
+#pragma mark - UITableView
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *)view;
+    
+    tableViewHeaderFooterView.backgroundView.backgroundColor = _contentView.backgroundColor;
+    tableViewHeaderFooterView.contentView.backgroundColor = _contentView.backgroundColor;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10;
+}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-declarations"
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return [[self.formController sectionAtIndex:section] header] ? 42 : 0;
+}
+
+#pragma clang diagnostic pop
+
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *)view;
+    tableViewHeaderFooterView.textLabel.font = [UIFont fontWithName:@"Avenir" size:16.0f];
+    tableViewHeaderFooterView.textLabel.textColor = [UIColor colorWithRed:0.352 green:0.352 blue:0.371 alpha:1.000];
+    
+    tableViewHeaderFooterView.backgroundView.backgroundColor = _contentView.backgroundColor;
+    tableViewHeaderFooterView.contentView.backgroundColor = _contentView.backgroundColor;
 }
 
 #pragma mark - Memory Management -
