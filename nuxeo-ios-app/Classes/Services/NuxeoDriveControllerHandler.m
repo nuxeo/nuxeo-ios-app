@@ -149,7 +149,7 @@
 - (void) pushSettingsControllerFrom:(UIViewController *)iController options:(NSDictionary *)options
 {
     NuxeoFormViewController *formViewController_ = [[[NuxeoFormViewController alloc] init] autorelease];
-    formViewController_.form = [[NuxeoSettingForm alloc] init];
+    formViewController_.form = [NuxeoSettingForm instance];
     
     iController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [iController presentViewController:formViewController_ animated:YES completion:NULL];

@@ -14,9 +14,12 @@
 @property (nonatomic, retain) NSString  *maxStorageSize;
 @property (nonatomic, assign) BOOL      syncOverCellular;
 
-@property (nonatomic, retain) NSURL     *serverAddress;
+@property (nonatomic, retain) NSString  *serverAddress;
 @property (nonatomic, retain) NSString  *username;
 @property (nonatomic, retain) NSString  *password;
+
+#pragma mark - Initializers
++ (instancetype)instance;
 
 #pragma mark - Test
 - (void)revokeTokenAndLogout;

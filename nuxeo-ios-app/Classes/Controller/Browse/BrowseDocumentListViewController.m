@@ -47,8 +47,8 @@
 {
     return  @[
               @{FXFormFieldKey : @"date", FXFormFieldTitle : @"Modified",  FXFormFieldType : FXFormFieldTypeLabel},
-              @{FXFormFieldKey : @"author", FXFormFieldTitle : @"Author", FXFormFieldType : FXFormFieldTypeLabel},
-              @{FXFormFieldKey : @"desc", FXFormFieldHeader: @"", FXFormFieldType : FXFormFieldTypeLongText, @"textView.editable": @(NO), @"textView.textAlignment" : @(NSTextAlignmentCenter)},
+              @{FXFormFieldKey : @"author", FXFormFieldTitle : @"Author", FXFormFieldType : FXFormFieldTypeLabel, FXFormFieldFooter : @""},
+              @{FXFormFieldKey : @"desc", FXFormFieldType : FXFormFieldTypeLongText, @"textView.editable": @(NO), @"textView.textAlignment" : @(NSTextAlignmentCenter)},
               ];
 }
 
