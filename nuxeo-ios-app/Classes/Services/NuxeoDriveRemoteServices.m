@@ -52,7 +52,7 @@
     
     // All notifications sended during synchronization process of hierrchies
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onHierarchyTreeComplete:) name:NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onHierarchyContentComplete:) name:NOTIF_HIERARCHY_BINARY_DOWNLOADED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onHierarchyContentComplete:) name:NOTIF_HIERARCHY_ALL_DOWNLOADED object:nil];
     
 }
 
@@ -218,15 +218,10 @@
         dispatch_async(backgroundQueue, ^{
             NUXSession * nuxSession = [NUXSession sharedSession];
             // Request by path
-            //NUXRequest *request = [session requestQuery:@"select * from Document where ecm:mixinType = 'Folderish'"];
-//            NSString * requestFormat = @"SELECT * FROM Document where ecm:path startswith '%@' and ecm:mixinType = 'Folderish'";
-            //NSString * requestFormat = @"SELECT * FROM Document where ecm:path startswith '%@'";
-            
             NSString * requestFormat = @"SELECT * FROM Document where ecm:mixinType = 'Folderish' and (ecm:path = '%@' or ecm:path startswith '%@')";
             
             NSString * query = [NSString stringWithFormat:requestFormat, iHerarchieName, iHerarchieName];
             NUXRequest * nuxRequest = [nuxSession requestQuery:query];
-//            [nuxRequest addParameterValue:@"1000" forKey:@"pageSize"];
             
             [aHierarchy loadWithRequest:nuxRequest];
         });
@@ -250,6 +245,9 @@
         // third element : the NUXDocument
         [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:hierarchyName, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], [request responseData], nil] forKey:hierarchyName];
         [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_REFRESH_UI object:hierarchyName];
+        
     }];
     [docRequest startSynchronous];
     

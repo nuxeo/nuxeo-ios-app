@@ -64,7 +64,6 @@
 		80C409B418D8F4450067740A /* ic_type_image@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096018D8F4450067740A /* ic_type_image@2x~ipad.png */; };
 		80C409B518D8F4450067740A /* ic_type_presentation@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096118D8F4450067740A /* ic_type_presentation@2x~ipad.png */; };
 		80C409B618D8F4450067740A /* ic_type_sound@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096218D8F4450067740A /* ic_type_sound@2x~ipad.png */; };
-		80C409B718D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096318D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png */; };
 		80C409B818D8F4450067740A /* ic_type_video@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4096418D8F4450067740A /* ic_type_video@2x~ipad.png */; };
 		80C409C618D8F4450067740A /* background_section@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097418D8F4450067740A /* background_section@2x~ipad.png */; };
 		80C409C818D8F4450067740A /* background_login@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C4097718D8F4450067740A /* background_login@2x~ipad.png */; };
@@ -196,7 +195,6 @@
 		80C4096018D8F4450067740A /* ic_type_image@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_image@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4096118D8F4450067740A /* ic_type_presentation@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_presentation@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4096218D8F4450067740A /* ic_type_sound@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_sound@2x~ipad.png"; sourceTree = "<group>"; };
-		80C4096318D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_synchro_folder@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4096418D8F4450067740A /* ic_type_video@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_video@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4097418D8F4450067740A /* background_section@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background_section@2x~ipad.png"; path = "../Home/background_section@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4097718D8F4450067740A /* background_login@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_login@2x~ipad.png"; sourceTree = "<group>"; };
@@ -491,7 +489,6 @@
 				80C4096018D8F4450067740A /* ic_type_image@2x~ipad.png */,
 				80C4096118D8F4450067740A /* ic_type_presentation@2x~ipad.png */,
 				80C4096218D8F4450067740A /* ic_type_sound@2x~ipad.png */,
-				80C4096318D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png */,
 				80C4096418D8F4450067740A /* ic_type_video@2x~ipad.png */,
 			);
 			path = Common;
@@ -736,7 +733,6 @@
 				D09D45F218F8387300DA8CC4 /* NuxeoFormViewController.xib in Resources */,
 				80C409B618D8F4450067740A /* ic_type_sound@2x~ipad.png in Resources */,
 				80C4099F18D8F4450067740A /* Localizable.strings in Resources */,
-				80C409B718D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png in Resources */,
 				D0C34C5A18F5A7B60008FB69 /* ic_logo_header@2x~ipad.png in Resources */,
 				80C409A718D8F4450067740A /* bt_openwith@2x~ipad.png in Resources */,
 				80C409D218D8F4450067740A /* DirectoryViewCell.xib in Resources */,

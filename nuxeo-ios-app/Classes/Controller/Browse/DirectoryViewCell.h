@@ -24,6 +24,8 @@
 
 #import "NuxeoLabel.h"
 
+#import "NuxeoDriveRemoteServices.h"
+
 @protocol NuxeoActionPopoverDelegate;
 
 @interface DirectoryViewCell : UICollectionViewCell
@@ -36,17 +38,17 @@
     
     IBOutlet UIImageView *_cloudImageView;
     IBOutlet UIButton *_infoButton;
+    IBOutlet UIImageView *_pictoImageView;
     
     UIPopoverController *_infoPopoverController;
 }
 
 @property (nonatomic, assign) NSIndexPath * indexPath;
 
-@property (retain, nonatomic) IBOutlet UIImageView *picto;
 @property (retain, nonatomic) IBOutlet UILabel *title;
 
-@property (nonatomic, assign) BOOL loading; // Indicate if this folder is under synchronisation
-@property (nonatomic, assign) BOOL enabled;
+@property (nonatomic) BOOL loading; // Indicate if this folder is under synchronisation
+@property (nonatomic) BOOL browsable;
 
 @property (nonatomic, retain) NSArray *nuxeoActionPopoverTitles;
 @property (nonatomic, assign) id<NuxeoActionPopoverDelegate> delegate;
@@ -68,5 +70,7 @@
 
 #pragma mark - Specific rendering
 - (void)repositoryRendering;
+- (void)folderRendering;
+- (void)renderWithStatus:(NuxeoHierarchieStatus)folderStatus;
 
 @end

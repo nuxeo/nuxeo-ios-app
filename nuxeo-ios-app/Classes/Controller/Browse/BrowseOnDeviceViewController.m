@@ -41,6 +41,7 @@
 
 #define kPopupActionInfo                        0
 #define kPopupActionRemoveFromDevice            1
+#define kPopupActionUpdate                      2
 
 
 @implementation BrowseOnDeviceViewController
@@ -67,6 +68,8 @@
 - (void) synchronizeAllView
 {
     [super synchronizeAllView];
+    
+    [self.synchronizedFolders reloadData];
 }
 
 #pragma mark -
@@ -134,12 +137,14 @@
         NUXDocument * currentDocument = [synchronizedPoints.entries objectAtIndex:indexPath.row];
         
         cell.indexPath = indexPath;
-        cell.picto.image = [UIImage imageNamed:@"ic_synchro_type_folder"];
         cell.title.text = currentDocument.title;
         
-        [cell loadWithActionPopoverTitles:@[@[@"ic_info_blue", NuxeoLocalized(@"browse.info.document")], @[@"ic_remove_from_device", NuxeoLocalized(@"browse.remove.from.device")]]];
+        [cell loadWithActionPopoverTitles:@[@[@"ic_info_blue", NuxeoLocalized(@"browse.ondevice.info")], @[@"ic_remove_from_device", NuxeoLocalized(@"browse.ondevice.remove")], @[@"ic_info_blue", NuxeoLocalized(@"browse.ondevice.update")]]];
         cell.delegate = self;
         
+        [cell folderRendering];
+        
+        [cell renderWithStatus:[[NuxeoDriveRemoteServices instance] getHierarchyStatus:currentDocument.path]];
         return cell;
     }
     return nil;
@@ -153,11 +158,15 @@
 {
     if ([collectionView isEqual:self.synchronizedFolders])
     {
+        DirectoryViewCell * cell = (DirectoryViewCell*)[self.synchronizedFolders cellForItemAtIndexPath:indexPath];
         NUXDocument * selectedDocument = [synchronizedPoints.entries objectAtIndex:indexPath.row];
         if ([selectedDocument isFolder] == YES)
         {
-            NUXHierarchy * hierarchy = [[NuxeoDriveRemoteServices instance] getHierarchyWithName:selectedDocument.path];//[NUXHierarchy hierarchyWithName:selectedDocument.path];
-            [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyHierarchy : hierarchy, kParamKeyContext : kBrowseDocumentOffLine}];
+            if (cell.browsable == YES)
+            {
+                NUXHierarchy * hierarchy = [[NuxeoDriveRemoteServices instance] getHierarchyWithName:selectedDocument.path];//[NUXHierarchy hierarchyWithName:selectedDocument.path];
+                [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyHierarchy : hierarchy, kParamKeyContext : kBrowseDocumentOffLine}];
+            }
         }
         else
         {
@@ -188,6 +197,26 @@
             [[NuxeoDriveRemoteServices instance] removeSynchronizePoint:selectedDocument.path completionBlock:^(id result) {
                 [self retrieveBusinessObjects];
             }];
+        }
+            break;
+        case kPopupActionUpdate:
+        {
+            [UIAlertView showWithTitle:NuxeoLocalized(@"application.name")
+                               message:NuxeoLocalized(@"browse.ondevice.update.confirm")
+                     cancelButtonTitle:NuxeoLocalized(@"button.no")
+                     otherButtonTitles:@[NuxeoLocalized(@"button.yes")]
+                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
+            {
+                                  switch (buttonIndex)
+                                  {
+                                      case 1:
+                                          [[NuxeoDriveRemoteServices instance] loadFullHierarchyByName:selectedDocument.path];
+                                          break;
+                                          
+                                      default:
+                                          break;
+                                  }
+                              }];
         }
             break;
             

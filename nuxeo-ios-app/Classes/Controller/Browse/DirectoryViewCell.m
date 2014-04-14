@@ -49,7 +49,7 @@
 
 - (void)setup
 {
-    self.enabled = NO;
+    self.browsable = YES;
     self.nuxeoActionPopoverTitles = nil;
     
     NuxeoReleaseAndNil(_infoPopoverController);
@@ -99,6 +99,47 @@
     _cloudImageView.hidden = YES;
 }
 
+- (void)folderRendering
+{
+    _pictoImageView.image = [UIImage imageNamed:@"ic_type_folder"];
+    _infoButton.hidden = NO;
+    _cloudImageView.hidden = NO;
+}
+
+-(void) renderWithStatus:(NuxeoHierarchieStatus)folderStatus
+{
+    switch (folderStatus)
+    {
+        case NuxeoHierarchieStatusNotLoaded:
+        {
+            self.browsable = NO;
+            CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+            animation.fromValue = @0.0f;
+            animation.toValue = @(2 * M_PI);
+            animation.duration = 2.f;
+            animation.repeatCount = HUGE_VALF;
+            [_cloudImageView.layer addAnimation:animation forKey:@"SpinAnimation"];
+        }
+            break;
+        case NuxeoHierarchieStatusTreeLoaded:
+        {
+            self.browsable = YES;
+        }
+            break;
+        case NuxeoHierarchieStatusContentLoaded:
+        {
+            self.browsable = YES;
+            [_cloudImageView.layer removeAllAnimations];
+            _cloudImageView.image = [UIImage imageNamed:@"ic_cloud"];
+            [self folderRendering];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 #pragma mark - Memory Management -
 
 - (void)dealloc
@@ -107,8 +148,8 @@
     NuxeoReleaseAndNil(_infoPopoverController);
     
     self.title = nil;
-    self.picto = nil;
     
+    [_pictoImageView release];
     [super dealloc];
 }
 
