@@ -40,4 +40,6 @@
 
 @property (nonatomic, getter = hasSynchronizationInProgress) BOOL synchronizationInProgress;
 
+- (UIViewController *)getVisibleViewController;
+
 @end
