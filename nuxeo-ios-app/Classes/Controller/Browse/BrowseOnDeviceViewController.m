@@ -201,26 +201,22 @@
             break;
         case kPopupActionUpdate:
         {
-            //[[NuxeoDriveRemoteServices instance] loadFullHierarchyByName:selectedDocument.path];
-            
-            [[NuxeoDriveRemoteServices instance] performSelectorInBackground:@selector(loadFullHierarchyByName:) withObject:selectedDocument.path];
-            
-//            [UIAlertView showWithTitle:NuxeoLocalized(@"application.name")
-//                               message:NuxeoLocalized(@"browse.ondevice.update.confirm")
-//                     cancelButtonTitle:NuxeoLocalized(@"button.no")
-//                     otherButtonTitles:@[NuxeoLocalized(@"button.yes")]
-//                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
-//            {
-//                                  switch (buttonIndex)
-//                                  {
-//                                      case 1:
-//                                          [[NuxeoDriveRemoteServices instance] loadFullHierarchyByName:selectedDocument.path];
-//                                          break;
-//                                          
-//                                      default:
-//                                          break;
-//                                  }
-//                              }];
+            [UIAlertView showWithTitle:NuxeoLocalized(@"application.name")
+                               message:NuxeoLocalized(@"browse.ondevice.update.confirm")
+                     cancelButtonTitle:NuxeoLocalized(@"button.no")
+                     otherButtonTitles:@[NuxeoLocalized(@"button.yes")]
+                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
+            {
+                                  switch (buttonIndex)
+                                  {
+                                      case 1:
+                                          [[NuxeoDriveRemoteServices instance] loadFullHierarchyByName:selectedDocument.path];
+                                          break;
+                                          
+                                      default:
+                                          break;
+                                  }
+                              }];
         }
             break;
             
