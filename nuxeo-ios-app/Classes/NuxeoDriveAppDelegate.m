@@ -217,8 +217,32 @@
         [[NuxeoDriveRemoteServices instance] refreshAllSyncPoints:YES];
     }
     
+}
 
+- (UIViewController *)getVisibleViewController
+{
     
+    UIViewController *viewController = self.window.rootViewController;
+    UIViewController *visibleViewController = nil;
+    
+    while (visibleViewController == nil) {
+        UIViewController * modalCtrl = [viewController presentedViewController];
+        
+        if (modalCtrl == nil) {
+            visibleViewController = viewController;
+        } else {
+            
+            if ([modalCtrl isKindOfClass:[UINavigationController class]])
+            {
+                UINavigationController *navigationController = (UINavigationController *)modalCtrl;
+                viewController = navigationController.visibleViewController;
+            } else {
+                viewController = modalCtrl;
+            }
+        }
+    }
+    
+    return visibleViewController;
 }
 
 @end

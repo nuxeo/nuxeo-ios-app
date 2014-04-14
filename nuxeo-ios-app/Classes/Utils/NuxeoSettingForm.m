@@ -7,6 +7,12 @@
 //
 
 #import "NuxeoSettingForm.h"
+
+#import <NuxeoSDK/NUXSession.h>
+#import <NuxeoSDK/NUXTokenAuthenticator.h>
+
+#import "WelcomeViewController.h"
+
 #import <FXForms/FXForms.h>
 
 #import "NuxeoSettingsManager.h"
@@ -31,11 +37,12 @@
 {
     if ((self = [super init]))
     {
-        self.maxStorageSize = @"1GB";
+        float limitStorageSize = [[[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:[NSNumber numberWithLongLong:(long long)5 * 1024 * 1024 * 1024]] longLongValue] / (1024 * 1024 * 1024);
+        self.maxStorageSize =  [NSString stringWithFormat:@"%.1fGB", limitStorageSize];
         self.syncOverCellular = [[NuxeoSettingsManager instance] readBoolSetting:USER_SYNC_OVER_CELLULAR defaulValue:NO];
         
-        self.serverAddress = [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:@"http://nuxeo.smartnsoft.com"] ;
-        self.username = [[NuxeoSettingsManager instance] readSetting:USER_USERNAME defaultValue:@"John Appleseed"];
+        self.serverAddress = [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:@"http://demo.nuxeo.com/nuxeo/"] ;
+        self.username = [[NuxeoSettingsManager instance] readSetting:USER_USERNAME defaultValue:@"John Doe"];
         self.password = @"password";
         
         self.copyrights = NuxeoLocalized(@"nuxeo.copyrights");
@@ -77,7 +84,14 @@
 
 - (void)revokeTokenAndLogout
 {
-    NuxeoLogD(@"Test test");
+    NUXSession * nuxSession = [NUXSession sharedSession];
+    if (nuxSession.authenticator != nil)
+    {
+        [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
+        [[APP_DELEGATE getVisibleViewController] dismissViewControllerAnimated:NO completion:^{
+            
+        }];
+    }
 }
 
 #pragma mark - FXForm Protocol -

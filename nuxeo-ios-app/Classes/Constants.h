@@ -136,11 +136,16 @@
 
 #define SYNCHRONISATION_IN_PROGRESS @"SYNCHRONISATION_IN_PROGRESS"
 
-/********************************** ServicesWeb ********************************/
+/********************************** ServicesWeb ***********************************/
 
 
 /********************************** NUXEO SETTINGS ********************************/
+#ifdef DEBUG
+#define kNuxeoSiteURL               @"http://smartnsoft-nuxeo.sales.nuxeo.io/nuxeo/"
+#else
 #define kNuxeoSiteURL               @"http://demo.nuxeo.com/nuxeo/"
+#endif
+
 #define kNuxeoApiPrefix             @"api/v1/"
 #define kNuxeoUser                  @"Administrator"
 #define kNuxeoPassword              @"Administrator"

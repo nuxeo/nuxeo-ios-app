@@ -394,7 +394,8 @@
             {
                 if ([[self.synchronisedPoints allKeys] containsObject:serverSyncPoint.path] == NO)
                 {
-                    [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:serverSyncPoint.path, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], serverSyncPoint, nil] forKey:serverSyncPoint.path];
+                    NSError * dataError = nil;
+                    [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:serverSyncPoint.path, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], [NUXJSONSerializer dataWithEntity:serverSyncPoint error:&dataError], nil] forKey:serverSyncPoint.path];
                 }
             }
             // Remove old synchronized points

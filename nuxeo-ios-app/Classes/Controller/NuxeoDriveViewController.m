@@ -454,9 +454,6 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
     {
         [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
         [self presentViewController:[[[WelcomeViewController alloc] init] autorelease] animated:YES completion:NULL];
-//        self.modalPresentationStyle = UIModalPresentationCurrentContext;
-//        [self presentViewController:[[NuxeoFormViewController alloc] initWithNibName:NSStringFromClass([NuxeoFormViewController class])
-//                                                                              bundle:nil] animated:YES completion:NULL];
     }
 }
 
