@@ -39,6 +39,10 @@
 #define kSynchroReuseIdentifierForCollection    @"SynchroFolder"
 #define kBrowseReuseIdentifierForCollection     @"BrowseFolder"
 
+#define kPopupActionInfo                        0
+#define kPopupActionRemoveFromDevice            1
+
+
 @implementation BrowseOnDeviceViewController
 
 #pragma mark -
@@ -129,8 +133,12 @@
         
         NUXDocument * currentDocument = [synchronizedPoints.entries objectAtIndex:indexPath.row];
         
+        cell.indexPath = indexPath;
         cell.picto.image = [UIImage imageNamed:@"ic_synchro_type_folder"];
         cell.title.text = currentDocument.title;
+        
+        [cell loadWithActionPopoverTitles:@[@[@"ic_info_blue", NuxeoLocalized(@"browse.info.document")], @[@"ic_remove_from_device", NuxeoLocalized(@"browse.remove.from.device")]]];
+        cell.delegate = self;
         
         return cell;
     }
@@ -161,6 +169,32 @@
 }
 
 
+
+#pragma mark - NuxeoActionPopoverDelegate
+
+- (void)actionPopoverCaller:(id)caller clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSIndexPath * selectedDocumentIndex = ((DirectoryViewCell *)caller).indexPath;
+    NUXDocument * selectedDocument = [synchronizedPoints.entries objectAtIndex:selectedDocumentIndex.row];
+    switch (buttonIndex)
+    {
+        case kPopupActionInfo:
+        {
+            [[NuxeoDriveControllerHandler instance] pushDetailDocumentInfoControllerFrom:self options:@{kParamKeyDocument:selectedDocument}];
+        }
+            break;
+        case kPopupActionRemoveFromDevice:
+        {
+            [[NuxeoDriveRemoteServices instance] removeSynchronizePoint:selectedDocument.path completionBlock:^(id result) {
+                [self retrieveBusinessObjects];
+            }];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 
 #pragma mark -
 #pragma mark UIViewController

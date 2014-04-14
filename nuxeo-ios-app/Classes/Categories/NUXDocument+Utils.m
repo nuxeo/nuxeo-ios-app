@@ -8,6 +8,8 @@
 
 #import "NUXDocument+Utils.h"
 
+#import "NUXBlobStore.h"
+
 #define kNuxeoDocumentTypeSections      @"Sections"
 #define kNuxeoDocumentTypeSection       @"Section"
 #define kNuxeoDocumentTypeTemplateRoot  @"TemplateRoot"
@@ -38,10 +40,7 @@
 
 - (BOOL) isDriveSynchronizedFolder
 {
-    if ([self.facets containsObject:kNuxeoDocumentFacetSynchronized])
-    {
-        return YES;
-    }
+    // TODO
     return NO;
 }
 
@@ -86,6 +85,11 @@
         return NO;
     }
     return YES;
+}
+
+- (BOOL) hasBinaryFileOnDevice
+{
+    return [[NUXBlobStore instance] hasBlobFromDocument:self metadataXPath:kXPathFileContent];
 }
 
 @end

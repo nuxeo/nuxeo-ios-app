@@ -52,6 +52,7 @@
     self.enabled = NO;
     self.nuxeoActionPopoverTitles = nil;
     
+    NuxeoReleaseAndNil(_infoPopoverController);
     _infoPopoverController = [[UIPopoverController alloc] initWithContentViewController:[[NuxeoPopoverViewController alloc] init]];
     ((NuxeoPopoverViewController *)_infoPopoverController.contentViewController).parentPopover = _infoPopoverController;
     ((NuxeoPopoverViewController *)_infoPopoverController.contentViewController).caller = self;
@@ -88,6 +89,14 @@
 {
 //    _infoPopoverController.popoverContentSize = _infoPopoverController.contentViewController.view.frame.size;
     [_infoPopoverController presentPopoverFromRect:sender.bounds inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+#pragma mark - Specific rendering
+
+- (void)repositoryRendering
+{
+    _infoButton.hidden = YES;
+    _cloudImageView.hidden = YES;
 }
 
 #pragma mark - Memory Management -

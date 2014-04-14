@@ -27,7 +27,8 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
+    if (self)
+    {
         // Initialization code
     }
     return self;
@@ -36,7 +37,6 @@
 - (void) updateDisplayForFile:(NUXDocument *)currentDocument
 {
     BOOL fileExist = [currentDocument hasBinaryFile];
-    //[self.info setEnabled:fileExist];
     [self.update setEnabled:(fileExist && [[NuxeoDriveRemoteServices instance] downloadIsPossible])];
     [self.addSynch setHidden:YES];
 }

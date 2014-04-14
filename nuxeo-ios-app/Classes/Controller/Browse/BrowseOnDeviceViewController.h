@@ -20,12 +20,13 @@
 
 #import <UIKit/UIKit.h>
 #import "NuxeoDriveViewController.h"
+#import "NuxeoPopoverViewController.h"
 
 #import "NuxeoLabel.h"
 
 @class NUXDocuments;
 
-@interface BrowseOnDeviceViewController : NuxeoDriveViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface BrowseOnDeviceViewController : NuxeoDriveViewController <UICollectionViewDataSource, UICollectionViewDelegate, NuxeoActionPopoverDelegate>
 {
     NUXDocuments * synchronizedPoints;
 }

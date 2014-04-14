@@ -223,6 +223,8 @@
         cell.delegate = self;
         
         
+        [cell repositoryRendering];
+        
         return cell;
     }
     return nil;

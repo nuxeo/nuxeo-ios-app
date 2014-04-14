@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		71B3EC6A6F774EE0BE3939FF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F8EE3B232447B8B6C7DA4F /* libPods.a */; };
+		803D27AA18FC150800DDBCF0 /* ic_info_blue@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 803D27A718FC150800DDBCF0 /* ic_info_blue@2x~ipad.png */; };
+		803D27AB18FC150800DDBCF0 /* ic_remove_from_device@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 803D27A818FC150800DDBCF0 /* ic_remove_from_device@2x~ipad.png */; };
+		803D27AC18FC150800DDBCF0 /* ic_unpin@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 803D27A918FC150800DDBCF0 /* ic_unpin@2x~ipad.png */; };
 		80619E6818CE265D0097FCE0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 80619E6718CE265D0097FCE0 /* libsqlite3.0.dylib */; };
 		806582DC18ECB5BE007F389F /* NuxeoSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 806582DB18ECB5BE007F389F /* NuxeoSettingsManager.m */; };
 		806582DE18F34320007F389F /* ic_type_note@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 806582DD18F34320007F389F /* ic_type_note@2x~ipad.png */; };
@@ -115,6 +118,9 @@
 
 /* Begin PBXFileReference section */
 		50F8EE3B232447B8B6C7DA4F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		803D27A718FC150800DDBCF0 /* ic_info_blue@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_info_blue@2x~ipad.png"; sourceTree = "<group>"; };
+		803D27A818FC150800DDBCF0 /* ic_remove_from_device@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_remove_from_device@2x~ipad.png"; sourceTree = "<group>"; };
+		803D27A918FC150800DDBCF0 /* ic_unpin@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_unpin@2x~ipad.png"; sourceTree = "<group>"; };
 		80619E6718CE265D0097FCE0 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		806582DA18ECB5BE007F389F /* NuxeoSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoSettingsManager.h; sourceTree = "<group>"; };
 		806582DB18ECB5BE007F389F /* NuxeoSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoSettingsManager.m; sourceTree = "<group>"; };
@@ -452,6 +458,9 @@
 		80C4094E18D8F4450067740A /* Browse */ = {
 			isa = PBXGroup;
 			children = (
+				803D27A718FC150800DDBCF0 /* ic_info_blue@2x~ipad.png */,
+				803D27A818FC150800DDBCF0 /* ic_remove_from_device@2x~ipad.png */,
+				803D27A918FC150800DDBCF0 /* ic_unpin@2x~ipad.png */,
 				80C4094F18D8F4450067740A /* background_browse_line@2x~ipad.png */,
 				80C4095018D8F4450067740A /* background_info@2x~ipad.png */,
 			);
@@ -691,6 +700,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				803D27AB18FC150800DDBCF0 /* ic_remove_from_device@2x~ipad.png in Resources */,
 				D03E54AA18F6F3A1003ACA03 /* ic_info@2x.png in Resources */,
 				806582E018F3435D007F389F /* ic_synchro_type_note@2x~ipad.png in Resources */,
 				D03E54A618F6E636003ACA03 /* ic_add_folder@2x~ipad.png in Resources */,
@@ -734,6 +744,7 @@
 				806A7E8E18EB0007007607B2 /* DetailDocumentInfoViewController.xib in Resources */,
 				80C409A718D8F4450067740A /* bt_openwith@2x~ipad.png in Resources */,
 				80C409D218D8F4450067740A /* DirectoryViewCell.xib in Resources */,
+				803D27AC18FC150800DDBCF0 /* ic_unpin@2x~ipad.png in Resources */,
 				D0C34C5918F5A7B60008FB69 /* ic_header_find@2x~ipad.png in Resources */,
 				D0C34C5318F5A7B60008FB69 /* bt_header_find@2x~ipad.png in Resources */,
 				80C409A218D8F4450067740A /* Icon512@2x.png in Resources */,
@@ -742,6 +753,7 @@
 				80C409C818D8F4450067740A /* background_login@2x~ipad.png in Resources */,
 				80C409CB18D8F4450067740A /* ic_password@2x~ipad.png in Resources */,
 				80C409A618D8F4450067740A /* bt_info@2x~ipad.png in Resources */,
+				803D27AA18FC150800DDBCF0 /* ic_info_blue@2x~ipad.png in Resources */,
 				80C409B418D8F4450067740A /* ic_type_image@2x~ipad.png in Resources */,
 				80C409D118D8F4450067740A /* BrowseDocumentListViewController.xib in Resources */,
 				D0C34C5618F5A7B60008FB69 /* bt_header_settings@2x~ipad.png in Resources */,

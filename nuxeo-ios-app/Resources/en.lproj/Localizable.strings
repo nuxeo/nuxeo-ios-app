@@ -60,6 +60,10 @@
 "browse.no.document"                    = "No resources found";
 "browse.loading"                        = "Loading";
 
+"browse.upin.document"                  = "Unpin from home";
+"browse.info.document"                  = "Info";
+"browse.remove.from.device"             = "Remove from device";
+
 // ============================= PREVIEW ========================================
 "preview.open.with.noapp"               = "No application can open this type of file";
 
