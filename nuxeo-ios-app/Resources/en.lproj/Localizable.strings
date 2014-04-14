@@ -60,9 +60,11 @@
 "browse.no.document"                    = "No resources found";
 "browse.loading"                        = "Loading";
 
-"browse.upin.document"                  = "Unpin from home";
-"browse.info.document"                  = "Info";
-"browse.remove.from.device"             = "Remove from device";
+"browse.ondevice.update"                = "Update";
+"browse.ondevice.update.confirm"        = "Do you really want to update all the folder content?";
+"browse.ondevice.unpin"                 = "Unpin from home";
+"browse.ondevice.info"                  = "Info";
+"browse.ondevice.remove"                = "Remove from device";
 
 // ============================= PREVIEW ========================================
 "preview.open.with.noapp"               = "No application can open this type of file";

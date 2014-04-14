@@ -49,6 +49,8 @@ typedef enum NuxeoHierarchieStatus
 
 // Obtain hierarchy by its name
 - (NUXHierarchy *) getHierarchyWithName:(NSString *)iHerarchieName;
+// Update a full hierarchy
+- (void)loadFullHierarchyByName:(NSString *)hierarchyName;
 // Load binaries of all content of a hierarchy
 - (void) loadBinariesOfHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
 - (NuxeoHierarchieStatus) getHierarchyStatus:(NSString *)hierarchieName;

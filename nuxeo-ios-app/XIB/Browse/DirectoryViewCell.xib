@@ -73,6 +73,7 @@
                 <outlet property="_cloudImageView" destination="ev3-Gk-eBJ" id="Uxk-6E-lJx"/>
                 <outlet property="_contentView" destination="mDW-1d-Akg" id="kXf-Af-PRM"/>
                 <outlet property="_infoButton" destination="mqg-vU-JV7" id="CSE-7r-yKN"/>
+                <outlet property="_pictoImageView" destination="M4q-37-XUl" id="BLG-2F-bKK"/>
                 <outlet property="_topView" destination="aCF-kh-WHV" id="B1u-Wo-ptP"/>
                 <outlet property="title" destination="ysf-Mh-kf9" id="aTN-Ed-UFM"/>
             </connections>
