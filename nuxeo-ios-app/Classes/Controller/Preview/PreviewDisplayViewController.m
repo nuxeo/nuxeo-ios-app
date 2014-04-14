@@ -44,11 +44,6 @@
     [navBarCustomView addSubview:self.headerBar];
 }
 
-- (void)updateDisplay
-{
-	
-}
-
 - (void) loadDocument:(NSData*)docData
 {
     [self.openWithButton setEnabled:YES];

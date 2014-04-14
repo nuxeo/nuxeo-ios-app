@@ -54,9 +54,11 @@
     
 }
 
-- (void)updateDisplay
+- (void) synchronizeAllView
 {
-	
+    [super synchronizeAllView];
+    
+    [self reloadData];
 }
 
 - (NUXDocument *) documentByIndexPath:(NSIndexPath *) indexPath

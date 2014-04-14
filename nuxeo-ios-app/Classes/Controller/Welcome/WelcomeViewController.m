@@ -33,10 +33,6 @@
     // no header button bar
 }
 
-- (void)updateDisplay
-{
-	
-}
 
 #pragma mark -
 #pragma mark UIViewControllerLifeCycle

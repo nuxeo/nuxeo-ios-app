@@ -109,7 +109,7 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
     [[Reachability reachabilityForInternetConnection] startNotifier];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter]addObserverForName:NOTIF_REFRESH_UI object:nil queue:nil usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:NOTIF_REFRESH_UI object:nil queue:nil usingBlock:^(NSNotification *note) {
         [self synchronizeAllView];
     }];
     
