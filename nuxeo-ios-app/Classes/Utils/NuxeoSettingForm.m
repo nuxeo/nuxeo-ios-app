@@ -59,20 +59,20 @@
     return  @[
               
               @{FXFormFieldKey : @"maxStorageSize",
-                FXFormFieldTitle : @"Files storage max size",  FXFormFieldType : FXFormFieldTypeLabel, FXFormFieldFooter : @""},
+                FXFormFieldTitle : NuxeoLocalized(@"settings.file.storage"),  FXFormFieldType : FXFormFieldTypeLabel, FXFormFieldFooter : @""},
               
               @{FXFormFieldKey : @"syncOverCellular",
-                FXFormFieldTitle : @"Sync over cellular",},
+                FXFormFieldTitle : NuxeoLocalized(@"settings.sync.cellular"),},
               
               // Authentification
               @{FXFormFieldKey : @"serverAddress",
-                FXFormFieldTitle : @"0", FXFormFieldHeader : [@"Authentification" uppercaseString]},
+                FXFormFieldTitle : NuxeoLocalized(@"welcome.host.url"), FXFormFieldHeader : [NuxeoLocalized(@"settings.authentication") uppercaseString]},
               
-              @{FXFormFieldKey : @"username", FXFormFieldTitle : @"1"},
-              @{FXFormFieldKey : @"password", FXFormFieldTitle : @"2",
+              @{FXFormFieldKey : @"username", FXFormFieldTitle : NuxeoLocalized(@"welcome.username")},
+              @{FXFormFieldKey : @"password", FXFormFieldTitle : NuxeoLocalized(@"welcome.password"),
                 FXFormFieldFooter : @""},
 
-              @{FXFormFieldTitle: @"Revoke token and Log out",
+              @{FXFormFieldTitle: NuxeoLocalized(@"settings.revoke.token"),
                 FXFormFieldAction: [revokeAndLogout copy]},
               ];
 }
