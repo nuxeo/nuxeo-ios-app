@@ -40,10 +40,7 @@
 
 - (BOOL) isDriveSynchronizedFolder
 {
-    if ([self.facets containsObject:kNuxeoDocumentFacetSynchronized])
-    {
-        return YES;
-    }
+    // TODO
     return NO;
 }
 

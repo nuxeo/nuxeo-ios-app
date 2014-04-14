@@ -40,7 +40,6 @@
     UIPopoverController *_infoPopoverController;
 }
 
-@property (nonatomic, assign) id<NuxeoDrivePopupActionViewDelegate> popupInfoDelegate;
 @property (nonatomic, assign) NSIndexPath * indexPath;
 
 @property (retain, nonatomic) IBOutlet UIImageView *picto;
@@ -66,5 +65,8 @@
 
 #pragma mark - Events
 - (IBAction)onTouchInfo:(UIButton *)sender;
+
+#pragma mark - Specific rendering
+- (void)repositoryRendering;
 
 @end

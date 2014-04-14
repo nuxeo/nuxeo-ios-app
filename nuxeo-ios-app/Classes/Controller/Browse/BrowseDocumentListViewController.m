@@ -206,15 +206,6 @@
 - (void)onTouchAddSynch:(NSIndexPath *)indexPath
 {
     NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
-    
-//    if ([nuxDocument isDriveSynchronizedFolder] == YES)
-//    {
-//        [[NuxeoDriveRemoteServices instance] removeSynchronizePoint:nuxDocument.path
-//                                                 completionBlock:^(id result) {
-//                                                     
-//                                                 }];
-//    }
-//    else
     {
         [[NuxeoDriveRemoteServices instance] addSynchronizePoint:nuxDocument.path
                                                  completionBlock:^(id result) {
