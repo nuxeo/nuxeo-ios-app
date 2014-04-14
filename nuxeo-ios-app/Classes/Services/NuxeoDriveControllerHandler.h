@@ -18,6 +18,7 @@
  * 	Matthias Rouberol
  */
 
+#define kParamKeyForm                 @"form"
 #define kParamKeyDocument             @"document"
 #define kParamKeyHierarchy            @"hierarchy"
 #define kParamKeyContext              @"context"

@@ -234,4 +234,18 @@
     return aWritablePath;
 }
 
++ (NSString *) formatDate:(NSDate *)date withPattern:(NSString *)pattern withLocale:(NSLocale *)locale
+{
+	NSLocale *frLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"fr_FR"];
+	
+	NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setLocale:(locale!=nil)?locale:frLocale];
+	[dateFormatter setTimeStyle:NSDateFormatterFullStyle];
+	[dateFormatter setDateFormat:pattern];
+	NSString * formattedDate = [dateFormatter stringFromDate:date];
+	NuxeoReleaseAndNil(frLocale);
+	[dateFormatter release];
+	return formattedDate;
+}
+
 @end

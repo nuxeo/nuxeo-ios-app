@@ -247,4 +247,6 @@ NuxeoLogLevel;
 + (UIDocumentInteractionController *) setupControllerWithURL:(NSURL *)fileURL usingDelegate:(id<UIDocumentInteractionControllerDelegate>) interactionDelegate;
 + (NSString*) applicationDocumentsPath;
 
++ (NSString *) formatDate:(NSDate *)date withPattern:(NSString *)pattern withLocale:(NSLocale *)locale;
+
 @end

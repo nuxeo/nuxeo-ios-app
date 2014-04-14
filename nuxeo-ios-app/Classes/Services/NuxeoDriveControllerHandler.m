@@ -25,7 +25,6 @@
 #import "BrowseDocumentListViewController.h"
 #import "BrowseOnDeviceViewController.h"
 #import "PreviewDisplayViewController.h"
-#import "DetailDocumentInfoViewController.h"
 #import "SettingsViewController.h"
 
 #import "NuxeoDriveRemoteServices.h"
@@ -137,8 +136,8 @@
 {
     NuxeoFormViewController *formViewController_ = [[[NuxeoFormViewController alloc] init] autorelease];
     
-    if ([options objectForKey:kParamKeyDocument] != nil)
-        formViewController_.form = [options objectForKey:kParamKeyDocument];
+    if ([options objectForKey:kParamKeyForm] != nil)
+        formViewController_.form = [options objectForKey:kParamKeyForm];
     
     iController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [iController presentViewController:formViewController_ animated:YES completion:NULL];
