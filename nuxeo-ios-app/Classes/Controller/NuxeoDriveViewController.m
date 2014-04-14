@@ -219,60 +219,27 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
     CGSize kButtonSize_ = (CGSize){60, 60};
     float kButtonMargin = 5.f;
     
-    { // Pin
-        self.pinButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
-        self.pinButton.frame = (CGRect){kButtonPoint_, kButtonSize_};
-        kButtonPoint_.x += kButtonSize_.width + kButtonMargin;
-        
-        [self.pinButton setBackgroundColor:[UIColor clearColor]];
-        [self.pinButton setImage:[UIImage imageNamed:@"bt_header_cloud"] forState:UIControlStateNormal];
-        [self.pinButton setImage:[UIImage imageNamed:@"bt_header_cloud_selected"] forState:UIControlStateHighlighted];
-        [self.pinButton setImage:[UIImage imageNamed:@"bt_header_cloud_selected"] forState:UIControlStateSelected];
-        [self.pinButton addTarget:self action:@selector(onTouchBrowseOnDevice:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [navBarCustomView addSubview:self.pinButton];
-    }
+    NSArray *buttonDictionary_ = @[@[@"pinButton", @"bt_header_cloud", @"onTouchBrowseOnDevice:"],
+                                   @[@"searchButton", @"bt_header_find", @"onTouchSearch:"],
+                                   @[@"updateAllButton", @"bt_header_update", @"onTouchUpdateAll:"],
+                                   @[@"settingsButton", @"bt_header_settings", @"onTouchSettings:"],
+                                   ];
     
-    {   // Search
-        self.searchButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
-        self.searchButton.frame = (CGRect){kButtonPoint_, kButtonSize_};
+    for (NSArray *button_ in buttonDictionary_)
+    {
+        NuxeoButton *nuxeoButton_ = [NuxeoButton buttonWithType:UIButtonTypeCustom];
+        
+        nuxeoButton_.frame = (CGRect){kButtonPoint_, kButtonSize_};
         kButtonPoint_.x += kButtonSize_.width + kButtonMargin;
         
-        [self.searchButton setBackgroundColor:[UIColor clearColor]];
-        [self.searchButton setImage:[UIImage imageNamed:@"bt_header_find"] forState:UIControlStateNormal];
-        [self.searchButton setImage:[UIImage imageNamed:@"bt_header_find_selected"] forState:UIControlStateHighlighted];
-        [self.searchButton setImage:[UIImage imageNamed:@"bt_header_find_selected"] forState:UIControlStateSelected];
-        [self.searchButton addTarget:self action:@selector(onTouchSearch:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [navBarCustomView addSubview:self.searchButton];
-    }
-    
-    {   // Browse products
-        self.updateAllButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
-        self.updateAllButton.frame = (CGRect){kButtonPoint_, kButtonSize_};
-        kButtonPoint_.x += kButtonSize_.width + kButtonMargin;
-        
-        [self.updateAllButton setBackgroundColor:[UIColor clearColor]];
-        [self.updateAllButton setImage:[UIImage imageNamed:@"bt_header_update"] forState:UIControlStateNormal];
-        [self.updateAllButton setImage:[UIImage imageNamed:@"bt_header_update_selected"] forState:UIControlStateHighlighted];
-        [self.updateAllButton setImage:[UIImage imageNamed:@"bt_header_update_selected"] forState:UIControlStateSelected];
-        [self.updateAllButton addTarget:self action:@selector(onTouchUpdateAll:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [navBarCustomView addSubview:self.updateAllButton];
-    }
-    
-    {   // Settings
-        self.settingsButton = [NuxeoButton buttonWithType:UIButtonTypeCustom];
-        self.settingsButton.frame = (CGRect){kButtonPoint_, kButtonSize_};
-        kButtonPoint_.x += kButtonSize_.width + kButtonMargin;
-        
-        [self.settingsButton setBackgroundColor:[UIColor clearColor]];
-        [self.settingsButton setImage:[UIImage imageNamed:@"bt_header_settings"] forState:UIControlStateNormal];
-        [self.settingsButton setImage:[UIImage imageNamed:@"bt_header_settings_selected"] forState:UIControlStateHighlighted];
-        [self.settingsButton setImage:[UIImage imageNamed:@"bt_header_settings_selected"] forState:UIControlStateSelected];
-        [self.settingsButton addTarget:self action:@selector(onTouchSettings:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [navBarCustomView addSubview:self.settingsButton];
+        nuxeoButton_.backgroundColor = [UIColor clearColor];
+        [nuxeoButton_ setImage:[UIImage imageNamed:button_[1]] forState:UIControlStateNormal];
+        [nuxeoButton_ setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", button_[1]]] forState:UIControlStateHighlighted];
+        [nuxeoButton_ setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", button_[1]]] forState:UIControlStateSelected];
+        [nuxeoButton_ addTarget:self action:NSSelectorFromString(button_[2]) forControlEvents:UIControlEventTouchUpInside];
+     
+        [navBarCustomView addSubview:nuxeoButton_];
+        [self setValue:nuxeoButton_ forKeyPath:button_[0]];
     }
     
     [self synchronizeAllView];

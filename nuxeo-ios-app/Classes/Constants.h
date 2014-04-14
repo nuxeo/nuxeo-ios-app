@@ -36,18 +36,18 @@
 #define kNuxeoScreenHeight          [[UIScreen mainScreen] applicationFrame].size.height
 #define kNuxeoCurrentOrientation 	[[UIApplication sharedApplication] statusBarOrientation]
 
-#define NuxeoLocalized(s)           NSLocalizedString(s,@"")
+#define NuxeoLocalized(s)           NSLocalizedString(s, @"")
 
 #define DeviceOrientationSupported(orientation) UIDeviceOrientationIsLandscape(orientation) 
 
-#define NuxeoViewX(v)               ((v).frame.origin.x)
-#define NuxeoViewY(v)               ((v).frame.origin.y)
-#define NuxeoViewW(v)               ((v).frame.size.width)
-#define NuxeoViewH(v)               ((v).frame.size.height)
+#define NuxeoViewX(v)               (CGRectGetMinX(v.frame))
+#define NuxeoViewY(v)               (CGRectGetMinY(v.frame))
+#define NuxeoViewW(v)               (CGRectGetWidth(v.frame))
+#define NuxeoViewH(v)               (CGRectGetHeight(v.frame))
 
-#define kLandscapeScreenWidth       1024
-#define kLandscapeScreenHeight      768
-
+#define kLandscapeScreenSize        ((CGSize){1024, 768})
+#define kLandscapeScreenWidth       kLandscapeScreenSize.width
+#define kLandscapeScreenHeight      kLandscapeScreenSize.height
 
 /********************************** Colors ********************************/
 
