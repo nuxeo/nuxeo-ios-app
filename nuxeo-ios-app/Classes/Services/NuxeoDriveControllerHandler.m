@@ -136,8 +136,17 @@
 {
     NuxeoFormViewController *formViewController_ = [[[NuxeoFormViewController alloc] init] autorelease];
     
-    if ([options objectForKey:kParamKeyForm] != nil)
-        formViewController_.form = [options objectForKey:kParamKeyForm];
+    if ([options objectForKey:kParamKeyDocument] != nil)
+    {
+        NUXDocument * selectedDocument = [options objectForKey:kParamKeyDocument];
+        NUXDocumentInfoForm *infoForm_ = [[[NUXDocumentInfoForm alloc] init] autorelease];
+                infoForm_.date = [NuxeoDriveUtils formatDate:selectedDocument.lastModified withPattern:@"yyyy-MM-dd'T'HH:mm:ss" withLocale:[NSLocale currentLocale]];
+        infoForm_.author = [selectedDocument.properties objectForKey:@"dc:creator"];
+        infoForm_.desc = [selectedDocument.properties objectForKey:@"dc:title"];
+        
+        formViewController_.form = infoForm_;
+    }
+    
     
     iController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [iController presentViewController:formViewController_ animated:YES completion:NULL];

@@ -8,6 +8,8 @@
 
 #import "NUXDocument+Utils.h"
 
+#import "NUXBlobStore.h"
+
 #define kNuxeoDocumentTypeSections      @"Sections"
 #define kNuxeoDocumentTypeSection       @"Section"
 #define kNuxeoDocumentTypeTemplateRoot  @"TemplateRoot"
@@ -86,6 +88,11 @@
         return NO;
     }
     return YES;
+}
+
+- (BOOL) hasBinaryFileOnDevice
+{
+    return [[NUXBlobStore instance] hasBlobFromDocument:self metadataXPath:kXPathFileContent];
 }
 
 @end

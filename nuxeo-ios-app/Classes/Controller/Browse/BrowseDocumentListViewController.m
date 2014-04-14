@@ -194,13 +194,8 @@
 - (void)onTouchInfo:(NSIndexPath *)indexPath
 {
     NUXDocument * seletedDocument_ = [self documentByIndexPath:indexPath];
-    NUXDocumentInfoForm *infoForm_ = [[[NUXDocumentInfoForm alloc] init] autorelease];
     
-    infoForm_.date = [NuxeoDriveUtils formatDate:seletedDocument_.lastModified withPattern:@"yyyy-MM-dd'T'HH:mm:ss" withLocale:[NSLocale currentLocale]];
-    infoForm_.author = [seletedDocument_.properties objectForKey:@"dc:creator"];
-    infoForm_.desc = [seletedDocument_.properties objectForKey:@"dc:title"];
-    
-    [CONTROLLER_HANDLER pushDetailDocumentInfoControllerFrom:self options:@{kParamKeyForm : infoForm_}];
+    [CONTROLLER_HANDLER pushDetailDocumentInfoControllerFrom:self options:@{kParamKeyDocument : seletedDocument_}];
 }
 
 - (void)onTouchPin:(NSIndexPath *)indexPath

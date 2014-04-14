@@ -152,7 +152,7 @@
         self.mimeType = [[self.currentDocument.properties objectForKey:kXPathFileContent] objectForKey:@"mime-type"];
     }
     
-    if([self.currentDocument hasBinaryFile] == YES)
+    if([self.currentDocument hasBinaryFileOnDevice] == YES)
     {
         [self previewDocument];
     }
@@ -199,7 +199,7 @@
 
 - (IBAction)onTouchInfo:(id)sender
 {
-
+  [CONTROLLER_HANDLER pushDetailDocumentInfoControllerFrom:self options:@{kParamKeyDocument : self.currentDocument}];
 }
 
 - (IBAction)onTouchUpdate:(id)sender
