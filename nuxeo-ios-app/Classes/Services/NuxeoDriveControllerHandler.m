@@ -45,13 +45,13 @@
 
 - (void) pushHomeControllerFrom:(UIViewController *)iController options:(NSDictionary *) options
 {
-    HomeViewController *rvc = [[HomeViewController alloc] initWithNibName:kXIBHomeController bundle:nil];
-    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    rvc.updateAllButtonShown = YES;
+    HomeViewController *rvc = [[HomeViewController alloc] init];
+    
     rvc.backButtonShown = YES;
-    [iController presentViewController:rvc animated:YES completion:^{
-        
-    }];
+    rvc.updateAllButtonShown = YES;
+    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [iController presentViewController:rvc animated:YES completion:NULL];
     [rvc release];
 }
 
@@ -69,7 +69,8 @@
 
 - (void) pushDocumentsControllerFrom:(UIViewController *)iController options:(NSDictionary *) options
 {
-    BrowseDocumentListViewController *rvc = [[BrowseDocumentListViewController alloc] initWithNibName:kXIBBrowseDocumentListViewController bundle:nil];
+    BrowseDocumentListViewController *rvc = [[BrowseDocumentListViewController alloc] init];
+    
     if ([options objectForKey:kParamKeyContext] != nil)
     {
         rvc.context = [options objectForKey:kParamKeyContext];
@@ -77,40 +78,34 @@
     else
     {
         if ([iController isKindOfClass:[BrowseDocumentListViewController class]])
-        {
             rvc.context = ((BrowseDocumentListViewController *)iController).context;
-        }
         else
-        {
             rvc.context = kBrowseDocumentOnLine;
-        }
     }
+    
     if ([options objectForKey:kParamKeyHierarchy] != nil)
-    {
         rvc.currentHierarchy = [options objectForKey:kParamKeyHierarchy];
-    }
+
     if ([options objectForKey:kParamKeyDocument] != nil)
     {
         rvc.currentDocument = [options objectForKey:kParamKeyDocument];
+        
         if ([iController isKindOfClass:[BrowseDocumentListViewController class]])
         {
             if (((BrowseDocumentListViewController *)iController).path == nil)
-            {
                 rvc.path = [NSMutableArray array];
-            }
             else
-            {
                 rvc.path = [((BrowseDocumentListViewController *)iController).path mutableCopy];
-            }
+
             [rvc.path addObject:rvc.currentDocument.title];
         }
     }
-    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+
     rvc.backButtonShown = YES;
     rvc.updateAllButtonShown = YES;
-    [iController presentViewController:rvc animated:YES completion:^{
-        
-    }];
+    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [iController presentViewController:rvc animated:YES completion:NULL];
     [rvc release];
 }
 

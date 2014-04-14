@@ -83,18 +83,14 @@
 
 /********************************** XIBs ********************************/
 
-#define kXIBWelcomeController                       @"WelcomeViewController"
-#define kXIBHomeController                          @"HomeViewController"
 // Category
 #define kXIBBrowseStandardViewController            @"BrowseStandardViewController"
 #define kXIBBrowseSuiteCategoryViewController       @"BrowseSuiteCategoryViewController"
-#define kXIBBrowseDocumentListViewController        @"BrowseDocumentListViewController"
 #define kXIBBrowseOnDeviceViewController            @"BrowseOnDeviceViewController"
 #define kXIBDirectoryCellView                       @"DirectoryViewCell"
 #define kXIBDocumentTableCellView                   @"DocumentCellView"
 
 #define kXIBPreviewDisplayViewController            @"PreviewDisplayViewController"
-#define kXIBSettingsViewController                  @"SettingsViewController"
 
 /****************************** NOTIFICATIONS ********************************/
 
