@@ -40,6 +40,20 @@
 
 #define kFooterHeight           200.0
 
+
+@implementation NUXDocumentInfoForm
+
+- (NSArray *)fields
+{
+    return  @[
+              @{FXFormFieldKey : @"date", FXFormFieldTitle : @"Modified",  FXFormFieldType : FXFormFieldTypeLabel},
+              @{FXFormFieldKey : @"author", FXFormFieldTitle : @"Author", FXFormFieldType : FXFormFieldTypeLabel, FXFormFieldFooter : @""},
+              @{FXFormFieldKey : @"desc", FXFormFieldType : FXFormFieldTypeLongText, @"textView.editable": @(NO), @"textView.textAlignment" : @(NSTextAlignmentCenter)},
+              ];
+}
+
+@end
+
 @implementation BrowseDocumentListViewController
 
 #pragma mark -
@@ -59,6 +73,11 @@
     [super synchronizeAllView];
     
     [self reloadData];
+
+	UITextView *test;
+    
+    test.textAlignment = UITextAlignmentCenter;
+
 }
 
 - (NUXDocument *) documentByIndexPath:(NSIndexPath *) indexPath
@@ -178,9 +197,14 @@
 
 - (void)onTouchInfo:(NSIndexPath *)indexPath
 {
-    NUXDocument * selectedDocument = [self documentByIndexPath:indexPath];
+    NUXDocument * seletedDocument_ = [self documentByIndexPath:indexPath];
+    NUXDocumentInfoForm *infoForm_ = [[[NUXDocumentInfoForm alloc] init] autorelease];
     
-    [CONTROLLER_HANDLER pushDetailDocumentInfoControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
+    infoForm_.date = [seletedDocument_.lastModified description];
+    infoForm_.author = [self.currentDocument.properties objectForKey:@"dc:creator"];
+    infoForm_.desc = self.currentDocument.description;
+    
+    [CONTROLLER_HANDLER pushDetailDocumentInfoControllerFrom:self options:@{kParamKeyDocument : infoForm_}];
 }
 
 - (void)onTouchPin:(NSIndexPath *)indexPath

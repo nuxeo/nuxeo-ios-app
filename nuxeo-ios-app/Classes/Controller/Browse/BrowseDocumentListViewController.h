@@ -25,10 +25,19 @@
 #import <NuxeoSDK/NUXHierarchy.h>
 
 #import "NuxeoDriveViewController.h"
+#import "NuxeoFormViewController.h"
 
 #import "NuxeoLabel.h"
 
 @class NUXDocument;
+
+@interface NUXDocumentInfoForm : NSObject <FXForm>
+
+@property (nonatomic, retain) NSString *date;
+@property (nonatomic, retain) NSString *author;
+@property (nonatomic, retain) NSString *desc;
+
+@end
 
 @interface BrowseDocumentListViewController : NuxeoDriveViewController<UITableViewDataSource, UITableViewDelegate>
 {
