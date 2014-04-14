@@ -17,7 +17,6 @@
 		806582E018F3435D007F389F /* ic_synchro_type_note@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 806582DF18F3435D007F389F /* ic_synchro_type_note@2x~ipad.png */; };
 		806A7E8A18EAB261007607B2 /* BrowseOnDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A7E8918EAB261007607B2 /* BrowseOnDeviceViewController.m */; };
 		806A7E8C18EAB268007607B2 /* BrowseOnDeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E8B18EAB268007607B2 /* BrowseOnDeviceViewController.xib */; };
-		806A7E8E18EB0007007607B2 /* DetailDocumentInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E8D18EB0007007607B2 /* DetailDocumentInfoViewController.xib */; };
 		806A7E9418EB1D2B007607B2 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E9318EB1D2B007607B2 /* SettingsViewController.xib */; };
 		806A7E9A18EC3B35007607B2 /* ic_cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E9918EC3B34007607B2 /* ic_cloud@2x.png */; };
 		8083104F18E1857F00D20CE3 /* NUXDocument+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8083104E18E1857F00D20CE3 /* NUXDocument+Utils.m */; };
@@ -129,7 +128,6 @@
 		806A7E8818EAB261007607B2 /* BrowseOnDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseOnDeviceViewController.h; sourceTree = "<group>"; };
 		806A7E8918EAB261007607B2 /* BrowseOnDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseOnDeviceViewController.m; sourceTree = "<group>"; };
 		806A7E8B18EAB268007607B2 /* BrowseOnDeviceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseOnDeviceViewController.xib; sourceTree = "<group>"; };
-		806A7E8D18EB0007007607B2 /* DetailDocumentInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailDocumentInfoViewController.xib; sourceTree = "<group>"; };
 		806A7E9318EB1D2B007607B2 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		806A7E9918EC3B34007607B2 /* ic_cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cloud@2x.png"; sourceTree = "<group>"; };
 		806A7E9B18EC432C007607B2 /* NuxeoDrivePopupInfoViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NuxeoDrivePopupInfoViewDelegate.h; sourceTree = "<group>"; };
@@ -583,7 +581,6 @@
 			isa = PBXGroup;
 			children = (
 				80C4098918D8F4450067740A /* PreviewDisplayViewController.xib */,
-				806A7E8D18EB0007007607B2 /* DetailDocumentInfoViewController.xib */,
 			);
 			path = Preview;
 			sourceTree = "<group>";
@@ -741,7 +738,6 @@
 				80C4099F18D8F4450067740A /* Localizable.strings in Resources */,
 				80C409B718D8F4450067740A /* ic_type_synchro_folder@2x~ipad.png in Resources */,
 				D0C34C5A18F5A7B60008FB69 /* ic_logo_header@2x~ipad.png in Resources */,
-				806A7E8E18EB0007007607B2 /* DetailDocumentInfoViewController.xib in Resources */,
 				80C409A718D8F4450067740A /* bt_openwith@2x~ipad.png in Resources */,
 				80C409D218D8F4450067740A /* DirectoryViewCell.xib in Resources */,
 				803D27AC18FC150800DDBCF0 /* ic_unpin@2x~ipad.png in Resources */,
