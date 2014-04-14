@@ -92,6 +92,7 @@
 		80EF7F90183A5D5E00B3FC21 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F8F183A5D5E00B3FC21 /* MobileCoreServices.framework */; };
 		80EF7F92183A5D5E00B3FC21 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F91183A5D5E00B3FC21 /* StoreKit.framework */; };
 		9C89AA4E18F88E8B007BC7CA /* NuxeoSettingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C89AA4D18F88E8B007BC7CA /* NuxeoSettingForm.m */; };
+		D00548F318FC364C00B589E8 /* background_section_breadcrumbs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00548F218FC364C00B589E8 /* background_section_breadcrumbs@2x.png */; };
 		D03E54A618F6E636003ACA03 /* ic_add_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A418F6E636003ACA03 /* ic_add_folder@2x~ipad.png */; };
 		D03E54A818F6E67B003ACA03 /* background_folder_tile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A718F6E67B003ACA03 /* background_folder_tile@2x.png */; };
 		D03E54AA18F6F3A1003ACA03 /* ic_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */; };
@@ -227,6 +228,7 @@
 		9C89AA4C18F88E8B007BC7CA /* NuxeoSettingForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoSettingForm.h; sourceTree = "<group>"; };
 		9C89AA4D18F88E8B007BC7CA /* NuxeoSettingForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoSettingForm.m; sourceTree = "<group>"; };
 		AED846E510454C288242E97E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		D00548F218FC364C00B589E8 /* background_section_breadcrumbs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_section_breadcrumbs@2x.png"; sourceTree = "<group>"; };
 		D03E54A418F6E636003ACA03 /* ic_add_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_folder@2x~ipad.png"; sourceTree = "<group>"; };
 		D03E54A718F6E67B003ACA03 /* background_folder_tile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_folder_tile@2x.png"; sourceTree = "<group>"; };
 		D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_info@2x.png"; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 		80C4094E18D8F4450067740A /* Browse */ = {
 			isa = PBXGroup;
 			children = (
+				D00548F218FC364C00B589E8 /* background_section_breadcrumbs@2x.png */,
 				803D27A718FC150800DDBCF0 /* ic_info_blue@2x~ipad.png */,
 				803D27A818FC150800DDBCF0 /* ic_remove_from_device@2x~ipad.png */,
 				803D27A918FC150800DDBCF0 /* ic_unpin@2x~ipad.png */,
@@ -742,6 +745,7 @@
 				80C409A218D8F4450067740A /* Icon512@2x.png in Resources */,
 				80C4099E18D8F4450067740A /* InfoPlist.strings in Resources */,
 				80C409C618D8F4450067740A /* background_section@2x~ipad.png in Resources */,
+				D00548F318FC364C00B589E8 /* background_section_breadcrumbs@2x.png in Resources */,
 				80C409C818D8F4450067740A /* background_login@2x~ipad.png in Resources */,
 				80C409CB18D8F4450067740A /* ic_password@2x~ipad.png in Resources */,
 				80C409A618D8F4450067740A /* bt_info@2x~ipad.png in Resources */,

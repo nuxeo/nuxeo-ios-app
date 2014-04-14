@@ -41,15 +41,18 @@
 
 @interface BrowseDocumentListViewController : NuxeoDriveViewController<UITableViewDataSource, UITableViewDelegate>
 {
+    IBOutlet UIView *_breadCrumbsView;
+    
     NSMutableArray * documents;
 }
 
+#pragma mark - Properties
 @property (nonatomic, retain) NSMutableArray * path;
 @property (nonatomic, retain) NSString * context;
-@property (retain, nonatomic) NUXDocument * currentDocument;
-@property (retain, nonatomic) NUXHierarchy * currentHierarchy;
+@property (nonatomic, retain) NUXDocument * currentDocument;
+@property (nonatomic, retain) NUXHierarchy * currentHierarchy;
 
-@property (retain, nonatomic) IBOutlet UITableView *documentsView;
-@property (retain, nonatomic) IBOutlet UILabel *documentPath;
+@property (nonatomic, retain) IBOutlet UITableView *documentsView;
+@property (nonatomic, retain) IBOutlet UILabel *documentPath;
 
 @end

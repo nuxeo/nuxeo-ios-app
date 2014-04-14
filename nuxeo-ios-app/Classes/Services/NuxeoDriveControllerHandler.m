@@ -147,7 +147,6 @@
         formViewController_.form = infoForm_;
     }
     
-    
     iController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [iController presentViewController:formViewController_ animated:YES completion:NULL];
 }

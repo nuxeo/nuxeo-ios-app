@@ -56,27 +56,52 @@
 
 @implementation BrowseDocumentListViewController
 
-#pragma mark -
-#pragma mark BrowseDocumentListViewController
-#pragma mark -
+#pragma mark - UIViewControllerLifeCycle -
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	
+    _breadCrumbsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_section_breadcrumbs"]];
+
+    
+    [self.documentsView registerNib:[UINib nibWithNibName:NSStringFromClass([DocumentCellView class]) bundle:nil]
+             forCellReuseIdentifier:NSStringFromClass([DocumentCellView class])];
+    
+    if (self.currentDocument == nil)
+        self.currentDocument = [[NUXHierarchy hierarchyWithName:@"NuxeoDriveRoot"] nodeWithRef:kNuxeoPathInitial];
+    
+    [self loadBusinessObjects];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+    self.documentPath.text = [self.path componentsJoinedByString:@" > "];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+}
+
+#pragma mark - BrowseDocumentListViewController -
 
 - (void) reloadData
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.documentsView reloadData];
     });
-    
 }
 
-- (void) synchronizeAllView
+- (void)synchronizeAllView
 {
     [super synchronizeAllView];
-    
     [self reloadData];
-
 }
 
-- (NUXDocument *) documentByIndexPath:(NSIndexPath *) indexPath
+- (NUXDocument *)documentByIndexPath:(NSIndexPath *) indexPath
 {
     return [documents objectAtIndex:indexPath.row];
 }
@@ -126,59 +151,6 @@
             [self.documentsView reloadData];
         }
     }
-}
-
-#pragma mark -
-#pragma mark UIViewControllerLifeCycle
-#pragma mark -
-
-/**
- * Called after the loadView call
- */
-- (void)loadView
-{
-	[super loadView];
-	
-    UINib  *documentTableCellNib = [UINib nibWithNibName:kXIBDocumentTableCellView bundle:nil];
-    [self.documentsView registerNib:documentTableCellNib forCellReuseIdentifier:kDocumentTableCellReuseKey];
-    
-}
-
-/**
- * Called after the viewDidLoad call
- */
-- (void)viewDidLoad
-{	
-	[super viewDidLoad];
-	
-    if (self.currentDocument == nil)
-    {
-        NUXHierarchy * suiteHierarchy = [NUXHierarchy hierarchyWithName:@"NuxeoDriveRoot"];
-        self.currentDocument = [suiteHierarchy nodeWithRef:kNuxeoPathInitial];
-    }
-
-    [self loadBusinessObjects];
-    
-}
-
-/**
- * Called after the viewWillAppear call
- */
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-	
-    self.documentPath.text = [self.path componentsJoinedByString:@" > "];
-    
-}
-
-/**
- * Called after the viewDidAppear call
- */
-- (void)viewDidAppear:(BOOL)animated
-{
-	[super viewDidAppear:animated];
-	
 }
 
 #pragma mark -
@@ -256,7 +228,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DocumentCellView * cell = [tableView dequeueReusableCellWithIdentifier:kDocumentTableCellReuseKey forIndexPath:indexPath];
+    DocumentCellView * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DocumentCellView class]) forIndexPath:indexPath];
     
     if ([documents count] > 0)
     {
