@@ -18,17 +18,16 @@
  * 	Matthias Rouberol
  */
 
+#import "NuxeoDriveRemoteServices.h"
 #import "NuxeoDriveControllerHandler.h"
 
 #import "HomeViewController.h"
-
 #import "BrowseDocumentListViewController.h"
 #import "BrowseOnDeviceViewController.h"
 #import "PreviewDisplayViewController.h"
 
-#import "NuxeoDriveRemoteServices.h"
-
 #import "NuxeoFormViewController.h"
+#import "NUXDocumentInfoForm.h"
 #import "NuxeoSettingForm.h"
 
 @implementation NuxeoDriveControllerHandler
@@ -134,24 +133,19 @@
 - (void) pushDetailDocumentInfoControllerFrom:(UIViewController *)iController options:(NSDictionary *)options
 {
     NuxeoFormViewController *formViewController_ = [[[NuxeoFormViewController alloc] init] autorelease];
-    formViewController_.formTitle = NuxeoLocalized(@"detail.document.title");
     
-    if ([options objectForKey:kParamKeyDocument] != nil)
-    {
-        NUXDocument * selectedDocument = [options objectForKey:kParamKeyDocument];
-        NUXDocumentInfoForm *infoForm_ = [[[NUXDocumentInfoForm alloc] init] autorelease];
-                infoForm_.date = [NuxeoDriveUtils formatDate:selectedDocument.lastModified withPattern:@"yyyy-MM-dd'T'HH:mm:ss" withLocale:[NSLocale currentLocale]];
-        infoForm_.author = [selectedDocument.properties objectForKey:@"dc:creator"];
-        infoForm_.desc = [selectedDocument.properties objectForKey:@"dc:title"];
-        
-        formViewController_.form = infoForm_;
-    }
+    if ([options objectForKey:kParamKeyDocument] == nil)
+        return ;
+    
+    NUXDocument *document_ = [options objectForKey:kParamKeyDocument];
+    NUXDocumentInfoForm *infoForm_ = [[[NUXDocumentInfoForm alloc] initWithNUXDocumment:document_] autorelease];
+
+    formViewController_.form = infoForm_;
+    formViewController_.formTitle = NuxeoLocalized(@"detail.document.title");
     
     iController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [iController presentViewController:formViewController_ animated:YES completion:NULL];
 }
-
-
 
 - (void) pushSettingsControllerFrom:(UIViewController *)iController options:(NSDictionary *)options
 {

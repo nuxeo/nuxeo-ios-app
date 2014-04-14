@@ -93,6 +93,7 @@
 		80EF7F92183A5D5E00B3FC21 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F91183A5D5E00B3FC21 /* StoreKit.framework */; };
 		9C89AA4E18F88E8B007BC7CA /* NuxeoSettingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C89AA4D18F88E8B007BC7CA /* NuxeoSettingForm.m */; };
 		D00548F318FC364C00B589E8 /* background_section_breadcrumbs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00548F218FC364C00B589E8 /* background_section_breadcrumbs@2x.png */; };
+		D00548F618FC4FE100B589E8 /* NUXDocumentInfoForm.m in Sources */ = {isa = PBXBuildFile; fileRef = D00548F518FC4FE100B589E8 /* NUXDocumentInfoForm.m */; };
 		D03E54A618F6E636003ACA03 /* ic_add_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A418F6E636003ACA03 /* ic_add_folder@2x~ipad.png */; };
 		D03E54A818F6E67B003ACA03 /* background_folder_tile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A718F6E67B003ACA03 /* background_folder_tile@2x.png */; };
 		D03E54AA18F6F3A1003ACA03 /* ic_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */; };
@@ -229,6 +230,8 @@
 		9C89AA4D18F88E8B007BC7CA /* NuxeoSettingForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoSettingForm.m; sourceTree = "<group>"; };
 		AED846E510454C288242E97E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D00548F218FC364C00B589E8 /* background_section_breadcrumbs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_section_breadcrumbs@2x.png"; sourceTree = "<group>"; };
+		D00548F418FC4FE100B589E8 /* NUXDocumentInfoForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUXDocumentInfoForm.h; sourceTree = "<group>"; };
+		D00548F518FC4FE100B589E8 /* NUXDocumentInfoForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUXDocumentInfoForm.m; sourceTree = "<group>"; };
 		D03E54A418F6E636003ACA03 /* ic_add_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_folder@2x~ipad.png"; sourceTree = "<group>"; };
 		D03E54A718F6E67B003ACA03 /* background_folder_tile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_folder_tile@2x.png"; sourceTree = "<group>"; };
 		D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_info@2x.png"; sourceTree = "<group>"; };
@@ -420,6 +423,8 @@
 				80C4094018D8F4450067740A /* UIView+Nuxeo.m */,
 				9C89AA4C18F88E8B007BC7CA /* NuxeoSettingForm.h */,
 				9C89AA4D18F88E8B007BC7CA /* NuxeoSettingForm.m */,
+				D00548F418FC4FE100B589E8 /* NUXDocumentInfoForm.h */,
+				D00548F518FC4FE100B589E8 /* NUXDocumentInfoForm.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -824,6 +829,7 @@
 			files = (
 				80C4099618D8F4450067740A /* NuxeoDriveRemoteServices.m in Sources */,
 				80C4099A18D8F4450067740A /* NuxeoDriveUtils.m in Sources */,
+				D00548F618FC4FE100B589E8 /* NUXDocumentInfoForm.m in Sources */,
 				80C4098E18D8F4450067740A /* DirectoryViewCell.m in Sources */,
 				80C4099418D8F4450067740A /* NuxeoDriveAppDelegate.m in Sources */,
 				80C4099818D8F4450067740A /* NuxeoButton.m in Sources */,

@@ -35,24 +35,8 @@
 #import "NuxeoDriveUtils.h"
 
 #define kDocumentTableCellReuseKey      @"DocumentCell"
-
 #define kSectionHeaderHeight    45.0
-
 #define kFooterHeight           200.0
-
-
-@implementation NUXDocumentInfoForm
-
-- (NSArray *)fields
-{
-    return  @[
-              @{FXFormFieldKey : @"date", FXFormFieldTitle : @"Modified",  FXFormFieldType : FXFormFieldTypeLabel},
-              @{FXFormFieldKey : @"author", FXFormFieldTitle : @"Author", FXFormFieldType : FXFormFieldTypeLabel, FXFormFieldFooter : @""},
-              @{FXFormFieldKey : @"desc", FXFormFieldType : FXFormFieldTypeLongText, @"textView.editable": @(NO), @"textView.textAlignment" : @(NSTextAlignmentCenter)},
-              ];
-}
-
-@end
 
 @implementation BrowseDocumentListViewController
 
@@ -153,21 +137,11 @@
     }
 }
 
-#pragma mark -
-#pragma mark Events
-#pragma mark -
-
-
-
-#pragma mark -
-#pragma mark Cell Events
-#pragma mark -
+#pragma mark - Cells Events -
 
 - (void)onTouchInfo:(NSIndexPath *)indexPath
 {
-    NUXDocument * seletedDocument_ = [self documentByIndexPath:indexPath];
-    
-    [CONTROLLER_HANDLER pushDetailDocumentInfoControllerFrom:self options:@{kParamKeyDocument : seletedDocument_}];
+    [CONTROLLER_HANDLER pushDetailDocumentInfoControllerFrom:self options:@{kParamKeyDocument : [self documentByIndexPath:indexPath]}];
 }
 
 - (void)onTouchPin:(NSIndexPath *)indexPath
@@ -177,25 +151,19 @@
 
 - (void)onTouchAddSynch:(NSIndexPath *)indexPath
 {
-    NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
-    {
-        [[NuxeoDriveRemoteServices instance] addSynchronizePoint:nuxDocument.path
-                                                 completionBlock:^(id result) {
-                                                     
-                                                 }];
-    }
-    
+    NUXDocument *nuxDocument = [self documentByIndexPath:indexPath];
+    [[NuxeoDriveRemoteServices instance] addSynchronizePoint:nuxDocument.path completionBlock:NULL];
 }
 
 - (void)onTouchUpdate:(NSIndexPath *)indexPath
 {
     DocumentCellView * selectedCell = (DocumentCellView *)[self.documentsView cellForRowAtIndexPath:indexPath];
     [selectedCell beginUpdate];
-    NUXDocument * nuxDocument = [self documentByIndexPath:indexPath];
     
-    NUXSession * nuxSession = [NUXSession sharedSession];
-    NUXRequest *request = [nuxSession requestDownloadBlobFrom:nuxDocument.uid
-                                                   inMetadata:kXPathFileContent];
+    NUXDocument *nuxDocument = [self documentByIndexPath:indexPath];
+    
+    NUXSession *nuxSession = [NUXSession sharedSession];
+    NUXRequest *request = [nuxSession requestDownloadBlobFrom:nuxDocument.uid inMetadata:kXPathFileContent];
     NSString *tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"tempfile%d.tmp", arc4random()]];
     request = [nuxSession requestDownloadBlobFrom:nuxDocument.uid inMetadata:kXPathFileContent];
     request.downloadDestinationPath = tempFile;
@@ -203,61 +171,47 @@
         [[NUXBlobStore instance] saveBlobFromPath:tempFile withDocument:nuxDocument metadataXPath:kXPathFileContent error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:tempFile error:nil];
         
-        DocumentCellView * selectedCell = (DocumentCellView *)[self.documentsView cellForRowAtIndexPath:indexPath];
+        DocumentCellView *selectedCell = (DocumentCellView *)[self.documentsView cellForRowAtIndexPath:indexPath];
+    
         [selectedCell finishUpdate];
-        
     }];
     
     [request start];
 }
 
-
-#pragma mark -
+#pragma mark - Delegates Implementations -
 #pragma mark UITableViewDataSource
-#pragma mark -
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (documents != nil)
-    {
-        return [documents count];
-    }
-    return 0;
+    return (documents != nil) ? [documents count] : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DocumentCellView * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DocumentCellView class]) forIndexPath:indexPath];
     
-    if ([documents count] > 0)
-    {
-        NUXDocument * selectedDocument = [documents objectAtIndex:indexPath.row];
-        cell.title.text = selectedDocument.title;
-        
-        [cell setTarget:self forIndexPath:indexPath];
-        
-        cell.picto.image = [UIImage imageNamed:[selectedDocument pictoForDocument:self.context]];
-        cell.backgroundColor = [UIColor clearColor];
-        [cell localizeRecursively];
-        
-        if ([selectedDocument isFolder] == YES)
-        {
-            [cell updateDisplayForFolder:selectedDocument];
-        }
-        else
-        {
-            [cell updateDisplayForFile:selectedDocument];
-        }
-    }
+    if (documents.count <= 0)
+        return cell;
+    
+    NUXDocument * selectedDocument = [documents objectAtIndex:indexPath.row];
+    cell.title.text = selectedDocument.title;
+    
+    [cell setTarget:self forIndexPath:indexPath];
+    
+    cell.picto.image = [UIImage imageNamed:[selectedDocument pictoForDocument:self.context]];
+    cell.backgroundColor = [UIColor clearColor];
+    [cell localizeRecursively];
+    
+    if ([selectedDocument isFolder] == YES)
+        [cell updateDisplayForFolder:selectedDocument];
+    else
+        [cell updateDisplayForFile:selectedDocument];
     
     return cell;
-    
 }
 
-#pragma mark -
-#pragma mark UITableViewDelegate
-#pragma mark -
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -289,31 +243,28 @@
             }
         }
     }
-    
 }
 
-#pragma mark -
-#pragma mark UIViewController
-#pragma mark -
-
-#pragma mark Basics
+#pragma mark - UIViewController -
+#pragma mark Memory Management
 
 - (void)dealloc
 {
-    [_documentsView release];
+    NuxeoReleaseAndNil(_breadCrumbsView);
+    NuxeoReleaseAndNil(documents);
+
+    self.path = nil;
+    self.context = nil;
+    self.currentDocument = nil;
+    self.currentHierarchy = nil;
     
-    [_context release];
-    [_path release];
-    [_currentHierarchy release];
-    [_currentDocument release];
-    
+    self.documentsView = nil;
+    self.documentPath = nil;
+	
+    // NuxeoDriveViewController
     self.docController = nil;
     
-    [documents release];
-    documents = nil;
-    
-    [_documentPath release];
-	[super dealloc];
+    [super dealloc];
 }
 
 @end
