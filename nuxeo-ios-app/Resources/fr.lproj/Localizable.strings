@@ -64,7 +64,7 @@
 "preview.open.with.noapp"               = "No application can open this type of file";
 
 // ============================= DETAIL INFO ========================================
-"detail.document.title"                 = "DOCUMENT TITLE";
+"detail.document.title"                 = "Informations";
 "detail.document.update.date"           = "Modified";
 "detail.document.author"                = "By";
 "detail.document.description"           = "Description";

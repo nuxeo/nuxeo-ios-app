@@ -37,7 +37,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="88y-uB-9Ur">
-                                    <rect key="frame" x="362" y="5" width="68" height="40"/>
+                                    <rect key="frame" x="361.99999928474421" y="5" width="68" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.9490196704864502" green="0.58431375026702881" blue="0.11372549831867218" alpha="1" colorSpace="deviceRGB"/>
                                     <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="15"/>

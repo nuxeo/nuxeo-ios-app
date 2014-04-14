@@ -25,7 +25,6 @@
 #import "BrowseDocumentListViewController.h"
 #import "BrowseOnDeviceViewController.h"
 #import "PreviewDisplayViewController.h"
-#import "SettingsViewController.h"
 
 #import "NuxeoDriveRemoteServices.h"
 
@@ -135,6 +134,7 @@
 - (void) pushDetailDocumentInfoControllerFrom:(UIViewController *)iController options:(NSDictionary *)options
 {
     NuxeoFormViewController *formViewController_ = [[[NuxeoFormViewController alloc] init] autorelease];
+    formViewController_.formTitle = NuxeoLocalized(@"detail.document.title");
     
     if ([options objectForKey:kParamKeyForm] != nil)
         formViewController_.form = [options objectForKey:kParamKeyForm];
@@ -149,6 +149,7 @@
 {
     NuxeoFormViewController *formViewController_ = [[[NuxeoFormViewController alloc] init] autorelease];
     formViewController_.form = [NuxeoSettingForm instance];
+    formViewController_.formTitle = NuxeoLocalized(@"settings.title");
     
     iController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [iController presentViewController:formViewController_ animated:YES completion:NULL];

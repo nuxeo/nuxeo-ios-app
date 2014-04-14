@@ -10,12 +10,11 @@
 
 #import "NuxeoFormViewController.h"
 
+#pragma mark - BaseCell Overide for design / style -
+
 @interface FXFormBaseCell (NuxeoFormView)
-
 - (void)setUp;
-
 @end
-
 
 @implementation FXFormBaseCell (NuxeoFormView)
 
@@ -27,26 +26,18 @@
 
 @end
 
-@implementation MyForm
+#pragma mark - Disable some more warnings -
 
-- (NSDictionary *)emailField
-{
-    return @{FXFormFieldType: FXFormFieldTypeLabel};
-}
-
-//- (NSArray *)fields
-//{
-//    return  @[
-//              @{FXFormFieldKey: @"email", FXFormFieldType: FXFormFieldTypeLabel}
-//              ];
-//}
-
+// !!!: Help Remove warning for tableView:heightForHeaderInSection: l178~
+@interface NSObject ()
+- (NSObject *)sectionAtIndex:(NSUInteger)index;
+@property (nonatomic, strong) NSString *header;
 @end
 
+#pragma mark - NuxeoFormViewController Private Attributes -
+
 @interface NuxeoFormViewController ()
-
 @property (nonatomic, retain) UIColor *backgroundColor;
-
 @end
 
 @implementation NuxeoFormViewController
@@ -70,9 +61,7 @@
 - (void)setup
 {
     self.formTitle = @"Nuxeo Form";
-    self.form = [[MyForm alloc] init];
-    
-    ((MyForm *)self.form).email = @"juliendimarco@me.com";
+    self.form = nil;
     
     self.formController = [[FXFormController alloc] init];
 }
@@ -103,9 +92,12 @@
 {
     [super viewWillAppear:animated];
     
-    [_formTableView reloadData];
+    _titleLabel.text = self.formTitle;
+    [_titleLabel sizeToFit];
     
+    [_formTableView reloadData];
     [_formTableView sizeToFit];
+    
     _formContentView.autoresizesSubviews = NO;
     _contentView.frame = (CGRect){_contentView.frame.origin, (CGRectGetWidth(_formTableView.frame) + 40),
         (CGRectGetHeight(_titleView.frame) + 40 + CGRectGetHeight(_formTableView.frame))};
@@ -136,11 +128,12 @@
         return ;
     
     NuxeoReleaseAndNil(_formTitle);
-    _formTitle = [formTitle retain];
-    
-    _formTitle = [formTitle uppercaseString];
+    _formTitle = [[formTitle uppercaseString] retain];
+
+    if (!_titleLabel)
+        return ;
+        
     _titleLabel.text = _formTitle;
-    
     [_titleLabel sizeToFit];
 }
 
@@ -168,7 +161,7 @@
 }
 
 #pragma mark - Delegates Implementations -
-#pragma mark - UITableView
+#pragma mark UITableView
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
 {
@@ -183,16 +176,10 @@
     return 10;
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wmissing-declarations"
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return [[self.formController sectionAtIndex:section] header] ? 42 : 0;
 }
-
-#pragma clang diagnostic pop
-
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {

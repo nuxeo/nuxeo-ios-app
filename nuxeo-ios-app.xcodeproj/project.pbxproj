@@ -16,7 +16,6 @@
 		806A7E8C18EAB268007607B2 /* BrowseOnDeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E8B18EAB268007607B2 /* BrowseOnDeviceViewController.xib */; };
 		806A7E8E18EB0007007607B2 /* DetailDocumentInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E8D18EB0007007607B2 /* DetailDocumentInfoViewController.xib */; };
 		806A7E9418EB1D2B007607B2 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E9318EB1D2B007607B2 /* SettingsViewController.xib */; };
-		806A7E9818EB1DDC007607B2 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A7E9718EB1DDC007607B2 /* SettingsViewController.m */; };
 		806A7E9A18EC3B35007607B2 /* ic_cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E9918EC3B34007607B2 /* ic_cloud@2x.png */; };
 		8083104F18E1857F00D20CE3 /* NUXDocument+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8083104E18E1857F00D20CE3 /* NUXDocument+Utils.m */; };
 		80968FB018439E2400C4D321 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80968FAF18439E2400C4D321 /* MediaPlayer.framework */; };
@@ -126,8 +125,6 @@
 		806A7E8B18EAB268007607B2 /* BrowseOnDeviceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseOnDeviceViewController.xib; sourceTree = "<group>"; };
 		806A7E8D18EB0007007607B2 /* DetailDocumentInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailDocumentInfoViewController.xib; sourceTree = "<group>"; };
 		806A7E9318EB1D2B007607B2 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
-		806A7E9618EB1DDC007607B2 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		806A7E9718EB1DDC007607B2 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		806A7E9918EC3B34007607B2 /* ic_cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cloud@2x.png"; sourceTree = "<group>"; };
 		806A7E9B18EC432C007607B2 /* NuxeoDrivePopupInfoViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NuxeoDrivePopupInfoViewDelegate.h; sourceTree = "<group>"; };
 		8083104D18E1857F00D20CE3 /* NUXDocument+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NUXDocument+Utils.h"; sourceTree = "<group>"; };
@@ -285,15 +282,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		806A7E9518EB1DDC007607B2 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				806A7E9618EB1DDC007607B2 /* SettingsViewController.h */,
-				806A7E9718EB1DDC007607B2 /* SettingsViewController.m */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
 		8083104C18E1855D00D20CE3 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,7 +322,6 @@
 		80C4091B18D8F4450067740A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				806A7E9518EB1DDC007607B2 /* Settings */,
 				80C4091C18D8F4450067740A /* Browse */,
 				80C4092318D8F4450067740A /* Home */,
 				80C4092818D8F4450067740A /* Preview */,
@@ -678,7 +665,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SH;
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Sabre;
 			};
 			buildConfigurationList = 80EF7F74183A5D5E00B3FC21 /* Build configuration list for PBXProject "nuxeo-ios-app" */;
@@ -832,7 +819,6 @@
 				80C4098E18D8F4450067740A /* DirectoryViewCell.m in Sources */,
 				80C4099418D8F4450067740A /* NuxeoDriveAppDelegate.m in Sources */,
 				80C4099818D8F4450067740A /* NuxeoButton.m in Sources */,
-				806A7E9818EB1DDC007607B2 /* SettingsViewController.m in Sources */,
 				80C4098C18D8F4450067740A /* Constants.m in Sources */,
 				806A7E8A18EAB261007607B2 /* BrowseOnDeviceViewController.m in Sources */,
 				80C4098D18D8F4450067740A /* BrowseDocumentListViewController.m in Sources */,
@@ -882,7 +868,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -919,6 +904,21 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "nuxeo-ios-app/Resources/NuxeoDrive-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lxml2.2",
+					"-lz.1",
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					Foundation,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "nuxeo-ios-app";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -929,7 +929,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -953,6 +952,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				PROVISIONING_PROFILE = "0795D2DC-397B-4A62-9CB1-4591FF7ABA8D";
 				SDKROOT = iphoneos;
@@ -964,7 +964,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1002,6 +1001,23 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "nuxeo-ios-app/Resources/NuxeoDrive-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lxml2.2",
+					"-lz.1",
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					Foundation,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					SystemConfiguration,
+					"-Xlinker",
+					"-w",
+				);
 				PRODUCT_NAME = "nuxeo-ios-app";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1020,6 +1036,21 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "nuxeo-ios-app/Resources/NuxeoDrive-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lxml2.2",
+					"-lz.1",
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					Foundation,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "nuxeo-ios-app";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
