@@ -37,6 +37,8 @@
         self.serverAddress = [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:@"http://nuxeo.smartnsoft.com"] ;
         self.username = [[NuxeoSettingsManager instance] readSetting:USER_USERNAME defaultValue:@"John Appleseed"];
         self.password = @"password";
+        
+        self.copyrights = NuxeoLocalized(@"nuxeo.copyrights");
     }
     return self;
 }
@@ -105,7 +107,9 @@
                 FXFormFieldFooter : @"", FXFormFieldType : FXFormFieldTypeLabel},
 
               @{FXFormFieldTitle: NuxeoLocalized(@"settings.revoke.token"),
-                FXFormFieldAction: [revokeAndLogout copy]},
+                FXFormFieldAction: [revokeAndLogout copy], @"textLabel.color": [UIColor redColor]},
+              
+              @{FXFormFieldKey : @"copyrights", FXFormFieldHeader : @"", FXFormFieldType : FXFormFieldTypeDefault},
               ];
 }
 

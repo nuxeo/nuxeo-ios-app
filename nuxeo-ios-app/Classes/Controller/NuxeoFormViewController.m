@@ -44,6 +44,7 @@
 @interface NSObject ()
 - (NSObject *)sectionAtIndex:(NSUInteger)index;
 @property (nonatomic, strong) NSString *header;
+@property (nonatomic, strong) NSString *footer;
 @end
 
 #pragma mark - NuxeoFormViewController Private Attributes -
@@ -185,7 +186,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10;
+    return [[self.formController sectionAtIndex:section] footer] ? 10 : 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

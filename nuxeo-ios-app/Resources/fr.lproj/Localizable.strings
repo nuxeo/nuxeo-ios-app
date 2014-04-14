@@ -16,6 +16,8 @@
  */
 
 // ==============================  Libellés Standards  ==============================
+"nuxeo.copyrights"                      = "nuxeo - copyrights @2014";
+
 "application.name"                      = "NuxeoDrive";
 "application.notconnected"              = "You must be connected";
 "button.ok"                             = "Ok";

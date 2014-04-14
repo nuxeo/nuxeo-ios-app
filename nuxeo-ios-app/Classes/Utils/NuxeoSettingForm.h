@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSString  *username;
 @property (nonatomic, retain) NSString  *password;
 
+@property (nonatomic, retain) NSString  *copyrights;
+
 #pragma mark - Initializers
 + (instancetype)instance;
 
