@@ -35,12 +35,12 @@ extern NSString* const kBackButtonResourceName;
 }
 
 #pragma mark - Properties
-@property (nonatomic, getter = isHeaderHidden)         BOOL headerHidden;
-@property (nonatomic, getter = isFooterHidden)         BOOL footerHidden;
-@property (nonatomic, getter = isBackButtonShown)      BOOL backButtonShown;
-@property (nonatomic, getter = isUpdateAllButtonShown) BOOL updateAllButtonShown;
+@property (nonatomic, getter = isHeaderHidden)          BOOL headerHidden;
+@property (nonatomic, getter = isFooterHidden)          BOOL footerHidden;
+@property (nonatomic, getter = isBackButtonShown)       BOOL backButtonShown;
+@property (nonatomic, getter = isUpdateAllButtonShown)  BOOL updateAllButtonShown;
 
-@property (nonatomic, getter = isAbstractView) BOOL abstractView;
+@property (nonatomic, getter = isAbstractView)          BOOL abstractView;
 
 // Header
 @property (retain, nonatomic) UIButton * pinButton;
@@ -54,6 +54,7 @@ extern NSString* const kBackButtonResourceName;
 
 - (instancetype)init;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
+- (void)setup;
 
 #pragma mark - generic messages
 - (void) checkAuthentication;

@@ -18,8 +18,6 @@
  * 	Matthias Rouberol
  */
 
-#import "BrowseDocumentListViewController.h"
-
 #import <NuxeoSDK/NUXSession.h>
 #import <NuxeoSDK/NUXSession+requests.h>
 #import <NuxeoSDK/NUXDocuments.h>
@@ -28,17 +26,34 @@
 #import <NuxeoSDK/NUXHierarchy.h>
 #import <NuxeoSDK/NUXJSONSerializer.h>
 
-#import "DocumentCellView.h"
-
+#import "NuxeoDriveUtils.h"
 #import "NuxeoDriveRemoteServices.h"
 
-#import "NuxeoDriveUtils.h"
+#import "BrowseDocumentListViewController.h"
 
-#define kDocumentTableCellReuseKey      @"DocumentCell"
-#define kSectionHeaderHeight    45.0
-#define kFooterHeight           200.0
+#import "DocumentCellView.h"
+#import "BreadCrumbsCellView.h"
+
+#define kDocumentTableCellReuseKey @"DocumentCell"
+#define kSectionHeaderHeight       45.0
+#define kFooterHeight              200.0
 
 @implementation BrowseDocumentListViewController
+
+#pragma mark - Initializers
+
+- (void)setup
+{
+    [super setup];
+    
+    self.context = kBrowseDocumentOnLine;
+    self.breadCrumbs = [NSMutableArray array];
+    
+    self.currentDocument = nil;
+    self.currentHierarchy = nil;
+    
+    _documents = nil;
+}
 
 #pragma mark - UIViewControllerLifeCycle -
 
@@ -47,94 +62,102 @@
 	[super viewDidLoad];
 	
     _breadCrumbsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_section_breadcrumbs"]];
-
+    _breadCrumbsView.layer.opaque = NO;
+    _breadCrumbsView.opaque = NO;
     
-    [self.documentsView registerNib:[UINib nibWithNibName:NSStringFromClass([DocumentCellView class]) bundle:nil]
+    [_documentsTableView registerNib:[UINib nibWithNibName:NSStringFromClass([DocumentCellView class]) bundle:nil]
              forCellReuseIdentifier:NSStringFromClass([DocumentCellView class])];
+    [_breadCrumbsCollection registerNib:[UINib nibWithNibName:NSStringFromClass([BreadCrumbsCellView class]) bundle:nil]
+             forCellWithReuseIdentifier:NSStringFromClass([BreadCrumbsCellView class])];
+    
+    ((UICollectionViewFlowLayout *)_breadCrumbsCollection.collectionViewLayout).minimumInteritemSpacing = 2;
     
     if (self.currentDocument == nil)
         self.currentDocument = [[NUXHierarchy hierarchyWithName:@"NuxeoDriveRoot"] nodeWithRef:kNuxeoPathInitial];
     
     [self loadBusinessObjects];
+    [self.view localizeRecursively];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	
-    self.documentPath.text = [self.path componentsJoinedByString:@" > "];
-}
 
-- (void)viewDidAppear:(BOOL)animated
-{
-	[super viewDidAppear:animated];
+    if (![self.breadCrumbs containsObject:self.currentDocument])
+        [self.breadCrumbs addObject:self.currentDocument];
+    
+    [_breadCrumbsCollection reloadData];
+    [_breadCrumbsCollection.collectionViewLayout invalidateLayout];
 }
 
 #pragma mark - BrowseDocumentListViewController -
 
-- (void) reloadData
+- (void)reloadData
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.documentsView reloadData];
+        [_documentsTableView reloadData];
+        [_breadCrumbsCollection reloadData];
+        [_breadCrumbsCollection.collectionViewLayout invalidateLayout];
     });
 }
 
 - (void)synchronizeAllView
 {
     [super synchronizeAllView];
+    
     [self reloadData];
 }
 
 - (NUXDocument *)documentByIndexPath:(NSIndexPath *) indexPath
 {
-    return [documents objectAtIndex:indexPath.row];
+    return [_documents objectAtIndex:indexPath.row];
 }
+
+#pragma mark - Business Object Loading -
 
 - (void) loadBusinessObjects
 {
     if ([self.context isEqualToString:kBrowseDocumentOnLine])
-    {
-        NUXSession * nuxSession = [NUXSession sharedSession];
-        {
-            // Request by path
-            NUXRequest * nuxRequest = [nuxSession requestChildren:self.currentDocument.uid];
-            
-            [nuxRequest startWithCompletionBlock:^(NUXRequest * pRequest)
-             {
-                 NSError * error = nil;
-                 NUXDocuments * result = [NUXJSONSerializer entityWithData:[pRequest responseData] error:&error];
-                 documents = [result.entries mutableCopy];
-                 
-                 [self.documentsView reloadData];
-                 
-             } FailureBlock:^(NUXRequest * pRequest)
-             {
-                 
-             }];
-        }
-    }
+        [self loadOnlineDocumentArray];
     else if ([self.context isEqualToString:kBrowseDocumentOffLine])
-    {
-        if (self.currentDocument.path != nil)
+        [self loadOfflineDocumentArray];
+}
+
+- (void)loadOnlineDocumentArray
+{
+    NUXRequest * nuxRequest = [[NUXSession sharedSession] requestChildren:self.currentDocument.uid];
+    
+    [nuxRequest startWithCompletionBlock:^(NUXRequest * pRequest) {
+        NSError * error = nil;
+        NUXDocuments * result = [NUXJSONSerializer entityWithData:[pRequest responseData] error:&error];
+        _documents = [result.entries mutableCopy];
+        
+        [_documentsTableView reloadData];
+        
+        _documentsTableView.hidden = (_documents.count == 0);
+        _emptyNotice.hidden = !(_documents.count == 0);
+        
+    } FailureBlock:NULL];
+}
+
+- (void)loadOfflineDocumentArray
+{
+    if (!self.currentDocument.path)
+        return ;
+    
+    _documents = [[NSMutableArray alloc] init];
+    
+    NSArray * filesOfDocument = [self.currentHierarchy contentOfDocument:self.currentDocument];
+    [_documents addObjectsFromArray:filesOfDocument];
+    
+    for (NUXDocument * nuxDocument in _documents)
+        if ([nuxDocument.properties objectForKey:@"empty"] == nil)
         {
-//            documents = [[NSMutableArray arrayWithArray:[self.currentHierarchy childrenOfDocument:self.currentDocument.path]] mutableCopy];
-            documents = [[NSMutableArray array] retain];
-            
-            NSArray * filesOfDocument = [self.currentHierarchy contentOfDocument:self.currentDocument];
-            [documents addObjectsFromArray:filesOfDocument];
-            
-            for (NUXDocument * nuxDocument in documents)
-            {
-                if ([nuxDocument.properties objectForKey:@"empty"] == nil)
-                {
-                    BOOL isEmpty = ![self.currentHierarchy hasContentUnderNode:nuxDocument.uid];
-                    [nuxDocument.properties setObject:[NSNumber numberWithBool:isEmpty] forKey:@"empty"];
-                }
-            }
-            
-            [self.documentsView reloadData];
+            BOOL isEmpty = ![self.currentHierarchy hasContentUnderNode:nuxDocument.uid];
+            [nuxDocument.properties setObject:[NSNumber numberWithBool:isEmpty] forKey:@"empty"];
         }
-    }
+    
+    [_documentsTableView reloadData];
 }
 
 #pragma mark - Cells Events -
@@ -151,13 +174,12 @@
 
 - (void)onTouchAddSynch:(NSIndexPath *)indexPath
 {
-    NUXDocument *nuxDocument = [self documentByIndexPath:indexPath];
-    [[NuxeoDriveRemoteServices instance] addSynchronizePoint:nuxDocument.path completionBlock:NULL];
+    [[NuxeoDriveRemoteServices instance] addSynchronizePoint:[self documentByIndexPath:indexPath].path completionBlock:NULL];
 }
 
 - (void)onTouchUpdate:(NSIndexPath *)indexPath
 {
-    DocumentCellView * selectedCell = (DocumentCellView *)[self.documentsView cellForRowAtIndexPath:indexPath];
+    DocumentCellView * selectedCell = (DocumentCellView *)[_documentsTableView cellForRowAtIndexPath:indexPath];
     [selectedCell beginUpdate];
     
     NUXDocument *nuxDocument = [self documentByIndexPath:indexPath];
@@ -171,7 +193,7 @@
         [[NUXBlobStore instance] saveBlobFromPath:tempFile withDocument:nuxDocument metadataXPath:kXPathFileContent error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:tempFile error:nil];
         
-        DocumentCellView *selectedCell = (DocumentCellView *)[self.documentsView cellForRowAtIndexPath:indexPath];
+        DocumentCellView *selectedCell = (DocumentCellView *)[_documentsTableView cellForRowAtIndexPath:indexPath];
     
         [selectedCell finishUpdate];
     }];
@@ -180,21 +202,72 @@
 }
 
 #pragma mark - Delegates Implementations -
-#pragma mark UITableViewDataSource
+#pragma mark UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.breadCrumbs.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NUXDocument *objectAtIndex = nil;
+    BreadCrumbsCellView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([BreadCrumbsCellView class])
+                                                                           forIndexPath:indexPath];
+
+    if (self.breadCrumbs.count < indexPath.row || !(objectAtIndex = self.breadCrumbs[indexPath.row]) ||
+        ![objectAtIndex isKindOfClass:[NUXDocument class]])
+        return cell;
+    
+    cell.crumbsText.text = objectAtIndex.title;
+
+    cell.crumbsIndicator.text = (indexPath.row == 0) ? @"::" : @">";
+    [cell.crumbsIndicator  sizeToFit];
+    cell.crumbsIndicator.center = (CGPoint){cell.crumbsIndicator.center.x, cell.center.y};
+    
+    return cell;
+}
+
+#pragma mark - UICollectionViewFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return (CGSize){[BreadCrumbsCellView contentSizeWithText:((NUXDocument *)self.breadCrumbs[indexPath.row]).title].width, 42};
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [collectionView deselectItemAtIndexPath:[collectionView indexPathsForSelectedItems][0] animated:YES];
+    
+    NUXDocument *selectedDocument = self.breadCrumbs[indexPath.row];
+    if ([selectedDocument hasBinaryFile] || ![selectedDocument isFolder])
+        return ;
+    
+    NSMutableArray *newBreadCrumbs = [NSMutableArray arrayWithArray:self.breadCrumbs];
+    [newBreadCrumbs removeObjectsInRange:(NSRange){indexPath.row, (self.breadCrumbs.count - indexPath.row)}];
+    
+    // ignore context, pass as much informations as possibles (even if nil)
+    if ([selectedDocument isFolder])
+        [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument ,
+                                                                       kParamKeyHierarchy :  self.currentHierarchy ? : [NSNull null],
+                                                                       kParamKeyBreadCrumbs : newBreadCrumbs}];
+}
+
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (documents != nil) ? [documents count] : 0;
+    return (_documents != nil) ? [_documents count] : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DocumentCellView * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DocumentCellView class]) forIndexPath:indexPath];
     
-    if (documents.count <= 0)
+    if (_documents.count <= 0)
         return cell;
     
-    NUXDocument * selectedDocument = [documents objectAtIndex:indexPath.row];
+    NUXDocument * selectedDocument = [_documents objectAtIndex:indexPath.row];
     cell.title.text = selectedDocument.title;
     
     [cell setTarget:self forIndexPath:indexPath];
@@ -218,31 +291,14 @@
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
    
     NUXDocument * selectedDocument = [self documentByIndexPath:indexPath];
-    if ([selectedDocument hasBinaryFile] == YES || [selectedDocument isFolder] == YES)
-    {
-        if ([self.context isEqualToString:kBrowseDocumentOnLine])
-        {
-            if ([selectedDocument isFolder] == YES)
-            {
-                [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
-            }
-            else
-            {
-                [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
-            }
-        }
-        else if ([self.context isEqualToString:kBrowseDocumentOffLine])
-        {
-            if ([selectedDocument isFolder] == YES)
-            {
-                [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument , kParamKeyHierarchy : self.currentHierarchy, kParamKeyContext : self.context}];
-            }
-            else
-            {
-                [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : self.context}];
-            }
-        }
-    }
+    if (![selectedDocument hasBinaryFile] && ![selectedDocument isFolder])
+        return ;
+    
+    // ignore context, pass as much informations as possibles (even if nil)
+    if ([selectedDocument isFolder])
+        [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument , kParamKeyHierarchy :  self.currentHierarchy ? : [NSNull null]}];
+    else
+        [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
 }
 
 #pragma mark - UIViewController -
@@ -251,18 +307,15 @@
 - (void)dealloc
 {
     NuxeoReleaseAndNil(_breadCrumbsView);
-    NuxeoReleaseAndNil(documents);
+    NuxeoReleaseAndNil(_breadCrumbsCollection);
+    
+    NuxeoReleaseAndNil(_documentsTableView)
+    NuxeoReleaseAndNil(_documents);
 
-    self.path = nil;
+    self.breadCrumbs = nil;
     self.context = nil;
     self.currentDocument = nil;
     self.currentHierarchy = nil;
-    
-    self.documentsView = nil;
-    self.documentPath = nil;
-	
-    // NuxeoDriveViewController
-    self.docController = nil;
     
     [super dealloc];
 }

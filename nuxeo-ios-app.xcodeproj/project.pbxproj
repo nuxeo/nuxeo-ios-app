@@ -101,6 +101,8 @@
 		D03E54AF18F71274003ACA03 /* NuxeoPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03E54AD18F71274003ACA03 /* NuxeoPopoverViewController.xib */; };
 		D09D45F118F8387300DA8CC4 /* NuxeoFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D45EF18F8387300DA8CC4 /* NuxeoFormViewController.m */; };
 		D09D45F218F8387300DA8CC4 /* NuxeoFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D09D45F018F8387300DA8CC4 /* NuxeoFormViewController.xib */; };
+		D0BAD8BA18FD5A9000B85466 /* BreadCrumbsCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BAD8B818FD5A9000B85466 /* BreadCrumbsCellView.m */; };
+		D0BAD8BB18FD5A9000B85466 /* BreadCrumbsCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0BAD8B918FD5A9000B85466 /* BreadCrumbsCellView.xib */; };
 		D0C34C4218F58C020008FB69 /* background@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C34C4118F58C020008FB69 /* background@2x~ipad.png */; };
 		D0C34C4F18F5A7B60008FB69 /* bt_header_back@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C34C4318F5A7B60008FB69 /* bt_header_back@2x~ipad.png */; };
 		D0C34C5018F5A7B60008FB69 /* bt_header_cloud_selected@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C34C4418F5A7B60008FB69 /* bt_header_cloud_selected@2x~ipad.png */; };
@@ -209,8 +211,8 @@
 		80C4097F18D8F4450067740A /* NuxeoDrive-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NuxeoDrive-Info.plist"; sourceTree = "<group>"; };
 		80C4098018D8F4450067740A /* NUXSession-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NUXSession-info.plist"; sourceTree = "<group>"; };
 		80C4098318D8F4450067740A /* BrowseDocumentListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseDocumentListViewController.xib; sourceTree = "<group>"; };
-		80C4098418D8F4450067740A /* DirectoryViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DirectoryViewCell.xib; sourceTree = "<group>"; };
-		80C4098518D8F4450067740A /* DocumentCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DocumentCellView.xib; sourceTree = "<group>"; };
+		80C4098418D8F4450067740A /* DirectoryViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DirectoryViewCell.xib; path = Browse/DirectoryViewCell.xib; sourceTree = "<group>"; };
+		80C4098518D8F4450067740A /* DocumentCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DocumentCellView.xib; path = Browse/DocumentCellView.xib; sourceTree = "<group>"; };
 		80C4098718D8F4450067740A /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		80C4098918D8F4450067740A /* PreviewDisplayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewDisplayViewController.xib; sourceTree = "<group>"; };
 		80C4098B18D8F4450067740A /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
@@ -241,6 +243,9 @@
 		D09D45EE18F8387300DA8CC4 /* NuxeoFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoFormViewController.h; sourceTree = "<group>"; };
 		D09D45EF18F8387300DA8CC4 /* NuxeoFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoFormViewController.m; sourceTree = "<group>"; };
 		D09D45F018F8387300DA8CC4 /* NuxeoFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NuxeoFormViewController.xib; sourceTree = "<group>"; };
+		D0BAD8B718FD5A9000B85466 /* BreadCrumbsCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BreadCrumbsCellView.h; path = ../../../XIB/BreadCrumbsCellView.h; sourceTree = "<group>"; };
+		D0BAD8B818FD5A9000B85466 /* BreadCrumbsCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BreadCrumbsCellView.m; path = ../../../XIB/BreadCrumbsCellView.m; sourceTree = "<group>"; };
+		D0BAD8B918FD5A9000B85466 /* BreadCrumbsCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BreadCrumbsCellView.xib; sourceTree = "<group>"; };
 		D0C34C4118F58C020008FB69 /* background@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x~ipad.png"; sourceTree = "<group>"; };
 		D0C34C4318F5A7B60008FB69 /* bt_header_back@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_back@2x~ipad.png"; sourceTree = "<group>"; };
 		D0C34C4418F5A7B60008FB69 /* bt_header_cloud_selected@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_header_cloud_selected@2x~ipad.png"; sourceTree = "<group>"; };
@@ -353,6 +358,8 @@
 				806A7E8918EAB261007607B2 /* BrowseOnDeviceViewController.m */,
 				80C4091D18D8F4450067740A /* BrowseDocumentListViewController.h */,
 				80C4091E18D8F4450067740A /* BrowseDocumentListViewController.m */,
+				D0BAD8B718FD5A9000B85466 /* BreadCrumbsCellView.h */,
+				D0BAD8B818FD5A9000B85466 /* BreadCrumbsCellView.m */,
 				80C4091F18D8F4450067740A /* DirectoryViewCell.h */,
 				80C4092018D8F4450067740A /* DirectoryViewCell.m */,
 				80C4092118D8F4450067740A /* DocumentCellView.h */,
@@ -554,6 +561,7 @@
 		80C4098118D8F4450067740A /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				D0BAD8B418FD59D100B85466 /* Cells */,
 				806A7E9218EB1D2B007607B2 /* Settings */,
 				80C4098218D8F4450067740A /* Browse */,
 				80C4098618D8F4450067740A /* Home */,
@@ -568,8 +576,6 @@
 			children = (
 				806A7E8B18EAB268007607B2 /* BrowseOnDeviceViewController.xib */,
 				80C4098318D8F4450067740A /* BrowseDocumentListViewController.xib */,
-				80C4098418D8F4450067740A /* DirectoryViewCell.xib */,
-				80C4098518D8F4450067740A /* DocumentCellView.xib */,
 			);
 			path = Browse;
 			sourceTree = "<group>";
@@ -644,6 +650,16 @@
 				80C4094318D8F4450067740A /* NuxeoDrive_Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0BAD8B418FD59D100B85466 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				80C4098418D8F4450067740A /* DirectoryViewCell.xib */,
+				80C4098518D8F4450067740A /* DocumentCellView.xib */,
+				D0BAD8B918FD5A9000B85466 /* BreadCrumbsCellView.xib */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -729,6 +745,7 @@
 				80C409CA18D8F4450067740A /* ic_header_logo@2x~ipad.png in Resources */,
 				80C409CE18D8F4450067740A /* background_settings@2x~ipad.png in Resources */,
 				80C409C918D8F4450067740A /* bt_login@2x~ipad.png in Resources */,
+				D0BAD8BB18FD5A9000B85466 /* BreadCrumbsCellView.xib in Resources */,
 				80C409A818D8F4450067740A /* bt_standard_short@2x~ipad.png in Resources */,
 				D0C34C5518F5A7B60008FB69 /* bt_header_settings_selected@2x~ipad.png in Resources */,
 				80C409AA18D8F4450067740A /* bt_update@2x~ipad.png in Resources */,
@@ -829,6 +846,7 @@
 			files = (
 				80C4099618D8F4450067740A /* NuxeoDriveRemoteServices.m in Sources */,
 				80C4099A18D8F4450067740A /* NuxeoDriveUtils.m in Sources */,
+				D0BAD8BA18FD5A9000B85466 /* BreadCrumbsCellView.m in Sources */,
 				D00548F618FC4FE100B589E8 /* NUXDocumentInfoForm.m in Sources */,
 				80C4098E18D8F4450067740A /* DirectoryViewCell.m in Sources */,
 				80C4099418D8F4450067740A /* NuxeoDriveAppDelegate.m in Sources */,

@@ -59,6 +59,8 @@
 "home.hierarchy.notloaded.offline"      = "The content list for language %@ is not already loaded and cannot be while you are offline.";
 
 // ============================= BROWSE ========================================
+"browse.notice"                        = "You don't have any documents stored.";
+
 "browse.no.document"                    = "No resources found";
 "browse.loading"                        = "Loading";
 

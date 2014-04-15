@@ -70,59 +70,43 @@
 
 - (void) pushDocumentsControllerFrom:(UIViewController *)iController options:(NSDictionary *) options
 {
-    BrowseDocumentListViewController *rvc = [[BrowseDocumentListViewController alloc] init];
+    BrowseDocumentListViewController *rvc = [[[BrowseDocumentListViewController alloc] init] autorelease];
     
     if ([options objectForKey:kParamKeyContext] != nil)
-    {
         rvc.context = [options objectForKey:kParamKeyContext];
-    }
-    else
-    {
-        if ([iController isKindOfClass:[BrowseDocumentListViewController class]])
-            rvc.context = ((BrowseDocumentListViewController *)iController).context;
-        else
-            rvc.context = kBrowseDocumentOnLine;
-    }
+    else if ([iController isKindOfClass:[BrowseDocumentListViewController class]])
+        rvc.context = ((BrowseDocumentListViewController *)iController).context;
     
     if ([options objectForKey:kParamKeyHierarchy] != nil)
-        rvc.currentHierarchy = [options objectForKey:kParamKeyHierarchy];
+        rvc.currentHierarchy = ([options objectForKey:kParamKeyHierarchy] == [NSNull null]) ? nil : [options objectForKey:kParamKeyHierarchy];
 
     if ([options objectForKey:kParamKeyDocument] != nil)
-    {
         rvc.currentDocument = [options objectForKey:kParamKeyDocument];
-        
-        if ([iController isKindOfClass:[BrowseDocumentListViewController class]])
-        {
-            if (((BrowseDocumentListViewController *)iController).path == nil)
-                rvc.path = [NSMutableArray array];
-            else
-                rvc.path = [((BrowseDocumentListViewController *)iController).path mutableCopy];
-
-            [rvc.path addObject:rvc.currentDocument.title];
-        }
-    }
+    
+    if ([options objectForKey:kParamKeyBreadCrumbs] != nil)
+        rvc.breadCrumbs = [options objectForKey:kParamKeyBreadCrumbs];
+    else if ([iController isKindOfClass:[BrowseDocumentListViewController class]])
+        rvc.breadCrumbs = [[((BrowseDocumentListViewController *)iController).breadCrumbs mutableCopy] autorelease];
 
     rvc.backButtonShown = YES;
     rvc.updateAllButtonShown = YES;
     rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     [iController presentViewController:rvc animated:YES completion:NULL];
-    [rvc release];
 }
 
 - (void) pushPreviewControllerFrom:(UIViewController *)iController options:(NSDictionary *) options
 {
-    PreviewDisplayViewController *rvc = [[PreviewDisplayViewController alloc] initWithNibName:kXIBPreviewDisplayViewController bundle:nil];
+    PreviewDisplayViewController *rvc = [[PreviewDisplayViewController alloc] init];
+
     if ([options objectForKey:kParamKeyDocument] != nil)
-    {
         rvc.currentDocument = [options objectForKey:kParamKeyDocument];
-    }
-    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    rvc.backButtonShown = YES;
+
     rvc.footerHidden = YES;
-    [iController presentViewController:rvc animated:YES completion:^{
-        
-    }];
+    rvc.backButtonShown = YES;
+    rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [iController presentViewController:rvc animated:YES completion:NULL];
     [rvc release];
 }
 

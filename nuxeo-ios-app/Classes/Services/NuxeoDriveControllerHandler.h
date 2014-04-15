@@ -22,6 +22,7 @@
 #define kParamKeyDocument             @"document"
 #define kParamKeyHierarchy            @"hierarchy"
 #define kParamKeyContext              @"context"
+#define kParamKeyBreadCrumbs          @"breadcrumbs"
 
 @interface NuxeoDriveControllerHandler : NSObject
 

@@ -479,18 +479,16 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [_navBarCustomView release];
-    [_footerBarCustomView release];
-    _navBarCustomView = nil;
-    _footerBarCustomView = nil;
+    NuxeoReleaseAndNil(_navBarCustomView);
+    NuxeoReleaseAndNil(_footerBarCustomView);
     
-    self.docController = nil;
     self.pinButton = nil;
     self.searchButton = nil;
     self.updateAllButton = nil;
     self.settingsButton = nil;
     
-    self.contentView = nil;
+    self.docController = nil;
+    self.contentView = nil; // Private Interface
     
     [super dealloc];
 }

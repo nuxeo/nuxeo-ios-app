@@ -31,20 +31,22 @@
 
 @class NUXDocument;
 
-@interface BrowseDocumentListViewController : NuxeoDriveViewController<UITableViewDataSource, UITableViewDelegate>
+@interface BrowseDocumentListViewController : NuxeoDriveViewController<UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 {
     IBOutlet UIView *_breadCrumbsView;
+    IBOutlet UICollectionView   *_breadCrumbsCollection;
     
-    NSMutableArray * documents;
+    IBOutlet UILabel *_emptyNotice;
+    IBOutlet UITableView *_documentsTableView;
+    NSMutableArray * _documents;
 }
 
 #pragma mark - Properties
-@property (nonatomic, retain) NSMutableArray * path;
-@property (nonatomic, retain) NSString * context;
-@property (nonatomic, retain) NUXDocument * currentDocument;
-@property (nonatomic, retain) NUXHierarchy * currentHierarchy;
 
-@property (nonatomic, retain) IBOutlet UITableView *documentsView;
-@property (nonatomic, retain) IBOutlet UILabel *documentPath;
+@property (nonatomic, retain) NSMutableArray *breadCrumbs;
+
+@property (nonatomic, retain) NSString *context;
+@property (nonatomic, retain) NUXDocument *currentDocument;
+@property (nonatomic, retain) NUXHierarchy *currentHierarchy;
 
 @end
