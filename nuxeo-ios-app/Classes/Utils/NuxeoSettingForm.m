@@ -57,7 +57,9 @@
         self.username = [[NuxeoSettingsManager instance] readSetting:USER_USERNAME defaultValue:@"John Doe"];
         self.password = @"password";
         
-        self.copyrights = NuxeoLocalized(@"nuxeo.copyrights");
+        NSString * masterVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        
+        self.copyrights = [NSString stringWithFormat:NuxeoLocalized(@"nuxeo.copyrights"), masterVersion];
     }
     return self;
 }
