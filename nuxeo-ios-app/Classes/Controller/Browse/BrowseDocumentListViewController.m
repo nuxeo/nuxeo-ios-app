@@ -235,6 +235,8 @@
     return (CGSize){[BreadCrumbsCellView contentSizeWithText:((NUXDocument *)self.breadCrumbs[indexPath.row]).title].width, 42};
 }
 
+#pragma mark - UICollectionViewDelegate
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [collectionView deselectItemAtIndexPath:[collectionView indexPathsForSelectedItems][0] animated:YES];
@@ -243,14 +245,24 @@
     if ([selectedDocument hasBinaryFile] || ![selectedDocument isFolder])
         return ;
     
-    NSMutableArray *newBreadCrumbs = [NSMutableArray arrayWithArray:self.breadCrumbs];
-    [newBreadCrumbs removeObjectsInRange:(NSRange){indexPath.row, (self.breadCrumbs.count - indexPath.row)}];
+    NSInteger popNumber_ = (self.breadCrumbs.count - (indexPath.row + 1));
+    NuxeoLogD(@"PopNumber : %d", popNumber_);
     
+    NSMutableArray *newBreadCrumbs = [NSMutableArray arrayWithArray:self.breadCrumbs];
+    [newBreadCrumbs removeObjectsInRange:(NSRange){indexPath.row, popNumber_}];
+    
+    UIViewController *cheatDismiss_ = self;
+    for (int i = 0; i < popNumber_; i++)
+    {
+        cheatDismiss_ = cheatDismiss_.presentingViewController;
+        [cheatDismiss_ dismissViewControllerAnimated:NO completion:NULL];
+    }
+
     // ignore context, pass as much informations as possibles (even if nil)
-    if ([selectedDocument isFolder])
-        [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument ,
-                                                                       kParamKeyHierarchy :  self.currentHierarchy ? : [NSNull null],
-                                                                       kParamKeyBreadCrumbs : newBreadCrumbs}];
+//    if ([selectedDocument isFolder])
+//        [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument ,
+//                                                                       kParamKeyHierarchy :  self.currentHierarchy ? : [NSNull null],
+//                                                                       kParamKeyBreadCrumbs : newBreadCrumbs}];
 }
 
 #pragma mark - UITableViewDataSource
