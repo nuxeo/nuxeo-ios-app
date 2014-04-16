@@ -6,16 +6,22 @@
 //  Copyright (c) 2014 Sabre. All rights reserved.
 //
 
-#import "NuxeoSettingForm.h"
-
 #import <NuxeoSDK/NUXSession.h>
 #import <NuxeoSDK/NUXTokenAuthenticator.h>
 
-#import "WelcomeViewController.h"
-
 #import <FXForms/FXForms.h>
+#import <FormatterKit/TTTUnitOfInformationFormatter.h>
+
+#import "NuxeoSettingForm.h"
 
 #import "NuxeoSettingsManager.h"
+#import "WelcomeViewController.h"
+
+@interface NuxeoSettingForm ()
+
+@property (nonatomic, retain) NSNumber *limitStorageSize;
+
+@end
 
 @implementation NuxeoSettingForm
 
@@ -37,8 +43,14 @@
 {
     if ((self = [super init]))
     {
-        float limitStorageSize = [[[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:[NSNumber numberWithLongLong:(long long)5 * 1024 * 1024 * 1024]] longLongValue] / (1024 * 1024 * 1024);
-        self.maxStorageSize =  [NSString stringWithFormat:@"%.1fGB", limitStorageSize];
+        self.limitStorageSize = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:@(5.0f * kGigabyteSize)];
+        
+        _unitOfInformationFormatter = [[TTTUnitOfInformationFormatter alloc] init];
+        _unitOfInformationFormatter.numberFormatter.roundingIncrement = @(0.1f);
+        [_unitOfInformationFormatter setDisplaysInTermsOfBytes:NO];
+        [_unitOfInformationFormatter setUsesIECBinaryPrefixesForCalculation:NO];
+        
+        self.maxStorageSize = [_unitOfInformationFormatter stringFromNumberOfBits:self.limitStorageSize];
         self.syncOverCellular = [[NuxeoSettingsManager instance] readBoolSetting:USER_SYNC_OVER_CELLULAR defaulValue:NO];
         
         self.serverAddress = [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:@"http://demo.nuxeo.com/nuxeo/"] ;
@@ -88,10 +100,20 @@
     if (nuxSession.authenticator != nil)
     {
         [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
-        [[APP_DELEGATE getVisibleViewController] dismissViewControllerAnimated:NO completion:^{
-            
-        }];
+        [[APP_DELEGATE getVisibleViewController] dismissViewControllerAnimated:NO completion:NULL];
     }
+}
+
+- (void)storageSizeValueChanged:(FXFormSliderCell *)sender
+{
+    self.limitStorageSize = @(sender.slider.value);
+    
+    [[NuxeoSettingsManager instance] saveSetting:self.limitStorageSize forKey:USER_FILES_STORE_MAX_SIZE];
+    self.maxStorageSize = [_unitOfInformationFormatter stringFromNumberOfBits:self.limitStorageSize];
+
+    NuxeoLogD(@"maxStorage Modified: %f --> %@", sender.slider.value, [_unitOfInformationFormatter stringFromNumberOfBits:@(sender.slider.value)]);
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFxForm" object:self userInfo:@{ @"form" : self }];
 }
 
 #pragma mark - FXForm Protocol -
@@ -100,14 +122,22 @@
 {
     NuxeoSettingForm * __block weakSelf = self;
     
-    void (^revokeAndLogout)(void) = ^{
+    void (^revokeAndLogout)(id sender) = ^(id _) {
         [weakSelf revokeTokenAndLogout];
+    };
+    
+    void (^storageSizeValueChanged)(id sender) = ^(id sender) {
+        [weakSelf storageSizeValueChanged:sender];
     };
     
     return  @[
               
               @{FXFormFieldKey : @"maxStorageSize",
-                FXFormFieldTitle : NuxeoLocalized(@"settings.file.storage"),  FXFormFieldType : FXFormFieldTypeLabel, FXFormFieldFooter : @""},
+                FXFormFieldTitle : NuxeoLocalized(@"settings.file.storage"), FXFormFieldType : FXFormFieldTypeLabel},
+              
+              @{FXFormFieldTitle: @"",
+                FXFormFieldCell : [FXFormSliderCell class], FXFormFieldAction : [storageSizeValueChanged copy], FXFormFieldFooter : @"",
+                @"slider.minimumValue" : @(1.0f * kMegabyteSize), @"slider.maximumValue" : @(10 * kGigabyteSize), @"slider.value" : self.limitStorageSize},
               
               @{FXFormFieldKey : @"syncOverCellular",
                 FXFormFieldTitle : NuxeoLocalized(@"settings.sync.cellular"),},

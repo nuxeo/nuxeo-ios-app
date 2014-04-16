@@ -136,6 +136,12 @@
 
 #define SYNCHRONISATION_IN_PROGRESS @"SYNCHRONISATION_IN_PROGRESS"
 
+/********************************** Math - Data ********************************/
+
+#define kGigabyteSize   (powf(kKilobyteSize, 3.f))
+#define kMegabyteSize   (powf(kKilobyteSize, 2.f))
+#define kKilobyteSize   (1024.f)
+
 /********************************** ServicesWeb ***********************************/
 
 

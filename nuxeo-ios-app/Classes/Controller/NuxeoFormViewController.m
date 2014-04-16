@@ -77,6 +77,15 @@
     self.form = nil;
     
     self.formController = [[FXFormController alloc] init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"ReloadFxForm" object:nil];
+}
+
+- (void)handleNotification:(NSNotification*)note
+{
+    NSLog(@"Got notified: %@", note);
+
+    [_formTableView reloadData];
 }
 
 #pragma mark - UIViewController Life Cycle -

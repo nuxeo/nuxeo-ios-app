@@ -9,7 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <FXForms/FXForms.h>
 
+@class TTTUnitOfInformationFormatter;
 @interface NuxeoSettingForm : NSObject <FXForm>
+{
+    TTTUnitOfInformationFormatter *_unitOfInformationFormatter;
+}
 
 @property (nonatomic, retain) NSString  *maxStorageSize;
 @property (nonatomic, assign) BOOL      syncOverCellular;
@@ -25,5 +29,6 @@
 
 #pragma mark - Test
 - (void)revokeTokenAndLogout;
+- (void)storageSizeValueChanged:(FXFormSliderCell *)sender;
 
 @end
