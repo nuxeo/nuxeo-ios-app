@@ -88,6 +88,9 @@
     
     [_breadCrumbsCollection reloadData];
     [_breadCrumbsCollection.collectionViewLayout invalidateLayout];
+    
+    [_emptyNotice sizeToFit];
+    _emptyNotice.center = _documentsTableView.center;
 }
 
 #pragma mark - BrowseDocumentListViewController -
