@@ -276,7 +276,7 @@
 {
     // Retrieve all documents
     NUXHierarchy * currentHierarchy = [NUXHierarchy hierarchyWithName:iHierarchyName];
-    if ([currentHierarchy isLoaded] == YES)
+    //if ([currentHierarchy isLoaded] == YES)
     {
         NSArray * allDocs = [currentHierarchy contentOfAllDocuments];
         

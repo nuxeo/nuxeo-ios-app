@@ -359,7 +359,7 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
 
 - (void) onTouchSearch:(id)sender
 {
-    // TODO: Search View
+    [[NuxeoDriveControllerHandler instance] pushAllDocumentsOfflineControllerFrom:self options:nil];
 }
 
 - (void) onTouchSettings:(id)sender

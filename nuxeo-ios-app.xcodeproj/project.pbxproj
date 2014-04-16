@@ -80,6 +80,7 @@
 		80C409D418D8F4450067740A /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098718D8F4450067740A /* HomeViewController.xib */; };
 		80C409D518D8F4450067740A /* PreviewDisplayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098918D8F4450067740A /* PreviewDisplayViewController.xib */; };
 		80C409D618D8F4450067740A /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C4098B18D8F4450067740A /* WelcomeViewController.xib */; };
+		80D6C8C918FF3153000F5117 /* BrowseAllOffLineDocumentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80D6C8C818FF3153000F5117 /* BrowseAllOffLineDocumentListViewController.m */; };
 		80EF7F7E183A5D5E00B3FC21 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F7D183A5D5E00B3FC21 /* UIKit.framework */; };
 		80EF7F80183A5D5E00B3FC21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F7F183A5D5E00B3FC21 /* Foundation.framework */; };
 		80EF7F82183A5D5E00B3FC21 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80EF7F81183A5D5E00B3FC21 /* AVFoundation.framework */; };
@@ -216,6 +217,8 @@
 		80C4098718D8F4450067740A /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		80C4098918D8F4450067740A /* PreviewDisplayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewDisplayViewController.xib; sourceTree = "<group>"; };
 		80C4098B18D8F4450067740A /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
+		80D6C8C718FF3153000F5117 /* BrowseAllOffLineDocumentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BrowseAllOffLineDocumentListViewController.h; path = "nuxeo-ios-app/Classes/Controller/Browse/BrowseAllOffLineDocumentListViewController.h"; sourceTree = SOURCE_ROOT; };
+		80D6C8C818FF3153000F5117 /* BrowseAllOffLineDocumentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BrowseAllOffLineDocumentListViewController.m; path = "nuxeo-ios-app/Classes/Controller/Browse/BrowseAllOffLineDocumentListViewController.m"; sourceTree = SOURCE_ROOT; };
 		80EF7F7A183A5D5E00B3FC21 /* nuxeo-ios-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nuxeo-ios-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80EF7F7D183A5D5E00B3FC21 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		80EF7F7F183A5D5E00B3FC21 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -354,6 +357,8 @@
 		80C4091C18D8F4450067740A /* Browse */ = {
 			isa = PBXGroup;
 			children = (
+				80D6C8C718FF3153000F5117 /* BrowseAllOffLineDocumentListViewController.h */,
+				80D6C8C818FF3153000F5117 /* BrowseAllOffLineDocumentListViewController.m */,
 				806A7E8818EAB261007607B2 /* BrowseOnDeviceViewController.h */,
 				806A7E8918EAB261007607B2 /* BrowseOnDeviceViewController.m */,
 				80C4091D18D8F4450067740A /* BrowseDocumentListViewController.h */,
@@ -861,6 +866,7 @@
 				D03E54AE18F71274003ACA03 /* NuxeoPopoverViewController.m in Sources */,
 				80C4099318D8F4450067740A /* WelcomeViewController.m in Sources */,
 				80C4099918D8F4450067740A /* NuxeoLabel.m in Sources */,
+				80D6C8C918FF3153000F5117 /* BrowseAllOffLineDocumentListViewController.m in Sources */,
 				8083104F18E1857F00D20CE3 /* NUXDocument+Utils.m in Sources */,
 				80C4099D18D8F4450067740A /* main.m in Sources */,
 				80C4099B18D8F4450067740A /* UIView+Nuxeo.m in Sources */,

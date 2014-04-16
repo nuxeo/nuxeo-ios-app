@@ -83,8 +83,11 @@
 {
 	[super viewWillAppear:animated];
 
-    if (![self.breadCrumbs containsObject:self.currentDocument])
+    if (self.currentDocument != nil)
+    {
+        if (![self.breadCrumbs containsObject:self.currentDocument])
         [self.breadCrumbs addObject:self.currentDocument];
+    }
     
     [_breadCrumbsCollection reloadData];
     [_breadCrumbsCollection.collectionViewLayout invalidateLayout];
@@ -295,6 +298,8 @@
         [cell updateDisplayForFolder:selectedDocument];
     else
         [cell updateDisplayForFile:selectedDocument];
+    
+    [cell.update setHidden:[self.context isEqualToString:kBrowseDocumentOnLine]];
     
     return cell;
 }
