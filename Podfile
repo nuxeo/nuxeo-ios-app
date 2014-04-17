@@ -8,7 +8,8 @@ pod 'NuxeoSDK', :path => '/Users/juliendimarco/Developer/frameworks/nuxeo-sdk-io
 
 # UI/UX - Interface
 pod 'UIAlertView+Blocks'
-pod 'FXForms', '~> 1.1.3', :inhibit_warnings => true
+pod 'FXForms', :git => 'https://github.com/lifely/FXForms.git' #temporary pull-request on the way
+#pod 'FXForms', '~> 1.1.3', :inhibit_warnings => true
 
 # Utils Formatter
 pod 'FormatterKit', '1.4.2'

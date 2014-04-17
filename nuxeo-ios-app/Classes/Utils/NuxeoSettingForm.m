@@ -17,12 +17,6 @@
 #import "NuxeoSettingsManager.h"
 #import "WelcomeViewController.h"
 
-@interface NuxeoSettingForm ()
-
-@property (nonatomic, retain) NSNumber *limitStorageSize;
-
-@end
-
 @implementation NuxeoSettingForm
 
 #pragma mark - Initializers -
@@ -43,14 +37,14 @@
 {
     if ((self = [super init]))
     {
-        self.limitStorageSize = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:@(5.0f * kGigabyteSize)];
-        
         _unitOfInformationFormatter = [[TTTUnitOfInformationFormatter alloc] init];
         _unitOfInformationFormatter.numberFormatter.roundingIncrement = @(0.1f);
-        [_unitOfInformationFormatter setDisplaysInTermsOfBytes:NO];
-        [_unitOfInformationFormatter setUsesIECBinaryPrefixesForCalculation:NO];
+        _unitOfInformationFormatter.displaysInTermsOfBytes = NO;
+        _unitOfInformationFormatter.usesIECBinaryPrefixesForCalculation = NO;
         
+        self.limitStorageSize = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:@(5.0f * kGigabyteSize)];
         self.maxStorageSize = [_unitOfInformationFormatter stringFromNumberOfBits:self.limitStorageSize];
+        
         self.syncOverCellular = [[NuxeoSettingsManager instance] readBoolSetting:USER_SYNC_OVER_CELLULAR defaulValue:NO];
         
         self.serverAddress = [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:@"http://demo.nuxeo.com/nuxeo/"] ;
@@ -92,6 +86,24 @@
     [[NuxeoSettingsManager instance] saveSetting:_username forKey:USER_USERNAME];
 }
 
+- (void)setLimitStorageSize:(NSNumber *)limitStorageSize
+{
+    if (_limitStorageSize == limitStorageSize || [_limitStorageSize isEqualToNumber:limitStorageSize])
+        return ;
+
+    NuxeoReleaseAndNil(_limitStorageSize);
+    _limitStorageSize = [limitStorageSize retain];
+    
+    if (!_limitStorageSize)
+        return ;
+    
+    [[NuxeoSettingsManager instance] saveSetting:_limitStorageSize forKey:USER_FILES_STORE_MAX_SIZE];
+    self.maxStorageSize = [_unitOfInformationFormatter stringFromNumberOfBits:_limitStorageSize];
+    
+    NuxeoLogD(@"maxStorage Modified: %@ --> %@", _limitStorageSize, [_unitOfInformationFormatter stringFromNumberOfBits:_limitStorageSize]);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFxForm" object:self userInfo:@{@"form" : self}];
+}
+
 #pragma mark - Actions -
 
 - (void)revokeTokenAndLogout
@@ -104,16 +116,21 @@
     }
 }
 
-- (void)storageSizeValueChanged:(FXFormSliderCell *)sender
+#pragma mark - Helper cracra - 
+
++ (CGFloat)totalDiskSpaceInBytes
 {
-    self.limitStorageSize = @(sender.slider.value);
-    
-    [[NuxeoSettingsManager instance] saveSetting:self.limitStorageSize forKey:USER_FILES_STORE_MAX_SIZE];
-    self.maxStorageSize = [_unitOfInformationFormatter stringFromNumberOfBits:self.limitStorageSize];
+    return [[[[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil] objectForKey:NSFileSystemSize] longLongValue];
+}
 
-    NuxeoLogD(@"maxStorage Modified: %f --> %@", sender.slider.value, [_unitOfInformationFormatter stringFromNumberOfBits:@(sender.slider.value)]);
++ (CGFloat)freeDiskSpaceInBytes
+{
+    return [[[[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil] objectForKey:NSFileSystemFreeSize] longLongValue];
+}
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFxForm" object:self userInfo:@{ @"form" : self }];
++ (CGFloat)usedDiskSpaceInBytes
+{
+    return [self totalDiskSpaceInBytes] - [self freeDiskSpaceInBytes];
 }
 
 #pragma mark - FXForm Protocol -
@@ -126,18 +143,13 @@
         [weakSelf revokeTokenAndLogout];
     };
     
-    void (^storageSizeValueChanged)(id sender) = ^(id sender) {
-        [weakSelf storageSizeValueChanged:sender];
-    };
-    
     return  @[
-              
               @{FXFormFieldKey : @"maxStorageSize",
                 FXFormFieldTitle : NuxeoLocalized(@"settings.file.storage"), FXFormFieldType : FXFormFieldTypeLabel},
               
-              @{FXFormFieldTitle: @"",
-                FXFormFieldCell : [FXFormSliderCell class], FXFormFieldAction : [storageSizeValueChanged copy], FXFormFieldFooter : @"",
-                @"slider.minimumValue" : @(1.0f * kMegabyteSize), @"slider.maximumValue" : @(10 * kGigabyteSize), @"slider.value" : self.limitStorageSize},
+              @{FXFormFieldKey : @"limitStorageSize", FXFormFieldTitle: @"",
+                FXFormFieldCell : [FXFormSliderCell class], FXFormFieldFooter : @"",
+                @"slider.minimumValue" : @(1.0f * kMegabyteSize), @"slider.maximumValue" : @([NuxeoSettingForm freeDiskSpaceInBytes])},
               
               @{FXFormFieldKey : @"syncOverCellular",
                 FXFormFieldTitle : NuxeoLocalized(@"settings.sync.cellular"),},
@@ -155,6 +167,24 @@
               
               @{FXFormFieldKey : @"copyrights", FXFormFieldHeader : @"", FXFormFieldType : FXFormFieldTypeDefault},
               ];
+}
+
+#pragma mark - Memory Management -
+
+- (void)dealloc
+{
+    NuxeoReleaseAndNil(_unitOfInformationFormatter);
+    
+    self.maxStorageSize = nil;
+    self.limitStorageSize = nil;
+    
+    self.serverAddress = nil;
+    self.username = nil;
+    self.password = nil;
+    
+    self.copyrights = nil;
+    
+    [super dealloc];
 }
 
 @end

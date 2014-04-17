@@ -16,6 +16,8 @@
 }
 
 @property (nonatomic, retain) NSString  *maxStorageSize;
+@property (nonatomic, retain) NSNumber  *limitStorageSize;
+
 @property (nonatomic, assign) BOOL      syncOverCellular;
 
 @property (nonatomic, retain) NSString  *serverAddress;
@@ -29,6 +31,5 @@
 
 #pragma mark - Test
 - (void)revokeTokenAndLogout;
-- (void)storageSizeValueChanged:(FXFormSliderCell *)sender;
 
 @end

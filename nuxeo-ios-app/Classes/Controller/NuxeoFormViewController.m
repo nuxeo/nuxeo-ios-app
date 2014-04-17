@@ -34,6 +34,8 @@
 {
     self.layer.cornerRadius = 2;
     self.clipsToBounds = YES;
+    
+    self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
 @end
@@ -118,11 +120,11 @@
     [_titleLabel sizeToFit];
     
     [_formTableView reloadData];
+    [_formTableView layoutIfNeeded];
     [_formTableView sizeToFit];
     
-    _formContentView.autoresizesSubviews = NO;
     _contentView.frame = (CGRect){_contentView.frame.origin, (CGRectGetWidth(_formTableView.frame) + 40),
-        (CGRectGetHeight(_titleView.frame) + 40 + CGRectGetHeight(_formTableView.frame))};
+        (CGRectGetHeight(_titleView.frame) + 40 + _formTableView.contentSize.height)};
     _contentView.center = self.view.center;
     
     if (animated)
@@ -214,6 +216,12 @@
 }
 
 #pragma mark - Memory Management -
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)dealloc
 {
