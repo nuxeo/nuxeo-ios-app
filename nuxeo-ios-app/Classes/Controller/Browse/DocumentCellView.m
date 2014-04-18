@@ -36,8 +36,6 @@
 
 - (void) updateDisplayForFile:(NUXDocument *)currentDocument
 {
-    BOOL fileExist = [currentDocument hasBinaryFile];
-    [self.update setEnabled:(fileExist && [[NuxeoDriveRemoteServices instance] downloadIsPossible])];
     [self.addSynch setHidden:YES];
 }
 

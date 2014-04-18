@@ -33,6 +33,7 @@
 
 // ================ Home screen
 - (void) pushBrowseOnDeviceControllerFrom:(UIViewController *)iController options:(NSDictionary *) options;
+- (void) pushAllDocumentsOfflineControllerFrom:(UIViewController *)iController options:(NSDictionary *) options;
 - (void) pushDocumentsControllerFrom:(UIViewController *)iController options:(NSDictionary *) options;
 
 // ================ Browse screen

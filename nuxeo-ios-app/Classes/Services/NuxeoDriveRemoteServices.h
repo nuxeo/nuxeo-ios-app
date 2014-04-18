@@ -54,7 +54,8 @@ typedef enum NuxeoHierarchieStatus
 // Load binaries of all content of a hierarchy
 - (void) loadBinariesOfHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
 - (NuxeoHierarchieStatus) getHierarchyStatus:(NSString *)hierarchieName;
-
+- (NSArray *) retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName;
+    
 // Methods for Nuxeo Drive synchronize points
 - (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion;
 - (void) addSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;

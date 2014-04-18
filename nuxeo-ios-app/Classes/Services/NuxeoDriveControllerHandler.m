@@ -24,6 +24,7 @@
 #import "HomeViewController.h"
 #import "BrowseDocumentListViewController.h"
 #import "BrowseOnDeviceViewController.h"
+#import "BrowseAllOffLineDocumentListViewController.h"
 #import "PreviewDisplayViewController.h"
 
 #import "NuxeoFormViewController.h"
@@ -67,6 +68,17 @@
     
     [rvc release];
 }
+    
+- (void) pushAllDocumentsOfflineControllerFrom:(UIViewController *)iController options:(NSDictionary *) options
+    {
+        BrowseAllOffLineDocumentListViewController *rvc = [[[BrowseAllOffLineDocumentListViewController alloc] initWithNibName:kXIBBrowseDocumentListViewController bundle:nil] autorelease];
+        rvc.context = kBrowseDocumentOffLine;
+        rvc.backButtonShown = YES;
+        rvc.updateAllButtonShown = YES;
+        rvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        
+        [iController presentViewController:rvc animated:YES completion:NULL];
+    }
 
 - (void) pushDocumentsControllerFrom:(UIViewController *)iController options:(NSDictionary *) options
 {
