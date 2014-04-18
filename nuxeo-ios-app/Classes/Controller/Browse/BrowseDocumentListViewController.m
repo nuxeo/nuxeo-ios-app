@@ -180,7 +180,7 @@
 
 - (void)onTouchAddSynch:(NSIndexPath *)indexPath
 {
-    [[NuxeoDriveRemoteServices instance] addSynchronizePoint:[self documentByIndexPath:indexPath].path completionBlock:NULL];
+    [[NuxeoDriveRemoteServices instance] addSynchronizePoint:[self documentByIndexPath:indexPath].path completionBlock:nil];
 }
 
 - (void)onTouchUpdate:(NSIndexPath *)indexPath

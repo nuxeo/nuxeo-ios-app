@@ -439,7 +439,10 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ADD_SYNC_POINT object:((NUXAutomationRequest *)nuxRequest).input];
         
-        completion(result);
+        if (completion != nil)
+        {
+            completion(result);
+        }
         
     } FailureBlock:^(NUXRequest *request) {
         
@@ -460,7 +463,10 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_REMOVE_SYNC_POINT object:((NUXAutomationRequest *)nuxRequest).input];
         
-        completion(result);
+        if (completion != nil)
+        {
+            completion(result);
+        }
         
     } FailureBlock:^(NUXRequest *request) {
         
