@@ -17,6 +17,79 @@
 #import "NuxeoSettingsManager.h"
 #import "WelcomeViewController.h"
 
+@interface FXFormBaseCell ()
+- (void)setUp;
+- (void)update;
+@end
+
+@implementation FXFormTextSliderCell
+
+- (void)setUp
+{
+    [super setUp];
+    
+    _unitOfInformationFormatter = [[TTTUnitOfInformationFormatter alloc] init];
+    _unitOfInformationFormatter.numberFormatter.roundingIncrement = @(1.f);
+    _unitOfInformationFormatter.numberFormatter.roundingMode = NSNumberFormatterRoundCeiling;
+    _unitOfInformationFormatter.displaysInTermsOfBytes = NO;
+    _unitOfInformationFormatter.usesIECBinaryPrefixesForCalculation = NO;
+    
+    self.slider = [[UISlider alloc] init];
+    [self.slider addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
+    [self.contentView addSubview:self.slider];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    CGRect sliderFrame = self.slider.frame;
+    
+    self.textLabel.frame = (CGRect){CGRectGetMinX(self.textLabel.frame), 12, self.textLabel.frame.size};
+    self.detailTextLabel.frame = (CGRect){CGRectGetMinX(self.detailTextLabel.frame), 12, self.detailTextLabel.frame.size};
+    
+    sliderFrame.origin.x = 10;
+    sliderFrame.origin.y = CGRectGetMaxY(self.textLabel.frame) + 12;
+    sliderFrame.size.width = self.contentView.bounds.size.width - sliderFrame.origin.x - 10;
+
+    self.slider.frame = sliderFrame;
+}
+
+- (void)update
+{
+    [super update];
+    
+    self.textLabel.text = self.field.title;
+    self.detailTextLabel.text = [_unitOfInformationFormatter stringFromNumberOfBits:self.field.value];;
+    self.slider.value = [self.field.value doubleValue];
+    
+    [self setNeedsLayout];
+}
+
+- (void)valueChanged
+{
+    self.field.value = @(self.slider.value);
+    self.detailTextLabel.text = [_unitOfInformationFormatter stringFromNumberOfBits:self.field.value];;
+    if (self.field.action) self.field.action(self);
+}
+
++ (CGFloat)heightForField:(FXFormField *)field
+{
+    return 68 + 10;
+}
+
+- (void)dealloc
+{
+    NuxeoReleaseAndNil(_unitOfInformationFormatter);
+    
+    self.slider = nil;
+    [super dealloc];
+}
+
+@end
+
 @implementation NuxeoSettingForm
 
 #pragma mark - Initializers -
@@ -94,7 +167,7 @@
         return ;
 
     NuxeoReleaseAndNil(_limitStorageSize);
-    _limitStorageSize = [limitStorageSize retain];
+    _limitStorageSize = [[NSNumber numberWithFloat:ceilf([limitStorageSize floatValue])] retain];
     
     if (!_limitStorageSize)
         return ;
@@ -103,7 +176,7 @@
     self.maxStorageSize = [_unitOfInformationFormatter stringFromNumberOfBits:_limitStorageSize];
     
     NuxeoLogD(@"maxStorage Modified: %@ --> %@", _limitStorageSize, [_unitOfInformationFormatter stringFromNumberOfBits:_limitStorageSize]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFxForm" object:self userInfo:@{@"form" : self}];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFxForm" object:self userInfo:@{@"form" : self}];
 }
 
 #pragma mark - Actions -
@@ -146,12 +219,12 @@
     };
     
     return  @[
-              @{FXFormFieldKey : @"maxStorageSize",
-                FXFormFieldTitle : NuxeoLocalized(@"settings.file.storage"), FXFormFieldType : FXFormFieldTypeLabel},
+//              @{FXFormFieldKey : @"maxStorageSize",
+//                FXFormFieldTitle : NuxeoLocalized(@"settings.file.storage"), FXFormFieldType : FXFormFieldTypeLabel},
               
-              @{FXFormFieldKey : @"limitStorageSize", FXFormFieldTitle: @"",
-                FXFormFieldCell : [FXFormSliderCell class], FXFormFieldFooter : @"",
-                @"slider.minimumValue" : @(1.0f * kMegabyteSize), @"slider.maximumValue" : @([NuxeoSettingForm freeDiskSpaceInBytes])},
+              @{FXFormFieldKey : @"limitStorageSize", FXFormFieldTitle: NuxeoLocalized(@"settings.file.storage"),
+                FXFormFieldCell : [FXFormTextSliderCell class], FXFormFieldFooter : @"",
+                @"slider.minimumValue" : @(1.0f * kMegabyteSize), @"slider.maximumValue" : @([NuxeoSettingForm totalDiskSpaceInBytes])},
               
               @{FXFormFieldKey : @"syncOverCellular",
                 FXFormFieldTitle : NuxeoLocalized(@"settings.sync.cellular"),},
@@ -162,7 +235,7 @@
               
               @{FXFormFieldKey : @"username", FXFormFieldTitle : NuxeoLocalized(@"welcome.username"), FXFormFieldType : FXFormFieldTypeLabel},
               @{FXFormFieldKey : @"password", FXFormFieldTitle : NuxeoLocalized(@"welcome.password"),
-                FXFormFieldFooter : @"", FXFormFieldType : FXFormFieldTypeLabel},
+                FXFormFieldFooter : @"", @"textField.enabled" : @(NO)},
 
               @{FXFormFieldTitle: NuxeoLocalized(@"settings.revoke.token"),
                 FXFormFieldAction: [revokeAndLogout copy], @"textLabel.color": [UIColor redColor]},

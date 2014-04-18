@@ -22,15 +22,6 @@
 #import <FXForms/FXForms.h>
 
 @class FXFormController;
-
-@interface MyForm : NSObject <FXForm>
-
-@property (nonatomic, copy) NSString *email;
-@property (nonatomic, copy) NSString *password;
-@property (nonatomic, assign) BOOL rememberMe;
-
-@end
-
 @interface NuxeoFormViewController : UIViewController <FXFormControllerDelegate>
 {
     IBOutlet UIView *_contentView;

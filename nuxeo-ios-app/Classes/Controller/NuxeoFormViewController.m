@@ -18,6 +18,7 @@
  * 	Julien Di Marco
  */
 
+#import <FormatterKit/TTTUnitOfInformationFormatter.h>
 #import <FXForms/FXForms.h>
 
 #import "NuxeoFormViewController.h"
@@ -35,7 +36,16 @@
     self.layer.cornerRadius = 2;
     self.clipsToBounds = YES;
     
+    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundView.backgroundColor = [UIColor whiteColor];
     self.contentView.backgroundColor = [UIColor whiteColor];
+    self.accessoryView.backgroundColor = [UIColor whiteColor];
+    
+    for (UIView *view in self.contentView.subviews)
+        view.backgroundColor = [UIColor whiteColor];
+    
+    for (UIView *view in self.subviews)
+        view.backgroundColor = [UIColor whiteColor];
 }
 
 @end
@@ -202,7 +212,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return [[self.formController sectionAtIndex:section] header] ? 42 : 0;
+    NSString * header_ = [[self.formController sectionAtIndex:section] header];
+    
+    return header_ ? (header_.length ? 42 : 22) : 0;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
@@ -213,6 +225,14 @@
     
     tableViewHeaderFooterView.backgroundView.backgroundColor = _contentView.backgroundColor;
     tableViewHeaderFooterView.contentView.backgroundColor = _contentView.backgroundColor;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundView.backgroundColor = [UIColor whiteColor];
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+    cell.accessoryView.backgroundColor = [UIColor whiteColor];
 }
 
 #pragma mark - Memory Management -

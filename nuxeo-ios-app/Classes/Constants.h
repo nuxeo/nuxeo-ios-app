@@ -148,9 +148,9 @@
 
 /********************************** NUXEO SETTINGS ********************************/
 #ifdef DEBUG
-#define kNuxeoSiteURL               @"http://smartnsoft-nuxeo.sales.nuxeo.io/nuxeo/"
-#else
 #define kNuxeoSiteURL               @"http://demo.nuxeo.com/nuxeo/"
+#else
+#define kNuxeoSiteURL               @"http://smartnsoft-nuxeo.sales.nuxeo.io/nuxeo/"
 #endif
 
 #define kNuxeoApiPrefix             @"api/v1/"

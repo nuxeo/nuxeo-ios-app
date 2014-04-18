@@ -10,6 +10,15 @@
 #import <FXForms/FXForms.h>
 
 @class TTTUnitOfInformationFormatter;
+
+@interface FXFormTextSliderCell : FXFormBaseCell
+{
+    TTTUnitOfInformationFormatter *_unitOfInformationFormatter;
+}
+
+@property (nonatomic, retain) UISlider *slider;
+@end
+
 @interface NuxeoSettingForm : NSObject <FXForm>
 {
     TTTUnitOfInformationFormatter *_unitOfInformationFormatter;
