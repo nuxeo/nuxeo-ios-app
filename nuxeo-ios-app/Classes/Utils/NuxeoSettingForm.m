@@ -22,6 +22,89 @@
 - (void)update;
 @end
 
+@implementation FXFormImageTextCell
+
+- (void)setUp
+{
+    [super setUp];
+    
+    self.backgroundColor = [UIColor whiteColor];
+    self.textField.textColor = [UIColor colorWithRed:0.675 green:0.718 blue:0.733 alpha:1.000];
+    self.textField.textAlignment = NSTextAlignmentLeft;
+    self.textField.enabled = NO;
+}
+
+- (void)update
+{
+    [super update];
+    
+    self.backgroundColor = [UIColor whiteColor];
+    self.textField.textAlignment = NSTextAlignmentLeft;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    self.imageView.frame = (CGRect){self.imageView.frame.origin, self.imageView.image.size};
+    self.imageView.center = (CGPoint){20, self.imageView.center.y};
+    
+    self.textField.frame = (CGRect){40, CGRectGetMinY(self.textField.frame), CGRectGetWidth(self.textField.frame) - 40, CGRectGetHeight(self.textField.frame)};
+    NuxeoLogD(@"image size: %@", NSStringFromCGSize(self.imageView.image.size));
+}
+
+@end
+
+#pragma mark - Text Cell for copyrights
+@implementation FXFormTextCell
+
+- (void)setUp
+{
+    [super setUp];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.textLabel.font = [UIFont systemFontOfSize:15];
+    self.textLabel.textColor = [UIColor colorWithWhite:0.714 alpha:1.000];
+    
+    self.backgroundColor = [UIColor clearColor];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    self.textLabel.frame = self.contentView.frame;
+}
+
+- (void)update
+{
+    
+    self.textLabel.text = self.field.value;
+    self.textLabel.numberOfLines = 0;
+    self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.detailTextLabel.text = nil;
+    
+    self.accessoryType = UITableViewCellAccessoryNone;
+    self.textLabel.textAlignment = NSTextAlignmentCenter;
+    
+    if ([[UIDevice currentDevice].systemVersion floatValue] < 7.0)
+        return ;
+    
+    NSDictionary *attrs = @{NSForegroundColorAttributeName : self.textLabel.textColor, NSFontAttributeName : self.textLabel.font,
+                             NSTextEffectAttributeName : NSTextEffectLetterpressStyle};
+    self.textLabel.attributedText = [[NSAttributedString alloc] initWithString:self.field.value attributes:attrs];
+    
+    self.backgroundColor = [UIColor clearColor];
+}
+
++ (CGFloat)heightForField:(FXFormField *)field
+{
+    return 20;
+}
+
+@end
+
+#pragma mark - Text Slider Cell
 @implementation FXFormTextSliderCell
 
 - (void)setUp
@@ -90,6 +173,7 @@
 
 @end
 
+#pragma mark - Nuxeo
 @implementation NuxeoSettingForm
 
 #pragma mark - Initializers -
@@ -176,7 +260,6 @@
     self.maxStorageSize = [_unitOfInformationFormatter stringFromNumberOfBits:_limitStorageSize];
     
     NuxeoLogD(@"maxStorage Modified: %@ --> %@", _limitStorageSize, [_unitOfInformationFormatter stringFromNumberOfBits:_limitStorageSize]);
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFxForm" object:self userInfo:@{@"form" : self}];
 }
 
 #pragma mark - Actions -
@@ -227,20 +310,25 @@
                 @"slider.minimumValue" : @(1.0f * kMegabyteSize), @"slider.maximumValue" : @([NuxeoSettingForm totalDiskSpaceInBytes])},
               
               @{FXFormFieldKey : @"syncOverCellular",
-                FXFormFieldTitle : NuxeoLocalized(@"settings.sync.cellular"),},
+                FXFormFieldTitle : NuxeoLocalized(@"settings.sync.cellular"), @"backgroundColor" : [UIColor whiteColor]},
               
               // Authentification
-              @{FXFormFieldKey : @"serverAddress", FXFormFieldType : FXFormFieldTypeLabel,
-                FXFormFieldTitle : NuxeoLocalized(@"welcome.host.url"), FXFormFieldHeader : [NuxeoLocalized(@"settings.authentication") uppercaseString]},
+              @{FXFormFieldKey : @"serverAddress", FXFormFieldCell : [FXFormImageTextCell class],
+                FXFormFieldTitle : @"", @"imageView.image" : [UIImage imageNamed:@"ic_host"],
+                FXFormFieldHeader : [NuxeoLocalized(@"settings.authentication") uppercaseString]},
               
-              @{FXFormFieldKey : @"username", FXFormFieldTitle : NuxeoLocalized(@"welcome.username"), FXFormFieldType : FXFormFieldTypeLabel},
-              @{FXFormFieldKey : @"password", FXFormFieldTitle : NuxeoLocalized(@"welcome.password"),
-                FXFormFieldFooter : @"", @"textField.enabled" : @(NO)},
-
+              @{FXFormFieldKey : @"username", FXFormFieldCell : [FXFormImageTextCell class],
+                FXFormFieldTitle : @"", @"imageView.image" : [UIImage imageNamed:@"ic_username"],},
+              
+              @{FXFormFieldKey : @"password", FXFormFieldCell : [FXFormImageTextCell class],
+                FXFormFieldTitle : @"", @"imageView.image" : [UIImage imageNamed:@"ic_password-set"],
+                FXFormFieldFooter : @"",},
+              
               @{FXFormFieldTitle: NuxeoLocalized(@"settings.revoke.token"),
                 FXFormFieldAction: [revokeAndLogout copy], @"textLabel.color": [UIColor redColor]},
               
-              @{FXFormFieldKey : @"copyrights", FXFormFieldHeader : @"", FXFormFieldType : FXFormFieldTypeDefault},
+              @{FXFormFieldKey : @"copyrights", FXFormFieldHeader : @"", FXFormFieldTitle : @"",
+                FXFormFieldType : FXFormFieldTypeDefault, FXFormFieldCell : [FXFormTextCell class]},
               ];
 }
 

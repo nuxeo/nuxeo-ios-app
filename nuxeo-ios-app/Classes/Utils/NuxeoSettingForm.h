@@ -11,6 +11,15 @@
 
 @class TTTUnitOfInformationFormatter;
 
+#pragma mark - Image Cell
+@interface FXFormImageTextCell : FXFormTextFieldCell
+@end
+
+#pragma mark - Text Cell
+@interface FXFormTextCell : FXFormBaseCell
+@end
+
+#pragma mark - Text Slider Cell
 @interface FXFormTextSliderCell : FXFormBaseCell
 {
     TTTUnitOfInformationFormatter *_unitOfInformationFormatter;
@@ -19,6 +28,7 @@
 @property (nonatomic, retain) UISlider *slider;
 @end
 
+#pragma mark - Nuxeo Setting form
 @interface NuxeoSettingForm : NSObject <FXForm>
 {
     TTTUnitOfInformationFormatter *_unitOfInformationFormatter;

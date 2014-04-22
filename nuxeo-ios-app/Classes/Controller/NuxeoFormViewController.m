@@ -23,40 +23,85 @@
 
 #import "NuxeoFormViewController.h"
 
+#pragma mark - Disable some more warnings -
+
+// !!!: Help Remove warning for tableView:heightForHeaderInSection: l178~
+@interface NSObject ()
+- (NSObject *)sectionAtIndex:(NSUInteger)index;
+- (BOOL)isSubform;
+@property (nonatomic, strong) NSString *header;
+@property (nonatomic, strong) NSString *footer;
+@end
+
 #pragma mark - BaseCell Overide for design / style -
 
 @interface FXFormBaseCell (NuxeoFormView)
 - (void)setUp;
+- (void)update;
 @end
 
 @implementation FXFormBaseCell (NuxeoFormView)
 
 - (void)setUp
 {
-    self.layer.cornerRadius = 2;
+    self.layer.cornerRadius = 4;
+    self.layer.masksToBounds = YES;
     self.clipsToBounds = YES;
     
     self.backgroundColor = [UIColor whiteColor];
-    self.backgroundView.backgroundColor = [UIColor whiteColor];
-    self.contentView.backgroundColor = [UIColor whiteColor];
-    self.accessoryView.backgroundColor = [UIColor whiteColor];
+    NuxeoLogD(@"Test color: <%p: %@>", self, self.backgroundColor);
     
     for (UIView *view in self.contentView.subviews)
         view.backgroundColor = [UIColor whiteColor];
     
     for (UIView *view in self.subviews)
         view.backgroundColor = [UIColor whiteColor];
+    
+    self.detailTextLabel.textColor = [UIColor colorWithRed:0.675 green:0.718 blue:0.733 alpha:1.000];
+    self.detailTextLabel.textAlignment = NSTextAlignmentLeft;
 }
 
-@end
+- (void)update
+{
+    //override
+    
+    if ([self class] == [FXFormBaseCell class])
+    {
+        self.textLabel.text = self.field.title;
+        self.detailTextLabel.text = [self.field fieldDescription] ?: [self.field.placeholder fieldDescription];
+        
+        if ([self.field.type isEqualToString:FXFormFieldTypeLabel])
+        {
+            self.accessoryType = UITableViewCellAccessoryNone;
+            if (!self.field.action)
+            {
+                self.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+        }
+        else if ([self.field isSubform])
+        {
+            self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        else if ([self.field.type isEqualToString:FXFormFieldTypeBoolean] || [self.field.type isEqualToString:FXFormFieldTypeOption])
+        {
+            self.detailTextLabel.text = nil;
+            self.accessoryType = [self.field.value boolValue]? UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone;
+        }
+        else if (self.field.action)
+        {
+            self.accessoryType = UITableViewCellAccessoryNone;
+            self.textLabel.textAlignment = NSTextAlignmentCenter;
+        }
+        else
+        {
+            self.accessoryType = UITableViewCellAccessoryNone;
+            self.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+    }
+    
+    self.backgroundColor = [UIColor whiteColor];
+}
 
-#pragma mark - Disable some more warnings -
-
-// !!!: Help Remove warning for tableView:heightForHeaderInSection: l178~
-@interface NSObject ()
-- (NSObject *)sectionAtIndex:(NSUInteger)index;
-@property (nonatomic, strong) NSString *header;
-@property (nonatomic, strong) NSString *footer;
 @end
 
 #pragma mark - NuxeoFormViewController Private Attributes -
@@ -229,10 +274,10 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = [UIColor whiteColor];
-    cell.backgroundView.backgroundColor = [UIColor whiteColor];
-    cell.contentView.backgroundColor = [UIColor whiteColor];
-    cell.accessoryView.backgroundColor = [UIColor whiteColor];
+    NuxeoLogD(@"Test color: <%p: %@>", cell, cell.backgroundColor);
+    cell.backgroundView.backgroundColor = cell.backgroundColor;
+    cell.contentView.backgroundColor = cell.backgroundColor;
+    cell.accessoryView.backgroundColor = cell.backgroundColor;
 }
 
 #pragma mark - Memory Management -

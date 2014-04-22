@@ -95,6 +95,12 @@
 		9C89AA4E18F88E8B007BC7CA /* NuxeoSettingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C89AA4D18F88E8B007BC7CA /* NuxeoSettingForm.m */; };
 		D00548F318FC364C00B589E8 /* background_section_breadcrumbs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00548F218FC364C00B589E8 /* background_section_breadcrumbs@2x.png */; };
 		D00548F618FC4FE100B589E8 /* NUXDocumentInfoForm.m in Sources */ = {isa = PBXBuildFile; fileRef = D00548F518FC4FE100B589E8 /* NUXDocumentInfoForm.m */; };
+		D015703D1906B7FE0000A44C /* ic_username~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D01570371906B7FE0000A44C /* ic_username~ipad.png */; };
+		D015703E1906B7FE0000A44C /* ic_host~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D01570381906B7FE0000A44C /* ic_host~ipad.png */; };
+		D015703F1906B7FE0000A44C /* ic_password-set~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D01570391906B7FE0000A44C /* ic_password-set~ipad.png */; };
+		D01570401906B7FE0000A44C /* ic_password-set@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D015703A1906B7FE0000A44C /* ic_password-set@2x~ipad.png */; };
+		D01570411906B7FE0000A44C /* ic_username@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D015703B1906B7FE0000A44C /* ic_username@2x~ipad.png */; };
+		D01570421906B7FE0000A44C /* ic_host@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D015703C1906B7FE0000A44C /* ic_host@2x~ipad.png */; };
 		D03E54A618F6E636003ACA03 /* ic_add_folder@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A418F6E636003ACA03 /* ic_add_folder@2x~ipad.png */; };
 		D03E54A818F6E67B003ACA03 /* background_folder_tile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A718F6E67B003ACA03 /* background_folder_tile@2x.png */; };
 		D03E54AA18F6F3A1003ACA03 /* ic_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */; };
@@ -237,6 +243,12 @@
 		D00548F218FC364C00B589E8 /* background_section_breadcrumbs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_section_breadcrumbs@2x.png"; sourceTree = "<group>"; };
 		D00548F418FC4FE100B589E8 /* NUXDocumentInfoForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUXDocumentInfoForm.h; sourceTree = "<group>"; };
 		D00548F518FC4FE100B589E8 /* NUXDocumentInfoForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUXDocumentInfoForm.m; sourceTree = "<group>"; };
+		D01570371906B7FE0000A44C /* ic_username~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_username~ipad.png"; sourceTree = "<group>"; };
+		D01570381906B7FE0000A44C /* ic_host~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_host~ipad.png"; sourceTree = "<group>"; };
+		D01570391906B7FE0000A44C /* ic_password-set~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_password-set~ipad.png"; sourceTree = "<group>"; };
+		D015703A1906B7FE0000A44C /* ic_password-set@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_password-set@2x~ipad.png"; sourceTree = "<group>"; };
+		D015703B1906B7FE0000A44C /* ic_username@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_username@2x~ipad.png"; sourceTree = "<group>"; };
+		D015703C1906B7FE0000A44C /* ic_host@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_host@2x~ipad.png"; sourceTree = "<group>"; };
 		D03E54A418F6E636003ACA03 /* ic_add_folder@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_add_folder@2x~ipad.png"; sourceTree = "<group>"; };
 		D03E54A718F6E67B003ACA03 /* background_folder_tile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_folder_tile@2x.png"; sourceTree = "<group>"; };
 		D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_info@2x.png"; sourceTree = "<group>"; };
@@ -558,6 +570,12 @@
 		80C4097D18D8F4450067740A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D01570371906B7FE0000A44C /* ic_username~ipad.png */,
+				D01570381906B7FE0000A44C /* ic_host~ipad.png */,
+				D01570391906B7FE0000A44C /* ic_password-set~ipad.png */,
+				D015703A1906B7FE0000A44C /* ic_password-set@2x~ipad.png */,
+				D015703B1906B7FE0000A44C /* ic_username@2x~ipad.png */,
+				D015703C1906B7FE0000A44C /* ic_host@2x~ipad.png */,
 				80C4097E18D8F4450067740A /* background_settings@2x~ipad.png */,
 			);
 			path = Settings;
@@ -732,6 +750,7 @@
 				806A7E9418EB1D2B007607B2 /* SettingsViewController.xib in Resources */,
 				D0C34C5018F5A7B60008FB69 /* bt_header_cloud_selected@2x~ipad.png in Resources */,
 				80C409A118D8F4450067740A /* Icon512.png in Resources */,
+				D015703F1906B7FE0000A44C /* ic_password-set~ipad.png in Resources */,
 				806A7E8C18EAB268007607B2 /* BrowseOnDeviceViewController.xib in Resources */,
 				80C409D618D8F4450067740A /* WelcomeViewController.xib in Resources */,
 				80C409B118D8F4450067740A /* ic_synchro_type_video@2x~ipad.png in Resources */,
@@ -747,6 +766,7 @@
 				80C409AB18D8F4450067740A /* ic_repository@2x.png in Resources */,
 				80C409AC18D8F4450067740A /* ic_synchro_type_file@2x~ipad.png in Resources */,
 				D0C34C5218F5A7B60008FB69 /* bt_header_find_selected@2x~ipad.png in Resources */,
+				D015703E1906B7FE0000A44C /* ic_host~ipad.png in Resources */,
 				80C409CA18D8F4450067740A /* ic_header_logo@2x~ipad.png in Resources */,
 				80C409CE18D8F4450067740A /* background_settings@2x~ipad.png in Resources */,
 				80C409C918D8F4450067740A /* bt_login@2x~ipad.png in Resources */,
@@ -758,6 +778,7 @@
 				D03E54AF18F71274003ACA03 /* NuxeoPopoverViewController.xib in Resources */,
 				80C409B218D8F4450067740A /* ic_type_file@2x~ipad.png in Resources */,
 				80C409B018D8F4450067740A /* ic_synchro_type_sound@2x~ipad.png in Resources */,
+				D01570421906B7FE0000A44C /* ic_host@2x~ipad.png in Resources */,
 				80C4099C18D8F4450067740A /* Images.xcassets in Resources */,
 				806582DE18F34320007F389F /* ic_type_note@2x~ipad.png in Resources */,
 				D09D45F218F8387300DA8CC4 /* NuxeoFormViewController.xib in Resources */,
@@ -767,6 +788,7 @@
 				80C409A718D8F4450067740A /* bt_openwith@2x~ipad.png in Resources */,
 				80C409D218D8F4450067740A /* DirectoryViewCell.xib in Resources */,
 				803D27AC18FC150800DDBCF0 /* ic_unpin@2x~ipad.png in Resources */,
+				D01570411906B7FE0000A44C /* ic_username@2x~ipad.png in Resources */,
 				D0C34C5918F5A7B60008FB69 /* ic_header_find@2x~ipad.png in Resources */,
 				D0C34C5318F5A7B60008FB69 /* bt_header_find@2x~ipad.png in Resources */,
 				80C409A218D8F4450067740A /* Icon512@2x.png in Resources */,
@@ -790,6 +812,8 @@
 				80C409D018D8F4450067740A /* NUXSession-info.plist in Resources */,
 				80C409AE18D8F4450067740A /* ic_synchro_type_image@2x~ipad.png in Resources */,
 				80C409B318D8F4450067740A /* ic_type_folder@2x~ipad.png in Resources */,
+				D015703D1906B7FE0000A44C /* ic_username~ipad.png in Resources */,
+				D01570401906B7FE0000A44C /* ic_password-set@2x~ipad.png in Resources */,
 				D0C34C5818F5A7B60008FB69 /* bt_header_update@2x~ipad.png in Resources */,
 				D0C34C5718F5A7B60008FB69 /* bt_header_update_selected@2x~ipad.png in Resources */,
 				80C409A518D8F4450067740A /* background_info@2x~ipad.png in Resources */,
@@ -923,6 +947,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "nuxeo-ios-app";
 				PROVISIONING_PROFILE = "9926C58D-0232-496C-8276-8EC39243BF77";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -992,6 +1017,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
+				PRODUCT_NAME = "nuxeo-ios-app";
 				PROVISIONING_PROFILE = "0795D2DC-397B-4A62-9CB1-4591FF7ABA8D";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1019,6 +1045,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "nuxeo-ios-app";
 				PROVISIONING_PROFILE = "1DEF706C-AC9D-43B3-A47A-BB31D87BFB98";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
