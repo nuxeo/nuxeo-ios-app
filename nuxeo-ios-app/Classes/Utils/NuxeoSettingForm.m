@@ -15,6 +15,7 @@
 #import "NuxeoSettingForm.h"
 
 #import "NuxeoSettingsManager.h"
+#import "NuxeoDriveRemoteServices.h"
 #import "WelcomeViewController.h"
 
 @interface FXFormBaseCell ()
@@ -186,7 +187,9 @@
     NUXSession * nuxSession = [NUXSession sharedSession];
     if (nuxSession.authenticator != nil)
     {
+        [[NuxeoDriveRemoteServices instance] resetSynchronizedPoints];
         [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
+        nuxSession.authenticator = nil;
         [[APP_DELEGATE getVisibleViewController] dismissViewControllerAnimated:NO completion:NULL];
     }
 }
