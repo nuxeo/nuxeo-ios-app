@@ -157,8 +157,8 @@
 #define kNuxeoUser                  @"Administrator"
 #define kNuxeoPassword              @"Administrator"
 #define kNuxeoRepository            @"default"
-#define kNuxeoAppName               @"nuxeo-ios-app"
-#define kNuxeoPermission            @"rw"
+#define kNuxeoAppName               @"Nuxeo Drive iOS Edition"
+#define kNuxeoPermission            @"ReadWrite"
 
 // global schemas
 #define kNuxeoSchemaDublincore      @"dublincore"
