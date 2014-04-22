@@ -93,7 +93,8 @@
     [_breadCrumbsCollection.collectionViewLayout invalidateLayout];
     
     [_emptyNotice sizeToFit];
-    _emptyNotice.center = _documentsTableView.center;
+    _emptyNotice.center = (CGPoint){self.view.center.x, self.view.center.y - CGRectGetMinY(self.contentView.frame)};
+    _emptyNotice.alpha = 0;
 }
 
 #pragma mark - BrowseDocumentListViewController -
@@ -140,8 +141,10 @@
         
         [_documentsTableView reloadData];
         
-        _documentsTableView.hidden = (_documents.count == 0);
-        _emptyNotice.hidden = !(_documents.count == 0);
+        [UIView animateWithDuration:1 animations:^{
+            _documentsTableView.alpha = (_documents.count == 0) ? 0 : 1;
+            _emptyNotice.alpha = (_documents.count == 0) ? 1 : 0;
+        }];
         
     } FailureBlock:NULL];
 }
@@ -152,9 +155,7 @@
         return ;
     
     _documents = [[NSMutableArray alloc] init];
-    
-    NSArray * filesOfDocument = [self.currentHierarchy contentOfDocument:self.currentDocument];
-    [_documents addObjectsFromArray:filesOfDocument];
+    [_documents addObjectsFromArray:[self.currentHierarchy contentOfDocument:self.currentDocument]];
     
     for (NUXDocument * nuxDocument in _documents)
         if ([nuxDocument.properties objectForKey:@"empty"] == nil)
@@ -162,6 +163,11 @@
             BOOL isEmpty = ![self.currentHierarchy hasContentUnderNode:nuxDocument.uid];
             [nuxDocument.properties setObject:[NSNumber numberWithBool:isEmpty] forKey:@"empty"];
         }
+    
+    [UIView animateWithDuration:1 animations:^{
+        _documentsTableView.alpha = (_documents.count == 0) ? 0 : 1;
+        _emptyNotice.alpha = (_documents.count == 0) ? 1 : 0;
+    }];
     
     [_documentsTableView reloadData];
 }

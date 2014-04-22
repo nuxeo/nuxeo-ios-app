@@ -35,6 +35,8 @@ extern NSString* const kBackButtonResourceName;
 }
 
 #pragma mark - Properties
+@property (nonatomic, readonly) UIView *contentView;
+
 @property (nonatomic, getter = isHeaderHidden)          BOOL headerHidden;
 @property (nonatomic, getter = isFooterHidden)          BOOL footerHidden;
 @property (nonatomic, getter = isBackButtonShown)       BOOL backButtonShown;
