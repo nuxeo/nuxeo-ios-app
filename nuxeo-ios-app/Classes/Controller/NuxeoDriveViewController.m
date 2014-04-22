@@ -275,7 +275,7 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
 {
 	// Check Authentication
     NUXSession *session = [NUXSession sharedSession];
-    if ([session.authenticator softAuthentication] == NO)
+    if ([session.authenticator softAuthentication] == NO || session.authenticator == nil)
     {
         // Otherwise; Present Logout
         [self logout];
@@ -420,8 +420,9 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
     if (nuxSession.authenticator != nil)
     {
         [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
-        [self presentViewController:[[[WelcomeViewController alloc] init] autorelease] animated:YES completion:NULL];
+        
     }
+    [self presentViewController:[[[WelcomeViewController alloc] init] autorelease] animated:YES completion:NULL];
 }
 
 #pragma mark -

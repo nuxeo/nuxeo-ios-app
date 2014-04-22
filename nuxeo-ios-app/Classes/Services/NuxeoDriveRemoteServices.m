@@ -527,6 +527,13 @@
 
 }
 
+- (void)resetSynchronizedPoints
+{
+    NuxeoReleaseAndNil(synchronisedPoints);
+    synchronisedPoints = [[NSMutableDictionary dictionary] retain];
+    [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
+}
+
 #pragma mark
 #pragma mark Blob or binaries methods
 #pragma mark

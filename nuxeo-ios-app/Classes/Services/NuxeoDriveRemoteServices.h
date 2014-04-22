@@ -48,22 +48,23 @@ typedef enum NuxeoHierarchieStatus
 - (NSString *) getIOSLanguage;
 
 // Obtain hierarchy by its name
-- (NUXHierarchy *) getHierarchyWithName:(NSString *)iHerarchieName;
+- (NUXHierarchy *)getHierarchyWithName:(NSString *)iHerarchieName;
 // Update a full hierarchy
 - (void)loadFullHierarchyByName:(NSString *)hierarchyName;
 // Load binaries of all content of a hierarchy
-- (void) loadBinariesOfHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
+- (void)loadBinariesOfHierarchy:(NSString *)iHerarchieName completionBlock:(NuxeoDriveServicesBlock)completion;
 - (NuxeoHierarchieStatus) getHierarchyStatus:(NSString *)hierarchieName;
-- (NSArray *) retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName;
+- (NSArray *)retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName;
     
 // Methods for Nuxeo Drive synchronize points
-- (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion;
-- (void) addSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
-- (void) removeSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
-- (void) refreshAllSyncPoints:(BOOL)withContent;
+- (void)retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion;
+- (void)addSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
+- (void)removeSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
+- (void)refreshAllSyncPoints:(BOOL)withContent;
+- (void)resetSynchronizedPoints;
 
 // Blob methods
-- (NSString *) getDocPathForDocument:(NUXDocument *)nuxDocument;
-- (BOOL) downloadIsPossible;
+- (NSString *)getDocPathForDocument:(NUXDocument *)nuxDocument;
+- (BOOL)downloadIsPossible;
 
 @end

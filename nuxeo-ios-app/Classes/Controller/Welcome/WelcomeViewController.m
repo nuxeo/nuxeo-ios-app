@@ -22,6 +22,8 @@
 
 #import <NuxeoSDK/NUXTokenAuthenticator.h>
 
+#import "NuxeoSettingsManager.h"
+
 @implementation WelcomeViewController
 
 #pragma mark -
@@ -79,8 +81,8 @@
     APP_DELEGATE.syncAllEnable = NO;
     
     // Authentication
-    [[NSUserDefaults standardUserDefaults] setValue:self.hostURL.text forKey:USER_HOST_URL];
-    [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:USER_USERNAME];
+    [[NuxeoSettingsManager instance] saveSetting:self.hostURL.text forKey:USER_HOST_URL];
+    [[NuxeoSettingsManager instance] saveSetting:self.username.text forKey:USER_USERNAME];
     
     NUXTokenAuthenticator *auth = [[NUXTokenAuthenticator alloc] init];
     // Those fields are mandatory
