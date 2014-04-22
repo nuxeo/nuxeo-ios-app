@@ -37,7 +37,7 @@
 "button.openwith"                       = "OPEN WITH";
 "button.sync.all"                       = "SYNC ALL FILES";
 "button.sync"                           = "SYNC";
-"button.add.sync"                       = "ADD TO DEVICE";
+"button.add.sync"                       = "SYNC";
 "button.pin"                            = "PIN";
 "button.info"                           = "INFO";
 "button.done"                           = "DONE";
