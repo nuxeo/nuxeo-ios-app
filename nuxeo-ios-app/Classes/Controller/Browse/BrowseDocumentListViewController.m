@@ -148,7 +148,7 @@
             _emptyNotice.alpha = (_documents.count == 0) ? 1 : 0;
         }];
         
-    } FailureBlock:NULL];
+    } FailureBlock:nil];
 }
 
 - (void)loadOfflineDocumentArray

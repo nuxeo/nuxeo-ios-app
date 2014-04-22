@@ -161,6 +161,8 @@
 #define kNuxeoAppName               @"Nuxeo Drive iOS Edition"
 #define kNuxeoPermission            @"ReadWrite"
 
+#define kNuxeoURIStatus             @"runningstatus"
+
 // global schemas
 #define kNuxeoSchemaDublincore      @"dublincore"
 #define kNuxeoSchemaUid             @"uid"

@@ -25,8 +25,8 @@
 
 @interface NuxeoDriveAppDelegate  : UIResponder <UIApplicationDelegate>
 {
-    BOOL isNetworkConnected;
-    BOOL isWifiConnected;
+    BOOL isNetworkConnected_;
+    BOOL isWifiConnected_;
 }
 @property (strong, nonatomic) UIWindow *window;
 

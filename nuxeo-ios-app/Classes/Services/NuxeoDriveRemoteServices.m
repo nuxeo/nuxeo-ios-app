@@ -558,7 +558,7 @@
 
 - (BOOL) downloadIsPossible
 {
-    if (APP_DELEGATE.isNetworkConnected == YES)
+    if ([APP_DELEGATE isNetworkConnected] == YES)
     {
         if (APP_DELEGATE.isWifiConnected == YES)
         {

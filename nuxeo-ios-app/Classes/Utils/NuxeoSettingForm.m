@@ -205,7 +205,7 @@
         
         self.syncOverCellular = [[NuxeoSettingsManager instance] readBoolSetting:USER_SYNC_OVER_CELLULAR defaulValue:NO];
         
-        self.serverAddress = [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:@"http://demo.nuxeo.com/nuxeo/"] ;
+        self.serverAddress = [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:kNuxeoSiteURL] ;
         self.username = [[NuxeoSettingsManager instance] readSetting:USER_USERNAME defaultValue:@"John Doe"];
         self.password = @"password";
         

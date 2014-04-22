@@ -45,7 +45,7 @@
 
 @implementation NuxeoDriveAppDelegate
 
-@synthesize isNetworkConnected, isWifiConnected;
+@synthesize isWifiConnected = isWifiConnected_;
 
 
 #pragma mark -
@@ -58,7 +58,7 @@
     if(reachability.currentReachabilityStatus == NotReachable)
     {
         NuxeoLogD(@"Internet off");
-        isNetworkConnected = NO;
+        isNetworkConnected_ = NO;
         // Stop all requests if system detect internet connection is lost
         [[NUXSession sharedSession] cancelAllRequests];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
@@ -66,13 +66,36 @@
     else
     {
         NuxeoLogD(@"Internet on");
-        isNetworkConnected = YES;
+        isNetworkConnected_ = YES;
         if (reachability.currentReachabilityStatus == ReachableViaWiFi){
-            isWifiConnected = YES;
+            isWifiConnected_ = YES;
         } else {
-            isWifiConnected = NO;
+            isWifiConnected_ = NO;
         }
     }
+}
+    
+- (BOOL)pingNuxeoServer
+{
+    NSString * statusURL = [NSString stringWithFormat:@"%@%@", [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:kNuxeoSiteURL], kNuxeoURIStatus];
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:statusURL]];
+    NSURLResponse *response = nil;
+    NSError **error=nil;
+    NSData *data=[[NSData alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:error]];
+//    NSString* retVal = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSInteger httpStatus = [((NSHTTPURLResponse *)response) statusCode];
+    
+    return (httpStatus == 200);
+}
+    
+- (BOOL)isNetworkConnected
+{
+    if (isNetworkConnected_ == YES)
+    {
+        // Ping Nuxeo server to check status
+        return [self pingNuxeoServer];
+    }
+    return isNetworkConnected_;
 }
 
 #pragma mark -
@@ -206,8 +229,8 @@
 {
     // Add observer for connection notifier
     [[Reachability reachabilityForInternetConnection] startNotifier];
-	isNetworkConnected = [[Reachability reachabilityForInternetConnection] isReachable];
-    isWifiConnected = [[Reachability reachabilityForInternetConnection] isReachableViaWiFi];
+	isNetworkConnected_ = [[Reachability reachabilityForInternetConnection] isReachable];
+    isWifiConnected_ = [[Reachability reachabilityForInternetConnection] isReachableViaWiFi];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
     

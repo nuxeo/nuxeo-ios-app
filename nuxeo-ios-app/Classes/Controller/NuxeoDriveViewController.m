@@ -294,7 +294,7 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
              
          } FailureBlock:^(NUXRequest * pRequest)
          {
-             if ([pRequest responseStatusCode] == 401 && APP_DELEGATE.isNetworkConnected == YES)
+             if ([pRequest responseStatusCode] == 401 && [APP_DELEGATE isNetworkConnected] == YES)
              {
                  [self logout];
              }
