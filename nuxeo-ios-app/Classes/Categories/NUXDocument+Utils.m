@@ -14,6 +14,7 @@
 #define kNuxeoDocumentTypeSection       @"Section"
 #define kNuxeoDocumentTypeTemplateRoot  @"TemplateRoot"
 #define kNuxeoDocumentTypeWorkspaceRoot @"WorkspaceRoot"
+#define kNuxeoDocumentTypeRoot          @"Root"
 
 #define kNuxeoDocumentTypeFile          @"File"
 #define kNuxeoDocumentTypeNote          @"Note"
@@ -37,6 +38,14 @@
     return NO;
 }
 
+- (BOOL) isRoot
+{
+    if ([self.type  isEqualToString:kNuxeoDocumentTypeRoot])
+    {
+        return YES;
+    }
+    return NO;
+}
 
 - (BOOL) isDriveSynchronizedFolder
 {

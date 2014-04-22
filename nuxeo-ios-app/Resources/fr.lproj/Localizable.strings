@@ -47,6 +47,7 @@
 "welcome.username"                      = "Username";
 "welcome.password"                      = "Password";
 "welcome.login"                         = "Log in";
+"welcome.root.title"                    = "Home";
 
 // ============================= HOME ========================================
 "home.browse.repository"                = "BROWSE";

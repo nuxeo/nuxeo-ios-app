@@ -32,7 +32,7 @@
     {
         self.date = [NuxeoDriveUtils formatDate:document.lastModified withPattern:@"yyyy-MM-dd'T'HH:mm:ss" withLocale:[NSLocale currentLocale]];
         self.author = [document.properties objectForKey:@"dc:creator"];
-        self.desc = [document.properties objectForKey:@"dc:title"];
+        self.desc = [document.properties objectForKey:@"dc:description"];
     }
     return self;
 }
