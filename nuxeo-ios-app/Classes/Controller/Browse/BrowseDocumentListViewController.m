@@ -34,6 +34,8 @@
 #import "DocumentCellView.h"
 #import "BreadCrumbsCellView.h"
 
+#import "NUXDocument+Utils.h"
+
 #define kDocumentTableCellReuseKey @"DocumentCell"
 #define kSectionHeaderHeight       45.0
 #define kFooterHeight              200.0
@@ -225,7 +227,7 @@
         ![objectAtIndex isKindOfClass:[NUXDocument class]])
         return cell;
     
-    cell.crumbsText.text = objectAtIndex.title;
+    cell.crumbsText.text = ([objectAtIndex isRoot] == YES) ? NuxeoLocalized(@"welcome.root.title") : objectAtIndex.title ;
 
     cell.crumbsIndicator.text = (indexPath.row == 0) ? @"::" : @">";
     [cell.crumbsIndicator  sizeToFit];
@@ -238,7 +240,9 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (CGSize){[BreadCrumbsCellView contentSizeWithText:((NUXDocument *)self.breadCrumbs[indexPath.row]).title].width, 42};
+    NSString * breadCrumpLabel = ([((NUXDocument *)self.breadCrumbs[indexPath.row]) isRoot] == YES) ? NuxeoLocalized(@"welcome.root.title") : ((NUXDocument *)self.breadCrumbs[indexPath.row]).title ;
+    
+    return (CGSize){[BreadCrumbsCellView contentSizeWithText:breadCrumpLabel].width, 42};
 }
 
 #pragma mark - UICollectionViewDelegate

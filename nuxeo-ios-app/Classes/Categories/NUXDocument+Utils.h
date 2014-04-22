@@ -12,6 +12,7 @@
 
 
 - (BOOL) isFolder;
+- (BOOL) isRoot;
 - (BOOL) isDriveSynchronizedFolder;
 - (BOOL) hasBinaryFile;
 - (BOOL) hasBinaryFileOnDevice;
