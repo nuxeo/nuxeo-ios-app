@@ -16,11 +16,11 @@
  */
 
 // ==============================  Libellés Standards  ==============================
-"nuxeo.copyrights"                      = "Nuxeo - Version %@ - © 2014";
+"nuxeo.copyrights"                      = "Copyright (c) 2014 (%@) Nuxeo and respective authors";
 
-"application.name"                      = "NuxeoDrive";
-"application.notconnected"              = "You must be connected";
-"button.ok"                             = "Ok";
+"application.name"                      = "Nuxeo Drive iOS Edition";
+"application.notconnected"              = "Cannot reach the Nuxeo Platform server";
+"button.ok"                             = "OK";
 "button.yes"                            = "Yes";
 "button.no"                             = "No";
 "button.validate"                       = "Validate";
@@ -60,7 +60,7 @@
 "home.hierarchy.notloaded.offline"      = "The content list for language %@ is not already loaded and cannot be while you are offline.";
 
 // ============================= BROWSE ========================================
-"browse.notice"                        = "You don't have any documents stored.";
+"browse.notice"                        = "No document is stored in this folder.";
 "browse.no.document"                    = "No resources found";
 "browse.loading"                        = "Loading";
 

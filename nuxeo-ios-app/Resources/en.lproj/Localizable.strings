@@ -16,11 +16,11 @@
  */
 
 // ==============================  Libellés Standards  ==============================
-"nuxeo.copyrights"                      = "Nuxeo - Version %@ - © 2014";
+"nuxeo.copyrights"                      = "Copyright (c) 2014 (%@) Nuxeo and respective authors";
 
-"application.name"                      = "NuxeoDrive";
-"application.notconnected"              = "You must be connected";
-"button.ok"                             = "Ok";
+"application.name"                      = "Nuxeo Drive iOS Edition";
+"application.notconnected"              = "Cannot reach the Nuxeo Platform server";
+"button.ok"                             = "OK";
 "button.yes"                            = "Yes";
 "button.no"                             = "No";
 "button.validate"                       = "Validate";
@@ -60,16 +60,16 @@
 "home.hierarchy.notloaded.offline"      = "The content list for language %@ is not already loaded and cannot be while you are offline.";
 
 // ============================= BROWSE ========================================
-"browse.notice"                        = "You don't have any documents stored.";
+"browse.notice"                        = "No document is stored in this folder.";
 
 "browse.no.document"                    = "No resources found";
 "browse.loading"                        = "Loading";
 
-"browse.ondevice.update"                = "Update";
 "browse.ondevice.update.confirm"        = "Do you really want to update all the folder content?";
 "browse.ondevice.unpin"                 = "Unpin from home";
 "browse.ondevice.info"                  = "Info";
 "browse.ondevice.remove"                = "Remove from device";
+"browse.ondevice.update"                = "Update";
 
 // ============================= PREVIEW ========================================
 "preview.open.with.noapp"               = "No application can open this type of file";
