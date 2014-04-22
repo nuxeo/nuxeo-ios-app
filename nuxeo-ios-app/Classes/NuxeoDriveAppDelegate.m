@@ -217,6 +217,12 @@
         [[NuxeoDriveRemoteServices instance] refreshAllSyncPoints:YES];
     }
     
+    // Clean Blob store
+    NUXBlobStore * blobStore = [NUXBlobStore instance];
+    if ([blobStore respondsToSelector:@selector(cleanStore)])
+    {
+        [blobStore cleanStore];
+    }
 }
 
 - (UIViewController *)getVisibleViewController

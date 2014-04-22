@@ -44,17 +44,17 @@
 {	
 	[super viewDidLoad];
     
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL] != nil)
-        self.hostURL.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL];
-    
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME] != nil)
-        self.username.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME];
-    
 #ifdef DEBUG
     self.hostURL.text = kNuxeoSiteURL;
     self.username.text = kNuxeoUser;
     self.password.text = kNuxeoPassword;
 #endif
+
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL] != nil)
+        self.hostURL.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL];
+    
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME] != nil)
+        self.username.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME];
     
     self.footerBarView.hidden = YES;
 }
