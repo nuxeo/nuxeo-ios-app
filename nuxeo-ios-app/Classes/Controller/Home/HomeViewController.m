@@ -251,7 +251,7 @@
         else
         {
             [UIAlertView showWithTitle:NuxeoLocalized(@"application.name")
-                                                         message:NuxeoLocalized(@"not.connected")
+                                                         message:NuxeoLocalized(@"application.notconnected")
                                                cancelButtonTitle:NuxeoLocalized(@"button.ok")
                                                otherButtonTitles:nil
                                                         tapBlock:nil];

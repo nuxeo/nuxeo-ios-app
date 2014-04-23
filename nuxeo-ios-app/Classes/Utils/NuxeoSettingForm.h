@@ -47,6 +47,8 @@
 
 #pragma mark - Initializers
 + (instancetype)instance;
+// Update informations in form
+- (void)refresh;
 
 #pragma mark - Test
 - (void)revokeTokenAndLogout;

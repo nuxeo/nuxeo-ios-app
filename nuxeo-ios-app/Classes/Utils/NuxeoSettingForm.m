@@ -200,20 +200,24 @@
         _unitOfInformationFormatter.displaysInTermsOfBytes = NO;
         _unitOfInformationFormatter.usesIECBinaryPrefixesForCalculation = NO;
         
-        self.limitStorageSize = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:@(5.0f * kGigabyteSize)];
-        self.maxStorageSize = [_unitOfInformationFormatter stringFromNumberOfBits:self.limitStorageSize];
-        
-        self.syncOverCellular = [[NuxeoSettingsManager instance] readBoolSetting:USER_SYNC_OVER_CELLULAR defaulValue:NO];
-        
-        self.serverAddress = [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:kNuxeoSiteURL] ;
-        self.username = [[NuxeoSettingsManager instance] readSetting:USER_USERNAME defaultValue:@"John Doe"];
-        self.password = @"password";
-        
-        NSString * masterVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-        
-        self.copyrights = [NSString stringWithFormat:NuxeoLocalized(@"nuxeo.copyrights"), masterVersion];
+        [self refresh];
     }
     return self;
+}
+
+- (void)refresh
+{
+    self.limitStorageSize = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:@(5.0f * kGigabyteSize)];
+    self.maxStorageSize = [_unitOfInformationFormatter stringFromNumberOfBits:self.limitStorageSize];
+    
+    self.syncOverCellular = [[NuxeoSettingsManager instance] readBoolSetting:USER_SYNC_OVER_CELLULAR defaulValue:NO];
+    
+    self.serverAddress = [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:kNuxeoSiteURL] ;
+    self.username = [[NuxeoSettingsManager instance] readSetting:USER_USERNAME defaultValue:@"John Doe"];
+    self.password = @"password";
+    
+    NSString * masterVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    self.copyrights = [NSString stringWithFormat:NuxeoLocalized(@"nuxeo.copyrights"), masterVersion];
 }
 
 #pragma mark - Setters -

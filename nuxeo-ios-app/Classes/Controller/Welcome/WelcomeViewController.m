@@ -75,6 +75,25 @@
 #pragma mark Events
 #pragma mark -
 
+- (NSString *) checkAuthenticationError:(NUXRequest *) request
+{
+    NSString * valueResponse = [request responseString];
+    NSRange   searchedRange = NSMakeRange(0, [valueResponse length]);
+    NSString *pattern =  @"<div class=\".*errorMessage\">\\s*(.*)\\s*<\\/div>";
+    NSError  *error = nil;
+    
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: pattern options:0 error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:valueResponse options:0 range: searchedRange];
+    
+    if(match != nil)
+    {
+        NSString * errorMessage = [valueResponse substringWithRange:[match rangeAtIndex:1]];
+        return errorMessage;
+    }
+    
+    return nil;
+}
+
 - (IBAction)onTouchLaunch:(id)sender
 {
     APP_DELEGATE.browseAllEnable = NO;
@@ -100,14 +119,30 @@
         request.password = self.password.text;
         
         // Beware, request execution is asychronously.
-        [auth setTokenFromRequest:request withCompletionBlock:^(BOOL success)
+        [auth setTokenFromRequest:request withCompletionBlock:^(NUXRequest * request)
          {
              // if success, token saved !
-             if (success == YES)
+             //if (success == YES)
+             if(request.responseStatusCode >= 200 && request.responseStatusCode < 300)
              {
-                 [((NuxeoDriveViewController *)self.presentingViewController) retrieveBusinessObjects];
-                 [self dismissViewControllerAnimated:YES completion:^{
-                 }];
+                 // Check if response return HTML content to identify error
+                 NSString * errorMessage = [self checkAuthenticationError:request];
+                 if (errorMessage == nil)
+                 {
+                     [((NuxeoDriveViewController *)self.presentingViewController) retrieveBusinessObjects];
+                     [self dismissViewControllerAnimated:YES completion:^{
+                     }];
+                 }
+                 else
+                 {
+                     [UIAlertView showWithTitle:NuxeoLocalized(@"application.name")
+                                        message:errorMessage
+                              cancelButtonTitle:NuxeoLocalized(@"button.ok")
+                              otherButtonTitles:nil
+                                       tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                           
+                                       }];
+                 }
              }
          }];
     }

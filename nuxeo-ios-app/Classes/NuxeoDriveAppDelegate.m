@@ -77,7 +77,7 @@
     
 - (BOOL)pingNuxeoServer
 {
-    NSString * statusURL = [NSString stringWithFormat:@"%@%@", [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:kNuxeoSiteURL], kNuxeoURIStatus];
+    NSString * statusURL = [NSString stringWithFormat:@"%@/%@", [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:kNuxeoSiteURL], kNuxeoURIStatus];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:statusURL]];
     NSURLResponse *response = nil;
     NSError **error=nil;
