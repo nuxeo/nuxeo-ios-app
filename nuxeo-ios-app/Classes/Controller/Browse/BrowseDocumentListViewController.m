@@ -244,10 +244,38 @@
 
 #pragma mark - UICollectionViewFlowLayout
 
+- (CGSize)test:(NSArray *)crumbs atIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger minBreadCrumbSize_ = 15;
+    NSInteger maxBreadCrumbSize_ = 914;
+    NSInteger totalBreadCrumbSize_ = 0;
+    
+    for (NUXDocument *value in self.breadCrumbs)
+        totalBreadCrumbSize_ += ceilf([BreadCrumbsCellView contentSizeWithText:((NUXDocument *)value).title].width);
+    
+    NSInteger cropIndexs_ = floorf((totalBreadCrumbSize_ - maxBreadCrumbSize_) / minBreadCrumbSize_);
+    NSInteger cropRest_ = (totalBreadCrumbSize_ - maxBreadCrumbSize_) % minBreadCrumbSize_;
+    NuxeoLogD(@"Testing (%d): crop (%d) - rest (%d)", totalBreadCrumbSize_, cropIndexs_, (totalBreadCrumbSize_ - maxBreadCrumbSize_) % minBreadCrumbSize_);
+    
+    if (cropIndexs_ && ((indexPath.row < cropIndexs_) || (indexPath.row == cropIndexs_ && cropRest_ < minBreadCrumbSize_)))
+        return (CGSize){minBreadCrumbSize_, 42};
+    else if (cropIndexs_ && indexPath.row == cropIndexs_)
+        return (CGSize){cropRest_, 42};
+    else
+        return (CGSize){[BreadCrumbsCellView contentSizeWithText:((NUXDocument *)self.breadCrumbs[indexPath.row]).title].width, 42};
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * breadCrumpLabel = ([((NUXDocument *)self.breadCrumbs[indexPath.row]) isRoot] == YES) ? NuxeoLocalized(@"welcome.root.title") : ((NUXDocument *)self.breadCrumbs[indexPath.row]).title ;
+    NSString * breadCrumpLabel = ([((NUXDocument *)self.breadCrumbs[indexPath.row]) isRoot] == YES) ? NuxeoLocalized(@"welcome.root.title") :
+    ((NUXDocument *)self.breadCrumbs[indexPath.row]).title;
     
+    if (([((NUXDocument *)self.breadCrumbs[indexPath.row]) isRoot] == YES))
+        ((NUXDocument *)self.breadCrumbs[indexPath.row]).title = NuxeoLocalized(@"welcome.root.title");
+    
+    NuxeoLogD(@"So what size do we have here: %@", NSStringFromCGSize([self test:self.breadCrumbs atIndexPath:indexPath]));
+    
+    return [self test:self.breadCrumbs atIndexPath:indexPath];
     return (CGSize){[BreadCrumbsCellView contentSizeWithText:breadCrumpLabel].width, 42};
 }
 
