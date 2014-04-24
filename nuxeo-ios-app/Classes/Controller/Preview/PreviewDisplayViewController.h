@@ -42,7 +42,7 @@
 @property (retain, nonatomic) NSString * mimeType;
 @property (retain, nonatomic) NUXDocument * currentDocument;
 
-- (IBAction) onTouchOpenWith:(id)sender;
+- (IBAction)onTouchOpenWith:(id)sender;
 - (IBAction)onTouchPin:(id)sender;
 - (IBAction)onTouchInfo:(id)sender;
 - (IBAction)onTouchUpdate:(id)sender;

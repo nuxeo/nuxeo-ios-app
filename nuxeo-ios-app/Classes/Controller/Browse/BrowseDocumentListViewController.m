@@ -326,12 +326,13 @@
     cell.backgroundColor = [UIColor clearColor];
     [cell localizeRecursively];
     
+    [cell.update setHidden:[self.context isEqualToString:kBrowseDocumentOnLine]];
+    
     if ([selectedDocument isFolder] == YES)
         [cell updateDisplayForFolder:selectedDocument];
     else
         [cell updateDisplayForFile:selectedDocument];
     
-    [cell.update setHidden:[self.context isEqualToString:kBrowseDocumentOnLine]];
     
     return cell;
 }

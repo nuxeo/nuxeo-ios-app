@@ -22,6 +22,9 @@
 
 #import "NuxeoDriveRemoteServices.h"
 
+#define kPositionInfo CGPointMake(715,13)
+#define kPositionSync CGPointMake(800,13)
+
 @implementation DocumentCellView
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -37,6 +40,15 @@
 - (void) updateDisplayForFile:(NUXDocument *)currentDocument
 {
     [self.addSynch setHidden:YES];
+    
+    if (self.update.hidden == YES)
+    {
+        self.info.frame = (CGRect){kPositionSync, self.info.frame.size};
+    }
+    else
+    {
+        self.info.frame = (CGRect){kPositionInfo, self.info.frame.size};
+    }
 }
 
 - (void) updateDisplayForFolder:(NUXDocument *)currentDocument
