@@ -290,7 +290,6 @@
         return ;
     
     NSInteger popNumber_ = (self.breadCrumbs.count - (indexPath.row + 1));
-    NuxeoLogD(@"PopNumber : %d", popNumber_);
     
     NSMutableArray *newBreadCrumbs = [NSMutableArray arrayWithArray:self.breadCrumbs];
     [newBreadCrumbs removeObjectsInRange:(NSRange){indexPath.row, popNumber_}];
@@ -302,11 +301,6 @@
         [cheatDismiss_ dismissViewControllerAnimated:NO completion:NULL];
     }
 
-    // ignore context, pass as much informations as possibles (even if nil)
-//    if ([selectedDocument isFolder])
-//        [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument ,
-//                                                                       kParamKeyHierarchy :  self.currentHierarchy ? : [NSNull null],
-//                                                                       kParamKeyBreadCrumbs : newBreadCrumbs}];
 }
 
 #pragma mark - UITableViewDataSource
@@ -352,11 +346,32 @@
     if (![selectedDocument hasBinaryFile] && ![selectedDocument isFolder])
         return ;
     
-    // ignore context, pass as much informations as possibles (even if nil)
-    if ([selectedDocument isFolder])
-        [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument , kParamKeyHierarchy :  self.currentHierarchy ? : [NSNull null]}];
+    if ([APP_DELEGATE isNetworkConnected] == YES)
+    {
+        // ignore context, pass as much informations as possibles (even if nil)
+        if ([selectedDocument isFolder])
+            [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument , kParamKeyHierarchy :  self.currentHierarchy ? : [NSNull null]}];
+        else
+            [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
+    }
     else
-        [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
+    {
+        [UIAlertView showWithTitle:NuxeoLocalized(@"application.name")
+                           message:NuxeoLocalized(@"application.notconnected")
+                 cancelButtonTitle:NuxeoLocalized(@"button.ok")
+                 otherButtonTitles:nil
+                          tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                              // Go to home
+                              NSInteger popNumber_ = self.breadCrumbs.count;
+                              
+                              UIViewController *cheatDismiss_ = self;
+                              for (int i = 0; i < popNumber_; i++)
+                              {
+                                  cheatDismiss_ = cheatDismiss_.presentingViewController;
+                                  [cheatDismiss_ dismissViewControllerAnimated:NO completion:NULL];
+                              }
+                          }];
+    }
 }
 
 #pragma mark - UIViewController -
