@@ -243,7 +243,7 @@
         // first element = hierarchie name
         // second element : indicate hierarchie's status
         // third element : the NUXDocument
-        [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:hierarchyName, [NSNumber numberWithInt:NuxeoHierarchieStatusNotLoaded], [request responseData], nil] forKey:hierarchyName];
+        [self.synchronisedPoints setObject:[NSMutableArray arrayWithObjects:hierarchyName, [NSNumber numberWithInt:NuxeoHierarchieStatusIsLoadingHierarchy], [request responseData], nil] forKey:hierarchyName];
         [[NuxeoSettingsManager instance] saveSetting:synchronisedPoints forKey:USER_SYNC_POINTS_LIST];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_REFRESH_UI object:hierarchyName];
@@ -255,7 +255,8 @@
      {
          [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED object:hierarchyName];
          
-         // TODO asynchronize this work
+         [((NSMutableArray *)[synchronisedPoints objectForKey:hierarchyName]) replaceObjectAtIndex:kNuxeoSynchroPointStatusIndex withObject:[NSNumber numberWithInt:NuxeoHierarchieStatusIsLoadingContent]];
+         
          [self loadBinariesOfHierarchy:hierarchyName completionBlock:^(id hierarchyName)
           {
               [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:hierarchyName];
@@ -384,7 +385,8 @@
     {
         NUXSession * nuxSession = [NUXSession sharedSession];
         NUXRequest * nuxRequest = [nuxSession requestOperation:@"NuxeoDrive.GetRoots"];
-        [nuxRequest startWithCompletionBlock:^(NUXRequest *request) {
+        [nuxRequest startWithCompletionBlock:^(NUXRequest *request)
+        {
             // result
             NSError * error = nil;
             NUXDocuments * listOfSynchroPoints = [NUXJSONSerializer entityWithData:[request responseData] error:&error];
@@ -487,7 +489,9 @@
             if (withContent == YES && [self downloadIsPossible] == YES)
             {
                 __block int countOfDownloadedHierarchy = 0;
-                [[NSNotificationCenter defaultCenter] addObserverForName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note)
+                [[NSNotificationCenter defaultCenter] addObserverForName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:nil
+                                                                   queue:[NSOperationQueue currentQueue]
+                                                              usingBlock:^(NSNotification *note)
                 {
                     // Count the download hierarchy
                     countOfDownloadedHierarchy++;

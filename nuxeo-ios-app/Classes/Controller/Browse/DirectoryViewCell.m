@@ -113,6 +113,11 @@
         case NuxeoHierarchieStatusNotLoaded:
         {
             self.browsable = NO;
+        }
+            break;
+        case NuxeoHierarchieStatusIsLoadingHierarchy:
+        {
+            self.browsable = NO;
             CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
             animation.fromValue = @0.0f;
             animation.toValue = @(2 * M_PI);
@@ -124,6 +129,17 @@
         case NuxeoHierarchieStatusTreeLoaded:
         {
             self.browsable = YES;
+        }
+            break;
+        case NuxeoHierarchieStatusIsLoadingContent:
+        {
+            self.browsable = YES;
+            CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+            animation.fromValue = @0.0f;
+            animation.toValue = @(2 * M_PI);
+            animation.duration = 2.f;
+            animation.repeatCount = HUGE_VALF;
+            [_cloudImageView.layer addAnimation:animation forKey:@"SpinAnimation"];
         }
             break;
         case NuxeoHierarchieStatusContentLoaded:

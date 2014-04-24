@@ -32,8 +32,10 @@ typedef void (^NuxeoDriveServicesSimpleBlock)();
 typedef enum NuxeoHierarchieStatus
 {
 	NuxeoHierarchieStatusNotLoaded = 0,
-    NuxeoHierarchieStatusTreeLoaded = 1,
-    NuxeoHierarchieStatusContentLoaded = 2
+    NuxeoHierarchieStatusIsLoadingHierarchy = 1,
+    NuxeoHierarchieStatusTreeLoaded = 2,
+    NuxeoHierarchieStatusIsLoadingContent = 3,
+    NuxeoHierarchieStatusContentLoaded = 4
 } NuxeoHierarchieStatus;
 
 @interface NuxeoDriveRemoteServices : NSObject
