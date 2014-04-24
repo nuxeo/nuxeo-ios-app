@@ -37,6 +37,7 @@
 @property (retain, nonatomic) IBOutlet UIWebView *previewView;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 @property (retain, nonatomic) IBOutlet NuxeoButton *openWithButton;
+@property (retain, nonatomic) IBOutlet UIView *previewError;
 
 @property (retain, nonatomic) NSString * mimeType;
 @property (retain, nonatomic) NUXDocument * currentDocument;

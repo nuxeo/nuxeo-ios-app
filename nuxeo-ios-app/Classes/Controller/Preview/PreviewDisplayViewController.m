@@ -147,6 +147,8 @@
 {	
 	[super viewDidLoad];
     
+    [self.loadingIndicator startAnimating];
+    
     if ([self.currentDocument hasBinaryFile] == YES)
     {
         self.mimeType = [[self.currentDocument.properties objectForKey:kXPathFileContent] objectForKey:@"mime-type"];
@@ -238,7 +240,8 @@
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    
+    NuxeoLogD(@"webView error : %@", [error description]);
+    self.previewError.hidden = NO;
 }
 
 #pragma mark -
@@ -262,6 +265,7 @@
     [_headerBar release];
     [_openWithButton release];
     [_loadingIndicator release];
+    [_previewError release];
 	[super dealloc];
 }
 

@@ -346,7 +346,7 @@
     if (![selectedDocument hasBinaryFile] && ![selectedDocument isFolder])
         return ;
     
-    if ([APP_DELEGATE isNetworkConnected] == YES)
+    if ([APP_DELEGATE isNetworkConnected] == YES || [self.context isEqualToString:kBrowseDocumentOffLine])
     {
         // ignore context, pass as much informations as possibles (even if nil)
         if ([selectedDocument isFolder])
