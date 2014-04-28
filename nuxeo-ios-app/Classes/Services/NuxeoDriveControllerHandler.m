@@ -111,6 +111,11 @@
 {
     PreviewDisplayViewController *rvc = [[PreviewDisplayViewController alloc] init];
 
+    if ([options objectForKey:kParamKeyContext] != nil)
+        rvc.context = [options objectForKey:kParamKeyContext];
+    else if ([iController isKindOfClass:[BrowseDocumentListViewController class]])
+        rvc.context = ((BrowseDocumentListViewController *)iController).context;
+    
     if ([options objectForKey:kParamKeyDocument] != nil)
         rvc.currentDocument = [options objectForKey:kParamKeyDocument];
 

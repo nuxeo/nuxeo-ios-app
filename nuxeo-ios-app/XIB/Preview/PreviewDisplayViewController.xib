@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
@@ -12,6 +12,7 @@
                 <outlet property="openWithButton" destination="U30-T1-JxA" id="hdw-yK-dmd"/>
                 <outlet property="previewError" destination="3Ba-Cs-8nf" id="Yjs-qz-91e"/>
                 <outlet property="previewView" destination="4" id="5"/>
+                <outlet property="update" destination="UT2-l1-B6l" id="bZq-jj-a5j"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -52,26 +53,8 @@
             <rect key="frame" x="0.0" y="0.0" width="545" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="U30-T1-JxA" userLabel="NuxeoButton - button.openwith" customClass="NuxeoButton">
-                    <rect key="frame" x="111" y="11" width="131" height="35"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="button.openwith" backgroundImage="bt_openwith.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="disabled">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="onTouchOpenWith:" destination="-1" eventType="touchUpInside" id="29a-QP-72V"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1lJ-Uq-GsH" userLabel="NuxeoButton - button.preview" customClass="NuxeoButton">
-                    <rect key="frame" x="257" y="11" width="71" height="35"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1lJ-Uq-GsH" userLabel="NuxeoButton - button.pin" customClass="NuxeoButton">
+                    <rect key="frame" x="111" y="11" width="71" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -88,26 +71,8 @@
                         <action selector="onTouchPin:" destination="-1" eventType="touchUpInside" id="Au7-5B-ncb"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gwq-cZ-2lD" userLabel="NuxeoButton - Open With" customClass="NuxeoButton">
-                    <rect key="frame" x="343" y="11" width="71" height="35"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="button.info" backgroundImage="bt_info.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="disabled">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="onTouchInfo:" destination="-1" eventType="touchUpInside" id="pXg-fu-H7S"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UT2-l1-B6l" userLabel="NuxeoButton - Synch" customClass="NuxeoButton">
-                    <rect key="frame" x="429" y="11" width="96" height="35"/>
+                    <rect key="frame" x="197" y="11" width="96" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -122,6 +87,42 @@
                     </state>
                     <connections>
                         <action selector="onTouchUpdate:" destination="-1" eventType="touchUpInside" id="Dpu-hA-l17"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="U30-T1-JxA" userLabel="NuxeoButton - button.openwith" customClass="NuxeoButton">
+                    <rect key="frame" x="308" y="11" width="131" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="button.openwith" backgroundImage="bt_openwith.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onTouchOpenWith:" destination="-1" eventType="touchUpInside" id="29a-QP-72V"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gwq-cZ-2lD" userLabel="NuxeoButton - Infos" customClass="NuxeoButton">
+                    <rect key="frame" x="454" y="11" width="71" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="button.info" backgroundImage="bt_info.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onTouchInfo:" destination="-1" eventType="touchUpInside" id="pXg-fu-H7S"/>
                     </connections>
                 </button>
             </subviews>

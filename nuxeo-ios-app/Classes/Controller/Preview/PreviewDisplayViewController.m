@@ -147,6 +147,12 @@
 {	
 	[super viewDidLoad];
     
+    // update header button position
+    if ([self.context isEqualToString:kBrowseDocumentOnLine])
+    {
+        self.update.hidden = YES;
+    }
+        
     [self.loadingIndicator startAnimating];
     
     if ([self.currentDocument hasBinaryFile] == YES)
@@ -160,7 +166,21 @@
     }
     else
     {
-        [self onTouchUpdate:nil];
+        if ([APP_DELEGATE isNetworkConnected] == YES)
+        {
+            [self onTouchUpdate:nil];
+        }
+        else
+        {
+            [UIAlertView showWithTitle:NuxeoLocalized(@"application.name")
+                               message:NuxeoLocalized(@"application.notconnected")
+                     cancelButtonTitle:NuxeoLocalized(@"button.ok")
+                     otherButtonTitles:nil
+                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                  // Go back
+                                  [self dismissViewControllerAnimated:YES completion:NULL];
+                              }];
+        }
     }
 }
 
@@ -252,9 +272,9 @@
 
 - (void)dealloc
 {
-    [_previewView release];
     [_mimeType release];
     [_currentDocument release];
+    [_context release];
     
     self.docController = nil;
     self.openWithButton = nil;
@@ -262,10 +282,12 @@
     [moviePlayer release];
     moviePlayer = nil;
     
+    [_previewView release];
     [_headerBar release];
     [_openWithButton release];
     [_loadingIndicator release];
     [_previewError release];
+    [_update release];
 	[super dealloc];
 }
 
