@@ -59,6 +59,7 @@ typedef enum NuxeoHierarchieStatus
 - (NSArray *)retrieveAllDocumentsOfHierarchy:(NSString *)iHierarchyName;
     
 // Methods for Nuxeo Drive synchronize points
+- (void) retrieveAllSynchronizePointsNames:(NuxeoDriveServicesBlock)completion;
 - (void)retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion;
 - (void)addSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;
 - (void)removeSynchronizePoint:(NSString *)iPath completionBlock:(NuxeoDriveServicesBlock)completion;

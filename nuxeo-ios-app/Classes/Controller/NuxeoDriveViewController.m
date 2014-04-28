@@ -309,7 +309,7 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
 
 - (void) synchronizeAllView
 {
-    [self.searchButton setEnabled:[APP_DELEGATE isNetworkConnected]];
+    //[self.searchButton setEnabled:[APP_DELEGATE isNetworkConnected]];
     [self.updateAllButton setEnabled:[APP_DELEGATE isNetworkConnected]];
     
     if (APP_DELEGATE.synchronizationInProgress == YES && [APP_DELEGATE isNetworkConnected] == YES)

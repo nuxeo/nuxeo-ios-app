@@ -49,4 +49,12 @@
 @property (nonatomic, retain) NUXDocument *currentDocument;
 @property (nonatomic, retain) NUXHierarchy *currentHierarchy;
 
+
+@end
+
+
+@interface BrowseDocumentListViewController (Private)
+
+- (NUXDocument *)documentByIndexPath:(NSIndexPath *) indexPath;
+
 @end

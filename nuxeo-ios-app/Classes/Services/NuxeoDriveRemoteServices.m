@@ -263,8 +263,6 @@
           }];
          
      }];
-
-
 }
 
 - (NUXHierarchy *) getHierarchyWithName:(NSString *)iHerarchieName
@@ -357,6 +355,11 @@
 #pragma mark
 #pragma mark Synchronized points methods
 #pragma mark
+
+- (void) retrieveAllSynchronizePointsNames:(NuxeoDriveServicesBlock)completion
+{
+    completion([self.synchronisedPoints allKeys]);
+}
 
 // Methods for Nuxeo Drive synchronized points
 - (void) retrieveAllSynchronizePoints:(NuxeoDriveServicesBlock)completion

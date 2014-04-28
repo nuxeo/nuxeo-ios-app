@@ -22,6 +22,8 @@
 
 #import "NuxeoDriveRemoteServices.h"
 
+#import <NuxeoSDK/NUXJSONSerializer.h>
+
 @implementation BrowseAllOffLineDocumentListViewController
     
 #pragma mark - Business Object Loading -
@@ -34,17 +36,46 @@
     }
     
 - (void) loadBusinessObjects
+{
+    _documents = [[NSMutableArray array] retain];
+    
+    [[NuxeoDriveRemoteServices instance] retrieveAllSynchronizePointsNames:^(id listOfHierarchyNames)
+     {
+         for (NSString * hierarchyName in listOfHierarchyNames)
+         {
+             NSArray * listOfDocOfHierarchy = [[NuxeoDriveRemoteServices instance] retrieveAllDocumentsOfHierarchy:hierarchyName];
+             [listOfDocOfHierarchy enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                 NUXDocument * currentDocument = (NUXDocument *)obj;
+                 [currentDocument.properties setObject:hierarchyName forKey:@"local:hierarchyName"];
+             }];
+             [_documents addObjectsFromArray:listOfDocOfHierarchy];
+         }
+     }];
+    
+    
+}
+
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+    
+    NUXDocument * selectedDocument = [self documentByIndexPath:indexPath];
+    if (![selectedDocument hasBinaryFile] && ![selectedDocument isFolder])
+        return ;
+    
+    if ([selectedDocument isFolder])
     {
-        _documents = [[NSMutableArray array] retain];
-        
-        [[NuxeoDriveRemoteServices instance] retrieveAllSynchronizePoints:^(id listOfHierarchies)
-        {
-            for (NUXDocument * hierarchyRoot in [((NUXDocuments *)listOfHierarchies) entries])
-            {
-                [_documents addObjectsFromArray:[[NuxeoDriveRemoteServices instance] retrieveAllDocumentsOfHierarchy:hierarchyRoot.path]];
-            }
-        }];
-        
+        NUXHierarchy * hierarchy = [[NuxeoDriveRemoteServices instance] getHierarchyWithName:[selectedDocument.properties objectForKey:@"local:hierarchyName"]];
+        [CONTROLLER_HANDLER pushDocumentsControllerFrom:self options:@{kParamKeyDocument: selectedDocument , kParamKeyHierarchy :  hierarchy ? : [NSNull null]}];
+    }
+    else
+    {
+        [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument}];
     }
     
+}
+
 @end
