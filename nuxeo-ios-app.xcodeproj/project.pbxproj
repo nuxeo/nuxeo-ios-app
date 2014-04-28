@@ -11,6 +11,7 @@
 		803D27AA18FC150800DDBCF0 /* ic_info_blue@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 803D27A718FC150800DDBCF0 /* ic_info_blue@2x~ipad.png */; };
 		803D27AB18FC150800DDBCF0 /* ic_remove_from_device@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 803D27A818FC150800DDBCF0 /* ic_remove_from_device@2x~ipad.png */; };
 		803D27AC18FC150800DDBCF0 /* ic_unpin@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 803D27A918FC150800DDBCF0 /* ic_unpin@2x~ipad.png */; };
+		8049C41E190E5DB700EEA418 /* ic_type_folder_disable@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 8049C41D190E5DB700EEA418 /* ic_type_folder_disable@2x~ipad.png */; };
 		80619E6818CE265D0097FCE0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 80619E6718CE265D0097FCE0 /* libsqlite3.0.dylib */; };
 		806582DC18ECB5BE007F389F /* NuxeoSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 806582DB18ECB5BE007F389F /* NuxeoSettingsManager.m */; };
 		806582DE18F34320007F389F /* ic_type_note@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 806582DD18F34320007F389F /* ic_type_note@2x~ipad.png */; };
@@ -130,6 +131,7 @@
 		803D27A718FC150800DDBCF0 /* ic_info_blue@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_info_blue@2x~ipad.png"; sourceTree = "<group>"; };
 		803D27A818FC150800DDBCF0 /* ic_remove_from_device@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_remove_from_device@2x~ipad.png"; sourceTree = "<group>"; };
 		803D27A918FC150800DDBCF0 /* ic_unpin@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_unpin@2x~ipad.png"; sourceTree = "<group>"; };
+		8049C41D190E5DB700EEA418 /* ic_type_folder_disable@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_type_folder_disable@2x~ipad.png"; sourceTree = "<group>"; };
 		80619E6718CE265D0097FCE0 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		806582DA18ECB5BE007F389F /* NuxeoSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuxeoSettingsManager.h; sourceTree = "<group>"; };
 		806582DB18ECB5BE007F389F /* NuxeoSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuxeoSettingsManager.m; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 		80C4095118D8F4450067740A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8049C41D190E5DB700EEA418 /* ic_type_folder_disable@2x~ipad.png */,
 				D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */,
 				80C4097418D8F4450067740A /* background_section@2x~ipad.png */,
 				D0C34C4118F58C020008FB69 /* background@2x~ipad.png */,
@@ -791,6 +794,7 @@
 				D01570411906B7FE0000A44C /* ic_username@2x~ipad.png in Resources */,
 				D0C34C5918F5A7B60008FB69 /* ic_header_find@2x~ipad.png in Resources */,
 				D0C34C5318F5A7B60008FB69 /* bt_header_find@2x~ipad.png in Resources */,
+				8049C41E190E5DB700EEA418 /* ic_type_folder_disable@2x~ipad.png in Resources */,
 				80C409A218D8F4450067740A /* Icon512@2x.png in Resources */,
 				80C4099E18D8F4450067740A /* InfoPlist.strings in Resources */,
 				80C409C618D8F4450067740A /* background_section@2x~ipad.png in Resources */,
@@ -1006,7 +1010,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					DEBUG,
 					DEBUG_FORM_DATA_REQUEST,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -1046,7 +1049,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "nuxeo-ios-app";
-				PROVISIONING_PROFILE = "1DEF706C-AC9D-43B3-A47A-BB31D87BFB98";
+				PROVISIONING_PROFILE = "98281F2B-11BD-4854-B0EC-92A4DBCF5686";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
