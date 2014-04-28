@@ -54,7 +54,15 @@
         self.hostURL.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_HOST_URL];
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME] != nil)
+    {
         self.username.text = [[NSUserDefaults standardUserDefaults] valueForKey:USER_USERNAME];
+    }
+    else
+    {
+        self.hostURL.text = kNuxeoSiteURL;
+        self.username.text = kNuxeoUser;
+        self.password.text = kNuxeoPassword;
+    }
     
     self.footerBarView.hidden = YES;
 }
@@ -99,10 +107,6 @@
     APP_DELEGATE.browseAllEnable = NO;
     APP_DELEGATE.syncAllEnable = NO;
     
-    // Authentication
-    [[NuxeoSettingsManager instance] saveSetting:self.hostURL.text forKey:USER_HOST_URL];
-    [[NuxeoSettingsManager instance] saveSetting:self.username.text forKey:USER_USERNAME];
-    
     NUXTokenAuthenticator *auth = [[NUXTokenAuthenticator alloc] init];
     // Those fields are mandatory
     auth.applicationName = kNuxeoAppName;
@@ -129,6 +133,10 @@
                  NSString * errorMessage = [self checkAuthenticationError:request];
                  if (errorMessage == nil)
                  {
+                     // Authentication
+                     [[NuxeoSettingsManager instance] saveSetting:self.hostURL.text forKey:USER_HOST_URL];
+                     [[NuxeoSettingsManager instance] saveSetting:self.username.text forKey:USER_USERNAME];
+                     
                      [((NuxeoDriveViewController *)self.presentingViewController) retrieveBusinessObjects];
                      [self dismissViewControllerAnimated:YES completion:^{
                      }];
