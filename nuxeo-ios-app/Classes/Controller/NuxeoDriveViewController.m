@@ -422,7 +422,14 @@ NSString* const kBackButtonResourceName = @"bt_header_back";
         [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
         
     }
-    [self presentViewController:[[[WelcomeViewController alloc] init] autorelease] animated:YES completion:NULL];
+    UIViewController *cheatDismiss_ = self;
+    while (cheatDismiss_.presentingViewController != nil)
+    {
+        cheatDismiss_ = cheatDismiss_.presentingViewController;
+        [cheatDismiss_ dismissViewControllerAnimated:NO completion:NULL];
+    }
+    [cheatDismiss_ presentViewController:[[[WelcomeViewController alloc] init] autorelease] animated:YES completion:NULL];
+    //[self presentViewController:[[[WelcomeViewController alloc] init] autorelease] animated:YES completion:NULL];
 }
 
 #pragma mark -

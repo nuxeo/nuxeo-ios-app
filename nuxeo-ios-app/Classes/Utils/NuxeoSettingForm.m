@@ -277,7 +277,10 @@
         [[NuxeoDriveRemoteServices instance] resetSynchronizedPoints];
         [((NUXTokenAuthenticator *)nuxSession.authenticator) resetSettings];
         nuxSession.authenticator = nil;
-        [[APP_DELEGATE getVisibleViewController] dismissViewControllerAnimated:NO completion:NULL];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           [[APP_DELEGATE getVisibleViewController] dismissViewControllerAnimated:NO completion:NULL];
+        });
     }
 }
 
