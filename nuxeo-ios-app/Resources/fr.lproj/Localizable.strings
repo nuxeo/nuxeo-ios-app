@@ -73,6 +73,7 @@
 
 // ============================= PREVIEW ========================================
 "preview.open.with.noapp"               = "No application can open this type of file";
+"preview.impossible"                    = "This file's type is not supported by preview screen.";
 
 // ============================= DETAIL INFO ========================================
 "detail.document.title"                 = "Informations";
