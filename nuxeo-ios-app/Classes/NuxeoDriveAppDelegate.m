@@ -57,15 +57,22 @@
     Reachability* reachability = notification.object;
     if(reachability.currentReachabilityStatus == NotReachable)
     {
-        NuxeoLogD(@"Internet off");
+        // Refresh UI if Internet connection change
+        if (isNetworkConnected_ == YES)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_REFRESH_UI object:nil];
+        }
         isNetworkConnected_ = NO;
         // Stop all requests if system detect internet connection is lost
         [[NUXSession sharedSession] cancelAllRequests];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SYNC_ALL_FINISH object:nil];
     }
     else
     {
-        NuxeoLogD(@"Internet on");
+        // Refresh UI if Internet connection change
+        if (isNetworkConnected_ == NO)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_REFRESH_UI object:nil];
+        }
         isNetworkConnected_ = YES;
         if (reachability.currentReachabilityStatus == ReachableViaWiFi){
             isWifiConnected_ = YES;

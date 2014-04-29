@@ -130,6 +130,7 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    BOOL isNetworkConnected = [APP_DELEGATE isNetworkConnected];
     if ([collectionView isEqual:self.synchronizedFolders])
     {
         DirectoryViewCell * cell = (DirectoryViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:kSynchroReuseIdentifierForCollection forIndexPath:indexPath];
@@ -138,8 +139,16 @@
         
         cell.indexPath = indexPath;
         cell.title.text = currentDocument.title;
-        
-        [cell loadWithActionPopoverTitles:@[@[@"ic_info_blue", NuxeoLocalized(@"browse.ondevice.info")], @[@"ic_remove_from_device", NuxeoLocalized(@"browse.ondevice.remove")], @[@"ic_info_blue", NuxeoLocalized(@"browse.ondevice.update")]]];
+        if (isNetworkConnected == YES)
+        {
+            [cell loadWithActionPopoverTitles:@[@[@"ic_info_blue", NuxeoLocalized(@"browse.ondevice.info")],
+                                                @[@"ic_remove_from_device", NuxeoLocalized(@"browse.ondevice.remove")],
+                                                @[@"ic_info_blue", NuxeoLocalized(@"browse.ondevice.update")]]];
+        }
+        else
+        {
+            [cell loadWithActionPopoverTitles:@[@[@"ic_info_blue", NuxeoLocalized(@"browse.ondevice.info")]]];
+        }
         cell.delegate = self;
         
         [cell folderRendering];
@@ -172,8 +181,6 @@
         {
             [CONTROLLER_HANDLER pushPreviewControllerFrom:self options:@{kParamKeyDocument: selectedDocument, kParamKeyContext : kBrowseDocumentOffLine}];
         }
-        
-        
     }
 }
 
@@ -194,9 +201,26 @@
             break;
         case kPopupActionRemoveFromDevice:
         {
-            [[NuxeoDriveRemoteServices instance] removeSynchronizePoint:selectedDocument.path completionBlock:^(id result) {
-                [self retrieveBusinessObjects];
-            }];
+            [UIAlertView showWithTitle:NuxeoLocalized(@"application.name")
+                               message:NuxeoLocalized(@"browse.ondevice.remove.confirm")
+                     cancelButtonTitle:NuxeoLocalized(@"button.no")
+                     otherButtonTitles:@[NuxeoLocalized(@"button.yes")]
+                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
+             {
+                 switch (buttonIndex)
+                 {
+                     case 1:
+                     {
+                         [[NuxeoDriveRemoteServices instance] removeSynchronizePoint:selectedDocument.path completionBlock:^(id result) {
+                             [self retrieveBusinessObjects];
+                         }];
+                     }
+                         break;
+                         
+                     default:
+                         break;
+                 }
+             }];
         }
             break;
         case kPopupActionUpdate:

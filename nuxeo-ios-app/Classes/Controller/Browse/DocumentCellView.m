@@ -40,6 +40,7 @@
 - (void) updateDisplayForFile:(NUXDocument *)currentDocument
 {
     [self.addSynch setHidden:YES];
+    [self.update setEnabled:[APP_DELEGATE isNetworkConnected]];
     
     if (self.update.hidden == YES)
     {
