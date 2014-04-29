@@ -62,7 +62,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
             
-            // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDonePressed:) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDonePressed:) name:MPMoviePlayerDidExitFullscreenNotification object:moviePlayer];
             
             moviePlayer.controlStyle = MPMovieControlStyleDefault;
@@ -99,7 +99,7 @@
     {
         [moviePlayer.view removeFromSuperview];
     }
-    //moviePlayer=nil;
+    NuxeoReleaseAndNil(moviePlayer);
     
     [self dismissViewControllerAnimated:NO completion:nil];
 }
@@ -159,6 +159,24 @@
     {
         self.mimeType = [[self.currentDocument.properties objectForKey:kXPathFileContent] objectForKey:@"mime-type"];
     }
+}
+
+/**
+ * Called after the viewWillAppear call
+ */
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+    
+    
+}
+
+/**
+ * Called after the viewDidAppear call
+ */
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
     
     if([self.currentDocument hasBinaryFileOnDevice] == YES)
     {
@@ -182,24 +200,6 @@
                               }];
         }
     }
-}
-
-/**
- * Called after the viewWillAppear call
- */
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-}
-
-/**
- * Called after the viewDidAppear call
- */
-- (void)viewDidAppear:(BOOL)animated
-{
-	[super viewDidAppear:animated];
-    
-    
 }
 
 #pragma mark -
