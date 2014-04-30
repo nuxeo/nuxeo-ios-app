@@ -30,6 +30,9 @@
 @interface PreviewDisplayViewController : NuxeoDriveViewController<UIWebViewDelegate>
 {
     MPMoviePlayerController * moviePlayer;
+    BOOL _videoAlreadyPlayed;
+    
+    NSURL * _fallbackURLContent;
 }
 
 

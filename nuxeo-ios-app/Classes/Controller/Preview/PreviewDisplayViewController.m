@@ -31,6 +31,8 @@
 
 #import "NuxeoDriveUtils.h"
 
+#import "NuxeoSettingsManager.h"
+
 @implementation PreviewDisplayViewController
 
 #pragma mark -
@@ -59,20 +61,23 @@
     NSURL *url = [NSURL fileURLWithPath:docPath];
     if ([self.mimeType rangeOfString:@"video"].location != NSNotFound)
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
-            
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDonePressed:) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDonePressed:) name:MPMoviePlayerDidExitFullscreenNotification object:moviePlayer];
-            
-            moviePlayer.controlStyle = MPMovieControlStyleDefault;
-            moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-            moviePlayer.shouldAutoplay = YES;
-            [moviePlayer play];
-            [self.view addSubview:moviePlayer.view];
-            [moviePlayer setFullscreen:YES animated:YES];
-        });
-        
+        if (_videoAlreadyPlayed == NO)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _videoAlreadyPlayed = YES;
+                moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
+                
+//                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDonePressed:) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDonePressed:) name:MPMoviePlayerDidExitFullscreenNotification object:moviePlayer];
+                
+                moviePlayer.controlStyle = MPMovieControlStyleDefault;
+                moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+                moviePlayer.shouldAutoplay = YES;
+                [moviePlayer play];
+                [self.view addSubview:moviePlayer.view];
+                [moviePlayer setFullscreen:YES animated:YES];
+            });
+        }
     }
     else if([self.mimeType rangeOfString:@"image"].location != NSNotFound)
     {
@@ -146,6 +151,8 @@
 - (void)viewDidLoad
 {	
 	[super viewDidLoad];
+    
+    _videoAlreadyPlayed = NO;
     
     // update header button position
     if ([self.context isEqualToString:kBrowseDocumentOnLine])
@@ -256,12 +263,24 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    
+    [self.loadingIndicator stopAnimating];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     NuxeoLogD(@"webView error : %@", [error description]);
-    self.previewError.hidden = NO;
+    if (_fallbackURLContent == nil && [APP_DELEGATE isNetworkConnected] == YES)
+    {
+        [self.loadingIndicator startAnimating];
+        NSString * hostUrl = [[NuxeoSettingsManager instance] readSetting:USER_HOST_URL defaultValue:kNuxeoSiteURL];
+        NSString * newUrl = [NSString stringWithFormat:@"%@/nxfile/default/%@/blobholder:0/temp.html", hostUrl, self.currentDocument.uid];
+        _fallbackURLContent = [NSURL URLWithString:newUrl];
+        NSURLRequest *request = [NSURLRequest requestWithURL:_fallbackURLContent];
+        [self.previewView loadRequest:request];
+    }
+    else
+    {
+        self.previewError.hidden = NO;
+    }
 }
 
 #pragma mark -
