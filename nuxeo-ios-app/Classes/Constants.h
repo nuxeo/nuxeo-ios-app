@@ -104,7 +104,7 @@
 // Notification send when application end to download one file of a hierarchy
 #define NOTIF_HIERARCHY_BINARY_DOWNLOADED       @"NOTIF_HIERARCHY_BINARY_DOWNLOADED"
 // Notification send when all binary files of a hierarchy are downloaded
-#define NOTIF_HIERARCHY_ALL_DOWNLOADED          @"NOTIF_HIERARCHY_ALL_DOWNLOADED"
+#define NOTIF_HIERARCHY_ALL_CONTENT_DOWNLOADED  @"NOTIF_HIERARCHY_ALL_CONTENT_DOWNLOADED"
 
 // Notification send when all synchronization begin
 #define NOTIF_SYNC_ALL_BEGIN                    @"NOTIF_SYNC_ALL_BEGIN"

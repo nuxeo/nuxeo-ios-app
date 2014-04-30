@@ -52,7 +52,7 @@
     
     // All notifications sended during synchronization process of hierrchies
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onHierarchyTreeComplete:) name:NOTIF_HIERARCHY_FOLDER_TREE_DOWNLOADED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onHierarchyContentComplete:) name:NOTIF_HIERARCHY_ALL_DOWNLOADED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onHierarchyContentComplete:) name:NOTIF_HIERARCHY_ALL_CONTENT_DOWNLOADED object:nil];
     
 }
 
@@ -259,7 +259,7 @@
          
          [self loadBinariesOfHierarchy:hierarchyName completionBlock:^(id hierarchyName)
           {
-              [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:hierarchyName];
+              [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_HIERARCHY_ALL_CONTENT_DOWNLOADED object:hierarchyName];
           }];
          
      }];
@@ -371,7 +371,6 @@
         NSMutableArray * listOfRoots = [NSMutableArray array];
         for (NSArray * synchronizePoint in synchPoints)
         {
-//            NUXHierarchy * hierarchy = [self getHierarchyWithName:[synchronizePoint objectAtIndex:kNuxeoSynchroPointNameIndex]];
             NSError * error = nil;
             NUXDocument * rootHierarchy = [NUXJSONSerializer entityWithData:[synchronizePoint objectAtIndex:kNuxeoSynchroPointDocumentIndex] error:&error] ;
             if (rootHierarchy == nil)
@@ -491,27 +490,26 @@
         {
             if (withContent == YES && [self downloadIsPossible] == YES)
             {
-                __block int countOfDownloadedHierarchy = 0;
-                [[NSNotificationCenter defaultCenter] addObserverForName:NOTIF_HIERARCHY_ALL_DOWNLOADED object:nil
+                __block NSMutableArray * listOfHierarchyNamesToDownload = [[self.synchronisedPoints allKeys] mutableCopy];
+                [[NSNotificationCenter defaultCenter] addObserverForName:NOTIF_HIERARCHY_ALL_CONTENT_DOWNLOADED object:nil
                                                                    queue:[NSOperationQueue currentQueue]
-                                                              usingBlock:^(NSNotification *note)
+                                                              usingBlock:^(NSNotification *notification)
                 {
-                    // Count the download hierarchy
-                    countOfDownloadedHierarchy++;
-                    if (countOfDownloadedHierarchy >= [[self.synchronisedPoints allKeys] count])
+                    NSString * hierarchyName = (NSString *) notification.object;
+                    [listOfHierarchyNamesToDownload removeObject:hierarchyName];
+                    if ([listOfHierarchyNamesToDownload count] <= 0)
                     {
                         [self endAllSyncPointsRefreshProcess];
                     }
+                    else
+                    {
+                        [self loadFullHierarchyByName:[listOfHierarchyNamesToDownload objectAtIndex:0]];
+                    }
                 }];
                 
-                if ([[self.synchronisedPoints allKeys] count] > 0)
+                if ([listOfHierarchyNamesToDownload count] > 0)
                 {
-                    for (NSArray * synchroPointInfos in [self.synchronisedPoints allValues])
-                    {
-                        NSString * hierarchyName = [synchroPointInfos objectAtIndex:kNuxeoSynchroPointNameIndex];
-                        
-                        [self loadFullHierarchyByName:hierarchyName];
-                    }
+                    [self loadFullHierarchyByName:[listOfHierarchyNamesToDownload objectAtIndex:0]];
                 }
                 else
                 {
