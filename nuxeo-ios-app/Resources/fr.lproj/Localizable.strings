@@ -1,4 +1,3 @@
-
 /* (C) Copyright 2013-2014 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
@@ -16,78 +15,78 @@
  */
 
 // ==============================  Libellés Standards  ==============================
-"nuxeo.copyrights"                      = "Copyright (c) 2014 (%@) Nuxeo and respective authors";
+"nuxeo.copyrights"                      = "Copyright (c) 2014 (%@) Nuxeo et auteurs respectifs";
 
 "application.name"                      = "Nuxeo Drive iOS Edition";
-"application.notconnected"              = "Cannot reach the Nuxeo Platform server";
+"application.notconnected"              = "Le serveur Nuxeo Platform n'est pas accessible";
 "button.ok"                             = "OK";
-"button.yes"                            = "Yes";
-"button.no"                             = "No";
-"button.validate"                       = "Validate";
-"button.cancel"                         = "Cancel";
-"button.next"                           = "Next";
-"button.previous"                       = "Previous";
-"button.back"                           = "Back";
-"button.home"                           = "Home";
+"button.yes"                            = "Oui";
+"button.no"                             = "Non";
+"button.validate"                       = "Confirmer";
+"button.cancel"                         = "Annuler";
+"button.next"                           = "Suivant";
+"button.previous"                       = "Précédent";
+"button.back"                           = "Retour";
+"button.home"                           = "Accueil";
 
 
-"button.browse"                         = "BROWSE";
-"button.login"                          = "LOG IN";
-"button.preview"                        = "PREVIEW";
-"button.openwith"                       = "OPEN WITH";
-"button.sync.all"                       = "SYNC ALL FILES";
+"button.browse"                         = "NAVIGUER";
+"button.login"                          = "CONNEXION";
+"button.preview"                        = "PRÉVISUALISATION";
+"button.openwith"                       = "OUVRIR AVEC";
+"button.sync.all"                       = "SYNCHRONISATION GÉNÉRALE";
 "button.sync"                           = "SYNC";
 "button.add.sync"                       = "SYNC";
-"button.pin"                            = "PIN";
+"button.pin"                            = "AJOUTER AUX FAVORIS";
 "button.info"                           = "INFO";
-"button.done"                           = "DONE";
+"button.done"                           = "TERMINÉ";
 
 // ============================= WELCOME ========================================
-"welcome.host.url"                      = "Host URL";
-"welcome.username"                      = "Username";
-"welcome.password"                      = "Password";
-"welcome.login"                         = "Log in";
-"welcome.root.title"                    = "Home";
+"welcome.host.url"                      = "URL Serveur";
+"welcome.username"                      = "Identifiant";
+"welcome.password"                      = "Mot de passe";
+"welcome.login"                         = "Connexion";
+"welcome.root.title"                    = "Accueil";
 
 // ============================= HOME ========================================
-"home.browse.repository"                = "BROWSE";
-"home.on.device"                        = "ON YOUR DEVICE";
-"home.online.content"                   = "ONLINE CONTENT";
+"home.browse.repository"                = "NAVIGUER";
+"home.on.device"                        = "SUR VOTRE TERMINAL";
+"home.online.content"                   = "CONTENU EN LIGNE";
 
-"home.hierarchy.load.question"          = "Do you want to reload the navigation tree and list of content so as to update it ? This operation will take a few tens of seconds.";
+"home.hierarchy.load.question"          = "Souhaitez vous recharger l'arbre de naviguation et son contenu afin de le mettre à jour ? Cette opération prendra quelques dizaines de secondes.";
 
-"home.hierarchy.sync.warning"           = "Are you sure you want to launch a files sync for %@ language? This process will take some time?";
-"home.hierarchy.notloaded.offline"      = "The content list for language %@ is not already loaded and cannot be while you are offline.";
+"home.hierarchy.sync.warning"           = "Êtes-vous certain de vouloir lancer la synchronisation des fichiers ? Cette action peut prendre du temps.";
+"home.hierarchy.notloaded.offline"      = "Le contenu n'est pas encore chargé et ne peux l'être tant que le serveur n'est pas accessible.";
 
 // ============================= BROWSE ========================================
-"browse.notice"                        = "No document is stored in this folder.";
+"browse.notice"                        = "Aucun document n'est stocké dans ce dossier";
 
-"browse.no.document"                    = "No resources found";
-"browse.loading"                        = "Loading";
+"browse.no.document"                    = "Aucune ressource n'a été trouvée";
+"browse.loading"                        = "En cours de chargement";
 
-"browse.ondevice.update.confirm"        = "Do you really want to update all the folder content?";
-"browse.ondevice.unpin"                 = "Unpin from home";
+"browse.ondevice.update.confirm"        = "Voulez-vous vraiment mettre à jour tout le contenu de ce dossier ?";
+"browse.ondevice.unpin"                 = "Supprimer de vos favoris";
 "browse.ondevice.info"                  = "Info";
-"browse.ondevice.remove"                = "Remove from device";
-"browse.ondevice.remove.confirm"        = "Do you really want to remove this folder?";
-"browse.ondevice.update"                = "Update";
+"browse.ondevice.remove"                = "Supprimer du terminal";
+"browse.ondevice.remove.confirm"        = "Souhaitez-vous vraiment supprimer ce dossier ?";
+"browse.ondevice.update"                = "Mettre à jour";
 
 // ============================= PREVIEW ========================================
-"preview.open.with.noapp"               = "No application can open this type of file";
-"preview.impossible"                    = "This file's type is not supported by preview screen.";
+"preview.open.with.noapp"               = "Aucune application n'est disponible pour ce type de fichier";
+"preview.impossible"                    = "La prévisualisation n'est pas disponible pour ce type de fichier";
 
 // ============================= DETAIL INFO ========================================
 "detail.document.title"                 = "Informations";
-"detail.document.update.date"           = "Modified";
-"detail.document.author"                = "By";
+"detail.document.update.date"           = "Modifié le";
+"detail.document.author"                = "Par";
 "detail.document.description"           = "Description";
 
 // ============================= SETTINGS ========================================
-"settings.title"                        = "PREFERENCES";
-"settings.file.storage"                 = "Files store max size";
-"settings.sync.cellular"                = "Sync over cellular";
-"settings.authentication"               = "AUTHENTICATION";
-"settings.revoke.token"                 = "Revoke token and Log out";
+"settings.title"                        = "PRÉFÉRENCES";
+"settings.file.storage"                 = "Stockage maximum";
+"settings.sync.cellular"                = "Synchronisation par réseau mobile";
+"settings.authentication"               = "AUTHENTIFICATION";
+"settings.revoke.token"                 = "Supprimer le jeton et se déconnecter";
 "settings.about"                        = "Version %@ Nuxeo";
 
 
