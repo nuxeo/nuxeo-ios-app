@@ -26,20 +26,20 @@
 "button.cancel"                         = "Annuler";
 "button.next"                           = "Suivant";
 "button.previous"                       = "Précédent";
-"button.back"                           = "Retour arrière";
+"button.back"                           = "Retour";
 "button.home"                           = "Accueil";
 
 
 "button.browse"                         = "NAVIGUER";
 "button.login"                          = "CONNEXION";
-"button.preview"                        = "PREVISUALISATION";
+"button.preview"                        = "PRÉVISUALISATION";
 "button.openwith"                       = "OUVRIR AVEC";
-"button.sync.all"                       = "SYNCHRONISATION GENERALE";
+"button.sync.all"                       = "SYNCHRONISATION GÉNÉRALE";
 "button.sync"                           = "SYNC";
 "button.add.sync"                       = "SYNC";
-"button.pin"                            = "PIN";
+"button.pin"                            = "AJOUTER AUX FAVORIS";
 "button.info"                           = "INFO";
-"button.done"                           = "ACHEVE";
+"button.done"                           = "TERMINÉ";
 
 // ============================= WELCOME ========================================
 "welcome.host.url"                      = "URL Serveur";
@@ -53,27 +53,27 @@
 "home.on.device"                        = "SUR VOTRE TERMINAL";
 "home.online.content"                   = "CONTENU EN LIGNE";
 
-"home.hierarchy.load.question"          = "Souhaitez vous recharger l'arbre de naviguation et son contenu afin de le mettre-à-jour ? Cette opération prendra quelques dizaines de secondes.";
+"home.hierarchy.load.question"          = "Souhaitez vous recharger l'arbre de naviguation et son contenu afin de le mettre à jour ? Cette opération prendra quelques dizaines de secondes.";
 
-"home.hierarchy.sync.warning"           = "Etes-vous certain de vouloir lancer la synchronisation des fichiers ? Cette action va prendre du temps";
-"home.hierarchy.notloaded.offline"      = "Le contenu n'est pas encore chargé et ne peux l'être tant que le serveur ne peut être atteint.";
+"home.hierarchy.sync.warning"           = "Êtes-vous certain de vouloir lancer la synchronisation des fichiers ? Cette action peut prendre du temps.";
+"home.hierarchy.notloaded.offline"      = "Le contenu n'est pas encore chargé et ne peux l'être tant que le serveur n'est pas accessible.";
 
 // ============================= BROWSE ========================================
 "browse.notice"                        = "Aucun document n'est stocké dans ce dossier";
 
-"browse.no.document"                    = "Aucune ressource n'a été trouvée;
+"browse.no.document"                    = "Aucune ressource n'a été trouvée";
 "browse.loading"                        = "En cours de chargement";
 
-"browse.ondevice.update.confirm"        = "Voulez-vous vraiment mettre-à-jour tout le contenu de ce dossier ?";
-"browse.ondevice.unpin"                 = "Unpin from home";
+"browse.ondevice.update.confirm"        = "Voulez-vous vraiment mettre à jour tout le contenu de ce dossier ?";
+"browse.ondevice.unpin"                 = "Supprimer de vos favoris";
 "browse.ondevice.info"                  = "Info";
 "browse.ondevice.remove"                = "Supprimer du terminal";
 "browse.ondevice.remove.confirm"        = "Souhaitez-vous vraiment supprimer ce dossier ?";
-"browse.ondevice.update"                = "Mettre-à-jour";
+"browse.ondevice.update"                = "Mettre à jour";
 
 // ============================= PREVIEW ========================================
-"preview.open.with.noapp"               = "Aucune application ne peut ouvrir ce type de fichier";
-"preview.impossible"                    = "La prévisualisation n'est pas disponible pour cette nature de fichier";
+"preview.open.with.noapp"               = "Aucune application n'est disponible pour ce type de fichier";
+"preview.impossible"                    = "La prévisualisation n'est pas disponible pour ce type de fichier";
 
 // ============================= DETAIL INFO ========================================
 "detail.document.title"                 = "Informations";
@@ -82,11 +82,11 @@
 "detail.document.description"           = "Description";
 
 // ============================= SETTINGS ========================================
-"settings.title"                        = "PREFERENCES";
-"settings.file.storage"                 = "Files store max size";
-"settings.sync.cellular"                = "Sync over cellular";
-"settings.authentication"               = "AUTHENTICATION";
-"settings.revoke.token"                 = "Revoke token and Log out";
+"settings.title"                        = "PRÉFÉRENCES";
+"settings.file.storage"                 = "Stockage maximum";
+"settings.sync.cellular"                = "Synchronisation par réseau mobile";
+"settings.authentication"               = "AUTHENTIFICATION";
+"settings.revoke.token"                 = "Supprimer le jeton et se déconnecter";
 "settings.about"                        = "Version %@ Nuxeo";
 
 
