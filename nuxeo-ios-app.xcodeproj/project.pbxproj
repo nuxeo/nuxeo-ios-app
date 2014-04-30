@@ -22,6 +22,10 @@
 		806A7E9A18EC3B35007607B2 /* ic_cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806A7E9918EC3B34007607B2 /* ic_cloud@2x.png */; };
 		8083104F18E1857F00D20CE3 /* NUXDocument+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8083104E18E1857F00D20CE3 /* NUXDocument+Utils.m */; };
 		80968FB018439E2400C4D321 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80968FAF18439E2400C4D321 /* MediaPlayer.framework */; };
+		80B805A2191157E800E4FBFB /* ic_cloud_default@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B8059F191157E800E4FBFB /* ic_cloud_default@2x~ipad.png */; };
+		80B805A4191157E800E4FBFB /* ic_sync@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B805A1191157E800E4FBFB /* ic_sync@2x~ipad.png */; };
+		80B805A7191159E600E4FBFB /* ic_cloud_downloaded@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B805A5191159E600E4FBFB /* ic_cloud_downloaded@2x~ipad.png */; };
+		80B805A8191159E600E4FBFB /* ic_cloud_downloaded_hierarchy@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B805A6191159E600E4FBFB /* ic_cloud_downloaded_hierarchy@2x~ipad.png */; };
 		80C4098C18D8F4450067740A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4091A18D8F4450067740A /* Constants.m */; };
 		80C4098D18D8F4450067740A /* BrowseDocumentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4091E18D8F4450067740A /* BrowseDocumentListViewController.m */; };
 		80C4098E18D8F4450067740A /* DirectoryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4092018D8F4450067740A /* DirectoryViewCell.m */; };
@@ -148,6 +152,10 @@
 		8083105018E1E4DC00D20CE3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8083105118E1E4DC00D20CE3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80968FAF18439E2400C4D321 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		80B8059F191157E800E4FBFB /* ic_cloud_default@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cloud_default@2x~ipad.png"; sourceTree = "<group>"; };
+		80B805A1191157E800E4FBFB /* ic_sync@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sync@2x~ipad.png"; sourceTree = "<group>"; };
+		80B805A5191159E600E4FBFB /* ic_cloud_downloaded@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cloud_downloaded@2x~ipad.png"; sourceTree = "<group>"; };
+		80B805A6191159E600E4FBFB /* ic_cloud_downloaded_hierarchy@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_cloud_downloaded_hierarchy@2x~ipad.png"; sourceTree = "<group>"; };
 		80C4091918D8F4450067740A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		80C4091A18D8F4450067740A /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		80C4091D18D8F4450067740A /* BrowseDocumentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseDocumentListViewController.h; sourceTree = "<group>"; };
@@ -500,6 +508,10 @@
 		80C4095118D8F4450067740A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				80B805A5191159E600E4FBFB /* ic_cloud_downloaded@2x~ipad.png */,
+				80B805A6191159E600E4FBFB /* ic_cloud_downloaded_hierarchy@2x~ipad.png */,
+				80B8059F191157E800E4FBFB /* ic_cloud_default@2x~ipad.png */,
+				80B805A1191157E800E4FBFB /* ic_sync@2x~ipad.png */,
 				8049C41D190E5DB700EEA418 /* ic_type_folder_disable@2x~ipad.png */,
 				D03E54A918F6F3A1003ACA03 /* ic_info@2x.png */,
 				80C4097418D8F4450067740A /* background_section@2x~ipad.png */,
@@ -763,6 +775,7 @@
 				806A7E9A18EC3B35007607B2 /* ic_cloud@2x.png in Resources */,
 				80C409D518D8F4450067740A /* PreviewDisplayViewController.xib in Resources */,
 				80C409CC18D8F4450067740A /* ic_url@2x~ipad.png in Resources */,
+				80B805A2191157E800E4FBFB /* ic_cloud_default@2x~ipad.png in Resources */,
 				D0C34C5118F5A7B60008FB69 /* bt_header_cloud@2x~ipad.png in Resources */,
 				80C409B818D8F4450067740A /* ic_type_video@2x~ipad.png in Resources */,
 				D0C34C5418F5A7B60008FB69 /* bt_header_info@2x~ipad.png in Resources */,
@@ -773,12 +786,14 @@
 				80C409CA18D8F4450067740A /* ic_header_logo@2x~ipad.png in Resources */,
 				80C409CE18D8F4450067740A /* background_settings@2x~ipad.png in Resources */,
 				80C409C918D8F4450067740A /* bt_login@2x~ipad.png in Resources */,
+				80B805A8191159E600E4FBFB /* ic_cloud_downloaded_hierarchy@2x~ipad.png in Resources */,
 				D0BAD8BB18FD5A9000B85466 /* BreadCrumbsCellView.xib in Resources */,
 				80C409A818D8F4450067740A /* bt_standard_short@2x~ipad.png in Resources */,
 				D0C34C5518F5A7B60008FB69 /* bt_header_settings_selected@2x~ipad.png in Resources */,
 				80C409AA18D8F4450067740A /* bt_update@2x~ipad.png in Resources */,
 				80C409AD18D8F4450067740A /* ic_synchro_type_folder@2x~ipad.png in Resources */,
 				D03E54AF18F71274003ACA03 /* NuxeoPopoverViewController.xib in Resources */,
+				80B805A4191157E800E4FBFB /* ic_sync@2x~ipad.png in Resources */,
 				80C409B218D8F4450067740A /* ic_type_file@2x~ipad.png in Resources */,
 				80C409B018D8F4450067740A /* ic_synchro_type_sound@2x~ipad.png in Resources */,
 				D01570421906B7FE0000A44C /* ic_host@2x~ipad.png in Resources */,
@@ -805,6 +820,7 @@
 				803D27AA18FC150800DDBCF0 /* ic_info_blue@2x~ipad.png in Resources */,
 				80C409B418D8F4450067740A /* ic_type_image@2x~ipad.png in Resources */,
 				80C409D118D8F4450067740A /* BrowseDocumentListViewController.xib in Resources */,
+				80B805A7191159E600E4FBFB /* ic_cloud_downloaded@2x~ipad.png in Resources */,
 				D0C34C5618F5A7B60008FB69 /* bt_header_settings@2x~ipad.png in Resources */,
 				80C409D318D8F4450067740A /* DocumentCellView.xib in Resources */,
 				80C409AF18D8F4450067740A /* ic_synchro_type_presentation@2x~ipad.png in Resources */,

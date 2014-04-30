@@ -108,17 +108,24 @@
 
 -(void) renderWithStatus:(NuxeoHierarchieStatus)folderStatus
 {
+#ifdef DEBUG
+    _cloudImageView.layer.borderColor = [[UIColor redColor] CGColor];
+    _cloudImageView.layer.borderWidth = 1.f;
+#endif
+    
     switch (folderStatus)
     {
         case NuxeoHierarchieStatusNotLoaded:
         {
             self.browsable = NO;
+            _cloudImageView.image = [UIImage imageNamed:@"ic_cloud_default"];
             _pictoImageView.image = [UIImage imageNamed:@"ic_type_folder_disable"];
         }
             break;
         case NuxeoHierarchieStatusIsLoadingHierarchy:
         {
             self.browsable = NO;
+            _cloudImageView.image = [UIImage imageNamed:@"ic_sync"];
             _pictoImageView.image = [UIImage imageNamed:@"ic_type_folder_disable"];
             CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
             animation.fromValue = @0.0f;
@@ -130,6 +137,7 @@
             break;
         case NuxeoHierarchieStatusTreeLoaded:
         {
+            _cloudImageView.image = [UIImage imageNamed:@"ic_cloud_downloaded_hierarchy"];
             self.browsable = YES;
             _pictoImageView.image = [UIImage imageNamed:@"ic_type_folder"];
         }
@@ -137,6 +145,7 @@
         case NuxeoHierarchieStatusIsLoadingContent:
         {
             self.browsable = YES;
+            _cloudImageView.image = [UIImage imageNamed:@"ic_sync"];
             _pictoImageView.image = [UIImage imageNamed:@"ic_type_folder"];
             CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
             animation.fromValue = @0.0f;
@@ -151,7 +160,7 @@
             self.browsable = YES;
             _pictoImageView.image = [UIImage imageNamed:@"ic_type_folder"];
             [_cloudImageView.layer removeAllAnimations];
-            _cloudImageView.image = [UIImage imageNamed:@"ic_cloud"];
+            _cloudImageView.image = [UIImage imageNamed:@"ic_cloud_downloaded"];
             [self folderRendering];
         }
             break;
