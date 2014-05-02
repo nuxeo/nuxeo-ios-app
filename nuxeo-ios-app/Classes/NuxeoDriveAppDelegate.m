@@ -175,11 +175,14 @@
     // BugSense initialisation
 #ifdef BUGSENSE
     [BugSenseController sharedControllerWithBugSenseAPIKey:@"203582ed" userDictionary:nil sendImmediately:YES];
+#else
+    [BugSenseController sharedControllerWithBugSenseAPIKey:@"8d88be31" userDictionary:nil sendImmediately:YES];
+#endif
+    
     [BugSenseController sendCustomEventWithTag:@"app_launch"];
     
     [BugSenseController setLogMessagesCount:25];
     [BugSenseController setLogMessagesLevel:8];
-#endif
     
     return YES;
 }
