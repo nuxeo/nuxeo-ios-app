@@ -33,6 +33,8 @@
 
 #import "Reachability.h"
 
+#import <BugSense-iOS/BugSenseController.h>
+
 #pragma mark -
 #pragma mark NuxeoDriveAppDelegate(Private)
 
@@ -169,6 +171,15 @@
     ((NUXBlobStore*)[NUXBlobStore instance]).sizeLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_STORE_MAX_SIZE defaultValue:[NSNumber numberWithLongLong:(long long)5 * 1024 * 1024 * 1024]];
     ((NUXBlobStore*)[NUXBlobStore instance]).countLimit = [[NuxeoSettingsManager instance] readSetting:USER_FILES_COUNT_LIMIT defaultValue:@(-1)];
     
+    
+    // BugSense initialisation
+#ifdef BUGSENSE
+    [BugSenseController sharedControllerWithBugSenseAPIKey:@"203582ed" userDictionary:nil sendImmediately:YES];
+    [BugSenseController sendCustomEventWithTag:@"app_launch"];
+    
+    [BugSenseController setLogMessagesCount:25];
+    [BugSenseController setLogMessagesLevel:8];
+#endif
     
     return YES;
 }
