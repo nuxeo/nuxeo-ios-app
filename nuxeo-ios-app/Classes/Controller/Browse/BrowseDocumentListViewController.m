@@ -79,6 +79,9 @@
     
     [self loadBusinessObjects];
     [self.view localizeRecursively];
+    
+    // Hide cloud button
+    [self.pinButton setHidden:[self.context isEqualToString:kBrowseDocumentOffLine]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
