@@ -119,13 +119,14 @@
         {
             self.browsable = NO;
             _cloudImageView.image = [UIImage imageNamed:@"ic_cloud_default"];
+            [_cloudImageView.layer removeAllAnimations];
             _pictoImageView.image = [UIImage imageNamed:@"ic_type_folder_disable"];
         }
             break;
         case NuxeoHierarchieStatusIsLoadingHierarchy:
         {
             self.browsable = NO;
-            _cloudImageView.image = [UIImage imageNamed:@"ic_sync"];
+            _cloudImageView.image = [UIImage imageNamed:@"ic_cloud_default"];
             _pictoImageView.image = [UIImage imageNamed:@"ic_type_folder_disable"];
             CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
             animation.fromValue = @0.0f;
@@ -145,7 +146,7 @@
         case NuxeoHierarchieStatusIsLoadingContent:
         {
             self.browsable = YES;
-            _cloudImageView.image = [UIImage imageNamed:@"ic_sync"];
+            _cloudImageView.image = [UIImage imageNamed:@"ic_cloud_downloaded_hierarchy"];
             _pictoImageView.image = [UIImage imageNamed:@"ic_type_folder"];
             CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
             animation.fromValue = @0.0f;

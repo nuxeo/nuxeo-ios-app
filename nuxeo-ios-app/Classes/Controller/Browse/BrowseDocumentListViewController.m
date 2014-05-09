@@ -157,7 +157,7 @@
         return ;
     
     _documents = [[NSMutableArray alloc] init];
-    [_documents addObjectsFromArray:[self.currentHierarchy contentOfDocument:self.currentDocument]];
+    [_documents addObjectsFromArray:[self.currentHierarchy contentOfDocument:self.currentDocument forceOfflineMode:YES]];
     
     for (NUXDocument * nuxDocument in _documents)
         if ([nuxDocument.properties objectForKey:@"empty"] == nil)
